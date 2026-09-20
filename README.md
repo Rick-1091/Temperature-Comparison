@@ -16,11 +16,11 @@ Local static prototype for comparing daily Polymarket temperature market modes w
 
 Open `index.html` directly in a browser, or serve the folder with any static server.
 
-## Hugging Face Static Space
-
-Upload [`huggingface/index.html`](huggingface/index.html) and [`huggingface/README.md`](huggingface/README.md) to the root of a Static Space. The HTML is self-contained; after changing the source site, regenerate it with `node scripts/build-huggingface.mjs`.
-
 The actual-temperature layer uses NOAA NCEI Daily Summaries `TMAX`, `units=standard`, station `USW00094728`. All 12 values for 2026-08-17–28 were retrieved from the official API and verified on 2026-09-20. An embedded **real-data snapshot** renders immediately and serves as an offline/CORS fallback; the page also attempts to refresh the same API on load and reports which path was used. The snapshot values in date order are `81, 86, 85, 84, 79, 77, 80, 79, 78, 81, 77, 84` °F.
 
 The market buckets and every per-day market distribution are still **illustrative**, not verified historical Polymarket observations. The page labels the two layers separately, links the NOAA public API and one corresponding Polymarket NYC daily-high market (August 24, 2026), and warns not to interpret mixed-layer differences as real forecast accuracy. That single market link does not source all 12 displayed days. For research use, replace the market buckets and `marketShares` in `src/app.js` with fixed pre-settlement snapshots from each corresponding multi-outcome Polymarket market. Keep the outcome interval and plot its midpoint while displaying the full interval in the details. Heatmap intensity shows outcome share/probability, **not a count of people**. NOAA TMAX is an independent observation series; verify the market resolution source separately before claiming settlement equivalence.
+
+## Hugging Face Static Space
+
+Upload [`huggingface/index.html`](huggingface/index.html) and [`huggingface/README.md`](huggingface/README.md) to the root of a Static Space. The HTML is self-contained; after changing the source site, regenerate it with `node scripts/build-huggingface.mjs`.
 
