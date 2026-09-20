@@ -11,19 +11,19 @@
 <main class="shell">
   <header class="topbar">
     <div class="brand"><span class="brand-mark" aria-hidden="true"></span>温度对照</div>
-    <label class="location-picker"><span>地点</span><select id="location-select" aria-label="选择地点"><option value="central-park">纽约中央公园</option></select></label>
+    <label class="location-picker"><span>地点</span><select id="location-select" aria-label="选择地点"><option value="laguardia">纽约 · 拉瓜迪亚机场</option></select></label>
   </header>
   <section class="intro" aria-labelledby="page-title">
     <div>
       <h1 id="page-title">市场猜的温度 <em>v.s.</em><br><span>天气最后给的答案</span></h1>
       <p>把市场预测的温度区间与最终实测值放在同一条时间轴上，逐日查看预测分布和偏差。</p>
     </div>
-    <div class="intro-aside" aria-live="polite"><span id="observation-status" class="status-tag">NOAA 快照 · 市场示例</span></div>
+    <div class="intro-aside" aria-live="polite"><span id="observation-status" class="status-tag">NOAA 快照 · 市场历史价</span></div>
   </section>
   <section class="workspace" aria-label="气温时间序列可视化">
     <div class="workspace-head">
-      <div><h2 id="location-title">纽约中央公园 · 最高气温</h2><p>2026 年 8 月 17-28 日 <span>/</span> 华氏度 °F <span>/</span> 每日一个时间点</p></div>
-      <div class="legend" aria-label="图例"><span><i class="legend-key actual-key"></i> 实际气温值（NOAA）</span><span><i class="legend-key market-key"></i> 市场预测值（示例）</span></div>
+      <div><h2 id="location-title">纽约拉瓜迪亚机场 · 最高气温</h2><p>2026 年 8 月 17-28 日 <span>/</span> 华氏度 °F <span>/</span> 市场价取当地当日 00:00 前最近报价</p></div>
+      <div class="legend" aria-label="图例"><span><i class="legend-key actual-key"></i> 实际气温值（NOAA）</span><span><i class="legend-key market-key"></i> 市场预测值（历史价最高区间）</span></div>
     </div>
     <div class="view-tabs" role="group" aria-label="选择图表视图">
       <button class="view-tab active" data-view="dumbbell" type="button" aria-pressed="true"><span class="tab-icon icon-pair" aria-hidden="true"></span>逐日对照</button>
@@ -31,48 +31,49 @@
       <button class="view-tab" data-view="three-d" type="button" aria-pressed="false"><span class="tab-icon icon-cube" aria-hidden="true"></span>3D 双轨</button>
       <button class="view-tab" data-view="heatmap" type="button" aria-pressed="false"><span class="tab-icon icon-heat" aria-hidden="true"></span>预测热力图</button>
       <button class="view-tab" data-view="area" type="button" aria-pressed="false"><span class="tab-icon icon-area" aria-hidden="true"></span>预测面积图</button>
-      <p class="view-hint" id="view-hint">两点间的距离，就是当天预测与实际的偏差。</p>
+      <p class="view-hint" id="view-hint">比较当日市场最高报价区间与 NOAA 日最高气温。</p>
     </div>
     <div id="heatmap-options" class="heatmap-options" hidden>
-      <div class="heatmap-scale"><span>市场预测区间占比（示例）</span><i aria-hidden="true"></i><small>低</small><small>高</small></div>
+      <div class="heatmap-scale"><span>归一化历史价格占比</span><i aria-hidden="true"></i><small>低</small><small>高</small></div>
       <div class="heatmap-controls"><button id="toggle-actual" type="button" aria-pressed="false"><span class="toggle-track" aria-hidden="true"><span></span></span>显示最终实际温度</button></div>
     </div>
     <div id="area-legend" class="area-legend" aria-label="预测温度区间图例" hidden><div id="area-legend-items" class="area-legend-items"></div><button id="toggle-actual-area" class="actual-toggle" type="button" aria-pressed="false"><span class="toggle-track" aria-hidden="true"><span></span></span>显示最终实际温度</button></div>
     <div class="chart-wrap" id="chart-wrap">
       <div id="selection-glass" class="selection-glass" aria-hidden="true"><span class="glass-glint"></span></div>
-      <svg id="main-chart" role="group" aria-label="纽约中央公园每日实际气温值与市场预测值对比图"></svg>
+      <svg id="main-chart" role="group" aria-label="纽约拉瓜迪亚机场每日实际气温值与市场预测值对比图"></svg>
       <div id="focus-markers" class="focus-markers" aria-hidden="true"><span class="focus-point actual"></span><span class="focus-point market"></span></div>
       <div id="tooltip" class="tooltip" hidden></div>
       <section id="prediction-panel" class="prediction-panel" aria-label="当日所有市场预测区间" hidden>
-        <div class="prediction-head"><div><span>市场预测分布 · 示例</span><h3 id="prediction-title">8 月 17 日</h3></div><button id="close-prediction" type="button" aria-label="关闭预测分布面板">×</button></div>
+        <div class="prediction-head"><div><span>Polymarket · Yes 历史价格</span><h3 id="prediction-title">8 月 17 日</h3></div><button id="close-prediction" type="button" aria-label="关闭预测分布面板">×</button></div>
         <p>点击一个温度区间，将其作为主图的市场预测值。</p>
         <div id="prediction-bars" class="prediction-bars"></div>
-        <div class="prediction-foot"><span>当前为交互示例数据</span><button id="reset-prediction" type="button">恢复最高占比</button></div>
+        <div class="prediction-foot"><span>价格不是押注人数；各档取最近可得报价</span><button id="reset-prediction" type="button">恢复最高报价</button></div>
       </section>
     </div>
     <div class="chart-footer"><span id="angle-note">拖动亚克力板选择日期；点击橙色点查看预测分布。</span><div class="chart-actions"><button id="prev-point" type="button" aria-label="选择前一天">←</button><span id="point-counter">01 / 12</span><button id="next-point" type="button" aria-label="选择后一天">→</button></div></div>
   </section>
   <section class="reading" aria-label="选中日期的详情">
     <div class="reading-date"><span>当前日期</span><strong id="selected-date">8 月 17 日</strong></div>
-    <div class="reading-metric"><span>实际气温值 <small>NOAA 实测</small></span><strong id="actual-value">81°F</strong></div>
-    <button id="open-prediction" class="reading-metric market-reading" type="button" aria-label="查看并选择当日市场预测值"><span>市场预测值 <small>示例</small><b>查看全部预测 ↗</b></span><strong id="market-value">80-81°F</strong></button>
-    <div class="reading-diff"><span>预测区间与实际</span><strong id="difference-value">偏离 1°F</strong><p id="difference-explain">以预测温度区间判断是否包含实际气温。</p></div>
+    <div class="reading-metric"><span>实际气温值 <small>NOAA 实测</small></span><strong id="actual-value">80°F</strong></div>
+    <button id="open-prediction" class="reading-metric market-reading" type="button" aria-label="查看并选择当日市场预测值"><span>市场预测值 <small>历史价格</small><b>查看全部预测 ↗</b></span><strong id="market-value">84-85°F</strong></button>
+    <div class="reading-diff"><span>与 NOAA 日最高对照</span><strong id="difference-value">—</strong><p id="difference-explain">市场结算来源与 NOAA 日最高可能不同。</p></div>
   </section>
   <footer class="data-note">
     <div class="data-note-copy">
-      <p class="data-note-summary"><strong>数据说明</strong> 实测气温来自 NOAA；市场预测仍是示例，暂不能据此评价预测准确率。</p>
+      <p class="data-note-summary"><strong>真实历史数据</strong> NOAA 日最高 × Polymarket 当日零点前价格。口径差异见详情。</p>
       <details class="data-details">
         <summary>查看数据口径</summary>
         <div class="data-details-body">
-          <p><strong>实测气温</strong> 采用 NOAA 中央公园站 USW00094728 的每日最高气温 TMAX（°F），覆盖 2026 年 8 月 17–28 日。内置快照于 9 月 20 日核验；页面打开时会尝试在线刷新。</p>
-          <p><strong>市场预测</strong> 温度区间及图中的占比仍是交互示例，不是 Polymarket 历史价格，也不代表参与人数。下方市场链接仅对应 8 月 24 日。</p>
-          <p><strong>真实对比所需</strong> 为每一天选定结算前同一取价时刻的历史快照，并核对 NOAA 观测与市场结算口径。</p>
+          <p><strong>实测</strong> NOAA NCEI 拉瓜迪亚机场站 USW00014732，每日最高气温 TMAX（°F），2026 年 8 月 17–28 日；内置核验快照并尝试在线刷新。</p>
+          <p><strong>市场</strong> 逐日 11 个温度区间的 Polymarket Yes-token 历史价格，取纽约当地日期 00:00 前最近可得报价。不同区间的实际报价时间可能不同；价格不是预测人数，各区间价格之和也未必是 100%。热力图与面积图将当日价格之和归一化，仅供分布对照。可在项目数据文件查看逐档报价时间及 token ID。</p>
+          <p><strong>口径限制</strong> NOAA 日最高与市场规则指定的逐小时结算来源不同，不能仅据两者差值判定市场结算是否预测正确；例如 8 月 24 日市场结算区间 80–81°F，而 NOAA 日最高是 82°F。市场链接随所选日期切换。</p>
         </div>
       </details>
     </div>
-    <div class="source-links"><a id="noaa-link" href="https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&amp;stations=USW00094728&amp;startDate=2026-08-17&amp;endDate=2026-08-28&amp;dataTypes=TMAX&amp;units=standard&amp;format=json">NOAA 实测数据接口 ↗</a><a id="market-link" href="https://polymarket.com/event/highest-temperature-in-nyc-on-august-24-2026">Polymarket 纽约 8/24 市场 ↗</a></div>
+    <div class="source-links"><a id="noaa-link" href="https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&amp;stations=USW00014732&amp;startDate=2026-08-17&amp;endDate=2026-08-28&amp;dataTypes=TMAX&amp;units=standard&amp;format=json">NOAA 实测数据接口 ↗</a><a id="market-link" href="https://polymarket.com/event/highest-temperature-in-nyc-on-august-17-2026">Polymarket 纽约 8/17 市场 ↗</a></div>
   </footer>
 </main>
+<script src="src/data.js"></script>
 <script src="src/app.js"></script>
 </body>
 </html>
