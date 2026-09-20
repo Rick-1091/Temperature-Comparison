@@ -5,18 +5,14 @@ colorFrom: green
 colorTo: red
 sdk: static
 app_file: index.html
-short_description: 对照纽约中央公园的 NOAA 实测气温与示例市场预测
+short_description: NOAA 拉瓜迪亚实测气温与 Polymarket 真实历史价格对照
 ---
 
 # 温度对照
 
-纽约中央公园 2026 年 8 月 17–28 日逐日最高气温可视化。实际气温来自 NOAA NCEI Central Park 站 `USW00094728` 的 `TMAX`；市场温度区间与占比**仍为示例数据**，不是 Polymarket 历史价格或押注人数，不可据此评价真实预测准确率。
+纽约拉瓜迪亚机场 2026 年 8 月 17–28 日逐日最高气温可视化。NOAA NCEI 站点 `USW00014732` 的 `TMAX` 对照 Polymarket 同日最高气温市场 11 档 Yes-token 历史价格。价格取纽约当地日期 00:00 前最近可得报价，不代表下注人数。
 
-## 部署
+NOAA 日最高与市场结算规则指定的逐小时来源可能不同；图中差值不能直接判断市场结算预测是否正确。热力图和面积图使用归一化价格占比。
 
-将本目录中的 `README.md` 和 `index.html` 放在 Hugging Face Space 仓库根目录。Space 类型选择 **Static**；无需构建命令、Python 或额外依赖。`index.html` 已内嵌网站的 CSS 与 JavaScript。
-
-页面内置已核验的 NOAA 实测快照，加载时尝试从 NOAA 接口刷新；若请求不可用，仍会显示快照。市场链接仅对应 2026 年 8 月 24 日，不覆盖图中全部日期。
-
-若修改原项目中的 `index.html`、`src/styles.css` 或 `src/app.js`，在项目根目录运行 `node scripts/build-huggingface.mjs`，然后重新上传生成的 `huggingface/index.html`。
+本目录的 `index.html` 为自包含静态页面。将它与此 `README.md` 上传至 Hugging Face Static Space 根目录即可，无需构建命令。源数据和采集脚本见 [GitHub 仓库](https://github.com/Rick-1091/Temperature-Comparison)。
 
