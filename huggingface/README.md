@@ -2,7 +2,7 @@
 title: 温度对照
 emoji: 🌡️
 colorFrom: green
-colorTo: orange
+colorTo: red
 sdk: static
 app_file: index.html
 short_description: 对照纽约中央公园的 NOAA 实测气温与示例市场预测
