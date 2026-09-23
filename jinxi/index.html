@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="A field-based introduction to weather uncertainty and place-based livelihoods in Jinxi." />
+    <title>Jinxi: Weather Shapes Place</title>
+    <style>
+      :root {
+        --ink: #17271f;
+        --paper: #f4f0e7;
+        --paper-dark: #e7dfd1;
+        --river: #277b85;
+        --river-light: #83bdbe;
+        --sun: #e8a13d;
+        --clay: #b1583b;
+        --leaf: #54724d;
+        --line: rgba(23, 39, 31, .18);
+        --soft: rgba(255, 255, 255, .45);
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font-family: Georgia, "Times New Roman", serif;
+      }
+      button { font: inherit; }
+      .sans { font-family: Arial, Helvetica, sans-serif; letter-spacing: .03em; }
+      .page { max-width: 1200px; margin: 0 auto; padding: 0 28px 72px; }
+      nav {
+        display: flex; justify-content: space-between; align-items: center;
+        padding: 18px 0; border-bottom: 1px solid var(--line);
+        font: 12px/1.2 Arial, Helvetica, sans-serif; letter-spacing: .12em; text-transform: uppercase;
+      }
+      nav a { color: inherit; text-decoration: none; }
+      .nav-right { display: flex; gap: 18px; }
+      .hero { display: grid; grid-template-columns: 1.08fr .92fr; gap: 60px; padding: 76px 0 68px; align-items: end; }
+      .eyebrow { color: var(--clay); font: 12px/1.3 Arial, Helvetica, sans-serif; letter-spacing: .16em; text-transform: uppercase; }
+      h1 { max-width: 760px; margin: 15px 0 22px; font-size: clamp(54px, 8vw, 108px); line-height: .89; font-weight: 400; letter-spacing: -.055em; }
+      .hero p { margin: 0; max-width: 490px; font-size: clamp(18px, 2vw, 25px); line-height: 1.35; }
+      .hero-note { padding: 20px 0 4px; border-top: 1px solid var(--line); font: 14px/1.55 Arial, Helvetica, sans-serif; }
+      .hero-note strong { color: var(--river); }
+
+      .river-figure { position: relative; min-height: 392px; overflow: hidden; background: var(--river); isolation: isolate; }
+      .river-figure::before, .river-figure::after { content: ""; position: absolute; border-radius: 50%; opacity: .94; }
+      .river-figure::before { width: 560px; height: 165px; left: -85px; top: 55px; background: var(--paper); transform: rotate(-7deg); box-shadow: 0 178px 0 7px var(--paper); }
+      .river-figure::after { width: 430px; height: 125px; right: -190px; top: 158px; background: var(--river-light); transform: rotate(7deg); box-shadow: -225px 115px 0 -22px var(--river-light); }
+      .figure-label { position: absolute; z-index: 2; right: 23px; bottom: 20px; max-width: 240px; color: white; font: 12px/1.45 Arial, Helvetica, sans-serif; text-align: right; }
+      .figure-label b { display: block; margin-bottom: 4px; letter-spacing: .11em; text-transform: uppercase; }
+      .weather-mark { position: absolute; z-index: 3; width: 42px; height: 42px; left: 20%; top: 30px; border-radius: 50%; background: var(--sun); box-shadow: 0 0 0 10px rgba(232,161,61,.19); }
+
+      section { padding: 72px 0; border-top: 1px solid var(--line); }
+      .section-head { display: grid; grid-template-columns: 180px 1fr; gap: 30px; margin-bottom: 38px; }
+      .section-number { color: var(--clay); font: 12px/1.3 Arial, Helvetica, sans-serif; letter-spacing: .15em; text-transform: uppercase; }
+      h2 { max-width: 720px; margin: 0; font-size: clamp(34px, 5vw, 60px); line-height: .96; font-weight: 400; letter-spacing: -.04em; }
+      .body-copy { max-width: 720px; margin-left: 210px; font-size: 19px; line-height: 1.48; }
+      .body-copy p { margin: 0; }
+      .evidence-boundary { max-width: 720px; margin: 28px 0 0 210px; padding: 15px 18px; border-left: 3px solid var(--clay); background: rgba(177, 88, 59, .08); font: 13px/1.5 Arial, Helvetica, sans-serif; }
+
+      .photo-grid { display: grid; grid-template-columns: 1.14fr .86fr; gap: 18px; margin-top: 42px; }
+      figure { margin: 0; }
+      .photo-card { background: var(--paper-dark); }
+      .photo-card img { display: block; width: 100%; height: 342px; object-fit: cover; }
+      .photo-card.portrait img { object-position: 52% center; }
+      figcaption { padding: 14px 16px 17px; font: 12px/1.45 Arial, Helvetica, sans-serif; }
+      figcaption b { display: block; margin-bottom: 4px; color: var(--clay); font-weight: 400; letter-spacing: .1em; text-transform: uppercase; }
+      .evidence-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 42px; }
+      .evidence-gallery .photo-card img { height: 250px; object-fit: cover; }
+      .evidence-gallery .photo-card:nth-child(2) img { object-position: center 60%; }
+
+      .system { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 45px; background: var(--line); border: 1px solid var(--line); }
+      .system button { min-height: 218px; padding: 20px; border: 0; color: var(--ink); background: var(--paper); text-align: left; cursor: pointer; transition: background .18s ease, color .18s ease; }
+      .system button:hover, .system button[aria-pressed="true"] { color: var(--paper); background: var(--ink); }
+      .system .icon { display: block; margin-bottom: 43px; color: var(--river); font: 13px Arial, Helvetica, sans-serif; letter-spacing: .12em; }
+      .system strong { display: block; margin-bottom: 9px; font-size: 25px; font-weight: 400; line-height: 1; }
+      .system span { display: block; font: 13px/1.35 Arial, Helvetica, sans-serif; }
+      .system-detail { min-height: 108px; margin-top: 16px; padding: 20px 24px; background: var(--ink); color: var(--paper); font: 18px/1.42 Arial, Helvetica, sans-serif; }
+      .system-detail b { color: var(--sun); }
+
+      .pathway { display: grid; grid-template-columns: 1fr 54px 1fr 54px 1fr; align-items: center; max-width: 960px; margin: 44px auto 0; }
+      .path-step { min-height: 202px; padding: 22px; background: var(--soft); border-top: 4px solid var(--river); }
+      .path-step:nth-child(3) { border-top-color: var(--sun); }
+      .path-step:nth-child(5) { border-top-color: var(--clay); }
+      .path-step span { display: block; margin-bottom: 28px; color: var(--river); font: 11px Arial, Helvetica, sans-serif; letter-spacing: .14em; }
+      .path-step h3 { margin: 0 0 10px; font-size: 28px; font-weight: 400; line-height: 1; }
+      .path-step p { margin: 0; font: 14px/1.42 Arial, Helvetica, sans-serif; }
+      .arrow { color: var(--clay); text-align: center; font: 28px Arial, Helvetica, sans-serif; }
+      .table-wrap { margin: 40px 0 0 210px; overflow-x: auto; }
+      table { width: 100%; min-width: 650px; border-collapse: collapse; font: 14px/1.42 Arial, Helvetica, sans-serif; }
+      caption { margin-bottom: 11px; text-align: left; color: var(--ink); font: 500 17px/1.3 Georgia, "Times New Roman", serif; }
+      th { padding: 11px 13px; color: var(--paper); background: var(--ink); text-align: left; font-size: 11px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase; }
+      td { padding: 15px 13px; vertical-align: top; border-bottom: 1px solid var(--line); }
+      td:first-child { color: var(--river); font-weight: 700; }
+      tbody tr:hover { background: rgba(39, 123, 133, .08); }
+
+      .bridge { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; align-items: start; }
+      .bridge-statement { padding: 28px; background: var(--ink); color: var(--paper); font-size: clamp(25px, 3vw, 38px); line-height: 1.12; letter-spacing: -.03em; }
+      .bridge-statement em { color: var(--sun); font-style: normal; }
+      .next { padding: 7px 0; }
+      .next h3 { margin: 0 0 17px; font-size: 28px; font-weight: 400; }
+      .next a { display: block; padding: 17px 0; color: inherit; border-top: 1px solid var(--line); text-decoration: none; font: 16px/1.3 Arial, Helvetica, sans-serif; }
+      .next a:last-child { border-bottom: 1px solid var(--line); }
+      .next a span { color: var(--clay); margin-right: 11px; }
+      footer { padding-top: 20px; border-top: 1px solid var(--line); font: 11px/1.45 Arial, Helvetica, sans-serif; color: #4a574f; }
+
+      @media (max-width: 760px) {
+        .page { padding: 0 18px 42px; }
+        .nav-right a:not(:last-child) { display: none; }
+        .hero, .bridge { grid-template-columns: 1fr; gap: 32px; padding: 48px 0; }
+        .hero { align-items: start; }
+        .river-figure { min-height: 270px; }
+        .section-head { grid-template-columns: 1fr; gap: 16px; }
+        .body-copy, .evidence-boundary { margin-left: 0; }
+        .photo-grid { grid-template-columns: 1fr; }
+        .evidence-gallery { grid-template-columns: 1fr; }
+        .photo-card img { height: 280px; }
+        .system { grid-template-columns: 1fr 1fr; }
+        .system button { min-height: 170px; }
+        .system .icon { margin-bottom: 25px; }
+        .pathway { grid-template-columns: 1fr; gap: 0; margin-top: 28px; }
+        .path-step { min-height: auto; }
+        .arrow { height: 38px; transform: rotate(90deg); }
+        .table-wrap { margin-left: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <nav aria-label="Project sections">
+        <a href="#top">Weather / Signals</a>
+        <div class="nav-right">
+          <a href="#jinxi">01 Jinxi</a>
+          <a href="#data">02 Data</a>
+          <a href="#next">03 Next</a>
+        </div>
+      </nav>
+
+      <header class="hero" id="top">
+        <div>
+          <div class="eyebrow">Project origin · Jinxi Ancient Town</div>
+          <h1>Jinxi raised<br />the question.</h1>
+          <p>In Jinxi, weather is not simply scenery. It can shape how people move, work, produce, welcome visitors, and make plans.</p>
+        </div>
+        <div>
+          <div class="river-figure" aria-label="Abstract illustration of a water-town river, weather, and changing conditions.">
+            <div class="weather-mark" aria-hidden="true"></div>
+            <div class="figure-label"><b>Start here</b>A water town makes the relationship among climate, mobility, work, and infrastructure visible.</div>
+          </div>
+          <p class="hero-note"><strong>This page is an origin story, not a local needs assessment.</strong> The field visit generated questions that the later data system investigates.</p>
+        </div>
+      </header>
+
+      <section id="jinxi">
+        <div class="section-head">
+          <div class="section-number">01 / Field origin</div>
+          <h2>One visit made weather uncertainty tangible.</h2>
+        </div>
+        <div class="body-copy">
+          <p>Across the team’s field notes, Jinxi brought tourism services, food display and storage, waterside movement, heritage spaces, and material production into close view. These activities may respond to heat, rain, wind, humidity, water conditions, and seasonal change in different ways.</p>
+        </div>
+        <div class="evidence-boundary"><b>Evidence boundary.</b> The team observed products, tourism settings, and museum displays during one visit. These records do not prove current financial losses, a weather-information gap, Polymarket use, a causal weather relationship, or community demand for a tool.</div>
+
+        <div class="evidence-gallery" aria-label="Three field observations that shape the team's framing">
+          <figure class="photo-card">
+            <img src="assets/tour-boats.jpg" alt="Covered wooden tour boats moored along a canal in Jinxi Ancient Town." />
+            <figcaption><b>Service &amp; tourism / Xinyuan</b>Covered tour boats make outdoor visitor movement and water conditions visible as questions for later validation.</figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src="assets/smoked-beans.jpg" alt="A large wooden tray of smoked beans displayed at a storefront in Jinxi." />
+            <figcaption><b>Food display / Yizhou</b>Smoked beans invite questions about drying, storage, transport, and sale conditions; the visit does not establish which stages are weather-sensitive.</figcaption>
+          </figure>
+          <figure class="photo-card">
+            <img src="assets/brick-process.jpg" alt="Museum display illustrating stages of traditional brick production in Jinxi." />
+            <figcaption><b>Traditional production / Shudan</b>The brick-making display links materials, labour, timing, and controlled conditions without documenting an active current industry.</figcaption>
+          </figure>
+        </div>
+
+        <div class="photo-grid" aria-label="Jinxi field-visit photographs">
+          <figure class="photo-card">
+            <img src="assets/brick-process.jpg" alt="Museum display illustrating stages of traditional brick production in Jinxi." />
+            <figcaption><b>Field photo / Making</b>Brick production is presented as a sequence of material preparation, labour, firing, and handling—conditions whose timing and environment matter.</figcaption>
+          </figure>
+          <figure class="photo-card portrait">
+            <img src="assets/boat-building.jpg" alt="Museum display about water-town boat-building tools and craft knowledge in Jinxi." />
+            <figcaption><b>Field photo / Water</b>Boat-building knowledge connects tools, skilled labour, and a water-town setting. It gives historical context; it does not document a current business.</figcaption>
+          </figure>
+        </div>
+
+        <div class="system" aria-label="Select a Jinxi context to see how weather can affect it.">
+          <button type="button" aria-pressed="true" data-context="tourism"><span class="icon">01 / OUTDOOR</span><strong>Tourism &amp; service</strong><span>Visitor movement, boat operations, street-facing commerce</span></button>
+          <button type="button" aria-pressed="false" data-context="water"><span class="icon">02 / WATER</span><strong>Water-town systems</strong><span>Waterways, access, infrastructure, and environment</span></button>
+          <button type="button" aria-pressed="false" data-context="production"><span class="icon">03 / MAKING</span><strong>Production</strong><span>Materials, skilled labour, timing, and controlled conditions</span></button>
+          <button type="button" aria-pressed="false" data-context="agri"><span class="icon">04 / SEASONAL</span><strong>Agriculture &amp; fishery</strong><span>Growing conditions, water, harvest, and supply</span></button>
+        </div>
+        <div class="system-detail" id="context-detail" aria-live="polite"><b>Tourism &amp; service.</b> Rain, heat, and wind can change outdoor access, visitor comfort, boat movement, and the timing of street-facing services.</div>
+      </section>
+
+      <section id="data">
+        <div class="section-head">
+          <div class="section-number">02 / Design handoff</div>
+          <h2>From one field visit to a broader public-information problem.</h2>
+        </div>
+        <div class="body-copy">
+          <p>Jinxi did not give us a Polymarket dataset or demonstrate a local use of prediction markets. It prompted a broader question: how do different public systems represent weather uncertainty, and how can users compare their signals without treating any one of them as fact?</p>
+        </div>
+        <div class="pathway" aria-label="Field observations generate a research question that becomes a public weather-signal comparison system.">
+          <article class="path-step"><span>WHAT WE SAW</span><h3>Place-based activity</h3><p>Outdoor access, food display and storage, water-town movement, material processes</p></article>
+          <div class="arrow" aria-hidden="true">→</div>
+          <article class="path-step"><span>WHAT WE ASKED</span><h3>Weather uncertainty</h3><p>How is it forecast, communicated, compared, and acted on in public information systems?</p></article>
+          <div class="arrow" aria-hidden="true">→</div>
+          <article class="path-step"><span>WHAT WE STUDY NEXT</span><h3>Public prediction signals</h3><p>Official forecasts, Polymarket probabilities, observed outcomes, and AI-enabled forecasting</p></article>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <caption>From field observation to a research question</caption>
+            <thead><tr><th scope="col">Evidence cluster</th><th scope="col">Direct observation</th><th scope="col">Question it raised</th><th scope="col">What it cannot establish</th></tr></thead>
+            <tbody>
+              <tr><td>Service &amp; tourism</td><td>Covered tour boats and a canal-side coffee shop connected to outdoor visitor spaces</td><td>How might weather uncertainty shape visitor movement, outdoor access, and service-related choices?</td><td>Passenger counts, revenue, operating schedules, workers’ information needs, or a weather effect on demand</td></tr>
+              <tr><td>Agriculture &amp; fishery</td><td>Smoked beans and dried aquatic products displayed near storefronts</td><td>How can temperature, humidity, and rainfall become relevant to processing, drying, storage, transport, or sale?</td><td>Product origin, current methods, storage conditions, and measurable weather-related effects</td></tr>
+              <tr><td>Traditional production</td><td>Brick-and-tile and water-town boat-making displays, tools, materials, and production sequences</td><td>Why do material processes make environmental conditions and timing worth studying?</td><td>Whether industries are currently active, which stages are exposed, and how producers use weather information</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="next">
+        <div class="section-head">
+          <div class="section-number">03 / Project handoff</div>
+          <h2>Jinxi gave us a question, not a dataset.</h2>
+        </div>
+        <div class="bridge">
+          <div class="bridge-statement">The next pages investigate how weather uncertainty can be <em>forecast, compared, priced, and acted upon</em>—and what access, trust, and power shape those signals.</div>
+          <div class="next">
+            <h3>Continue through the website</h3>
+            <a href="#data"><span>02</span> From field observations to weather-data infrastructure</a>
+            <a href="#next"><span>03</span> Polymarket, official forecasts, observed outcomes, and AI forecasting</a>
+            <a href="#next"><span>04</span> Comparing access and adaptation across more digitally mobile places</a>
+          </div>
+        </div>
+      </section>
+
+      <footer>Jinxi field origin · September 2026 · The field visit motivates a broader public-information study; it does not demonstrate a Jinxi-specific need or Polymarket use. Replace the three continuation links with your team’s routes during integration.</footer>
+    </main>
+    <script>
+      const contexts = {
+        tourism: '<b>Tourism &amp; service.</b> Rain, heat, and wind can change outdoor access, visitor comfort, boat movement, and the timing of street-facing services.',
+        water: '<b>Water-town systems.</b> Rainfall and water conditions can affect waterways, access, environmental conditions, and the maintenance demands of a water-oriented place.',
+        production: '<b>Production.</b> Field observations of brick and boat-making displays point to a longer history in which materials, labour, timing, and controlled conditions were tightly linked.',
+        agri: '<b>Agriculture &amp; fishery.</b> Temperature, rainfall, water conditions, and seasonal timing can affect growing, aquatic environments, harvesting, and movement through supply chains.'
+      };
+      const buttons = document.querySelectorAll('[data-context]');
+      const detail = document.getElementById('context-detail');
+      buttons.forEach((button) => {
+        button.addEventListener('click', () => {
+          buttons.forEach((item) => item.setAttribute('aria-pressed', String(item === button)));
+          detail.innerHTML = contexts[button.dataset.context];
+        });
+      });
+    </script>
+  </body>
+</html>
