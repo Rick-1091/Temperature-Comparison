@@ -1,6 +1,7 @@
 import './fonts.js';
 import './styles.css';
 import './chapters.css';
+import './site-i18n.js';
 
 import { initStatebar } from './views/statebar.js';
 import { initHero } from './views/hero.js';
