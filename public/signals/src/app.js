@@ -164,7 +164,7 @@ function applyLanguage(nextLanguage) {
   staticBindings.forEach(([selector, key]) => document.querySelectorAll(selector).forEach((node) => { node.innerHTML = localizedCopy[language][key]; }));
   languageButtons.forEach((button) => { const active = button.dataset.language === language; button.classList.toggle("active", active); button.setAttribute("aria-pressed", String(active)); });
   document.querySelector(".page-switcher").setAttribute("aria-label", language === "en" ? "Pages and language" : "页面与语言");
-  document.querySelector(".chapterbar").setAttribute("aria-label", language === "en" ? "Website chapters" : "网站章节");
+  document.querySelector(".chapterbar")?.setAttribute("aria-label", language === "en" ? "Website chapters" : "网站章节");
   locationSelects.forEach((select) => select.setAttribute("aria-label", language === "en" ? "Choose location" : "选择地点"));
   document.querySelector("#prev-point").setAttribute("aria-label", language === "en" ? "Previous day" : "选择前一天");
   document.querySelector("#next-point").setAttribute("aria-label", language === "en" ? "Next day" : "选择后一天");
