@@ -8,6 +8,38 @@
   <link rel="stylesheet" href="src/styles.css">
 </head>
 <body>
+<nav class="page-switcher" aria-label="页面视图">
+  <button class="page-dot active" type="button" data-page-target="simple" aria-pressed="true"><span>01</span> 简明版</button>
+  <button class="page-dot" type="button" data-page-target="professional" aria-pressed="false"><span>02</span> 专业版</button>
+</nav>
+<div class="page-deck" id="page-deck">
+<section class="page-panel simple-page" id="simple-page" data-page="simple" aria-labelledby="simple-title">
+  <main class="simple-shell">
+    <header class="simple-topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span>温度对照</div>
+      <span class="edition-tag">简明版</span>
+    </header>
+    <section class="simple-hero">
+      <div class="simple-copy">
+        <p class="eyebrow">纽约 · 拉瓜迪亚机场 · 2026 年 8 月</p>
+        <h1 id="simple-title">市场最看好的温度，<br><span>后来猜对了吗？</span></h1>
+        <p>每天只保留两个答案：Polymarket 报价最高的温度区间，以及 NOAA 最后记录的实际最高气温。</p>
+        <div class="simple-legend" aria-label="简明图表图例"><span><i class="actual-key"></i>实际气温</span><span><i class="market-key"></i>市场最高报价区间</span></div>
+      </div>
+      <div class="simple-summary" aria-label="数据摘要">
+        <strong id="simple-hit-count">—</strong><span>天落在最高报价区间</span>
+        <small>共 12 天 · 历史快照</small>
+      </div>
+    </section>
+    <section class="simple-figure" aria-label="市场最高报价预测与实际气温简明对比">
+      <div class="figure-heading"><div><span>DAILY COMPARISON</span><h2>预测与结果</h2></div><p>线段越短，两者越接近</p></div>
+      <svg id="simple-chart" role="img" aria-label="8月17日至28日市场最高报价温度区间中点与NOAA实际最高气温对比"></svg>
+      <div id="simple-detail" class="simple-detail" aria-live="polite"></div>
+    </section>
+    <footer class="simple-footer"><p>Yes 价格代表市场价格，不代表人数。NOAA 日最高与市场结算来源可能存在口径差异。</p><button class="go-professional" type="button" data-page-target="professional">向右查看专业版 <span aria-hidden="true">→</span></button></footer>
+  </main>
+</section>
+<section class="page-panel professional-page" id="professional-page" data-page="professional" aria-label="专业版数据探索">
 <main class="shell">
   <header class="topbar">
     <div class="brand"><span class="brand-mark" aria-hidden="true"></span>温度对照</div>
@@ -73,6 +105,8 @@
     <div class="source-links"><a id="noaa-link" href="https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&amp;stations=USW00014732&amp;startDate=2026-08-17&amp;endDate=2026-08-28&amp;dataTypes=TMAX&amp;units=standard&amp;format=json">NOAA 实测数据接口 ↗</a><a id="market-link" href="https://polymarket.com/event/highest-temperature-in-nyc-on-august-17-2026">Polymarket 纽约 8/17 市场 ↗</a></div>
   </footer>
 </main>
+</section>
+</div>
 <script src="src/data.js"></script>
 <script src="src/app.js"></script>
 </body>
