@@ -32,6 +32,7 @@
     <div class="wrap statebar-inner">
       <a class="brand" href="#s01">NOMADCAST</a>
       <nav class="secnav" aria-label="Sections">
+        <a href="#s00"><span>00</span>Hedgers</a>
         <a href="#s01"><span>01</span>Market</a>
         <a href="#s02"><span>02</span>Reality</a>
         <a href="#s03"><span>03</span>Place</a>
@@ -45,6 +46,72 @@
   </header>
 
   <main>
+    <!-- 00 HEDGERS -->
+    <section class="sec report" id="s00">
+      <div class="wrap">
+        <header class="rp-head grid">
+          <div class="sec-num">00</div>
+          <div class="rp-titles">
+            <p class="eyebrow">Feature · The hedgers <span class="tag tag-mock">Illustrative scenario</span></p>
+            <p class="rp-kicker">Chapter 02 asked whether the market’s price matched the weather. Some people use that price for something else: insurance.</p>
+            <h2 class="rp-headline">A cold day costs the café. A Polymarket contract pays it back.</h2>
+            <p class="rp-dek">How a small business in Mexico City’s nomad economy could use this tool to price weather risk, buy a prediction on Polymarket, and soften the loss when the weather turns against it.</p>
+          </div>
+        </header>
+
+        <div class="grid rp-body">
+          <div class="rp-story">
+            <p class="rp-lede">Marisol runs a rooftop café in Roma Norte. Most of her customers are remote workers with laptops, and they follow the sun. When a cool, wet day comes in, the terrace empties and she estimates she loses about $200 in sales.</p>
+            <p>She can’t change the weather, but she can take the other side of it. Polymarket lists a daily market on Mexico City’s maximum temperature, split into 2°C ranges. Each “Yes” share costs its market price and pays $1 if the day settles in that range. If she owns shares in the <em>cool</em> ranges, the market pays her on exactly the days her terrace is quiet.</p>
+            <p>The idea isn’t hers. In Los Angeles, the owners of the ice cream shop 28 Wishes told reporters they put about $20 a day into weather contracts on Kalshi because sales drop about 20% below 70°F. They said the payouts covered up to 43% of their rent in a good month (<a href="https://nypost.com/2026/07/16/lifestyle/california-ice-cream-shop-owner-bets-on-weather-to-help-pay-rent/" target="_blank" rel="noopener">New York Post, July 16, 2026 ↗</a>).</p>
+            <blockquote class="rp-quote">“People don’t come into the shop when it’s cold, and they don’t come in when it’s raining. So we wanted a way to make money on those days.”<cite>Jason Jiang, 28 Wishes, Los Angeles · real quote</cite></blockquote>
+            <p>What Marisol needs before buying is what this chapter provides: what the market is charging, whether its prices have held up against the real weather, and how much a day like this has actually cost places like hers.</p>
+          </div>
+
+          <aside class="rp-side">
+            <figure class="rp-fig">
+              <figcaption class="side-kicker">Her four checks, using this page</figcaption>
+              <ol class="rp-steps">
+                <li><a href="#s01"><span>01</span>Price the risk</a><p>Tomorrow, the cool 24–25°C range trades at <b>18%</b>, so one Yes share costs about $0.18.</p></li>
+                <li><a href="#s02"><span>02</span>Check the price is fair</a><p>How often did days settle in the ranges the market priced? Chapter 02 runs the same check on real New York data.</p></li>
+                <li><a href="#s05"><span>03</span>Size the loss</a><p>On similar cool, wet days, how far did rooftop and park activity fall?</p></li>
+                <li><span class="rp-step-off"><span>04</span>Buy on Polymarket</span><p>Buy enough shares that the $1 payouts cover the loss. The purchase happens on Polymarket, not here.</p></li>
+              </ol>
+            </figure>
+
+            <figure class="rp-fig">
+              <figcaption class="side-kicker">The arithmetic · 250 Yes shares at $0.18</figcaption>
+              <table class="rp-table">
+                <thead><tr><th></th><th>Café</th><th>Contract</th><th>Net</th></tr></thead>
+                <tbody>
+                  <tr><th>Warm day<small>26°C or above</small></th><td>$0</td><td class="neg">−$45</td><td class="neg">−$45</td></tr>
+                  <tr><th>Cool day<small>24–25°C</small></th><td class="neg">−$200</td><td class="pos">+$205</td><td class="pos">+$5</td></tr>
+                </tbody>
+              </table>
+              <p class="rp-note">The contract costs $45 and pays $250 if the day settles in 24–25°C, a gain of $205. On the bad day it cancels the loss. On the good day she pays $45 for protection she didn’t need, like an insurance premium.</p>
+            </figure>
+          </aside>
+        </div>
+
+        <div class="grid rp-foot">
+          <div class="rp-bridge">
+            <h3>Why a hedger reads this differently</h3>
+            <p>A trader wants to beat the market. A hedger only needs the price to be roughly fair and the market to settle against the real weather. The contract’s losses land on good days, when the business earns them back. That is why the calibration check in <a href="../signals/index.html">Chapter 02</a> matters more to Marisol than any single forecast.</p>
+          </div>
+          <div class="rp-limits">
+            <h3>Limits of this scenario</h3>
+            <ul>
+              <li>Marisol and her café are invented. The market prices are this page’s mock values, and the $200 loss is an assumption.</li>
+              <li>A temperature contract doesn’t cover rain. A cool day that settles at 22–23°C falls outside the range she bought.</li>
+              <li>Markets settle on one station (MMMX), which may differ from the weather on her street.</li>
+              <li>The 28 Wishes figures are self-reported and unaudited, and they come from Kalshi, not Polymarket.</li>
+              <li>This illustrates a mechanism. It is not financial advice, and prediction-market access depends on local law.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 01 HERO -->
     <section class="sec hero" id="s01">
       <div class="wrap grid">
