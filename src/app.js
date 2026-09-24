@@ -28,6 +28,7 @@ const tabs = [...document.querySelectorAll("[data-view]")];
 const pageDeck = document.querySelector("#page-deck");
 const pagePanels = [...document.querySelectorAll("[data-page]")];
 const pageButtons = [...document.querySelectorAll("[data-page-target]")];
+const locationSelects = [document.querySelector("#simple-location-select"), document.querySelector("#location-select")].filter(Boolean);
 const simpleSvg = document.querySelector("#simple-chart");
 const simpleDetail = document.querySelector("#simple-detail");
 const simpleLeaders = series.map((item) => item.outcomes.reduce((leader, outcome) => outcome.price > leader.price ? outcome : leader));
@@ -333,14 +334,11 @@ function renderSimple() {
     const x = xAt(index);
     const midpointY = yAt(leader.midpoint);
     const actualY = yAt(item.actual);
-    const lowY = yAt(leader.low ?? leader.midpoint - 1);
-    const highY = yAt(leader.high ?? leader.midpoint + 1);
     const group = document.createElementNS(NS, "g");
     group.setAttribute("class", "simple-point"); group.setAttribute("tabindex", "0"); group.setAttribute("role", "button");
     group.setAttribute("aria-label", `8月${item.day}日，市场最高报价区间${leader.label}，Yes价格${pct(leader.price)}，实际气温${item.actual}华氏度`);
     const connector = document.createElementNS(NS, "line"); connector.setAttribute("x1", x); connector.setAttribute("x2", x); connector.setAttribute("y1", midpointY); connector.setAttribute("y2", actualY); connector.setAttribute("class", "simple-link"); group.append(connector);
-    const range = document.createElementNS(NS, "line"); range.setAttribute("x1", x); range.setAttribute("x2", x); range.setAttribute("y1", highY); range.setAttribute("y2", lowY); range.setAttribute("class", "simple-range"); group.append(range);
-    const mid = document.createElementNS(NS, "circle"); mid.setAttribute("cx", x); mid.setAttribute("cy", midpointY); mid.setAttribute("r", 4); mid.setAttribute("class", "simple-mid"); group.append(mid);
+    const mid = document.createElementNS(NS, "circle"); mid.setAttribute("cx", x); mid.setAttribute("cy", midpointY); mid.setAttribute("r", 6); mid.setAttribute("class", "simple-mid"); group.append(mid);
     const actual = document.createElementNS(NS, "circle"); actual.setAttribute("cx", x); actual.setAttribute("cy", actualY); actual.setAttribute("r", 6); actual.setAttribute("class", "simple-actual"); group.append(actual);
     const hit = (leader.low === null || item.actual >= leader.low) && (leader.high === null || item.actual <= leader.high);
     if (hit) { const ring = document.createElementNS(NS, "circle"); ring.setAttribute("cx", x); ring.setAttribute("cy", actualY); ring.setAttribute("r", 10); ring.setAttribute("class", "simple-hit"); group.append(ring); }
@@ -534,6 +532,9 @@ const pageObserver = new IntersectionObserver((entries) => {
   });
 }, { root: pageDeck, threshold: [.55, .8] });
 pagePanels.forEach((panel) => pageObserver.observe(panel));
+locationSelects.forEach((select) => select.addEventListener("change", () => {
+  locationSelects.forEach((peer) => { peer.value = select.value; });
+}));
 select(0);
 renderSimple();
 
