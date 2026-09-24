@@ -1,6 +1,7 @@
 """Build a verified, pre-resolution NYC temperature snapshot with the official SDK.
 
 Run from the project root with `.venv/Scripts/python scripts/fetch-nyc-history.py`.
+Writes into public/signals/, where the Chapter 02 app lives.
 Every market price is the latest SDK `as_of` quote at midnight EDT on its date.
 """
 
@@ -17,6 +18,7 @@ from polymarket import AsyncPublicClient
 
 
 ROOT = Path(__file__).resolve().parents[1]
+SITE = ROOT / "public" / "signals"
 DATES = range(17, 29)
 STATION = "USW00014732"  # NOAA NCEI: LaGuardia Airport, NY.
 NOAA_URL = (
@@ -147,10 +149,10 @@ async def main() -> None:
         },
         "days": day_records,
     }
-    output = ROOT / "data" / "nyc-aug-2026.json"
+    output = SITE / "data" / "nyc-aug-2026.json"
     output.parent.mkdir(exist_ok=True)
     output.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    (ROOT / "src" / "data.js").write_text(
+    (SITE / "src" / "data.js").write_text(
         "const climateSnapshot = " + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + ";\n",
         encoding="utf-8",
     )

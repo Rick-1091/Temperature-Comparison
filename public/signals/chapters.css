@@ -1,0 +1,32 @@
+/* Mirrors src/chapters.css, plus offsets so the full-screen page deck sits below the bar. */
+.chapterbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+  background: #22211f; color: #bfb8aa;
+  font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 12.5px; line-height: 1;
+}
+.chapterbar-inner { display: flex; align-items: center; gap: 32px; height: 40px; max-width: 1440px; margin: 0 auto; padding: 0 40px; }
+.cb-brand { color: #f4f1ea; text-decoration: none; font-weight: 600; font-size: 11.5px; letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; }
+.cb-list { display: flex; gap: 4px; margin: 0 0 0 auto; padding: 0; list-style: none; height: 100%; }
+.cb-list a { display: flex; align-items: center; gap: 8px; height: 100%; padding: 0 14px; color: inherit; text-decoration: none; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+.cb-list a span { font-family: ui-monospace, 'IBM Plex Mono', monospace; font-size: 10.5px; color: #8a857a; }
+.cb-list a small { color: #8a857a; font-size: 11.5px; }
+.cb-list a:hover { color: #f4f1ea; }
+.cb-list a[aria-current='page'] { color: #f4f1ea; border-bottom-color: #c9713f; }
+.cb-list a[aria-current='page'] span { color: #e39a6b; }
+
+.page-deck { margin-top: 40px; height: calc(100dvh - 40px); }
+.page-panel { height: calc(100dvh - 40px); }
+.page-switcher { top: 56px; }
+
+.cb-next {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 10px 16px;
+  border: 1px solid #22211f; border-radius: 2px; color: #22211f; text-decoration: none; font-size: 0.82rem;
+}
+.cb-next:hover { background: #22211f; color: #f4f1ea; }
+
+@media (max-width: 900px) {
+  .chapterbar-inner { padding: 0 16px; }
+  .cb-list a small, .cb-brand { display: none; }
+  .cb-list { margin: 0; }
+}

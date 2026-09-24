@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NomadCast — What could this weather mean for my day?</title>
+  <meta name="description" content="An evidence-based weather exploration tool for digital nomads, connecting prediction-market probabilities, observed weather, place, and activity patterns." />
+</head>
+<body>
+  <nav class="chapterbar" aria-label="Website chapters">
+    <div class="wrap chapterbar-inner">
+      <a class="cb-brand" href="../index.html">Weather / Signals</a>
+      <ol class="cb-list">
+        <li><a href="../index.html"><span>01</span>Origin <small>· Jinxi</small></a></li>
+        <li><a href="../signals/index.html"><span>02</span>Signals vs outcomes <small>· New York</small></a></li>
+        <li><a href="index.html" aria-current="page"><span>03</span>NomadCast <small>· Mexico City</small></a></li>
+      </ol>
+    </div>
+  </nav>
+
+  <div class="proto-strip">
+    <div class="wrap">
+      <span class="proto-dot"></span>
+      <strong>Research prototype.</strong>
+      Market and weather values are illustrative placeholders in the format of Polymarket daily-temperature markets. Activity data is simulated.
+      <a href="#s06">Read the limitations →</a>
+      <a href="../signals/index.html">Verified market vs. observation data: Chapter 02 →</a>
+    </div>
+  </div>
+
+  <header class="statebar" id="statebar">
+    <div class="wrap statebar-inner">
+      <a class="brand" href="#s01">NOMADCAST</a>
+      <nav class="secnav" aria-label="Sections">
+        <a href="#s01"><span>01</span>Market</a>
+        <a href="#s02"><span>02</span>Reality</a>
+        <a href="#s03"><span>03</span>Place</a>
+        <a href="#s04"><span>04</span>Network</a>
+        <a href="#s05"><span>05</span>Similar days</a>
+        <a href="#s06"><span>06</span>Evidence</a>
+      </nav>
+      <div class="state-chips" id="state-chips" aria-live="polite"></div>
+      <button class="btn-reset" id="btn-reset" type="button">Reset filters</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- 01 HERO -->
+    <section class="sec hero" id="s01">
+      <div class="wrap grid">
+        <div class="hero-left">
+          <p class="eyebrow"><span class="sec-idx">01</span> Market snapshot · Basic visualization</p>
+          <h1>What could tomorrow’s weather mean for your day?</h1>
+          <p class="hero-dek">Explore prediction-market expectations, actual weather, and patterns from similar days.</p>
+          <p class="tagline">From <em>“What will the weather be?”</em> to <em>“What could this weather mean for my day?”</em></p>
+
+          <div class="hero-controls">
+            <label class="ctl">
+              <span class="ctl-label">Location</span>
+              <span class="select-wrap">
+                <select id="sel-location">
+                  <option value="mxc" selected>Mexico City</option>
+                  <option disabled>Lisbon — no data yet</option>
+                  <option disabled>Medellín — no data yet</option>
+                  <option disabled>Chiang Mai — no data yet</option>
+                </select>
+              </span>
+            </label>
+            <label class="ctl">
+              <span class="ctl-label">Date</span>
+              <span class="select-wrap"><select id="sel-date"></select></span>
+            </label>
+          </div>
+
+          <ol class="flow" aria-label="How to read this page">
+            <li><span>Market expectation</span></li>
+            <li><span>Actual weather</span></li>
+            <li><span>Place + activity context</span></li>
+            <li><span>Historical evidence</span></li>
+            <li class="flow-you"><span>Your interpretation</span></li>
+          </ol>
+        </div>
+
+        <div class="hero-right">
+          <div class="market" id="market"></div>
+        </div>
+      </div>
+
+      <div class="wrap">
+        <div class="legend-strip">
+          <span class="legend-title">Throughout this page</span>
+          <span class="tag tag-market">Market-implied</span><span class="legend-def">a crowd’s priced expectation</span>
+          <span class="tag tag-obs">Observed</span><span class="legend-def">recorded after the fact</span>
+          <span class="tag tag-inf">Inferred</span><span class="legend-def">aggregated or matched by us</span>
+          <span class="tag tag-missing">Missing</span><span class="legend-def">shown, never filled in</span>
+          <span class="tag tag-mock">Simulated</span><span class="legend-def">prototype data</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PREDICTION VS REALITY -->
+    <section class="sec" id="s02">
+      <div class="wrap">
+        <header class="sec-head grid">
+          <div class="sec-num">02</div>
+          <div class="sec-titles">
+            <p class="eyebrow">Prediction vs reality · Interactive visualization</p>
+            <h2>What did the market expect — and what actually happened?</h2>
+            <p class="dek">Each column is one day. The shaded band shows the range the market priced highest; the dot shows the maximum temperature the settlement station recorded. <strong>Click any day</strong> to set it as the focus for every view below.</p>
+          </div>
+          <div class="sec-meta">
+            <div class="data-tags"><span class="tag tag-market">Market-implied</span><span class="tag tag-obs">Observed</span></div>
+            <div class="toggle" role="group" aria-label="Timeline encoding" id="tl-toggle">
+              <button type="button" data-mode="mode" class="on">Most likely range</button>
+              <button type="button" data-mode="dist">Full probability distribution</button>
+            </div>
+          </div>
+        </header>
+        <div class="timeline" id="timeline"></div>
+        <div class="tl-readout" id="tl-readout"></div>
+      </div>
+    </section>
+
+    <!-- 03 PLACE -->
+    <section class="sec" id="s03">
+      <div class="wrap">
+        <header class="sec-head grid">
+          <div class="sec-num">03</div>
+          <div class="sec-titles">
+            <p class="eyebrow">Place · Spatiotemporal visualization</p>
+            <h2>Where might weather matter in the city?</h2>
+            <p class="dek">Weather-sensitive places digital nomads use, sized by observed activity for the selected day or weather condition. The map shows <em>where</em> activity happens — not where you should go.</p>
+          </div>
+          <div class="sec-meta">
+            <div class="data-tags"><span class="tag tag-obs">Observed</span><span class="tag tag-inf">Inferred</span><span class="tag tag-mock">Simulated</span></div>
+          </div>
+        </header>
+
+        <div class="filters" id="filters">
+          <div class="filter-row">
+            <span class="filter-label">Weather</span>
+            <div class="chips" id="f-weather"></div>
+          </div>
+          <div class="filter-row">
+            <span class="filter-label">Activity</span>
+            <div class="chips" id="f-group"></div>
+          </div>
+        </div>
+
+        <div class="grid map-grid">
+          <div class="map-col">
+            <div class="map-mode" id="map-mode"></div>
+            <div class="map" id="map"></div>
+            <div class="map-legend" id="map-legend"></div>
+          </div>
+          <aside class="map-side">
+            <p class="side-kicker"><span class="tag tag-inf">Inferred</span> Contextual pattern</p>
+            <p class="pattern" id="map-pattern"></p>
+            <div class="district-bars" id="district-bars"></div>
+            <p class="fineprint">Boundaries are simplified and schematic. Café and coworking locations are anonymised IDs. Public parks and museums use their real names and approximate positions.</p>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 NETWORK -->
+    <section class="sec" id="s04">
+      <div class="wrap">
+        <header class="sec-head grid">
+          <div class="sec-num">04</div>
+          <div class="sec-titles">
+            <p class="eyebrow">Weather × activity · Network visualization</p>
+            <h2>How are weather conditions and everyday activities connected?</h2>
+            <p class="dek">A bipartite network of observed co-occurrence. A link appears when an activity’s average level on days with that condition is at least 5% above its average across all days. <strong>Hover</strong> to trace connections; <strong>click</strong> to filter the other views.</p>
+          </div>
+          <div class="sec-meta">
+            <div class="data-tags"><span class="tag tag-obs">Observed</span><span class="tag tag-inf">Inferred</span></div>
+          </div>
+        </header>
+        <div class="network" id="network"></div>
+        <div class="net-foot">
+          <div class="net-legend" id="net-legend"></div>
+          <p class="claim">Connection strength represents observed association, not causation.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 SIMILAR DAYS -->
+    <section class="sec" id="s05">
+      <div class="wrap">
+        <header class="sec-head grid">
+          <div class="sec-num">05</div>
+          <div class="sec-titles">
+            <p class="eyebrow">Similar days · Advanced visualization with a simple baseline</p>
+            <h2>What happened on similar days?</h2>
+            <p class="dek">We match past days whose <em>observed</em> weather resembles the selected day’s expected weather, then show what activity looked like on each of them. Click a column to inspect that day.</p>
+          </div>
+          <div class="sec-meta">
+            <div class="data-tags"><span class="tag tag-inf">Inferred match</span><span class="tag tag-obs">Observed activity</span></div>
+          </div>
+        </header>
+
+        <div class="sim-target" id="sim-target"></div>
+
+        <div class="grid sim-grid">
+          <div class="sim-heat-col">
+            <div class="sim-heat-head">
+              <p class="sim-count" id="sim-count"></p>
+              <button class="btn-link" id="btn-all-similar" type="button">View all similar days</button>
+            </div>
+            <div class="heatmap" id="heatmap"></div>
+            <div class="heat-legend" id="heat-legend"></div>
+          </div>
+          <div class="sim-bars-col">
+            <p class="side-kicker">Simple comparison</p>
+            <h3 class="bars-title">Average activity across similar days</h3>
+            <p class="bars-sub" id="bars-sub"></p>
+            <div class="bars" id="bars"></div>
+            <p class="fineprint">Bars are means over non-missing cells; the thin tick is the mean over all observed days. Differences on 8 days are small-sample and unstable.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 06 EVIDENCE -->
+    <section class="sec evidence" id="s06">
+      <div class="wrap">
+        <header class="sec-head grid">
+          <div class="sec-num">06</div>
+          <div class="sec-titles">
+            <p class="eyebrow">Evidence · Data · Limitations</p>
+            <h2>How do we know?</h2>
+            <p class="dek">Every number on this page traces back to one of three sources and a small set of transformations. Here is what they are, and what they cannot tell you.</p>
+          </div>
+        </header>
+
+        <div class="ev-list" id="ev-list"></div>
+
+        <div class="limits">
+          <h3>Claim boundaries</h3>
+          <ul>
+            <li><span>01</span>Market probability is not an official weather forecast.</li>
+            <li><span>02</span>Association does not imply causation.</li>
+            <li><span>03</span>Historical activity patterns do not guarantee future behavior.</li>
+            <li><span>04</span>Observed users may not represent all digital nomads.</li>
+            <li><span>05</span>Missing data is visibly marked rather than silently interpolated.</li>
+          </ul>
+        </div>
+
+        <dl class="colophon">
+          <div><dt>Data last updated</dt><dd>Sep 24, 2026 · 10:32 AM CST</dd></div>
+          <div><dt>Repository</dt><dd><a href="https://github.com/Rick-1091/Temperature-Comparison">github.com/Rick-1091/Temperature-Comparison</a></dd></div>
+          <div><dt>Methodology</dt><dd><a href="#ev-D">Data transformations (D)</a></dd></div>
+          <div><dt>Known issues</dt><dd>3 days without station observation · 1 day without a listed market · 1 day without activity data · rain probability comes from a forecast model, not a market</dd></div>
+        </dl>
+        <p class="endnote">NomadCast · InfoVis course project, 2026. Built to support interpretation, not to make decisions for you.</p>
+      </div>
+    </section>
+  </main>
+
+  <aside class="panel" id="panel" aria-hidden="true" aria-label="Day detail"></aside>
+  <div class="scrim" id="scrim"></div>
+  <div class="tooltip" id="tooltip" role="tooltip"></div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

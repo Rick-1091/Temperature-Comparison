@@ -47,6 +47,7 @@ let language = (() => { try { return localStorage.getItem("temperature-language"
 const localizedCopy = {
   zh: {
     documentTitle: "温度对照 | 市场预测与实际气温",
+    chapterOrigin: "<span>01</span>项目缘起 <small>· 锦溪</small>", chapterSignals: "<span>02</span>预测与结果 <small>· 纽约</small>", chapterNomadcast: "<span>03</span>NomadCast <small>· 墨西哥城</small>", chapterNext: "下一章 · 03 NomadCast <span aria-hidden=\"true\">→</span>",
     navResearch: "<span>01</span> 研究原理", navSimple: "<span>02</span> 简明版", navProfessional: "<span>03</span> 专业版",
     brand: "<span class=\"brand-mark\" aria-hidden=\"true\"></span>温度对照",
     researchNote: "研究笔记 · 企业收益市场", reliabilityTitle: "为什么预测市场价格可能有信息价值？",
@@ -83,6 +84,7 @@ const localizedCopy = {
   },
   en: {
     documentTitle: "Temperature Compare | Market Forecasts vs. Observed Weather",
+    chapterOrigin: "<span>01</span>Origin <small>· Jinxi</small>", chapterSignals: "<span>02</span>Signals vs outcomes <small>· New York</small>", chapterNomadcast: "<span>03</span>NomadCast <small>· Mexico City</small>", chapterNext: "Next · Chapter 03: NomadCast <span aria-hidden=\"true\">→</span>",
     navResearch: "<span>01</span> Research", navSimple: "<span>02</span> Simple", navProfessional: "<span>03</span> Pro",
     brand: "<span class=\"brand-mark\" aria-hidden=\"true\"></span>Temperature Compare",
     researchNote: "Research note · Earnings markets", reliabilityTitle: "Why Can Prediction Markets Be Informative?",
@@ -120,6 +122,7 @@ const localizedCopy = {
 };
 
 const staticBindings = [
+  [".chapter-origin", "chapterOrigin"], [".chapter-signals", "chapterSignals"], [".chapter-nomadcast", "chapterNomadcast"], [".cb-next", "chapterNext"],
   [".page-dot[data-page-target='reliability']", "navResearch"], [".page-dot[data-page-target='simple']", "navSimple"], [".page-dot[data-page-target='professional']", "navProfessional"],
   [".brand", "brand"], [".research-topbar>span", "researchNote"], ["#reliability-title", "reliabilityTitle"], [".reliability-copy>p", "reliabilityLead"],
   [".information-flow li:nth-child(1) span", "flowInfo"], [".information-flow li:nth-child(2) span", "flowTraders"], [".information-flow li:nth-child(3) span", "flowTrades"], [".information-flow li:nth-child(4) span", "flowPrice"], [".information-flow li:nth-child(5) span", "flowProbability"], [".information-flow>p", "flowNote"],
@@ -161,6 +164,7 @@ function applyLanguage(nextLanguage) {
   staticBindings.forEach(([selector, key]) => document.querySelectorAll(selector).forEach((node) => { node.innerHTML = localizedCopy[language][key]; }));
   languageButtons.forEach((button) => { const active = button.dataset.language === language; button.classList.toggle("active", active); button.setAttribute("aria-pressed", String(active)); });
   document.querySelector(".page-switcher").setAttribute("aria-label", language === "en" ? "Pages and language" : "页面与语言");
+  document.querySelector(".chapterbar").setAttribute("aria-label", language === "en" ? "Website chapters" : "网站章节");
   locationSelects.forEach((select) => select.setAttribute("aria-label", language === "en" ? "Choose location" : "选择地点"));
   document.querySelector("#prev-point").setAttribute("aria-label", language === "en" ? "Previous day" : "选择前一天");
   document.querySelector("#next-point").setAttribute("aria-label", language === "en" ? "Next day" : "选择后一天");
