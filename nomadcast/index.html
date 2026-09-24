@@ -73,7 +73,7 @@
               <figcaption class="side-kicker">Her four checks, using this page</figcaption>
               <ol class="rp-steps">
                 <li><a href="#s01"><span>01</span>Price the risk</a><p>Tomorrow, the cool 24–25°C range trades at 18%, so one Yes share costs about $0.18.</p></li>
-                <li><a href="#s02"><span>02</span>Check the price is fair</a><p>How often did days settle in the ranges the market priced? Chapter 02 runs the same check on real New York data.</p></li>
+                <li><a href="#s02"><span>02</span>Check the price is fair</a><p>How often did the market’s favourite come true? The accuracy trend under section 02 tracks it day by day.</p></li>
                 <li><a href="#s05"><span>03</span>Size the loss</a><p>On similar cool, wet days, how far did rooftop and park activity fall?</p></li>
                 <li><span class="rp-step-off"><span>04</span>Buy on Polymarket</span><p>Buy enough shares that the $1 payouts cover the loss. The purchase happens on Polymarket, not here.</p></li>
               </ol>
@@ -185,6 +185,26 @@
         </header>
         <div class="timeline" id="timeline"></div>
         <div class="tl-readout" id="tl-readout"></div>
+
+        <div class="acc-block">
+          <header class="acc-head">
+            <div>
+              <p class="side-kicker"><span class="tag tag-inf">Inferred</span> Reading the chart above</p>
+              <h3>Does the market’s favourite actually come true?</h3>
+              <p class="acc-dek">Like a 7- or 14-day moving average on a stock chart. Each day that settles changes the accuracy measured on the days before it, so accuracy becomes a line. The solid line shows how often the top-priced range was right. The dashed line shows how sure the market said it was.</p>
+            </div>
+            <div class="toggle" role="group" aria-label="Accuracy window" id="acc-window">
+              <button type="button" data-w="all">Cumulative</button>
+              <button type="button" data-w="7" class="on">7-day</button>
+              <button type="button" data-w="14">14-day</button>
+            </div>
+          </header>
+          <div class="acc-grid">
+            <div class="accuracy" id="accuracy"></div>
+            <aside class="acc-readout" id="acc-readout" aria-live="polite"></aside>
+          </div>
+          <p class="fineprint">A hit means the observed maximum fell inside that day’s top-priced range. Days without a market or an observation are left out, not guessed. Values on this page are simulated; with real data the same line would show whether prices deserve the trust a hedger puts in them.</p>
+        </div>
       </div>
     </section>
 
