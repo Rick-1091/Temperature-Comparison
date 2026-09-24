@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NomadCast — What could this weather mean for my day?</title>
-  <meta name="description" content="An evidence-based weather exploration tool for digital nomads, connecting prediction-market probabilities, observed weather, place, and activity patterns." />
+  <meta name="description" content="What weather signals can mean: for one person's day, for a city and its industries, and for the people who hedge weather risk with prediction markets." />
 </head>
 <body>
   <nav class="chapterbar" aria-label="Website chapters">
@@ -23,7 +23,7 @@
       <span class="proto-dot"></span>
       <strong>Research prototype.</strong>
       Market and weather values are illustrative placeholders in the format of Polymarket daily-temperature markets. Activity data is simulated.
-      <a href="#s06">Read the limitations →</a>
+      <a href="#s07">Read the limitations →</a>
       <a href="../signals/index.html">Verified market vs. observation data: Chapter 02 →</a>
     </div>
   </div>
@@ -32,13 +32,13 @@
     <div class="wrap statebar-inner">
       <a class="brand" href="#s01">NOMADCAST</a>
       <nav class="secnav" aria-label="Sections">
-        <a href="#s00"><span>00</span>Hedgers</a>
         <a href="#s01"><span>01</span>Market</a>
-        <a href="#s02"><span>02</span>Reality</a>
-        <a href="#s03"><span>03</span>Place</a>
-        <a href="#s04"><span>04</span>Network</a>
-        <a href="#s05"><span>05</span>Similar days</a>
-        <a href="#s06"><span>06</span>Evidence</a>
+        <a href="#s02"><span>02</span>Network</a>
+        <a href="#s03"><span>03</span>Similar days</a>
+        <a href="#s04"><span>04</span>City</a>
+        <a href="#s05"><span>05</span>Hedgers</a>
+        <a href="#s06"><span>06</span>Simulation</a>
+        <a href="#s07"><span>07</span>Evidence</a>
       </nav>
       <div class="state-chips" id="state-chips" aria-live="polite"></div>
       <button class="btn-reset" id="btn-reset" type="button">Reset filters</button>
@@ -46,72 +46,6 @@
   </header>
 
   <main>
-    <!-- 00 HEDGERS -->
-    <section class="sec report" id="s00">
-      <div class="wrap">
-        <header class="rp-head grid">
-          <div class="sec-num">00</div>
-          <div class="rp-titles">
-            <p class="eyebrow">Feature · The hedgers <span class="tag tag-mock">Illustrative scenario</span></p>
-            <p class="rp-kicker">Chapter 02 asked whether the market’s price matched the weather. Some people use that price for something else: insurance.</p>
-            <h2 class="rp-headline">A cold day costs the café. A Polymarket contract pays it back.</h2>
-            <p class="rp-dek">How a small business in Mexico City’s nomad economy could use this tool to price weather risk, buy a prediction on Polymarket, and soften the loss when the weather turns against it.</p>
-          </div>
-        </header>
-
-        <div class="grid rp-body">
-          <div class="rp-story">
-            <p class="rp-lede">Marisol runs a rooftop café in Roma Norte. Most of her customers are remote workers with laptops, and they follow the sun. When a cool, wet day comes in, the terrace empties and she estimates she loses about $200 in sales.</p>
-            <p>She can’t change the weather, but she can take the other side of it. Polymarket lists a daily market on Mexico City’s maximum temperature, split into 2°C ranges. Each “Yes” share costs its market price and pays $1 if the day settles in that range. If she owns shares in the cool ranges, the market pays her on exactly the days her terrace is quiet.</p>
-            <p>The idea isn’t hers. In Los Angeles, the owners of the ice cream shop 28 Wishes told reporters they put about $20 a day into weather contracts on Kalshi because sales drop about 20% below 70°F. They said the payouts covered up to 43% of their rent in a good month (<a href="https://nypost.com/2026/07/16/lifestyle/california-ice-cream-shop-owner-bets-on-weather-to-help-pay-rent/" target="_blank" rel="noopener">New York Post, July 16, 2026 ↗</a>).</p>
-            <blockquote class="rp-quote">“People don’t come into the shop when it’s cold, and they don’t come in when it’s raining. So we wanted a way to make money on those days.”<cite>Jason Jiang, 28 Wishes, Los Angeles · real quote</cite></blockquote>
-            <p>What Marisol needs before buying is what this chapter provides: what the market is charging, whether its prices have held up against the real weather, and how much a day like this has actually cost places like hers.</p>
-          </div>
-
-          <aside class="rp-side">
-            <figure class="rp-fig">
-              <figcaption class="side-kicker">Her four checks, using this page</figcaption>
-              <ol class="rp-steps">
-                <li><a href="#s01"><span>01</span>Price the risk</a><p>Tomorrow, the cool 24–25°C range trades at 18%, so one Yes share costs about $0.18.</p></li>
-                <li><a href="#s02"><span>02</span>Check the price is fair</a><p>How often did the market’s favourite come true? The accuracy trend under section 02 tracks it day by day.</p></li>
-                <li><a href="#s05"><span>03</span>Size the loss</a><p>On similar cool, wet days, how far did rooftop and park activity fall?</p></li>
-                <li><span class="rp-step-off"><span>04</span>Buy on Polymarket</span><p>Buy enough shares that the $1 payouts cover the loss. The purchase happens on Polymarket, not here.</p></li>
-              </ol>
-            </figure>
-
-            <figure class="rp-fig">
-              <figcaption class="side-kicker">The arithmetic · 250 Yes shares at $0.18</figcaption>
-              <table class="rp-table">
-                <thead><tr><th></th><th>Café</th><th>Contract</th><th>Net</th></tr></thead>
-                <tbody>
-                  <tr><th>Warm day<small>26°C or above</small></th><td>$0</td><td class="neg">−$45</td><td class="neg">−$45</td></tr>
-                  <tr><th>Cool day<small>24–25°C</small></th><td class="neg">−$200</td><td class="pos">+$205</td><td class="pos">+$5</td></tr>
-                </tbody>
-              </table>
-              <p class="rp-note">The contract costs $45 and pays $250 if the day settles in 24–25°C, a gain of $205. On the bad day it cancels the loss. On the good day she pays $45 for protection she didn’t need, like an insurance premium.</p>
-            </figure>
-          </aside>
-        </div>
-
-        <div class="grid rp-foot">
-          <div class="rp-bridge">
-            <h3>Why a hedger reads this differently</h3>
-            <p>A trader wants to beat the market. A hedger only needs the price to be roughly fair and the market to settle against the real weather. The contract’s losses land on good days, when the business earns them back. That is why the calibration check in <a href="../signals/index.html">Chapter 02</a> matters more to Marisol than any single forecast.</p>
-          </div>
-          <div class="rp-limits">
-            <h3>Limits of this scenario</h3>
-            <ul>
-              <li>Marisol and her café are invented. The market prices are this page’s mock values, and the $200 loss is an assumption.</li>
-              <li>A temperature contract doesn’t cover rain. A cool day that settles at 22–23°C falls outside the range she bought.</li>
-              <li>Markets settle on one station (MMMX), which may differ from the weather on her street.</li>
-              <li>The 28 Wishes figures are self-reported and unaudited, and they come from Kalshi, not Polymarket.</li>
-              <li>This illustrates a mechanism. It is not financial advice, and prediction-market access depends on local law.</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- 01 HERO -->
     <section class="sec hero" id="s01">
       <div class="wrap grid">
@@ -140,11 +74,9 @@
           </div>
 
           <ol class="flow" aria-label="How to read this page">
-            <li><span>Market expectation</span></li>
-            <li><span>Actual weather</span></li>
-            <li><span>Place + activity context</span></li>
-            <li><span>Historical evidence</span></li>
-            <li class="flow-you"><span>Your interpretation</span></li>
+            <li><span>My day</span></li>
+            <li><span>My city</span></li>
+            <li><span>Going further: hedging</span></li>
           </ol>
         </div>
 
@@ -165,54 +97,86 @@
       </div>
     </section>
 
-    <!-- 02 PREDICTION VS REALITY -->
+    <!-- PART A · PERSONAL LIFE -->
+    <div class="part-break" id="part-personal">
+      <div class="wrap">
+        <p class="part-kicker">Part A · Personal life</p>
+        <p class="part-title">First, what the weather could mean for one person’s day.</p>
+      </div>
+    </div>
+
+    <!-- 02 NETWORK -->
     <section class="sec" id="s02">
       <div class="wrap">
         <header class="sec-head grid">
           <div class="sec-num">02</div>
           <div class="sec-titles">
-            <p class="eyebrow">Prediction vs reality · Interactive visualization</p>
-            <h2>What did the market expect — and what actually happened?</h2>
-            <p class="dek">Each column is one day. The shaded band shows the range the market priced highest; the dot shows the maximum temperature the settlement station recorded. <strong>Click any day</strong> to set it as the focus for every view below.</p>
+            <p class="eyebrow">Weather × activity · Network visualization</p>
+            <h2>How are weather conditions and everyday activities connected?</h2>
+            <p class="dek">A bipartite network of observed co-occurrence. A link appears when an activity’s average level on days with that condition is at least 5% above its average across all days. <strong>Hover</strong> to trace connections; <strong>click</strong> to filter the other views.</p>
           </div>
           <div class="sec-meta">
-            <div class="data-tags"><span class="tag tag-market">Market-implied</span><span class="tag tag-obs">Observed</span></div>
-            <div class="toggle" role="group" aria-label="Timeline encoding" id="tl-toggle">
-              <button type="button" data-mode="mode" class="on">Most likely range</button>
-              <button type="button" data-mode="dist">Full probability distribution</button>
-            </div>
+            <div class="data-tags"><span class="tag tag-obs">Observed</span><span class="tag tag-inf">Inferred</span></div>
           </div>
         </header>
-        <div class="timeline" id="timeline"></div>
-        <div class="tl-readout" id="tl-readout"></div>
-
-        <div class="acc-block">
-          <header class="acc-head">
-            <div>
-              <p class="side-kicker"><span class="tag tag-inf">Inferred</span> Reading the chart above</p>
-              <h3>Does the market’s favourite actually come true?</h3>
-              <p class="acc-dek">Like a 7- or 14-day moving average on a stock chart. Each day that settles changes the accuracy measured on the days before it, so accuracy becomes a line. The solid line shows how often the top-priced range was right. The dashed line shows how sure the market said it was.</p>
-            </div>
-            <div class="toggle" role="group" aria-label="Accuracy window" id="acc-window">
-              <button type="button" data-w="all">Cumulative</button>
-              <button type="button" data-w="7" class="on">7-day</button>
-              <button type="button" data-w="14">14-day</button>
-            </div>
-          </header>
-          <div class="acc-grid">
-            <div class="accuracy" id="accuracy"></div>
-            <aside class="acc-readout" id="acc-readout" aria-live="polite"></aside>
-          </div>
-          <p class="fineprint">A hit means the observed maximum fell inside that day’s top-priced range. Days without a market or an observation are left out, not guessed. Values on this page are simulated; with real data the same line would show whether prices deserve the trust a hedger puts in them.</p>
+        <div class="network" id="network"></div>
+        <div class="net-foot">
+          <div class="net-legend" id="net-legend"></div>
+          <p class="claim">Connection strength represents observed association, not causation.</p>
         </div>
       </div>
     </section>
 
-    <!-- 03 PLACE -->
+    <!-- 03 SIMILAR DAYS -->
     <section class="sec" id="s03">
       <div class="wrap">
         <header class="sec-head grid">
           <div class="sec-num">03</div>
+          <div class="sec-titles">
+            <p class="eyebrow">Similar days · Advanced visualization with a simple baseline</p>
+            <h2>What happened on similar days?</h2>
+            <p class="dek">We match past days whose <em>observed</em> weather resembles the selected day’s expected weather, then show what activity looked like on each of them. Click a column to inspect that day.</p>
+          </div>
+          <div class="sec-meta">
+            <div class="data-tags"><span class="tag tag-inf">Inferred match</span><span class="tag tag-obs">Observed activity</span></div>
+          </div>
+        </header>
+
+        <div class="sim-target" id="sim-target"></div>
+
+        <div class="grid sim-grid">
+          <div class="sim-heat-col">
+            <div class="sim-heat-head">
+              <p class="sim-count" id="sim-count"></p>
+              <button class="btn-link" id="btn-all-similar" type="button">View all similar days</button>
+            </div>
+            <div class="heatmap" id="heatmap"></div>
+            <div class="heat-legend" id="heat-legend"></div>
+          </div>
+          <div class="sim-bars-col">
+            <p class="side-kicker">Simple comparison</p>
+            <h3 class="bars-title">Average activity across similar days</h3>
+            <p class="bars-sub" id="bars-sub"></p>
+            <div class="bars" id="bars"></div>
+            <p class="fineprint">Bars are means over non-missing cells; the thin tick is the mean over all observed days. Differences on 8 days are small-sample and unstable.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART B · CITY LIFE -->
+    <div class="part-break" id="part-city">
+      <div class="wrap">
+        <p class="part-kicker">Part B · City life</p>
+        <p class="part-title">Then, what the same weather means for a city and the businesses in it.</p>
+      </div>
+    </div>
+
+    <!-- 04 PLACE + INDUSTRIES -->
+    <section class="sec" id="s04">
+      <div class="wrap">
+        <header class="sec-head grid">
+          <div class="sec-num">04</div>
           <div class="sec-titles">
             <p class="eyebrow">Place · Spatiotemporal visualization</p>
             <h2>Where might weather matter in the city?</h2>
@@ -247,73 +211,104 @@
             <p class="fineprint">Boundaries are simplified and schematic. Café and coworking locations are anonymised IDs. Public parks and museums use their real names and approximate positions.</p>
           </aside>
         </div>
-      </div>
-    </section>
 
-    <!-- 04 NETWORK -->
-    <section class="sec" id="s04">
-      <div class="wrap">
-        <header class="sec-head grid">
-          <div class="sec-num">04</div>
-          <div class="sec-titles">
-            <p class="eyebrow">Weather × activity · Network visualization</p>
-            <h2>How are weather conditions and everyday activities connected?</h2>
-            <p class="dek">A bipartite network of observed co-occurrence. A link appears when an activity’s average level on days with that condition is at least 5% above its average across all days. <strong>Hover</strong> to trace connections; <strong>click</strong> to filter the other views.</p>
-          </div>
-          <div class="sec-meta">
-            <div class="data-tags"><span class="tag tag-obs">Observed</span><span class="tag tag-inf">Inferred</span></div>
-          </div>
-        </header>
-        <div class="network" id="network"></div>
-        <div class="net-foot">
-          <div class="net-legend" id="net-legend"></div>
-          <p class="claim">Connection strength represents observed association, not causation.</p>
+        <div class="ind-block">
+          <header class="ind-head">
+            <p class="side-kicker"><span class="tag tag-inf">Inferred</span> From places to industries</p>
+            <h3>Behind each kind of place is a business that carries the weather risk.</h3>
+            <p class="ind-dek">Each card compares activity on days with one weather condition against all observed days. When activity falls, the business behind it loses revenue.</p>
+          </header>
+          <div class="ind-grid" id="industries"></div>
+          <p class="fineprint">Activity levels are simulated. A change in activity is a proxy for demand, not a measured revenue loss.</p>
         </div>
       </div>
     </section>
 
-    <!-- 05 SIMILAR DAYS -->
-    <section class="sec" id="s05">
+    <!-- PART C · GOING FURTHER -->
+    <div class="part-break" id="part-further">
       <div class="wrap">
-        <header class="sec-head grid">
+        <p class="part-kicker">Part C · Going further</p>
+        <p class="part-title">Finally, what if people want more than a better-planned day?</p>
+      </div>
+    </div>
+
+    <!-- 05 HEDGERS -->
+    <section class="sec report" id="s05">
+      <div class="wrap">
+        <header class="rp-head grid">
           <div class="sec-num">05</div>
-          <div class="sec-titles">
-            <p class="eyebrow">Similar days · Advanced visualization with a simple baseline</p>
-            <h2>What happened on similar days?</h2>
-            <p class="dek">We match past days whose <em>observed</em> weather resembles the selected day’s expected weather, then show what activity looked like on each of them. Click a column to inspect that day.</p>
-          </div>
-          <div class="sec-meta">
-            <div class="data-tags"><span class="tag tag-inf">Inferred match</span><span class="tag tag-obs">Observed activity</span></div>
+          <div class="rp-titles">
+            <p class="eyebrow">Feature · The hedgers <span class="tag tag-mock">Illustrative scenario</span></p>
+            <p class="rp-kicker">In Jinxi, people could compare different weather signals to plan their days, and the sections above do the same for one person and one city. What if someone wants to go a step further?</p>
+            <h2 class="rp-headline">A cold day costs the café. A Polymarket contract pays it back.</h2>
+            <p class="rp-dek">How a small business in Mexico City’s nomad economy could use this tool to price weather risk, buy a prediction on Polymarket, and soften the loss when the weather turns against it.</p>
           </div>
         </header>
 
-        <div class="sim-target" id="sim-target"></div>
-
-        <div class="grid sim-grid">
-          <div class="sim-heat-col">
-            <div class="sim-heat-head">
-              <p class="sim-count" id="sim-count"></p>
-              <button class="btn-link" id="btn-all-similar" type="button">View all similar days</button>
-            </div>
-            <div class="heatmap" id="heatmap"></div>
-            <div class="heat-legend" id="heat-legend"></div>
+        <div class="grid rp-body">
+          <div class="rp-story">
+            <p class="rp-lede">Marisol runs a rooftop café in Roma Norte. Most of her customers are remote workers with laptops, and they follow the sun. When a cool, wet day comes in, the terrace empties and she estimates she loses about $200 in sales.</p>
+            <p>She can’t change the weather, but she can take the other side of it. Polymarket lists a daily market on Mexico City’s maximum temperature, split into 2°C ranges. Each “Yes” share costs its market price and pays $1 if the day settles in that range. If she owns shares in the cool ranges, the market pays her on exactly the days her terrace is quiet.</p>
+            <p>The idea isn’t hers. In Los Angeles, the owners of the ice cream shop 28 Wishes told reporters they put about $20 a day into weather contracts on Kalshi because sales drop about 20% below 70°F. They said the payouts covered up to 43% of their rent in a good month (<a href="https://nypost.com/2026/07/16/lifestyle/california-ice-cream-shop-owner-bets-on-weather-to-help-pay-rent/" target="_blank" rel="noopener">New York Post, July 16, 2026 ↗</a>).</p>
+            <blockquote class="rp-quote">“People don’t come into the shop when it’s cold, and they don’t come in when it’s raining. So we wanted a way to make money on those days.”<cite>Jason Jiang, 28 Wishes, Los Angeles · real quote</cite></blockquote>
+            <p>What Marisol needs before buying is what this chapter provides: what the market is charging, whether its prices have held up against the real weather, and how much a day like this has actually cost places like hers.</p>
           </div>
-          <div class="sim-bars-col">
-            <p class="side-kicker">Simple comparison</p>
-            <h3 class="bars-title">Average activity across similar days</h3>
-            <p class="bars-sub" id="bars-sub"></p>
-            <div class="bars" id="bars"></div>
-            <p class="fineprint">Bars are means over non-missing cells; the thin tick is the mean over all observed days. Differences on 8 days are small-sample and unstable.</p>
+
+          <aside class="rp-side">
+            <figure class="rp-fig">
+              <figcaption class="side-kicker">Her four checks</figcaption>
+              <ol class="rp-steps">
+                <li><a href="#s01"><span>01</span>Price the risk</a><p>Tomorrow, the cool 24–25°C range trades at 18%, so one Yes share costs about $0.18.</p></li>
+                <li><a href="../signals/index.html"><span>02</span>Check the price is fair</a><p>How often did the market’s favourite come true? Chapter 02’s accuracy trend tracks it day by day.</p></li>
+                <li><a href="#s03"><span>03</span>Size the loss</a><p>On similar cool, wet days, how far did rooftop and park activity fall?</p></li>
+                <li><a href="#s06"><span>04</span>Run the numbers</a><p>Try her case in the simulation below before buying anything on Polymarket.</p></li>
+              </ol>
+            </figure>
+          </aside>
+        </div>
+
+        <div class="grid rp-foot">
+          <div class="rp-bridge">
+            <h3>Why a hedger reads this differently</h3>
+            <p>A trader wants to beat the market. A hedger only needs the price to be roughly fair and the market to settle against the real weather. The contract’s losses land on good days, when the business earns them back. That is why the calibration check in <a href="../signals/index.html">Chapter 02</a> matters more to Marisol than any single forecast.</p>
+          </div>
+          <div class="rp-limits">
+            <h3>Limits of this scenario</h3>
+            <ul>
+              <li>Marisol and her café are invented. The market prices are this page’s mock values, and the $200 loss is an assumption.</li>
+              <li>A temperature contract doesn’t cover rain. A cool day that settles at 22–23°C falls outside the range she bought.</li>
+              <li>Markets settle on one station (MMMX), which may differ from the weather on her street.</li>
+              <li>The 28 Wishes figures are self-reported and unaudited, and they come from Kalshi, not Polymarket.</li>
+              <li>This illustrates a mechanism. It is not financial advice, and prediction-market access depends on local law.</li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 06 EVIDENCE -->
-    <section class="sec evidence" id="s06">
+    <!-- 06 SIMULATION -->
+    <section class="sec" id="s06">
       <div class="wrap">
         <header class="sec-head grid">
           <div class="sec-num">06</div>
+          <div class="sec-titles">
+            <p class="eyebrow">Simulation · Hedging a weather loss</p>
+            <h2>What does a bad-weather day cost a shop owner, with and without a hedge?</h2>
+            <p class="dek">Pick a business and the weather that hurts it. Set a normal day’s revenue, how much bad weather takes away, the Polymarket price of that weather, and how much to spend on contracts. The simulation compares costs and final results.</p>
+          </div>
+          <div class="sec-meta">
+            <div class="data-tags"><span class="tag tag-market">Market-implied</span><span class="tag tag-mock">Simulated</span></div>
+          </div>
+        </header>
+        <div class="hedge" id="hedge"></div>
+      </div>
+    </section>
+
+    <!-- 07 EVIDENCE -->
+    <section class="sec evidence" id="s07">
+      <div class="wrap">
+        <header class="sec-head grid">
+          <div class="sec-num">07</div>
           <div class="sec-titles">
             <p class="eyebrow">Evidence · Data · Limitations</p>
             <h2>How do we know?</h2>

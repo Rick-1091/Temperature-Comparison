@@ -6,8 +6,12 @@
   <meta name="theme-color" content="#f3f4f0">
   <title>温度对照 | 市场预测与实际气温</title>
   <style>
-:root{color-scheme:light;--paper:#f3f4f0;--white:#fff;--ink:#21312d;--muted:#64716c;--line:#d9e0db;--actual:#167c77;--market:#d85b3b;--soft:#edf3ef;--focus:#1b625f}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+@font-face{font-family:"Newsreader Local";src:url("../fonts/newsreader-latin-wght-normal.woff2") format("woff2");font-style:normal;font-weight:300 800;font-display:swap}
+@font-face{font-family:"Newsreader Local";src:url("../fonts/newsreader-latin-wght-italic.woff2") format("woff2");font-style:italic;font-weight:300 800;font-display:swap}
+@font-face{font-family:"IBM Plex Sans Local";src:url("../fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2");font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:"IBM Plex Sans Local";src:url("../fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2");font-style:normal;font-weight:500 800;font-display:swap}
+:root{color-scheme:light;--paper:#f3f4f0;--white:#fff;--ink:#21312d;--muted:#64716c;--line:#d9e0db;--actual:#167c77;--market:#d85b3b;--soft:#edf3ef;--focus:#1b625f;--serif:"Newsreader Local","Noto Serif SC","Songti SC",STSong,serif;--sans:"IBM Plex Sans Local","Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans)}
 button,a{font:inherit}button:focus-visible,a:focus-visible,.data-point:focus-visible{outline:3px solid var(--focus);outline-offset:3px}::selection{background:#b7ded7;color:#173d38}
 .shell{width:min(1280px,calc(100% - 48px));margin:auto;padding-bottom:48px}.topbar{height:86px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px;font-size:1.12rem;font-weight:800;letter-spacing:-.03em}.brand-mark{width:21px;height:21px;display:inline-block;border:5px solid var(--actual);border-right-color:var(--market);border-radius:50%;transform:rotate(-32deg)}
@@ -183,6 +187,74 @@ html,body{height:100%;overflow:hidden}
 @media(prefers-reduced-motion:reduce){.research-cta span{transition:none}}
 @media(max-width:1050px) and (min-width:761px){.page-switcher{gap:2px;padding:3px}.page-dot{gap:4px;min-height:34px;padding:0 9px}.page-dot span{display:none}.language-divider{margin:0}.language-button{min-width:28px;padding:0 5px}.location-picker>span{display:none}}
 
+/* Shared typography roles across all three chapters. */
+h1,h2,h3,.figure-heading h2{font-family:var(--serif)}
+.figure-heading h2{font-size:1.72rem;font-weight:520;letter-spacing:-.02em}
+
+
+</style>
+  <style>
+/* Accuracy trend block on the professional page (rendered by accuracy.js). */
+.acc-block{margin-top:20px;background:var(--white);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:0 18px 45px rgba(32,53,43,.06)}
+.acc-head{display:flex;justify-content:space-between;align-items:end;gap:20px;padding:26px 34px 20px}
+.acc-eyebrow{display:block;margin-bottom:6px;color:#8a9a91;font-size:.7rem;font-weight:800;letter-spacing:.12em}
+.acc-head h2{font-size:1.38rem;letter-spacing:-.025em;margin-bottom:7px}
+.acc-lead{max-width:640px;margin:0;color:var(--muted);font-size:.88rem;line-height:1.55}
+.acc-legend{display:flex;gap:20px;flex-wrap:wrap;font-size:.82rem;color:#465951;font-weight:650}
+.acc-legend span{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.acc-key{display:inline-block;width:22px;height:0;border-top:3px solid var(--actual)}
+.acc-key-conf{border-top:3px dashed var(--market)}
+.acc-tabs{display:flex;gap:3px;align-items:center;padding:0 34px;border-bottom:1px solid var(--line)}
+.acc-tabs .view-tab{height:44px}
+.acc-body{display:grid;grid-template-columns:minmax(0,1fr) 270px;align-items:stretch}
+.acc-chart-col{min-width:0;padding:10px 20px 16px 24px}
+#acc-chart{display:block;width:100%;height:auto;overflow:visible}
+.acc-axis{stroke:#aebdb3;stroke-width:1.5}
+.acc-warmup{fill:#eef2ee}
+.acc-warmup-label{fill:#8d9b93;font-size:11px;letter-spacing:.04em}
+.acc-empty{fill:var(--muted);font-size:14px;font-weight:700;paint-order:stroke;stroke:#eef2ee;stroke-width:6px;stroke-linejoin:round;pointer-events:none}
+.acc-line{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.acc-line-hit{stroke:var(--actual)}
+.acc-line-conf{stroke:var(--market);stroke-width:2.4;stroke-dasharray:7 6}
+.acc-dot{stroke:#fff;stroke-width:1.8;pointer-events:none}
+.acc-dot-hit{fill:var(--actual)}
+.acc-dot-conf{fill:var(--market)}
+.acc-end{font-size:12px;font-weight:850;font-variant-numeric:tabular-nums;paint-order:stroke;stroke:#fff;stroke-width:4px}
+.acc-end-hit{fill:var(--actual)}
+.acc-end-conf{fill:var(--market)}
+.acc-day{cursor:pointer;outline:none}
+.acc-hover{fill:transparent}
+.acc-focus-line{stroke:#c8d3cb;stroke-width:1;stroke-dasharray:3 4;opacity:0}
+.acc-day:hover .acc-focus-line,.acc-day.focused .acc-focus-line,.acc-day:focus-visible .acc-focus-line{opacity:1}
+.acc-day:focus-visible .acc-cell{stroke:var(--focus);stroke-width:3}
+.acc-cell{stroke-width:2}
+.acc-cell.hit{fill:var(--actual);stroke:var(--actual)}
+.acc-cell.miss{fill:#fff;stroke:#9fb0a7}
+.acc-day.focused .acc-cell.miss{stroke:var(--ink)}
+.acc-day.focused .acc-cell.hit{stroke:var(--ink)}
+.acc-strip-key{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:2px;color:var(--muted);font-size:.76rem}
+.acc-strip-key b{color:var(--ink);font-weight:780}
+.acc-strip-key span{display:inline-flex;align-items:center;gap:4px}
+.acc-mini{display:inline-block;width:10px;height:10px;border-radius:2px;border:2px solid var(--actual);background:var(--actual);flex:none}
+.acc-mini.miss{background:#fff;border-color:#9fb0a7}
+.acc-strip-key .acc-mini.miss{margin-right:4px}
+.acc-detail{display:flex;flex-wrap:wrap;align-items:center;gap:4px 10px;min-height:44px;margin:10px 0 0;padding:9px 12px;border-radius:8px;background:var(--soft);color:var(--muted);font-size:.78rem;line-height:1.45}
+.acc-detail.active{color:var(--ink)}
+.acc-detail small{color:var(--muted);font-weight:650}
+.acc-readout{display:flex;flex-direction:column;gap:0;background:#e9efe9;border-left:1px solid #d6e1d7}
+.acc-scope{margin:0;padding:16px 22px 0;color:#5e7064;font-size:.74rem;font-weight:750}
+.acc-metric{padding:14px 22px;border-bottom:1px solid #d6e1d7}
+.acc-metric span,.acc-verdict span{display:block;margin-bottom:6px;color:#5e7064;font-size:.77rem;font-weight:750}
+.acc-metric strong{display:block;font-size:2rem;letter-spacing:-.04em;font-variant-numeric:tabular-nums;line-height:1.1}
+.acc-metric small{display:block;margin-top:4px;color:#6c7d70;font-size:.74rem}
+.acc-metric-hit strong{color:var(--actual)}
+.acc-metric-conf strong{color:var(--market)}
+.acc-verdict{padding:14px 22px 18px}
+.acc-verdict p{margin:0;font-size:.86rem;line-height:1.5;font-weight:650;color:var(--ink)}
+.acc-note{margin:0;padding:13px 34px 16px;border-top:1px solid var(--line);color:#6c7d70;font-size:.76rem;line-height:1.6}
+@media(max-width:980px){.acc-head{flex-direction:column;align-items:start}.acc-body{grid-template-columns:1fr}.acc-readout{display:grid;grid-template-columns:1fr 1fr;border-left:0;border-top:1px solid #d6e1d7}.acc-scope{grid-column:1/-1}.acc-metric:first-of-type{border-right:1px solid #d6e1d7}.acc-verdict{grid-column:1/-1;border-top:0}}
+@media(max-width:640px){.acc-block{margin-top:12px}.acc-head{padding:20px 18px 15px;gap:12px}.acc-head h2{font-size:1.13rem}.acc-lead{font-size:.82rem}.acc-legend{font-size:.72rem;gap:10px}.acc-tabs{padding:0 12px}.acc-tabs .view-tab{font-size:.74rem;padding:0 10px}.acc-tabs .view-tab:first-child{padding-left:5px}.acc-chart-col{padding:8px 8px 12px}.acc-detail{font-size:.72rem}.acc-scope{padding:13px 16px 0}.acc-metric{padding:11px 16px}.acc-metric strong{font-size:1.5rem}.acc-verdict{padding:11px 16px 14px}.acc-verdict p{font-size:.8rem}.acc-note{padding:12px 18px 14px;font-size:.7rem}}
+
 </style>
 </head>
 <body>
@@ -329,6 +401,26 @@ html,body{height:100%;overflow:hidden}
     <button id="open-prediction" class="reading-metric market-reading" type="button" aria-label="查看并选择当日市场预测值"><span>市场预测值 <small>历史价格</small><b>查看全部预测 ↗</b></span><strong id="market-value">84-85°F</strong></button>
     <div class="reading-diff"><span>与 NOAA 日最高对照</span><strong id="difference-value">—</strong><p id="difference-explain">市场结算来源与 NOAA 日最高可能不同。</p></div>
   </section>
+  <section class="acc-block" id="accuracy-trend" aria-label="准确率趋势">
+    <div class="acc-head">
+      <div><span class="acc-eyebrow">ACCURACY TREND</span><h2 id="acc-title">准确率趋势</h2><p class="acc-lead"></p></div>
+      <div class="acc-legend"></div>
+    </div>
+    <div class="acc-tabs" role="group" aria-label="选择统计窗口">
+      <button class="view-tab active" type="button" data-acc-window="all" aria-pressed="true">累计</button>
+      <button class="view-tab" type="button" data-acc-window="7" aria-pressed="false">7 日线</button>
+      <button class="view-tab" type="button" data-acc-window="14" aria-pressed="false">14 日线</button>
+    </div>
+    <div class="acc-body">
+      <div class="acc-chart-col">
+        <svg id="acc-chart" role="group" aria-label="准确率趋势图"></svg>
+        <div class="acc-strip-key"></div>
+        <p class="acc-detail" aria-live="polite"></p>
+      </div>
+      <aside class="acc-readout" aria-live="polite"></aside>
+    </div>
+    <p class="acc-note"></p>
+  </section>
   <footer class="data-note">
     <div class="data-note-copy">
       <p class="data-note-summary"><strong>真实历史数据</strong> NOAA 日最高 × Polymarket 当日零点前价格。口径差异见详情。</p>
@@ -348,6 +440,7 @@ html,body{height:100%;overflow:hidden}
 </div>
 <script>
 const climateSnapshot = {"metadata":{"collectedAt":"2026-09-20T12:46:57.584977Z","observationSource":"NOAA NCEI daily-summaries TMAX, standard units (°F)","observationStation":"USW00014732","observationUrl":"https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&stations=USW00014732&startDate=2026-08-17&endDate=2026-08-28&dataTypes=TMAX&units=standard&format=json","marketSource":"Polymarket official Python SDK 0.10.0, get_event + list_price_history(as_of)","snapshotPolicy":"00:00 America/New_York (EDT) on each market date, before daytime high and resolution","priceMeaning":"Historical Yes-token USDC price per share, not number of bettors","comparisonLimit":"NCEI daily TMAX is independent of the market's specified hourly resolution source; values can differ."},"days":[{"date":"2026-08-17","day":17,"actual":80,"eventId":"856825","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-17-2026","snapshotAt":"2026-08-17T04:00:00Z","outcomes":[{"label":"75°F or below","low":null,"high":75,"midpoint":75.0,"price":0.0075,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3620995","yesTokenId":"67513450390952225870524275276895964297919266924237666596558962234531943012775"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.0145,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3620996","yesTokenId":"77431781888158761403939290185274892736092642030955246823341658261114796123224"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.065,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3620997","yesTokenId":"61169278466765854145315577215912092359020474362693859599598411392200668103226"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.095,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3620998","yesTokenId":"3078777721802872389448458325198147782259277100002549205723926074766750287197"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.335,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3620999","yesTokenId":"56644477183446836907298051572373340848654294090192138913808657635189131676213"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.415,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3621000","yesTokenId":"62043640560764288652290984185778435335272767642776112602967044329858005027387"},{"label":"86-87°F","low":86,"high":87,"midpoint":86.5,"price":0.095,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3621001","yesTokenId":"86367788775012154342037008766730830812966563322805517379198939358352791744270"},{"label":"88-89°F","low":88,"high":89,"midpoint":88.5,"price":0.025,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3621002","yesTokenId":"83321089000851198778166177095306861427254402456539742749387014706157751003186"},{"label":"90-91°F","low":90,"high":91,"midpoint":90.5,"price":0.0015,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3621003","yesTokenId":"23782492127504601196946176087938841221278010767745051601016721882801012945927"},{"label":"92-93°F","low":92,"high":93,"midpoint":92.5,"price":0.0005,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3621004","yesTokenId":"12376474488087818266533494950007960443065491590530263256180458032836028004442"},{"label":"94°F or higher","low":94,"high":null,"midpoint":94.0,"price":0.0005,"quotedAt":"2026-08-17T03:55:00Z","marketId":"3621005","yesTokenId":"38193834694197603831525601213535961363380397104970233146897202963442140479459"}]},{"date":"2026-08-18","day":18,"actual":85,"eventId":"862649","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-18-2026","snapshotAt":"2026-08-18T04:00:00Z","outcomes":[{"label":"75°F or below","low":null,"high":75,"midpoint":75.0,"price":0.0005,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652762","yesTokenId":"69086838067399619222212138602436022414711389191258954262625233286462338437735"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.0135,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652763","yesTokenId":"105799346676606440973211914991845515968971365364838927758835470374656431055575"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.016,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652764","yesTokenId":"45062918554202167925137194042464703316816002063492407154758537636839011125281"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.055,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652765","yesTokenId":"43883699053726129283002506314154459562179599878335440895426114452155170742415"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.1,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652766","yesTokenId":"39708776128306209371416767748353581259979930047942825583255090862441736148460"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.46,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652767","yesTokenId":"44356818860320036049385616352011725253209766222206319304772592978812762982401"},{"label":"86-87°F","low":86,"high":87,"midpoint":86.5,"price":0.325,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652768","yesTokenId":"25908218892555919767704127889070083268857985614821625726644669800589616384137"},{"label":"88-89°F","low":88,"high":89,"midpoint":88.5,"price":0.065,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652769","yesTokenId":"61604065506471500438760894254165793725406432719747060015676729466810405967782"},{"label":"90-91°F","low":90,"high":91,"midpoint":90.5,"price":0.02,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652770","yesTokenId":"11464090269192724677963352803269205621793239635534742202598003777588694120589"},{"label":"92-93°F","low":92,"high":93,"midpoint":92.5,"price":0.0005,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652771","yesTokenId":"61368265226444569812625475706039650822098629563471785026075541083974787071451"},{"label":"94°F or higher","low":94,"high":null,"midpoint":94.0,"price":0.0005,"quotedAt":"2026-08-18T03:55:00Z","marketId":"3652772","yesTokenId":"4850200097215796146107290883942609655040835949937359649065350487592692580917"}]},{"date":"2026-08-19","day":19,"actual":88,"eventId":"868531","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-19-2026","snapshotAt":"2026-08-19T04:00:00Z","outcomes":[{"label":"75°F or below","low":null,"high":75,"midpoint":75.0,"price":0.0005,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687083","yesTokenId":"47996573376832207133676726408608340750502015732551761877548271815381231337441"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.0005,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687084","yesTokenId":"46146367859124824342810333411494849370367698355353660874823054840127738403790"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.0005,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687085","yesTokenId":"104813493473076670802032584738260967109880239128272142033182206948418782793822"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.0005,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687086","yesTokenId":"5357225065671449201817842959797808639010101223876257922619775130247611674491"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.007,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687087","yesTokenId":"90228122078817296701489053490559206202169191805555946487068745648726298006563"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.135,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687088","yesTokenId":"100057461449089321032394736614175292026836053505561932840676082285912014395877"},{"label":"86-87°F","low":86,"high":87,"midpoint":86.5,"price":0.645,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687089","yesTokenId":"53364857635086346713579619638263354081610115900787044678444257109136460547602"},{"label":"88-89°F","low":88,"high":89,"midpoint":88.5,"price":0.205,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687090","yesTokenId":"115110302583560861853381950346047304735472907289469893845139478790746141799898"},{"label":"90-91°F","low":90,"high":91,"midpoint":90.5,"price":0.035,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687091","yesTokenId":"57261297326694205855594195679578312233141023968289879690865639087851058068761"},{"label":"92-93°F","low":92,"high":93,"midpoint":92.5,"price":0.0065,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687092","yesTokenId":"44062475325623313276604889566968862832650673433392701021384112318879932520133"},{"label":"94°F or higher","low":94,"high":null,"midpoint":94.0,"price":0.0005,"quotedAt":"2026-08-19T03:55:00Z","marketId":"3687093","yesTokenId":"46465365722951200838776101951133786692461138003814398533371175716381472912257"}]},{"date":"2026-08-20","day":20,"actual":86,"eventId":"873526","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-20-2026","snapshotAt":"2026-08-20T04:00:00Z","outcomes":[{"label":"71°F or below","low":null,"high":71,"midpoint":71.0,"price":0.0005,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713263","yesTokenId":"87702203091717878162272335496820635389709392261876787539713266971280077744461"},{"label":"72-73°F","low":72,"high":73,"midpoint":72.5,"price":0.001,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713264","yesTokenId":"58816936372041709501347884443547418363978508835416050312698490955655215386338"},{"label":"74-75°F","low":74,"high":75,"midpoint":74.5,"price":0.006,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713265","yesTokenId":"34788323536009951472604941201046088279331106395848947655996762120219745430383"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.0145,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713266","yesTokenId":"1455392183142998620872514010892563765565138590756172969157623707973296434476"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.075,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713267","yesTokenId":"71491984171619089363673929231456661098803223350284854348987119332127760230067"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.285,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713268","yesTokenId":"66861451433730377841625490703625945654887234031999654262532167954163158694445"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.355,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713269","yesTokenId":"82076531402555818218509386791613400524908726824895945811506642017767489148386"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.215,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713270","yesTokenId":"7461950608036202638195221192453301488607354563724450784349422854810583154528"},{"label":"86-87°F","low":86,"high":87,"midpoint":86.5,"price":0.095,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713271","yesTokenId":"101500634217112058909567520974600379607770057291351396814406181077471937519779"},{"label":"88-89°F","low":88,"high":89,"midpoint":88.5,"price":0.007,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713272","yesTokenId":"39645064006000253986956863635079075027577731119466227183506513174219516311882"},{"label":"90°F or higher","low":90,"high":null,"midpoint":90.0,"price":0.0025,"quotedAt":"2026-08-20T03:55:00Z","marketId":"3713273","yesTokenId":"42109584074755597826950038338171115377933853801776154974534948279086176112839"}]},{"date":"2026-08-21","day":21,"actual":79,"eventId":"878453","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-21-2026","snapshotAt":"2026-08-21T04:00:00Z","outcomes":[{"label":"71°F or below","low":null,"high":71,"midpoint":71.0,"price":0.006,"quotedAt":"2026-08-21T03:55:00Z","marketId":"3734860","yesTokenId":"57509004811760585679779884766363802407814208901577421228791528838723580988625"},{"label":"72-73°F","low":72,"high":73,"midpoint":72.5,"price":0.025,"quotedAt":"2026-08-21T03:55:00Z","marketId":"3734861","yesTokenId":"34951419725171646739053920332432626776847369312270763991331190218959626573382"},{"label":"74-75°F","low":74,"high":75,"midpoint":74.5,"price":0.055,"quotedAt":"2026-08-21T03:55:00Z","marketId":"3734862","yesTokenId":"37569064792085299106622857597867816794699430570356971293786243661039162007251"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.155,"quotedAt":"2026-08-21T03:55:00Z","marketId":"3734863","yesTokenId":"69728840228768278726671847174669977890603473434215492785018941124211359898770"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.345,"quotedAt":"2026-08-21T03:55:00Z","marketId":"3734864","yesTokenId":"76972691575375776622763898899359353691366989820502489375370490919186567032112"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.33,"quotedAt":"2026-08-21T03:55:00Z","marketId":"3734865","yesTokenId":"22261184741509512235819032399653905922593488767289818372282625372023361117789"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.115,"quotedAt":"2026-08-21T03:55:00Z","marketId":"3734866","yesTokenId":"66731952720059477902724656455641836439854705020076119994812769982434484234094"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.023,"quotedAt":"2026-08-21T03:55:00Z","marketId":"3734867","yesTokenId":"50477385176176751990182824325362428318437173596878430050507031980941213556958"},{"label":"86-87°F","low":86,"high":87,"midpoint":86.5,"price":0.0015,"quotedAt":"2026-08-21T03:55:00Z","marketId":"3734868","yesTokenId":"6363830182453017465116590167964874808305251209169254274978086772283844111288"},{"label":"88-89°F","low":88,"high":89,"midpoint":88.5,"price":0.001,"quotedAt":"2026-08-21T03:55:00Z","marketId":"3734869","yesTokenId":"48327243403120900144386287458520948784251721599902162161041144218549387540504"},{"label":"90°F or higher","low":90,"high":null,"midpoint":90.0,"price":0.0005,"quotedAt":"2026-08-20T23:55:00Z","marketId":"3734870","yesTokenId":"69140857885582981911338373838756047524191271859900407007335347861632529715122"}]},{"date":"2026-08-22","day":22,"actual":77,"eventId":"883290","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-22-2026","snapshotAt":"2026-08-22T04:00:00Z","outcomes":[{"label":"67°F or below","low":null,"high":67,"midpoint":67.0,"price":0.0005,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754853","yesTokenId":"58968776578131649117981021315210454022108642050324490888229625074165333799511"},{"label":"68-69°F","low":68,"high":69,"midpoint":68.5,"price":0.0015,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754854","yesTokenId":"84961300753189087718453506028435441023757547801371175621706860012430249562729"},{"label":"70-71°F","low":70,"high":71,"midpoint":70.5,"price":0.0055,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754855","yesTokenId":"98445577116205349494970594520006863753161724146388949535409280517965398256379"},{"label":"72-73°F","low":72,"high":73,"midpoint":72.5,"price":0.05,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754856","yesTokenId":"114220303114617076912409921892040505656619131332387439130287480860707576745909"},{"label":"74-75°F","low":74,"high":75,"midpoint":74.5,"price":0.245,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754857","yesTokenId":"90081247998737697857319215891369197249427667829382780475732070333954048890030"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.435,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754858","yesTokenId":"51395141563796878258814105826509377342667166367686163704949255870609779201923"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.25,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754859","yesTokenId":"83791725590918781771172010388732187290846129006883104378432893557012227941485"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.0295,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754860","yesTokenId":"81398495580226134126340144488134510473693886599282393729088984636977861277750"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.0055,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754861","yesTokenId":"91237721705643528495040541693062976800336043664250418638214660931067071210350"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.0005,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754862","yesTokenId":"32360688754587735790786636279225748224694138602650279984483573554774374694175"},{"label":"86°F or higher","low":86,"high":null,"midpoint":86.0,"price":0.0005,"quotedAt":"2026-08-22T03:55:00Z","marketId":"3754863","yesTokenId":"90802258199338684283763723709032693428714550902326081212921238210093757590330"}]},{"date":"2026-08-23","day":23,"actual":84,"eventId":"888236","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-23-2026","snapshotAt":"2026-08-23T04:00:00Z","outcomes":[{"label":"73°F or below","low":null,"high":73,"midpoint":73.0,"price":0.0005,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772488","yesTokenId":"10501517808396503559679062613105280076493552725081490906123917029764933569068"},{"label":"74-75°F","low":74,"high":75,"midpoint":74.5,"price":0.0005,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772489","yesTokenId":"112593911214148767251997447162048098507025776011516821062683980433117487587204"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.0005,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772490","yesTokenId":"62829073598251019513915763061620999817960159076895788159212448057654320897962"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.055,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772491","yesTokenId":"99008833481370731920855473787773616780163563011492750734789352629703483318767"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.29,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772492","yesTokenId":"38471214694170037984973568648626321853290574777070945187168512580638224047691"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.52,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772493","yesTokenId":"38902169854652465630947854107317854773848010553570595835561074295476091954219"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.145,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772494","yesTokenId":"17038710002793063990392478273767776431217094462603108901566464212730505441264"},{"label":"86-87°F","low":86,"high":87,"midpoint":86.5,"price":0.015,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772495","yesTokenId":"103608175012448499910775714089032094918845576128750358412668580846019845532387"},{"label":"88-89°F","low":88,"high":89,"midpoint":88.5,"price":0.01,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772496","yesTokenId":"114838494395643787940169365281062314792066024869237367327695044887469706733593"},{"label":"90-91°F","low":90,"high":91,"midpoint":90.5,"price":0.0005,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772497","yesTokenId":"56081030867967291153857547461153886031899854227951226713971332403073818045533"},{"label":"92°F or higher","low":92,"high":null,"midpoint":92.0,"price":0.0005,"quotedAt":"2026-08-23T03:55:00Z","marketId":"3772498","yesTokenId":"96059710701050699345409109008774733443452819159964144536091672091931640669656"}]},{"date":"2026-08-24","day":24,"actual":82,"eventId":"892623","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-24-2026","snapshotAt":"2026-08-24T04:00:00Z","outcomes":[{"label":"67°F or below","low":null,"high":67,"midpoint":67.0,"price":0.0005,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790868","yesTokenId":"72729876794135747639443285240013162704395907721964766605955132705609778679658"},{"label":"68-69°F","low":68,"high":69,"midpoint":68.5,"price":0.0005,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790869","yesTokenId":"41505517671433943974888589600782754556680403527242676738152348377859770464187"},{"label":"70-71°F","low":70,"high":71,"midpoint":70.5,"price":0.0005,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790870","yesTokenId":"33368428570654482349757804489561036997228924758308660788152105124699598900319"},{"label":"72-73°F","low":72,"high":73,"midpoint":72.5,"price":0.0005,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790871","yesTokenId":"36852245070851497358303607184312158700598641275097186533724920427870472932983"},{"label":"74-75°F","low":74,"high":75,"midpoint":74.5,"price":0.003,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790872","yesTokenId":"3721402518198055261833618063452056351310992607368914703890007277003076065445"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.025,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790873","yesTokenId":"44642062591155974496468632580612528472995559213753820462092026573255729070026"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.275,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790874","yesTokenId":"29021338058883778837184563856390400887275370826838581154455937498117062593073"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.525,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790875","yesTokenId":"67913620292064703140021904281032033758453605245871508343496490926812792485268"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.175,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790876","yesTokenId":"89417399206391283526949500888917902214370746982952681379663940046503627494939"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.007,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790877","yesTokenId":"88593643235132692906918820026537725724050985571424356773360699819915587547583"},{"label":"86°F or higher","low":86,"high":null,"midpoint":86.0,"price":0.0055,"quotedAt":"2026-08-24T03:55:00Z","marketId":"3790878","yesTokenId":"97241578986346850006750647978158480309244838190483355940236963613269089595104"}]},{"date":"2026-08-25","day":25,"actual":80,"eventId":"898983","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-25-2026","snapshotAt":"2026-08-25T04:00:00Z","outcomes":[{"label":"67°F or below","low":null,"high":67,"midpoint":67.0,"price":0.0005,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828399","yesTokenId":"65721425900495699824978589455686943142980424335825277895703451093909532068008"},{"label":"68-69°F","low":68,"high":69,"midpoint":68.5,"price":0.0005,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828400","yesTokenId":"75471457963852511087211088639686397313293265678696171872450291667967471764446"},{"label":"70-71°F","low":70,"high":71,"midpoint":70.5,"price":0.0005,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828401","yesTokenId":"65404363303270062682403930753609969083856151435422510305008227522176440127231"},{"label":"72-73°F","low":72,"high":73,"midpoint":72.5,"price":0.0005,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828402","yesTokenId":"25569753203961206634211430406473042785806130169675270379488670928377580049794"},{"label":"74-75°F","low":74,"high":75,"midpoint":74.5,"price":0.0045,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828403","yesTokenId":"51858780346406095907798966398478046673867895536325378114520686302091106500985"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.035,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828404","yesTokenId":"31672654277783887513282021124329213212716244794442019982751990123949380006307"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.365,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828405","yesTokenId":"82123635010505228108191091891552082435272953877220392230706965455158319225399"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.545,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828406","yesTokenId":"100234576916809360334700588852138120118297964163075701745020459648436065253990"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.06,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828407","yesTokenId":"4448596821225579137036263260517748473415308789065203159536100359745945966430"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.012,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828408","yesTokenId":"99499167723874197570953641632562727761722886113397826191251921843858671205541"},{"label":"86°F or higher","low":86,"high":null,"midpoint":86.0,"price":0.0005,"quotedAt":"2026-08-25T03:55:00Z","marketId":"3828409","yesTokenId":"57107867386112539140338422146896328252549260693641283698892261871927617084545"}]},{"date":"2026-08-26","day":26,"actual":82,"eventId":"907392","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-26-2026","snapshotAt":"2026-08-26T04:00:00Z","outcomes":[{"label":"71°F or below","low":null,"high":71,"midpoint":71.0,"price":0.0005,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864327","yesTokenId":"74620927000148239148087791831461354443799260236137090539966410415655747138376"},{"label":"72-73°F","low":72,"high":73,"midpoint":72.5,"price":0.0005,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864328","yesTokenId":"92056266616363607892300363886740200597731064290469002772612328749931016493228"},{"label":"74-75°F","low":74,"high":75,"midpoint":74.5,"price":0.0005,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864329","yesTokenId":"22633760882068620155791803681517047968452425537672610695838138909435985087624"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.015,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864330","yesTokenId":"13656866633111457003812444524763061469037502328054264383581215461346736486081"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.03,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864331","yesTokenId":"74712067424475085118223071856082981478377510563702588923459205699302197220077"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.275,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864332","yesTokenId":"4456559128764846299702465627866386234349197561680965526501701992707868958146"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.565,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864333","yesTokenId":"95265856190894180540568303447814618276680985494089850355763509766674591187646"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.135,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864334","yesTokenId":"109864653098085144804154678760963829606087956047684185215543837880007866401984"},{"label":"86-87°F","low":86,"high":87,"midpoint":86.5,"price":0.025,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864335","yesTokenId":"106493537255923177566678014096930107661984221367626783616409713716628250906178"},{"label":"88-89°F","low":88,"high":89,"midpoint":88.5,"price":0.003,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864336","yesTokenId":"24661053324573071820054659322651189912809895879612840718819824448650072391139"},{"label":"90°F or higher","low":90,"high":null,"midpoint":90.0,"price":0.0005,"quotedAt":"2026-08-26T03:55:00Z","marketId":"3864337","yesTokenId":"71158522207882725722542741011873456625377394169542441593913372691922527375350"}]},{"date":"2026-08-27","day":27,"actual":79,"eventId":"913477","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-27-2026","snapshotAt":"2026-08-27T04:00:00Z","outcomes":[{"label":"69°F or below","low":null,"high":69,"midpoint":69.0,"price":0.001,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894295","yesTokenId":"37500004474273745904238965249184855572138079456501217633148683218573241929946"},{"label":"70-71°F","low":70,"high":71,"midpoint":70.5,"price":0.0005,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894296","yesTokenId":"27042257110529062555815287964015727256466613484782457912193593495723697662136"},{"label":"72-73°F","low":72,"high":73,"midpoint":72.5,"price":0.003,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894297","yesTokenId":"43014819108501861952422204361250314012059566943443685014394720480003482802394"},{"label":"74-75°F","low":74,"high":75,"midpoint":74.5,"price":0.0085,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894298","yesTokenId":"63372744697686997920818689331569205905879278188770276755090694401555707255436"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.045,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894299","yesTokenId":"64040152051378631013559602802224193425679588322421541485115184039816341997340"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.185,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894300","yesTokenId":"47648364050956627842160658152181602180075019041384690776316285155095336762655"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.435,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894301","yesTokenId":"14950716620151539138923239256142391562314487464870853349449785612021484742154"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.28,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894302","yesTokenId":"7630758938966028663631957203935639930858943259301988714333926696223420901424"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.055,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894303","yesTokenId":"38897486593707977226029704948948159656880608311844468345045145161987983212816"},{"label":"86-87°F","low":86,"high":87,"midpoint":86.5,"price":0.015,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894304","yesTokenId":"14844041773053710159689787719063132103596677872751530074658007702613995260137"},{"label":"88°F or higher","low":88,"high":null,"midpoint":88.0,"price":0.004,"quotedAt":"2026-08-27T03:55:00Z","marketId":"3894305","yesTokenId":"70561764431561942129014739598608574358902259255095507012760849797731959869713"}]},{"date":"2026-08-28","day":28,"actual":85,"eventId":"918586","marketUrl":"https://polymarket.com/event/highest-temperature-in-nyc-on-august-28-2026","snapshotAt":"2026-08-28T04:00:00Z","outcomes":[{"label":"71°F or below","low":null,"high":71,"midpoint":71.0,"price":0.0005,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922338","yesTokenId":"61818687710749999150014960295854656455917660816415718515663784493400359510278"},{"label":"72-73°F","low":72,"high":73,"midpoint":72.5,"price":0.0005,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922339","yesTokenId":"70822250727306213772583433554454337740701393561090056290049157138023234475574"},{"label":"74-75°F","low":74,"high":75,"midpoint":74.5,"price":0.005,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922340","yesTokenId":"24111881394696680649482700390634270121648468136286830316881730867076392152538"},{"label":"76-77°F","low":76,"high":77,"midpoint":76.5,"price":0.0075,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922341","yesTokenId":"74795201886895548977355671140090384456764675176218579490433832694353340069817"},{"label":"78-79°F","low":78,"high":79,"midpoint":78.5,"price":0.045,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922342","yesTokenId":"7989526182086206260734067206531034600258423984653915236786444908513760605436"},{"label":"80-81°F","low":80,"high":81,"midpoint":80.5,"price":0.17,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922343","yesTokenId":"108561743283665397956250741843665935603464096474455454123415332052161796946928"},{"label":"82-83°F","low":82,"high":83,"midpoint":82.5,"price":0.45,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922344","yesTokenId":"11743352457571798091151618497605961019142124761101850168294745105847679511977"},{"label":"84-85°F","low":84,"high":85,"midpoint":84.5,"price":0.265,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922345","yesTokenId":"33011130337978901280904465982983318257730003700812511081658899911073217098314"},{"label":"86-87°F","low":86,"high":87,"midpoint":86.5,"price":0.045,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922346","yesTokenId":"78049370727465560914132880173734154336317771895862209822151774560754584268045"},{"label":"88-89°F","low":88,"high":89,"midpoint":88.5,"price":0.015,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922347","yesTokenId":"89338190077300526927194309925844773815425746049462991485357070935543908860533"},{"label":"90°F or higher","low":90,"high":null,"midpoint":90.0,"price":0.004,"quotedAt":"2026-08-28T03:55:00Z","marketId":"3922348","yesTokenId":"67525640982414683982822785641851801888791420612054189460489565645060044163852"}]}]};
+
 
 </script>
 <script>
@@ -400,6 +493,7 @@ let language = (() => { try { return localStorage.getItem("temperature-language"
 const localizedCopy = {
   zh: {
     documentTitle: "温度对照 | 市场预测与实际气温",
+    chapterOrigin: "<span>01</span>项目缘起 <small>· 锦溪</small>", chapterSignals: "<span>02</span>预测与结果 <small>· 纽约</small>", chapterNomadcast: "<span>03</span>NomadCast <small>· 墨西哥城</small>", chapterNext: "下一章 · 03 NomadCast <span aria-hidden=\"true\">→</span>",
     navResearch: "<span>01</span> 研究原理", navSimple: "<span>02</span> 简明版", navProfessional: "<span>03</span> 专业版",
     brand: "<span class=\"brand-mark\" aria-hidden=\"true\"></span>温度对照",
     researchNote: "研究笔记 · 企业收益市场", reliabilityTitle: "为什么预测市场价格可能有信息价值？",
@@ -436,6 +530,7 @@ const localizedCopy = {
   },
   en: {
     documentTitle: "Temperature Compare | Market Forecasts vs. Observed Weather",
+    chapterOrigin: "<span>01</span>Origin <small>· Jinxi</small>", chapterSignals: "<span>02</span>Signals vs outcomes <small>· New York</small>", chapterNomadcast: "<span>03</span>NomadCast <small>· Mexico City</small>", chapterNext: "Next · Chapter 03: NomadCast <span aria-hidden=\"true\">→</span>",
     navResearch: "<span>01</span> Research", navSimple: "<span>02</span> Simple", navProfessional: "<span>03</span> Pro",
     brand: "<span class=\"brand-mark\" aria-hidden=\"true\"></span>Temperature Compare",
     researchNote: "Research note · Earnings markets", reliabilityTitle: "Why Can Prediction Markets Be Informative?",
@@ -473,6 +568,7 @@ const localizedCopy = {
 };
 
 const staticBindings = [
+  [".chapter-origin", "chapterOrigin"], [".chapter-signals", "chapterSignals"], [".chapter-nomadcast", "chapterNomadcast"], [".cb-next", "chapterNext"],
   [".page-dot[data-page-target='reliability']", "navResearch"], [".page-dot[data-page-target='simple']", "navSimple"], [".page-dot[data-page-target='professional']", "navProfessional"],
   [".brand", "brand"], [".research-topbar>span", "researchNote"], ["#reliability-title", "reliabilityTitle"], [".reliability-copy>p", "reliabilityLead"],
   [".information-flow li:nth-child(1) span", "flowInfo"], [".information-flow li:nth-child(2) span", "flowTraders"], [".information-flow li:nth-child(3) span", "flowTrades"], [".information-flow li:nth-child(4) span", "flowPrice"], [".information-flow li:nth-child(5) span", "flowProbability"], [".information-flow>p", "flowNote"],
@@ -514,6 +610,7 @@ function applyLanguage(nextLanguage) {
   staticBindings.forEach(([selector, key]) => document.querySelectorAll(selector).forEach((node) => { node.innerHTML = localizedCopy[language][key]; }));
   languageButtons.forEach((button) => { const active = button.dataset.language === language; button.classList.toggle("active", active); button.setAttribute("aria-pressed", String(active)); });
   document.querySelector(".page-switcher").setAttribute("aria-label", language === "en" ? "Pages and language" : "页面与语言");
+  document.querySelector(".chapterbar").setAttribute("aria-label", language === "en" ? "Website chapters" : "网站章节");
   locationSelects.forEach((select) => select.setAttribute("aria-label", language === "en" ? "Choose location" : "选择地点"));
   document.querySelector("#prev-point").setAttribute("aria-label", language === "en" ? "Previous day" : "选择前一天");
   document.querySelector("#next-point").setAttribute("aria-label", language === "en" ? "Next day" : "选择后一天");
@@ -1066,6 +1163,282 @@ async function refreshObservedHighs() {
   }
 }
 refreshObservedHighs();
+
+
+</script>
+<script>
+// Accuracy trend: how often the top-priced range came true, measured cumulatively or over a rolling window.
+(function () {
+  const root = document.querySelector("#accuracy-trend");
+  if (!root || typeof climateSnapshot === "undefined") return;
+
+  const NS = "http://www.w3.org/2000/svg";
+  const windows = ["all", "7", "14"];
+  const copy = {
+    zh: {
+      eyebrow: "ACCURACY TREND",
+      title: "准确率趋势",
+      lead: "像股票的 7 / 14 日均线：每结算一天，截至当天的命中率就会更新一次。",
+      tabs: { all: "累计", 7: "7 日线", 14: "14 日线" },
+      tabsLabel: "选择统计窗口",
+      legendHit: "命中率（NOAA 实测）",
+      legendConf: "市场自身信心（归一化价格）",
+      warmup: "预热期",
+      notEnough: (w, n) => `${w} 日线至少需要 ${w} 天数据，目前只有 ${n} 天；数据延长后会自动画出。`,
+      hitRate: "命中率",
+      hitOf: (h, n) => `${n} 天中 ${h} 天命中`,
+      conf: "市场信心",
+      confNote: "最高报价区间的平均归一化价格",
+      windowAll: (n) => `累计 · 全部 ${n} 天`,
+      windowRolling: (w) => `最近 ${w} 天`,
+      verdictLabel: "判断",
+      calibrated: "大致校准：最看好的区间成真的频率与价格所示相当。",
+      cautious: "市场看起来偏保守：最看好的区间成真次数多于价格所示。",
+      overconfident: "市场看起来过于自信：最看好的区间成真次数少于价格所示。",
+      noVerdict: "数据不足，暂无判断。",
+      diff: (d) => `差 ${d > 0 ? "+" : ""}${d} 个百分点`,
+      stripLabel: "逐日结果",
+      stripKey: "实心 = 命中 · 空心 = 未命中",
+      hit: "命中",
+      miss: "未命中",
+      off: (d) => `偏差 ${d}°F`,
+      date: (day) => `8 月 ${day} 日`,
+      dayDetail: (d) => `${d.dateText} · 最高报价 ${d.label}（Yes ${d.priceText}）· NOAA ${d.actual}°F · ${d.hit ? "命中" : `未命中，偏差 ${d.off}°F`}`,
+      windowDetail: (h, c) => `窗口命中率 ${h} · 市场信心 ${c}`,
+      windowNone: "此窗口尚无数据",
+      hover: "悬停或点选某一天查看详情。",
+      note: "命中以 NOAA 日最高 TMAX 判定，可能与市场官方结算来源不同（例如 8 月 24 日市场结算区间为 80–81°F，而 NOAA 显示 82°F）；目前只有 12 天，结果仅供参考。",
+      chartLabel: "准确率趋势图：命中率与市场信心",
+      yCaption: "%"
+    },
+    en: {
+      eyebrow: "ACCURACY TREND",
+      title: "Accuracy trend",
+      lead: "Like 7- and 14-day moving averages on a stock chart: every settled day updates the accuracy measured up to that day.",
+      tabs: { all: "Cumulative", 7: "7-day", 14: "14-day" },
+      tabsLabel: "Choose window",
+      legendHit: "Hit rate (NOAA observed)",
+      legendConf: "Market confidence (normalized price)",
+      warmup: "Warm-up",
+      notEnough: (w, n) => `The ${w}-day line needs at least ${w} days of data; there are only ${n} so far. It will appear automatically once the data grows.`,
+      hitRate: "Hit rate",
+      hitOf: (h, n) => `${h} of ${n} days`,
+      conf: "Market confidence",
+      confNote: "mean normalized price of the top range",
+      windowAll: (n) => `Cumulative · all ${n} days`,
+      windowRolling: (w) => `Last ${w} days`,
+      verdictLabel: "Verdict",
+      calibrated: "Roughly calibrated: the favourite came true about as often as its price said.",
+      cautious: "Market looks too cautious: the favourite came true more often than its price said.",
+      overconfident: "Market looks overconfident: the favourite came true less often than its price said.",
+      noVerdict: "Not enough data for a verdict yet.",
+      diff: (d) => `${d > 0 ? "+" : ""}${d} pts`,
+      stripLabel: "Daily results",
+      stripKey: "Filled = hit · hollow = miss",
+      hit: "hit",
+      miss: "miss",
+      off: (d) => `${d}°F off`,
+      date: (day) => `Aug ${day}`,
+      dayDetail: (d) => `${d.dateText} · top range ${d.label} (Yes ${d.priceText}) · NOAA ${d.actual}°F · ${d.hit ? "hit" : `miss, ${d.off}°F off`}`,
+      windowDetail: (h, c) => `Window hit rate ${h} · market confidence ${c}`,
+      windowNone: "No window value yet",
+      hover: "Hover or tap a day for details.",
+      note: "Hits are judged against NOAA daily TMAX, which can differ from the market’s official resolution source (e.g. Aug 24 resolved 80–81°F while NOAA shows 82°F). Only 12 days so far — indicative only.",
+      chartLabel: "Accuracy trend chart: hit rate and market confidence",
+      yCaption: "%"
+    }
+  };
+
+  const state = { window: "all", focus: null };
+  const mobileQuery = window.matchMedia("(max-width: 640px)");
+  const lang = () => (document.documentElement.lang || "").toLowerCase().startsWith("en") ? "en" : "zh";
+  const pctText = (value) => value === null ? "—" : `${Math.round(value * 100)}%`;
+  // app.js keeps its own `series` copy and updates `actual` after an online NOAA refresh.
+  const sourceDays = () => typeof series !== "undefined" && Array.isArray(series) ? series : climateSnapshot.days;
+  const inside = (outcome, value) => (outcome.low === null || value >= outcome.low) && (outcome.high === null || value <= outcome.high);
+
+  function computeDays() {
+    return sourceDays().map((item) => {
+      const top = item.outcomes.reduce((leader, outcome) => outcome.price > leader.price ? outcome : leader);
+      const total = item.outcomes.reduce((sum, outcome) => sum + outcome.price, 0);
+      const hit = inside(top, item.actual);
+      const off = hit ? 0 : top.low !== null && item.actual < top.low ? top.low - item.actual : item.actual - top.high;
+      return { day: item.day, actual: item.actual, label: top.label, price: top.price, conf: total > 0 ? top.price / total : 0, hit, off };
+    });
+  }
+
+  function computeWindow(days, key) {
+    const size = key === "all" ? null : Number(key);
+    return days.map((_, index) => {
+      if (size !== null && index < size - 1) return null;
+      const slice = days.slice(size === null ? 0 : index - size + 1, index + 1);
+      const hits = slice.filter((d) => d.hit).length;
+      return { hits, count: slice.length, hitRate: hits / slice.length, conf: slice.reduce((sum, d) => sum + d.conf, 0) / slice.length };
+    });
+  }
+
+  function el(name, attrs, parent, text) {
+    const node = document.createElementNS(NS, name);
+    Object.entries(attrs || {}).forEach(([key, value]) => node.setAttribute(key, value));
+    if (text !== undefined) node.textContent = text;
+    if (parent) parent.append(node);
+    return node;
+  }
+
+  function verdictFor(point, t) {
+    if (!point) return { text: t.noVerdict, tone: "none", diff: null };
+    const diff = Math.round((point.hitRate - point.conf) * 100);
+    const raw = (point.hitRate - point.conf) * 100;
+    if (Math.abs(raw) <= 5) return { text: t.calibrated, tone: "calibrated", diff };
+    return raw > 0 ? { text: t.cautious, tone: "cautious", diff } : { text: t.overconfident, tone: "overconfident", diff };
+  }
+
+  function renderStatic(t) {
+    root.setAttribute("aria-label", t.title);
+    root.querySelector(".acc-eyebrow").textContent = t.eyebrow;
+    root.querySelector("#acc-title").textContent = t.title;
+    root.querySelector(".acc-lead").textContent = t.lead;
+    root.querySelector(".acc-legend").innerHTML =
+      `<span><i class="acc-key acc-key-hit" aria-hidden="true"></i>${t.legendHit}</span><span><i class="acc-key acc-key-conf" aria-hidden="true"></i>${t.legendConf}</span>`;
+    const tabs = root.querySelector(".acc-tabs");
+    tabs.setAttribute("aria-label", t.tabsLabel);
+    tabs.querySelectorAll("[data-acc-window]").forEach((button) => {
+      const active = button.dataset.accWindow === state.window;
+      button.textContent = t.tabs[button.dataset.accWindow];
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-pressed", String(active));
+    });
+    root.querySelector(".acc-note").textContent = t.note;
+  }
+
+  function renderChart(t, days, points) {
+    const svg = root.querySelector("#acc-chart");
+    const mobile = mobileQuery.matches;
+    const width = mobile ? 420 : 760;
+    const height = mobile ? 300 : 290;
+    const left = mobile ? 36 : 46, right = width - (mobile ? 10 : 16), top = 18, bottom = 190;
+    const stripY = bottom + 30, stripSize = mobile ? 13 : 15;
+    const step = (right - left) / days.length;
+    const xAt = (index) => left + step * (index + .5);
+    const yAt = (value) => bottom - value * (bottom - top);
+    svg.replaceChildren();
+    svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+    svg.setAttribute("aria-label", t.chartLabel);
+
+    [0, .25, .5, .75, 1].forEach((tick) => {
+      el("line", { x1: left, x2: right, y1: yAt(tick), y2: yAt(tick), class: tick === 0 ? "acc-axis" : "grid-line" }, svg);
+      el("text", { x: left - 8, y: yAt(tick) + 4, "text-anchor": "end", class: "axis-label" }, svg, `${tick * 100}%`);
+    });
+
+    const size = state.window === "all" ? null : Number(state.window);
+    if (size !== null) {
+      const warmEnd = Math.min(size - 1, days.length);
+      if (warmEnd > 0) {
+        el("rect", { x: left, y: top, width: step * warmEnd, height: bottom - top, class: "acc-warmup" }, svg);
+        if (warmEnd < days.length) el("text", { x: left + step * warmEnd / 2, y: top + 16, "text-anchor": "middle", class: "axis-caption acc-warmup-label" }, svg, t.warmup);
+      }
+    }
+
+    const valid = points.map((point, index) => point ? index : null).filter((index) => index !== null);
+    if (!valid.length) {
+      const message = el("text", { x: (left + right) / 2, y: (top + bottom) / 2, "text-anchor": "middle", class: "acc-empty" }, svg);
+      const lines = wrapText(t.notEnough(size, days.length), mobile ? 24 : 44, lang());
+      lines.forEach((line, i) => el("tspan", { x: (left + right) / 2, dy: i === 0 ? `${-(lines.length - 1) * .65}em` : "1.3em" }, message, line));
+    } else {
+      const path = (key) => valid.map((index, i) => `${i ? "L" : "M"}${xAt(index).toFixed(1)},${yAt(points[index][key]).toFixed(1)}`).join(" ");
+      el("path", { d: path("conf"), class: "acc-line acc-line-conf" }, svg);
+      el("path", { d: path("hitRate"), class: "acc-line acc-line-hit" }, svg);
+      valid.forEach((index) => {
+        el("circle", { cx: xAt(index), cy: yAt(points[index].conf), r: 4, class: "acc-dot acc-dot-conf" }, svg);
+        el("circle", { cx: xAt(index), cy: yAt(points[index].hitRate), r: 4.5, class: "acc-dot acc-dot-hit" }, svg);
+      });
+      const last = valid[valid.length - 1];
+      el("text", { x: xAt(last) - 8, y: yAt(points[last].hitRate) + (points[last].hitRate >= points[last].conf ? -10 : 18), "text-anchor": "end", class: "acc-end acc-end-hit" }, svg, pctText(points[last].hitRate));
+      el("text", { x: xAt(last) - 8, y: yAt(points[last].conf) + (points[last].hitRate >= points[last].conf ? 18 : -10), "text-anchor": "end", class: "acc-end acc-end-conf" }, svg, pctText(points[last].conf));
+    }
+
+    days.forEach((d, index) => {
+      const x = xAt(index);
+      const point = points[index];
+      const group = el("g", { class: `acc-day${state.focus === index ? " focused" : ""}`, tabindex: "0", role: "img" }, svg);
+      const dateText = t.date(d.day);
+      const detail = t.dayDetail({ ...d, dateText, priceText: `${(d.price * 100).toFixed(1)}%` });
+      const windowText = point ? t.windowDetail(pctText(point.hitRate), pctText(point.conf)) : t.windowNone;
+      group.setAttribute("aria-label", `${detail}. ${windowText}`);
+      el("title", {}, group, `${detail}\n${windowText}`);
+      el("rect", { x: x - step / 2, y: top, width: step, height: stripY + stripSize - top + 4, class: "acc-hover" }, group);
+      el("line", { x1: x, x2: x, y1: top, y2: bottom, class: "acc-focus-line" }, group);
+      el("rect", { x: x - stripSize / 2, y: stripY, width: stripSize, height: stripSize, rx: 2.5, class: d.hit ? "acc-cell hit" : "acc-cell miss" }, group);
+      if (!mobile || index % 2 === 0 || index === days.length - 1) {
+        el("text", { x, y: stripY + stripSize + 20, "text-anchor": "middle", class: "axis-label" }, group, d.day);
+      }
+      const activate = () => { state.focus = index; updateDetail(t, days, points); svg.querySelectorAll(".acc-day").forEach((node, i) => node.classList.toggle("focused", i === index)); };
+      group.addEventListener("pointerenter", activate);
+      group.addEventListener("focus", activate);
+      group.addEventListener("click", activate);
+    });
+    el("text", { x: right, y: height - 6, "text-anchor": "end", class: "axis-caption" }, svg, lang() === "en" ? "Aug 2026" : "2026 年 8 月");
+    const empty = svg.querySelector(".acc-empty");
+    if (empty) svg.append(empty);
+  }
+
+  function wrapText(text, max, language) {
+    if (language !== "en") {
+      const parts = text.split(/(?<=[，；。])/);
+      return parts.reduce((lines, part) => {
+        if (lines.length && (lines[lines.length - 1] + part).length <= max) lines[lines.length - 1] += part; else lines.push(part);
+        return lines;
+      }, []);
+    }
+    return text.split(" ").reduce((lines, word) => {
+      if (lines.length && (lines[lines.length - 1] + " " + word).length <= max) lines[lines.length - 1] += " " + word; else lines.push(word);
+      return lines;
+    }, []);
+  }
+
+  function updateDetail(t, days, points) {
+    const node = root.querySelector(".acc-detail");
+    if (state.focus === null || !days[state.focus]) { node.textContent = t.hover; node.classList.remove("active"); return; }
+    const d = days[state.focus];
+    const point = points[state.focus];
+    const detail = t.dayDetail({ ...d, dateText: t.date(d.day), priceText: `${(d.price * 100).toFixed(1)}%` });
+    node.innerHTML = `<i class="acc-mini ${d.hit ? "hit" : "miss"}" aria-hidden="true"></i><span>${detail}</span><small>${point ? t.windowDetail(pctText(point.hitRate), pctText(point.conf)) : t.windowNone}</small>`;
+    node.classList.add("active");
+  }
+
+  function renderReadout(t, days, points) {
+    const last = points[points.length - 1] || null;
+    const verdict = verdictFor(last, t);
+    const scope = state.window === "all" ? t.windowAll(days.length) : t.windowRolling(state.window);
+    root.querySelector(".acc-readout").innerHTML = `
+      <p class="acc-scope">${scope}</p>
+      <div class="acc-metric acc-metric-hit"><span>${t.hitRate}</span><strong>${pctText(last ? last.hitRate : null)}</strong><small>${last ? t.hitOf(last.hits, last.count) : "—"}</small></div>
+      <div class="acc-metric acc-metric-conf"><span>${t.conf}</span><strong>${pctText(last ? last.conf : null)}</strong><small>${t.confNote}</small></div>
+      <div class="acc-verdict acc-${verdict.tone}"><span>${t.verdictLabel}${verdict.diff === null ? "" : ` · ${t.diff(verdict.diff)}`}</span><p>${verdict.text}</p></div>`;
+    root.querySelector(".acc-strip-key").innerHTML = `<b>${t.stripLabel}</b> <span><i class="acc-mini hit" aria-hidden="true"></i><i class="acc-mini miss" aria-hidden="true"></i>${t.stripKey}</span>`;
+  }
+
+  function render() {
+    const t = copy[lang()];
+    const days = computeDays();
+    const points = computeWindow(days, state.window);
+    renderStatic(t);
+    renderChart(t, days, points);
+    renderReadout(t, days, points);
+    updateDetail(t, days, points);
+  }
+
+  root.querySelectorAll("[data-acc-window]").forEach((button) => button.addEventListener("click", () => {
+    if (!windows.includes(button.dataset.accWindow)) return;
+    state.window = button.dataset.accWindow;
+    render();
+  }));
+  new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+  const status = document.querySelector("#observation-status");
+  if (status) new MutationObserver(render).observe(status, { childList: true, characterData: true, subtree: true });
+  if (mobileQuery.addEventListener) mobileQuery.addEventListener("change", render); else mobileQuery.addListener(render);
+  render();
+})();
 
 </script>
 </body>

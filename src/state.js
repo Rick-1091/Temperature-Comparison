@@ -5,7 +5,6 @@ const DEFAULTS = {
   weather: 'all',
   group: 'all',
   activity: null,
-  tlMode: 'mode',
   showAllSimilar: false,
   panelDate: null,
   hover: null, // { type: 'weather'|'activity'|'date', id }

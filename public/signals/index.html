@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#f3f4f0">
   <title>温度对照 | 市场预测与实际气温</title>
   <link rel="stylesheet" href="src/styles.css">
+  <link rel="stylesheet" href="src/accuracy.css">
   <link rel="stylesheet" href="chapters.css">
 </head>
 <body>
@@ -162,6 +163,26 @@
     <button id="open-prediction" class="reading-metric market-reading" type="button" aria-label="查看并选择当日市场预测值"><span>市场预测值 <small>历史价格</small><b>查看全部预测 ↗</b></span><strong id="market-value">84-85°F</strong></button>
     <div class="reading-diff"><span>与 NOAA 日最高对照</span><strong id="difference-value">—</strong><p id="difference-explain">市场结算来源与 NOAA 日最高可能不同。</p></div>
   </section>
+  <section class="acc-block" id="accuracy-trend" aria-label="准确率趋势">
+    <div class="acc-head">
+      <div><span class="acc-eyebrow">ACCURACY TREND</span><h2 id="acc-title">准确率趋势</h2><p class="acc-lead"></p></div>
+      <div class="acc-legend"></div>
+    </div>
+    <div class="acc-tabs" role="group" aria-label="选择统计窗口">
+      <button class="view-tab active" type="button" data-acc-window="all" aria-pressed="true">累计</button>
+      <button class="view-tab" type="button" data-acc-window="7" aria-pressed="false">7 日线</button>
+      <button class="view-tab" type="button" data-acc-window="14" aria-pressed="false">14 日线</button>
+    </div>
+    <div class="acc-body">
+      <div class="acc-chart-col">
+        <svg id="acc-chart" role="group" aria-label="准确率趋势图"></svg>
+        <div class="acc-strip-key"></div>
+        <p class="acc-detail" aria-live="polite"></p>
+      </div>
+      <aside class="acc-readout" aria-live="polite"></aside>
+    </div>
+    <p class="acc-note"></p>
+  </section>
   <footer class="data-note">
     <div class="data-note-copy">
       <p class="data-note-summary"><strong>真实历史数据</strong> NOAA 日最高 × Polymarket 当日零点前价格。口径差异见详情。</p>
@@ -182,6 +203,7 @@
 </div>
 <script src="src/data.js"></script>
 <script src="src/app.js"></script>
+<script src="src/accuracy.js"></script>
 </body>
 </html>
 
