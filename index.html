@@ -8,11 +8,72 @@
   <link rel="stylesheet" href="src/styles.css">
 </head>
 <body>
-<nav class="page-switcher" aria-label="页面视图">
-  <button class="page-dot active" type="button" data-page-target="simple" aria-pressed="true"><span>01</span> 简明版</button>
-  <button class="page-dot" type="button" data-page-target="professional" aria-pressed="false"><span>02</span> 专业版</button>
+<nav class="page-switcher" aria-label="页面与语言">
+  <button class="page-dot" type="button" data-page-target="reliability" aria-pressed="false"><span>01</span> 研究原理</button>
+  <button class="page-dot active" type="button" data-page-target="simple" aria-pressed="true"><span>02</span> 简明版</button>
+  <button class="page-dot" type="button" data-page-target="professional" aria-pressed="false"><span>03</span> 专业版</button>
+  <span class="language-divider" aria-hidden="true"></span>
+  <button class="language-button active" type="button" data-language="zh" aria-pressed="true">中</button>
+  <button class="language-button" type="button" data-language="en" aria-pressed="false">EN</button>
 </nav>
 <div class="page-deck" id="page-deck">
+<section class="page-panel reliability-page" id="reliability-page" data-page="reliability" aria-labelledby="reliability-title">
+  <main class="reliability-shell">
+    <header class="research-topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true"></span>温度对照</div>
+      <span>Research note · Earnings markets</span>
+    </header>
+    <section class="reliability-intro">
+      <div class="reliability-copy">
+        <h1 id="reliability-title">Why Can Prediction Markets Be Informative?</h1>
+        <p>Prediction-market prices aggregate the beliefs of financially incentivized participants and update as new information arrives.</p>
+      </div>
+      <div class="information-flow" role="img" aria-label="Dispersed information flows through traders and trades into a market price and collective probability">
+        <ol>
+          <li><span>Dispersed<br>Information</span></li>
+          <li><span>Traders</span></li>
+          <li><span>Trades</span></li>
+          <li class="price-node"><span>Market<br>Price</span></li>
+          <li><span>Collective<br>Probability</span></li>
+        </ol>
+        <p><strong>Not a simple vote.</strong> Traders contribute different information, confidence, and capital.</p>
+      </div>
+    </section>
+
+    <section class="paper-evidence" aria-labelledby="evidence-title">
+      <div class="evidence-heading">
+        <h2 id="evidence-title">Evidence from earnings markets</h2>
+        <p>Polymarket probabilities were better calibrated than the analyst benchmark and contained additional predictive information.</p>
+      </div>
+      <div class="stat-strip">
+        <article><strong>469</strong><span>firm-quarter observations</span></article>
+        <article><strong>78.5%</strong><span>Polymarket accuracy</span></article>
+        <article><strong>43.7%</strong><span>analyst benchmark accuracy</span></article>
+        <article><strong><b>0.159</b><i>vs</i><b>0.360</b></strong><span>Brier Score · lower is better</span></article>
+      </div>
+      <p class="calibration-note">Much of the measured advantage over analysts comes from analyst probability miscalibration relative to the base rate.</p>
+    </section>
+
+    <section class="research-bottom">
+      <div class="mechanisms">
+        <div class="mechanism-grid">
+          <article><h3>Financial Incentives</h3><p>Participants have a reason to act on what they know.</p></article>
+          <article><h3>Continuous Updating</h3><p>Prices move when new evidence reaches the market.</p></article>
+          <article><h3>Wisdom of Crowds</h3><p>Independent judgments can offset individual errors.</p></article>
+          <article><h3>Distributed Information</h3><p>Different traders bring different pieces of the picture.</p></article>
+        </div>
+        <p class="specialist-note">A small specialist core and a broad, diverse participant base can combine different pieces of information in one price.</p>
+      </div>
+      <aside class="weather-bridge">
+        <h2>From earnings to weather</h2>
+        <p>This paper studies corporate earnings, not weather. It does not prove that Polymarket weather forecasts are accurate.</p>
+        <p>Our visualization tests the same information-aggregation idea by comparing temperature probabilities with realized weather observations.</p>
+        <button class="research-cta" type="button" data-page-target="simple">Explore Weather Predictions <span aria-hidden="true">→</span></button>
+      </aside>
+    </section>
+    <footer class="paper-source"><span>Source</span> <cite>Beating the Earnings Game: Why Do Prediction Markets Outperform Professional Analysts?</cite></footer>
+  </main>
+</section>
 <section class="page-panel simple-page" id="simple-page" data-page="simple" aria-labelledby="simple-title">
   <main class="simple-shell">
     <header class="simple-topbar">
@@ -23,7 +84,7 @@
       <div class="simple-copy">
         <p class="eyebrow">纽约 · 拉瓜迪亚机场 · 2026 年 8 月</p>
         <h1 id="simple-title">市场最看好的温度，<br><span>后来猜对了吗？</span></h1>
-        <p>每天只保留两个答案：Polymarket 报价最高的温度区间，以及 NOAA 最后记录的实际最高气温。</p>
+        <p>每天挑出市场最看好的温度，再和当天实际最高气温放在一起看。</p>
         <div class="simple-legend" aria-label="简明图表图例"><span><i class="actual-key"></i>实际气温</span><span><i class="market-key"></i>市场预测值</span></div>
       </div>
       <div class="simple-summary" aria-label="数据摘要">
