@@ -25,6 +25,12 @@ const areaLegendItems = document.querySelector("#area-legend-items");
 const summaryLegend = document.querySelector(".legend");
 const actualToggles = [document.querySelector("#toggle-actual"), document.querySelector("#toggle-actual-area")];
 const tabs = [...document.querySelectorAll("[data-view]")];
+const pageDeck = document.querySelector("#page-deck");
+const pagePanels = [...document.querySelectorAll("[data-page]")];
+const pageButtons = [...document.querySelectorAll("[data-page-target]")];
+const simpleSvg = document.querySelector("#simple-chart");
+const simpleDetail = document.querySelector("#simple-detail");
+const simpleLeaders = series.map((item) => item.outcomes.reduce((leader, outcome) => outcome.price > leader.price ? outcome : leader));
 const areaColors = buckets.map((_, index) => `hsl(${210 - index * 148 / Math.max(1, buckets.length - 1)} 58% ${50 + (index % 3) * 4}%)`);
 const NS = "http://www.w3.org/2000/svg";
 const yMin = Math.floor(Math.min(...bucketLows, ...series.map((item) => item.actual)) / 4) * 4;
@@ -297,6 +303,63 @@ function placeGlass() {
   actualMarker.style.top = `${svgTop + temperatureY(series[state.selected].actual, top, bottom)}px`;
   marketMarker.style.top = `${svgTop + temperatureY(marketMid(state.selected), top, bottom)}px`;
 }
+function renderSimpleDetail(index) {
+  const item = series[index];
+  const leader = simpleLeaders[index];
+  const inside = (leader.low === null || item.actual >= leader.low) && (leader.high === null || item.actual <= leader.high);
+  simpleDetail.innerHTML = `<strong>8 月 ${item.day} 日</strong><span class="market-text">市场 ${leader.label} · ${pct(leader.price)}</span><span class="actual-text">实际 ${item.actual}°F</span><span>${inside ? "实际值落在预测区间内" : "实际值未落在预测区间内"}</span>`;
+}
+function renderSimple() {
+  const width = Math.max(simpleSvg.clientWidth, 310);
+  const height = Math.max(simpleSvg.clientHeight, 390);
+  const mobile = width < 620;
+  const left = mobile ? 43 : 54;
+  const right = width - (mobile ? 13 : 24);
+  const top = 36;
+  const bottom = height - 48;
+  const xAt = (index) => left + index / (series.length - 1) * (right - left);
+  const yAt = (value) => bottom - (value - yMin) / (yMax - yMin) * (bottom - top);
+  simpleSvg.setAttribute("viewBox", `0 0 ${width} ${height}`);
+  simpleSvg.replaceChildren();
+  yTicks.forEach((tick) => {
+    const y = yAt(tick);
+    const grid = document.createElementNS(NS, "line");
+    grid.setAttribute("x1", left); grid.setAttribute("x2", right); grid.setAttribute("y1", y); grid.setAttribute("y2", y); grid.setAttribute("class", "simple-grid"); simpleSvg.append(grid);
+    const tickLabel = document.createElementNS(NS, "text");
+    tickLabel.setAttribute("x", left - 10); tickLabel.setAttribute("y", y + 4); tickLabel.setAttribute("text-anchor", "end"); tickLabel.setAttribute("class", "simple-axis"); tickLabel.textContent = `${tick}°`; simpleSvg.append(tickLabel);
+  });
+  series.forEach((item, index) => {
+    const leader = simpleLeaders[index];
+    const x = xAt(index);
+    const midpointY = yAt(leader.midpoint);
+    const actualY = yAt(item.actual);
+    const lowY = yAt(leader.low ?? leader.midpoint - 1);
+    const highY = yAt(leader.high ?? leader.midpoint + 1);
+    const group = document.createElementNS(NS, "g");
+    group.setAttribute("class", "simple-point"); group.setAttribute("tabindex", "0"); group.setAttribute("role", "button");
+    group.setAttribute("aria-label", `8月${item.day}日，市场最高报价区间${leader.label}，Yes价格${pct(leader.price)}，实际气温${item.actual}华氏度`);
+    const connector = document.createElementNS(NS, "line"); connector.setAttribute("x1", x); connector.setAttribute("x2", x); connector.setAttribute("y1", midpointY); connector.setAttribute("y2", actualY); connector.setAttribute("class", "simple-link"); group.append(connector);
+    const range = document.createElementNS(NS, "line"); range.setAttribute("x1", x); range.setAttribute("x2", x); range.setAttribute("y1", highY); range.setAttribute("y2", lowY); range.setAttribute("class", "simple-range"); group.append(range);
+    const mid = document.createElementNS(NS, "circle"); mid.setAttribute("cx", x); mid.setAttribute("cy", midpointY); mid.setAttribute("r", 4); mid.setAttribute("class", "simple-mid"); group.append(mid);
+    const actual = document.createElementNS(NS, "circle"); actual.setAttribute("cx", x); actual.setAttribute("cy", actualY); actual.setAttribute("r", 6); actual.setAttribute("class", "simple-actual"); group.append(actual);
+    const hit = (leader.low === null || item.actual >= leader.low) && (leader.high === null || item.actual <= leader.high);
+    if (hit) { const ring = document.createElementNS(NS, "circle"); ring.setAttribute("cx", x); ring.setAttribute("cy", actualY); ring.setAttribute("r", 10); ring.setAttribute("class", "simple-hit"); group.append(ring); }
+    const activate = () => renderSimpleDetail(index);
+    group.addEventListener("pointerenter", activate); group.addEventListener("focus", activate); group.addEventListener("click", activate);
+    simpleSvg.append(group);
+    if (!mobile || index % 2 === 0 || index === series.length - 1) { const date = document.createElementNS(NS, "text"); date.setAttribute("x", x); date.setAttribute("y", bottom + 28); date.setAttribute("text-anchor", "middle"); date.setAttribute("class", "simple-date"); date.textContent = item.day; simpleSvg.append(date); }
+  });
+  const hits = series.filter((item, index) => { const leader = simpleLeaders[index]; return (leader.low === null || item.actual >= leader.low) && (leader.high === null || item.actual <= leader.high); }).length;
+  document.querySelector("#simple-hit-count").textContent = hits;
+  if (!simpleDetail.textContent) renderSimpleDetail(0);
+}
+function goToPage(name) {
+  const target = document.querySelector(`[data-page="${name}"]`);
+  if (!target) return;
+  pageDeck.style.scrollBehavior = "auto";
+  pageDeck.scrollLeft = target.offsetLeft;
+  requestAnimationFrame(() => { pageDeck.style.scrollBehavior = ""; });
+}
 function render() {
   const width = Math.max(svg.clientWidth, 310), height = Math.max(svg.clientHeight, 430);
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
@@ -458,7 +521,21 @@ window.addEventListener("pointerup", () => {
   dragStart = null;
 });
 new ResizeObserver(render).observe(svg);
+new ResizeObserver(renderSimple).observe(simpleSvg);
+pageButtons.forEach((button) => button.addEventListener("click", () => goToPage(button.dataset.pageTarget)));
+const pageObserver = new IntersectionObserver((entries) => {
+  const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+  if (!visible) return;
+  const name = visible.target.dataset.page;
+  document.querySelectorAll(".page-dot").forEach((button) => {
+    const active = button.dataset.pageTarget === name;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
+}, { root: pageDeck, threshold: [.55, .8] });
+pagePanels.forEach((panel) => pageObserver.observe(panel));
 select(0);
+renderSimple();
 
 async function refreshObservedHighs() {
   const status = document.querySelector("#observation-status");
@@ -477,6 +554,7 @@ async function refreshObservedHighs() {
     }
     series.forEach((item, index) => { item.actual = highs[index]; });
     status.textContent = "NOAA 已更新 · 市场历史价";
+    renderSimple();
     select(state.selected);
   } catch {
     status.textContent = "NOAA 快照 · 市场历史价";
