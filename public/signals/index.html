@@ -4,18 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#f3f4f0">
-  <title>温度对照 | 市场预测与实际气温</title>
+  <title>Weatherbridge · 02 预测与实测</title>
   <link rel="stylesheet" href="src/styles.css">
   <link rel="stylesheet" href="chapters.css">
+  <link rel="stylesheet" href="../ui-theme.css">
 </head>
 <body>
 <nav class="chapterbar" aria-label="Website chapters">
   <div class="chapterbar-inner">
-    <a class="cb-brand" href="../index.html">Weather / Signals</a>
+    <a class="cb-brand" href="../index.html">Weatherbridge</a>
     <ol class="cb-list">
-      <li><a class="chapter-origin" href="../index.html"><span>01</span>项目缘起 <small>· 锦溪</small></a></li>
-      <li><a class="chapter-signals" href="index.html" aria-current="page"><span>02</span>预测与结果 <small>· 纽约</small></a></li>
-      <li><a class="chapter-nomadcast" href="../nomadcast/index.html"><span>03</span>NomadCast <small>· 墨西哥城</small></a></li>
+      <li><a class="chapter-origin" href="../index.html"><span>01</span>天气与日常生活 <small>· 锦溪</small></a></li>
+      <li><a class="chapter-signals" href="index.html" aria-current="page"><span>02</span>预测与实测 <small>· 纽约</small></a></li>
+      <li><a class="chapter-nomadcast" href="../nomadcast/index.html"><span>03</span>从信息到行动</a></li>
     </ol>
   </div>
 </nav>
@@ -82,7 +83,7 @@
         <button class="research-cta" type="button" data-page-target="simple">Explore Weather Predictions <span aria-hidden="true">→</span></button>
       </aside>
     </section>
-    <footer class="paper-source"><span>Source</span> <cite>Beating the Earnings Game: Why Do Prediction Markets Outperform Professional Analysts?</cite></footer>
+    <footer class="paper-source"><span>Source</span> <a href="https://www.researchgate.net/publication/404202379_Beating_the_Earnings_Game_Why_Do_Prediction_Markets_Outperform_Professional_Analysts" target="_blank" rel="noopener noreferrer"><cite>Beating the Earnings Game: Why Do Prediction Markets Outperform Professional Analysts?</cite> ↗</a></footer>
   </main>
 </section>
 <section class="page-panel simple-page" id="simple-page" data-page="simple" aria-labelledby="simple-title">
@@ -91,6 +92,18 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true"></span>温度对照</div>
       <label class="location-picker simple-location-picker"><span>地点</span><select id="simple-location-select" aria-label="选择简明版地点"><option value="laguardia">纽约 · 拉瓜迪亚机场</option></select></label>
     </header>
+    <section class="simple-onboarding" aria-labelledby="market-basics-title">
+      <h2 id="market-basics-title">先了解：Polymarket 是什么？</h2>
+      <p id="market-basics-copy">参与者在 Polymarket 上买卖未来结果的合约，用价格表达判断。我们读取天气市场的价格，看看市场更倾向哪个温度范围，再与实际记录对照。</p>
+      <p id="market-basics-reading">读图顺序：看预测的温度范围 → 看判断是否分散 → 看过去接近实际吗。百分比来自价格，不是人数占比。</p>
+      <figure class="market-interface"><img src="../polymarket-interface.png" width="1652" height="856" alt="Polymarket Hong Kong daily minimum-temperature market screenshot" loading="lazy"><figcaption id="market-interface-caption">Polymarket 天气市场 · 香港最低温</figcaption></figure>
+      <div class="market-explainer">
+        <details><summary id="market-price-title">一、价格为什么能表达判断？</summary><p id="market-price-copy"></p></details>
+        <details><summary id="market-chart-title">二、截图里的曲线怎么看？</summary><p id="market-chart-copy"></p></details>
+        <details><summary id="market-use-title">三、Weatherbridge 帮你读什么？</summary><p id="market-use-copy"></p></details>
+      </div>
+      <a class="market-docs" id="market-docs-link" href="https://help.polymarket.com/en/articles/13364488-how-are-prices-calculated" target="_blank" rel="noopener noreferrer">Polymarket 官方说明：价格如何计算 →</a>
+    </section>
     <section class="simple-hero">
       <div class="simple-copy">
         <p class="eyebrow">纽约 · 拉瓜迪亚机场 · 2026 年 8 月</p>
@@ -108,6 +121,7 @@
       <svg id="simple-chart" role="img" aria-label="8月17日至28日市场最高报价温度区间中点与NOAA实际最高气温对比"></svg>
       <div id="simple-detail" class="simple-detail" aria-live="polite"></div>
     </section>
+    <section id="simple-check" class="simple-check" aria-live="polite"></section>
     <footer class="simple-footer"><p>Yes 价格代表市场价格，不代表人数。NOAA 日最高与市场结算来源可能存在口径差异。</p><button class="go-professional" type="button" data-page-target="professional">向右查看专业版 <span aria-hidden="true">→</span></button></footer>
   </main>
 </section>
@@ -162,6 +176,7 @@
     <button id="open-prediction" class="reading-metric market-reading" type="button" aria-label="查看并选择当日市场预测值"><span>市场预测值 <small>历史价格</small><b>查看全部预测 ↗</b></span><strong id="market-value">84-85°F</strong></button>
     <div class="reading-diff"><span>与 NOAA 日最高对照</span><strong id="difference-value">—</strong><p id="difference-explain">市场结算来源与 NOAA 日最高可能不同。</p></div>
   </section>
+  <section id="professional-check" class="simple-check" aria-live="polite"></section>
   <footer class="data-note">
     <div class="data-note-copy">
       <p class="data-note-summary"><strong>真实历史数据</strong> NOAA 日最高 × Polymarket 当日零点前价格。口径差异见详情。</p>
@@ -174,7 +189,7 @@
         </div>
       </details>
     </div>
-    <a class="cb-next" href="../nomadcast/index.html">下一章 · 03 NomadCast <span aria-hidden="true">→</span></a>
+    <a class="cb-next" href="../nomadcast/index.html">下一章 · 03 天气与日常生活 <span aria-hidden="true">→</span></a>
     <div class="source-links"><a id="noaa-link" href="https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&amp;stations=USW00014732&amp;startDate=2026-08-17&amp;endDate=2026-08-28&amp;dataTypes=TMAX&amp;units=standard&amp;format=json">NOAA 实测数据接口 ↗</a><a id="market-link" href="https://polymarket.com/event/highest-temperature-in-nyc-on-august-17-2026">Polymarket 纽约 8/17 市场 ↗</a></div>
   </footer>
 </main>
@@ -182,6 +197,7 @@
 </div>
 <script src="src/data.js"></script>
 <script src="src/app.js"></script>
+<script type="module" src="../ui-theme.js"></script>
 </body>
 </html>
 

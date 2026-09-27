@@ -33,7 +33,7 @@ const locationSelects = [document.querySelector("#simple-location-select"), docu
 const simpleSvg = document.querySelector("#simple-chart");
 const simpleDetail = document.querySelector("#simple-detail");
 const simpleLeaders = series.map((item) => item.outcomes.reduce((leader, outcome) => outcome.price > leader.price ? outcome : leader));
-const areaColors = buckets.map((_, index) => `hsl(${210 - index * 148 / Math.max(1, buckets.length - 1)} 58% ${50 + (index % 3) * 4}%)`);
+let areaColors = buckets.map((_, index) => `hsl(${210 - index * 148 / Math.max(1, buckets.length - 1)} 58% ${50 + (index % 3) * 4}%)`);
 const NS = "http://www.w3.org/2000/svg";
 const yMin = Math.floor(Math.min(...bucketLows, ...series.map((item) => item.actual)) / 4) * 4;
 const yMax = Math.ceil(Math.max(...buckets.map((bucket) => bucket.high), ...series.map((item) => item.actual)) / 4) * 4;
@@ -46,8 +46,17 @@ let language = (() => { try { return localStorage.getItem("temperature-language"
 
 const localizedCopy = {
   zh: {
-    documentTitle: "温度对照 | 市场预测与实际气温",
-    chapterOrigin: "<span>01</span>项目缘起 <small>· 锦溪</small>", chapterSignals: "<span>02</span>预测与结果 <small>· 纽约</small>", chapterNomadcast: "<span>03</span>NomadCast <small>· 墨西哥城</small>", chapterNext: "下一章 · 03 NomadCast <span aria-hidden=\"true\">→</span>",
+    documentTitle: "Weatherbridge · 02 预测与实测",
+    chapterOrigin: "<span>01</span>天气与日常生活 <small>· 锦溪</small>", chapterSignals: "<span>02</span>预测与实测 <small>· 纽约</small>", chapterNomadcast: "<span>03</span>从信息到行动", chapterNext: "下一章 · 03 从信息到行动 <span aria-hidden=\"true\">→</span>",
+    basicsTitle: "先了解：Polymarket 是什么？",
+    basicsCopy: "Polymarket 是一个预测市场：它把未来的问题列成可交易的结果选项，例如“某城市某天的最高温会落在哪个区间？”参与者根据预报、新闻和自己的判断买卖合约，价格随供需变化，形成一个可观察的集体预期。它不是气象机构。",
+    interfaceCaption: "Polymarket 天气市场 · 香港最低温",
+    priceTitle: "一、价格为什么能表达判断？", priceCopy: "一个结果的 Yes（会发生）份额价格在 0 到 1 美元之间；按规则结算后，正确结果的份额兑付 1 美元，错误结果为 0。因此，0.60 美元通常读作约 60% 的市场隐含概率。这是价格信号，不是六成人投票赞成；它也会受流动性和交易行为影响。",
+    chartTitle: "二、截图里的曲线怎么看？", chartCopy: "每条曲线对应一个温度结果，展示其价格判断随时间怎样变化。截图中的 28°C · 75% 表示该结果当时更受市场看好，不代表最后一定出现。右侧选中的是“22°C 或以下”，2¢ 属于这个选项。各选项报价可能不同时更新、合计也未必恰好为 100%，不能直接当作人数比例。",
+    useTitle: "三、Weatherbridge 帮你读什么？", useCopy: "我们不要求你交易，而是把价格整理为温度范围、判断分散程度和历史实测对照。先看市场倾向什么，再看分歧有多大，最后看过去接近实际吗。每个市场须核对地点、日期、最高温或最低温、观测站与结算规则；价格集中也不等于一定准确。",
+    docsLink: "Polymarket 官方说明：价格如何计算 →",
+    basicsReading: "读图顺序：看预测的温度范围 → 看判断是否分散 → 看过去接近实际吗。百分比来自价格，不是人数占比。",
+    basicsCase: "当前展示纽约 2026 年 8 月的历史案例，不是锦溪或非洲地区明天的天气预报。查看信息无需交易。",
     navResearch: "<span>01</span> 研究原理", navSimple: "<span>02</span> 简明版", navProfessional: "<span>03</span> 专业版",
     brand: "<span class=\"brand-mark\" aria-hidden=\"true\"></span>温度对照",
     researchNote: "研究笔记 · 企业收益市场", reliabilityTitle: "为什么预测市场价格可能有信息价值？",
@@ -83,8 +92,17 @@ const localizedCopy = {
     limitDetail: "<strong>口径限制</strong> NOAA 日最高与市场规则指定的逐小时结算来源不同，不能仅据两者差值判定市场结算是否预测正确。市场链接随所选日期切换。", noaaLink: "NOAA 实测数据接口 ↗"
   },
   en: {
-    documentTitle: "Temperature Compare | Market Forecasts vs. Observed Weather",
-    chapterOrigin: "<span>01</span>Origin <small>· Jinxi</small>", chapterSignals: "<span>02</span>Signals vs outcomes <small>· New York</small>", chapterNomadcast: "<span>03</span>NomadCast <small>· Mexico City</small>", chapterNext: "Next · Chapter 03: NomadCast <span aria-hidden=\"true\">→</span>",
+    documentTitle: "Weatherbridge · 02 Forecasts & observations",
+    chapterOrigin: "<span>01</span>Weather &amp; daily life <small>· Jinxi</small>", chapterSignals: "<span>02</span>Forecasts &amp; observations <small>· New York</small>", chapterNomadcast: "<span>03</span>From information to action", chapterNext: "Next · Chapter 03: From information to action <span aria-hidden=\"true\">→</span>",
+    basicsTitle: "First: what is Polymarket?",
+    basicsCopy: "Polymarket is a prediction market: questions about future events become tradable outcomes, such as a city’s daily high-temperature range. Participants trade using forecasts, news and their own judgments. Prices change with supply and demand, creating an observable collective expectation. Polymarket is not a meteorological agency.",
+    interfaceCaption: "Polymarket weather market · Hong Kong daily low",
+    priceTitle: "1. Why can a price express expectations?", priceCopy: "A Yes share is priced between $0 and $1. After resolution under the rules, a correct share pays $1 and an incorrect share pays $0. A $0.60 price is therefore commonly read as roughly 60% implied probability. It is a price signal, not a count of people voting, and is affected by liquidity and trading behavior.",
+    chartTitle: "2. How do we read these curves?", chartCopy: "Each curve tracks the changing price of one temperature outcome. The screenshot’s 28°C · 75% was the favored outcome at that moment, not a certain result. The right panel selects 22°C or below; its 2¢ quote belongs to that outcome. Quotes may update at different times and need not sum to exactly 100%. They are not participant shares.",
+    useTitle: "3. What does Weatherbridge help you read?", useCopy: "You do not need to trade. We organize prices into temperature ranges, disagreement and historical comparisons with observations. Read the favored outcome, the spread of expectations and past performance. Check each market’s place, date, daily high or low, station and settlement rules. Concentrated expectations do not guarantee accuracy.",
+    docsLink: "Polymarket Help Center: how prices are calculated →",
+    basicsReading: "Read the expected range → notice disagreement → compare past outcomes. Percentages come from prices, not participant counts.",
+    basicsCase: "This is a New York historical case from August 2026, not tomorrow's forecast for Jinxi or African communities. Reading the information does not require trading.",
     navResearch: "<span>01</span> Research", navSimple: "<span>02</span> Simple", navProfessional: "<span>03</span> Pro",
     brand: "<span class=\"brand-mark\" aria-hidden=\"true\"></span>Temperature Compare",
     researchNote: "Research note · Earnings markets", reliabilityTitle: "Why Can Prediction Markets Be Informative?",
@@ -122,6 +140,8 @@ const localizedCopy = {
 };
 
 const staticBindings = [
+  ["#market-interface-caption","interfaceCaption"],["#market-price-title","priceTitle"],["#market-price-copy","priceCopy"],["#market-chart-title","chartTitle"],["#market-chart-copy","chartCopy"],["#market-use-title","useTitle"],["#market-use-copy","useCopy"],["#market-docs-link","docsLink"],
+  ["#market-basics-title", "basicsTitle"], ["#market-basics-copy", "basicsCopy"], ["#market-basics-reading", "basicsReading"], ["#market-basics-case", "basicsCase"],
   [".chapter-origin", "chapterOrigin"], [".chapter-signals", "chapterSignals"], [".chapter-nomadcast", "chapterNomadcast"], [".cb-next", "chapterNext"],
   [".page-dot[data-page-target='reliability']", "navResearch"], [".page-dot[data-page-target='simple']", "navSimple"], [".page-dot[data-page-target='professional']", "navProfessional"],
   [".brand", "brand"], [".research-topbar>span", "researchNote"], ["#reliability-title", "reliabilityTitle"], [".reliability-copy>p", "reliabilityLead"],
@@ -142,8 +162,8 @@ const viewHints = {
 };
 
 const interactionHints = {
-  zh: { dumbbell: "拖动亚克力板选择日期；点击橙色点查看全部历史报价。", lines: "拖动亚克力板选择日期；点击橙色点查看全部历史报价。", "three-d": "拖动图表调整 3D 视角；点击橙色点查看全部历史报价。", heatmap: "点击色块选择日期与预测区间；可显示 NOAA 最终气温。", area: "点击彩色带选择日期与温度区间；纵轴为归一化价格占比。" },
-  en: { dumbbell: "Drag the acrylic selector across dates; select an orange point for all historical prices.", lines: "Drag the acrylic selector across dates; select an orange point for all historical prices.", "three-d": "Drag to rotate the 3D view; select an orange point for all historical prices.", heatmap: "Select a cell to choose a date and forecast range; NOAA highs can be overlaid.", area: "Select a colored band to choose a date and temperature range; the y-axis is normalized price share." }
+  zh: { dumbbell: "拖动亚克力板选择日期；点击市场预测点查看全部历史报价。", lines: "拖动亚克力板选择日期；点击市场预测点查看全部历史报价。", "three-d": "拖动图表调整 3D 视角；点击市场预测点查看全部历史报价。", heatmap: "点击色块选择日期与预测区间；可显示 NOAA 最终气温。", area: "点击彩色带选择日期与温度区间；纵轴为归一化价格占比。" },
+  en: { dumbbell: "Drag the acrylic selector across dates; select a market forecast point for all historical prices.", lines: "Drag the acrylic selector across dates; select a market forecast point for all historical prices.", "three-d": "Drag to rotate the 3D view; select a market forecast point for all historical prices.", heatmap: "Select a cell to choose a date and forecast range; NOAA highs can be overlaid.", area: "Select a colored band to choose a date and temperature range; the y-axis is normalized price share." }
 };
 
 function formatDate(day) { return language === "en" ? `Aug ${day}` : `8 月 ${day} 日`; }
@@ -495,6 +515,51 @@ function renderSimple() {
   const hits = series.filter((item, index) => { const leader = simpleLeaders[index]; return (leader.low === null || item.actual >= leader.low) && (leader.high === null || item.actual <= leader.high); }).length;
   document.querySelector("#simple-hit-count").textContent = hits;
   renderSimpleDetail(state.selected);
+  renderSimpleHitHistory();
+}
+function renderSimpleHitHistory() {
+  const observations = series.filter(item => Number.isFinite(item.actual));
+  let strict = 0, wide = 0;
+  const points = observations.map((item, index) => {
+    const sorted = [...item.outcomes].sort((a,b) => a.midpoint-b.midpoint);
+    const leader = sorted.reduce((best,entry) => entry.price > best.price ? entry : best);
+    const neighbors = sorted.slice(Math.max(0,sorted.indexOf(leader)-1), sorted.indexOf(leader)+2);
+    const contains = bucket => (bucket.low === null || item.actual >= bucket.low) && (bucket.high === null || item.actual <= bucket.high);
+    strict += Number(contains(leader)); wide += Number(neighbors.some(contains));
+    return {day:item.day,strict:strict/(index+1),wide:wide/(index+1)};
+  });
+  const n = points.length;
+  if (!n) return;
+  const x = i => 48+i*690/Math.max(1,n-1), y = value => 170-value*140;
+  const english = language === 'en';
+  [
+    {id:'simple-check',key:'wide',hits:wide,color:'var(--actual)',dash:'8 4',title:english?'How often was the broader range close?':'过去有多少天大致接近实际？',label:english?'Broad-range hit rate':'宽松命中率'},
+    {id:'professional-check',key:'strict',hits:strict,color:'var(--market)',dash:'',title:english?'How often did the leading range contain the observation?':'最高报价区间有多少天命中实际？',label:english?'Strict-range hit rate':'严格命中率'}
+  ].forEach(config => {
+    const target = document.getElementById(config.id);
+    if (!target) return;
+    const definition = config.key === 'wide'
+      ? (english?'A broad-range hit means the NOAA observed daily high falls within the highest-priced interval or either immediately adjacent interval. For 2°F bins, 84–85°F expands to 82–87°F.':'宽松命中：NOAA 观测的日最高温落在最高报价区间，或紧邻它的上、下各一个温度档内。温度档宽为 2°F 时，例如 84–85°F 扩展为 82–87°F。')
+      : (english?'Count a hit only when the observed high is inside the highest-priced range; do not expand its bounds.':'只统计 NOAA 实际日最高温落在市场最高报价区间内的日期，不向两侧扩展。');
+    const path = points.map((point,i)=>`${i?'L':'M'}${x(i)},${y(point[config.key])}`).join(' ');
+    target.innerHTML = `<h2>${config.title}</h2>
+      <p>${config.label}: <b>${config.hits}/${n} · ${(config.hits/n*100).toFixed(1)}%</b></p>
+      <svg viewBox="0 0 790 218" role="img" aria-label="${config.label}">
+        ${[0,.5,1].map(value=>`<line x1="48" x2="738" y1="${y(value)}" y2="${y(value)}" stroke="#dcded7"/><text x="40" y="${y(value)+4}" text-anchor="end" font-size="13" fill="#4f5e57">${value*100}%</text>`).join('')}
+        <path data-hit-rate="${config.key}" d="${path}" fill="none" stroke="${config.color}" stroke-width="3" stroke-dasharray="${config.dash}"/>
+        ${points.filter((_,i)=>i%2===0||i===n-1).map(point=>`<text x="${x(points.indexOf(point))}" y="197" text-anchor="middle" font-size="13" fill="#4f5e57">${english?'Aug ':'8/'}${point.day}</text>`).join('')}
+      </svg>
+      <div class="hit-legend"><span><svg class="hit-legend-key" viewBox="0 0 40 12" aria-hidden="true"><line x1="2" x2="38" y1="6" y2="6" stroke="${config.color}" stroke-width="3" stroke-dasharray="${config.dash}"/></svg>${config.label}</span></div>
+      ${config.key === 'wide' ? `<div class="hit-formula">
+        <p>${english?'Broad-range hit condition':'宽松命中条件'}：<span class="formula-expression">h<sub>i</sub> = 𝟙[T<sub>i</sub> ∈ (I<sub>i,−1</sub> ∪ I<sub>i,0</sub> ∪ I<sub>i,+1</sub>)]</span></p>
+        <p>${english?'Cumulative broad-range hit rate':'累计宽松命中率'}：<span class="formula-expression">R<sub>t</sub> = <span class="formula-fraction"><span>∑<sub>i ∈ V<sub>t</sub></sub> h<sub>i</sub></span><span>|V<sub>t</sub>|</span></span> × 100%</span></p>
+        <p class="formula-definitions">${english?'Tᵢ: NOAA observed daily high; Iᵢ,₀: highest-priced interval; Iᵢ,−1 / Iᵢ,+1: immediately lower / higher intervals, where available; 𝟙: 1 when the condition holds, otherwise 0; Vₜ: valid days up to date t with both a market interval and an observation.':'Tᵢ：NOAA 实测日最高温；Iᵢ,₀：当日最高报价区间；Iᵢ,−1、Iᵢ,+1：相邻的下、上各一档（有该档时）；𝟙：条件成立记 1，否则记 0；Vₜ：截至日期 t，同时具备市场区间与实测数据的有效日期集合。'}</p>
+        <p>${english?'Example: 84–85°F → 82–87°F for adjacent 2°F bins. Sample result: 10 ÷ 12 × 100% ≈ 83.3%.':'示例：相邻温度档宽为 2°F 时，84–85°F → 82–87°F。本样本：10 ÷ 12 × 100% ≈ 83.3%。'}</p>
+      </div>` : `<p>${definition}</p>`}
+      <p>${english?'Cumulative hit rate = qualifying days / days with both a market interval and an observation, up to each date. Broad-range hits measure interval coverage at a wider tolerance, not probability calibration or overall forecasting skill. Compare methods at the same interval width. This small historical sample uses NOAA daily highs; observation stations and settlement rules may differ.':'累计命中率＝截至该日的命中天数 ÷ 同时具备市场区间与实测数据的有效天数。宽松命中率衡量较大容差下的区间覆盖率，不等同于概率校准程度或整体预测能力；比较不同方法时应统一区间宽度。本图仅反映短期历史样本，NOAA 观测站点与市场结算规则可能存在差异。'}</p>`;
+  });
+  document.getElementById('simple-hit-count').textContent = wide;
+  document.querySelector('.simple-summary>span').textContent = english ? 'days inside the broader range' : '天落在宽松范围内';
 }
 function goToPage(name) {
   const target = document.querySelector(`[data-page="${name}"]`);
@@ -689,7 +754,13 @@ locationSelects.forEach((select) => select.addEventListener("change", () => {
   locationSelects.forEach((peer) => { peer.value = select.value; });
 }));
 applyLanguage(language);
-requestAnimationFrame(() => goToPage("simple"));
+// Case-study links open their matching view directly; ordinary visits stay simple.
+function openLinkedPage() {
+  const name = location.hash.slice(1).replace(/-page$/, "");
+  goToPage(["simple", "professional", "reliability"].includes(name) ? name : "simple");
+}
+window.addEventListener("hashchange", openLinkedPage);
+requestAnimationFrame(openLinkedPage);
 
 async function refreshObservedHighs() {
   const status = document.querySelector("#observation-status");
@@ -717,4 +788,12 @@ async function refreshObservedHighs() {
   }
 }
 refreshObservedHighs();
+
+window.addEventListener('chart-palette-change', ({detail}) => {
+  const rgb = color => color.match(/[\da-f]{2}/gi).map(channel => parseInt(channel,16));
+  const from=rgb(detail.primary), to=rgb(detail.secondary);
+  areaColors=buckets.map((_,i)=>`rgb(${from.map((channel,k)=>Math.round(channel+(to[k]-channel)*i/Math.max(1,buckets.length-1))).join(',')})`);
+  areaLegendItems.querySelectorAll('i').forEach((swatch,i)=>swatch.style.backgroundColor=areaColors[i]);
+  render();renderSimple();
+});
 

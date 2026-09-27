@@ -1,3 +1,4 @@
+import { translateChapterThree } from './chapter-three-i18n.js';
 const STORAGE_KEY = 'temperature-language';
 
 const zh = new Map(Object.entries({
@@ -6,52 +7,79 @@ const zh = new Map(Object.entries({
   'Signals vs outcomes': '预测与结果',
   'New York': '纽约',
   'Mexico City': '墨西哥城',
+  'Weather & daily life': '天气与日常生活',
+  'Forecasts & observations': '预测与实测',
+  '· Weather & daily life': '· 天气与日常生活',
   'Website chapters': '网站章节',
-  'Project origin · Jinxi Ancient Town': '项目缘起 · 锦溪古镇',
-  'Jinxi raised the question.': '问题从锦溪开始。',
-  'Jinxi raised': '问题从锦溪', 'the question.': '开始。',
-  'In Jinxi, weather is not simply scenery. It can shape how people move, work, produce, welcome visitors, and make plans.': '在锦溪，天气不只是风景，也会影响人们如何出行、工作、生产、接待游客与安排日常。',
-  '01 Where the question came from': '01 问题从哪里来',
-  '02 How signals compare with outcomes': '02 预测如何与结果对照',
-  '03 What signals could mean for a day': '03 预测对一天意味着什么',
-  'Start here': '从这里开始',
-  'A water town makes the relationship among climate, mobility, work, and infrastructure visible.': '水乡让气候、出行、工作与基础设施之间的关系变得可见。',
-  'This page is an origin story, not a local needs assessment.': '这一页讲述项目缘起，并不是一份本地需求评估。',
-  'The field visit generated questions that the later chapters investigate with data.': '实地走访提出问题，后续章节再用数据展开。',
-  'Field origin': '实地缘起',
-  'One visit made weather uncertainty tangible.': '一次走访，让天气的不确定性变得具体。',
-  'Across the team’s field notes, Jinxi brought tourism services, food display and storage, waterside movement, heritage spaces, and material production into close view. These activities may respond to heat, rain, wind, humidity, water conditions, and seasonal change in different ways.': '团队的田野记录涉及旅游服务、食品陈列与储存、临水通行、遗产空间和材料生产。这些活动可能以不同方式受到高温、降雨、风、湿度、水情与季节变化影响。',
+  'Weather / Signals': 'Weatherbridge',
+  'Information to preparation': '从信息到准备',
+  'Weather and': '天气与', 'everyday life': '日常生活',
+  'A three-step overview: Jinxi daily life, understanding forecasts, and comparing them with observed weather.': '三步了解本项目：锦溪日常生活、理解天气预测，并与实测天气对照。',
+  'In Jinxi, we began to notice how weather touches everyday life. Wind and rain affect boat trips, canal-side shops depend on visitors, and food drying depends on the weather. Weather shapes how people travel, work, and run their businesses.': '在锦溪，我们开始注意到天气和日常生活的关系。游船会受风雨影响，临水商铺依赖游客，食品晾晒也看天气。天气变化，就这样影响着出行、生产和经营。',
+  '01 Start with Jinxi': '01 从锦溪出发',
+  '02 Compare forecasts and observations': '02 对照预测与实测',
+  '03 Explore weather in daily life': '03 探索天气与日常生活',
+  'What this project explores': '这个项目关注什么',
+  'Starting in Jinxi, we look at how weather connects to travel, production, and local businesses.': '从锦溪出发，我们观察天气如何关联出行、生产与日常经营。',
+  'Start with everyday scenes in Jinxi. Then compare forecasts with recorded weather, and explore how changing conditions may shape life in a city.': '先从锦溪的日常场景出发，再对照天气预测与实测结果，最后看看天气变化可能怎样影响城市生活。',
+  'Field observations': '田野观察',
+  'In Jinxi, weather is part of everyday life.': '在锦溪，天气就在日常生活中。',
+  'Boats, canal-side shops, food drying, and traditional crafts connect weather with travel, work, and local business. These scenes are where our questions begin.': '游船、临水商铺、食品晾晒和传统手工业，让天气与出行、劳动和经营联系在一起。这些日常场景，正是我们提出问题的起点。',
   'Field observation': '实地观察',
   'Evidence boundary': '证据边界',
   'The team observed products, tourism settings, and museum displays during one visit. These records do not prove current financial losses, a weather-information gap, Polymarket use, a causal weather relationship, or community demand for a tool.': '团队在一次走访中记录了产品、旅游场景与博物馆展陈。这些记录不能证明现实经济损失、天气信息缺口、Polymarket 使用、天气因果关系，或当地对某种工具的需求。',
-  'Service & tourism · Xinyuan': '服务与旅游 · 欣媛',
+  'Service & tourism · Xinyuan': '服务与旅游',
   'Service & tourism': '服务与旅游',
-  'Covered tour boats make outdoor visitor movement and water conditions visible as questions for later validation.': '带篷游船提示我们，游客户外流动与水情值得在后续研究中验证。',
-  'Food display · Yizhou': '食品陈列 · 一舟',
-  'Smoked beans invite questions about drying, storage, transport, and sale conditions; the visit does not establish which stages are weather-sensitive.': '熏青豆引出晾晒、储存、运输和销售条件等问题；走访本身不能确定哪些环节对天气敏感。',
-  'Traditional production · Shudan': '传统生产 · 曙丹',
+  'Covered tour boats make outdoor visitor movement and water conditions visible as questions for later validation.': '河道游船、户外游览等活动直接暴露于天气变化，提示当地旅游服务可能具有明显的天气敏感性。',
+  'Food display · Yizhou': '食品加工',
+  'Smoked beans invite questions about drying, storage, transport, and sale conditions; the visit does not establish which stages are weather-sensitive.': '食品的晾晒、储存与运输都可能受到温度、湿度和降雨影响，体现天气与日常生产之间的直接联系。',
+  'Traditional production · Shudan': '传统生产',
   'Traditional production': '传统生产',
-  'The brick-making display links materials, labour, timing, and controlled conditions without documenting an active current industry.': '砖瓦制作展陈呈现了材料、劳动、时机与环境控制之间的联系，但不代表当地仍有活跃产业。',
-  'Select a context to see how weather can affect it': '选择一个场景，查看天气可能如何影响它',
-  'Tourism & service': '旅游与服务',
-  'Visitor movement, boat operations, street-facing commerce': '游客流动、船只运行与沿街商业',
-  'Water-town systems': '水乡系统',
-  'Waterways, access, infrastructure, and environment': '水道、通行、基础设施与环境',
-  'Production': '生产',
-  'Materials, skilled labour, timing, and controlled conditions': '材料、技能劳动、时机与环境控制',
-  'Agriculture & fishery': '农业与渔业',
-  'Growing conditions, water, harvest, and supply': '生长条件、水情、收获与供应',
+  'River boats and outdoor sightseeing are directly exposed to weather changes, suggesting that local tourism services may be notably weather-sensitive.': '河道游船、户外游览等活动直接暴露于天气变化，提示当地旅游服务可能具有明显的天气敏感性。',
+  'Drying, storage, and transport can all be affected by temperature, humidity, and rainfall, showing a direct link between weather and everyday production.': '食品的晾晒、储存与运输都可能受到温度、湿度和降雨影响，体现天气与日常生产之间的直接联系。',
+  'Traditional brick-making involves material preparation, forming, and drying; weather conditions may affect the pace and scheduling of work.': '传统砖瓦制作涉及原料处理、成型与晾晒等环节，天气条件可能影响生产节奏与作业安排。',
+  'Tourism services · Water-based sightseeing': '旅游服务 · 水上游览',
+  'River boats and outdoor sightseeing are directly exposed to temperature, rainfall, and wind, showing how sensitive tourism services can be to changing weather.': '河道游船和户外游览直接受到温度、降雨和风等天气条件影响，体现旅游服务对天气变化的敏感性。',
+  'Food processing · Smoked-bean drying': '食品加工 · 熏青豆晾晒',
+  'Drying, storage, and transport can all be affected by temperature, humidity, and rainfall, linking weather directly to food production.': '熏青豆的晾晒、储存与运输都可能受到温度、湿度和降雨影响，体现天气与食品生产之间的联系。',
+  'Traditional craft · Brick-making': '传统手工业 · 砖瓦制作',
+  'Traditional craft · Wooden-boat making': '传统手工业 · 木船制作',
+  'Traditional wooden-boat making connects skilled labour and tool use with the long-term natural setting of a water town.': '传统木船制作体现了手工劳动、工具使用与水乡自然环境之间的长期联系。',
+  'Tourism services · Canal-side coffee': '旅游服务 · 临水咖啡',
+  'A canal-side coffee shop depends on waterfront space and visitor flow; weather and outdoor comfort may shape how long visitors stay and whether they spend.': '临水咖啡店依托水岸空间与游客流量经营，天气和户外舒适度可能影响游客停留与消费。',
+  'The brick-making display links materials, labour, timing, and controlled conditions without documenting an active current industry.': '传统砖瓦制作涉及原料处理、成型与晾晒等环节，天气条件可能影响生产节奏与作业安排。',
+  'Select a context to see how weather can affect it': '选择一个场景，看看天气如何与日常活动相连',
+  'Tourism services': '旅游服务', 'Boat trips, outdoor visits, and canal-side shops': '游船、户外游览与临水商铺',
+  'Food processing': '食品加工', 'Drying, storing, and moving local food': '本地食品的晾晒、储存与运输',
+  'Traditional crafts': '传统手工业', 'Materials, skilled work, and weather-sensitive timing': '材料、手工劳动与受天气影响的作业时机',
+  '01 / Travel': '01 / 出行', '02 / Food': '02 / 食品', '03 / Craft': '03 / 手艺',
+  'Wind, rain, and heat can shape boat trips, outdoor visits, and the comfort of canal-side spaces.': '风雨和高温会影响游船、户外游览，以及临水空间的舒适度。',
+  'Drying, storage, and transport depend on conditions such as temperature, humidity, and rainfall.': '晾晒、储存和运输都与温度、湿度、降雨等条件有关。',
+  'Brick-making and boat-building connect materials, skilled work, and the timing of outdoor tasks.': '砖瓦制作和木船工艺连接着材料、手工劳动与户外作业时机。',
   'Design handoff': '研究衔接',
-  'From one field visit to a broader public-information problem.': '从一次走访，走向更广泛的公共信息问题。',
-  'Jinxi did not give us a Polymarket dataset or demonstrate a local use of prediction markets. It prompted a broader question: how do different public systems represent weather uncertainty, and how can users compare their signals without treating any one of them as fact?': '锦溪没有直接提供 Polymarket 数据，也没有证明当地使用预测市场。它促使我们追问：不同公共系统如何表达天气的不确定性？人们又如何比较这些信号，而不把任何一种信号当成事实？',
-  'What we saw': '我们看到的', 'Place-based activity': '发生在具体地点的活动',
-  'What we asked': '我们追问的', 'Weather uncertainty': '天气的不确定性',
-  'What we study next': '接下来研究的', 'Public prediction signals': '公共预测信号',
-  'From field observation to a research question': '从田野观察到研究问题',
-  'Outdoor access, food display and storage, water-town movement, material processes': '户外通行、食品陈列与储存、水乡流动、材料工艺',
-  'How is it forecast, communicated, compared, and acted on in public information systems?': '公共信息系统如何预测、传达、比较天气，并据此行动？',
-  'Official forecasts, Polymarket probabilities, observed outcomes, and AI-enabled forecasting': '官方预报、Polymarket 概率、实测结果与 AI 辅助预测',
-  'Evidence cluster': '证据类别', 'Direct observation': '直接观察', 'Question it raised': '由此提出的问题', 'Unknown': '未知', 'What it cannot establish': '无法据此确认',
+  'From field observation to weather-risk information': '从田野观察，走向天气风险信息',
+  'Jinxi’s water-town tourism, food processing, and traditional crafts show that weather is part of everyday decisions. This raises a broader question: how can people understand different forecasts and turn uncertain information into a clearer picture?': '锦溪的水乡旅游、食品加工与传统手工业让我们看到：天气并不是抽象的数据，它可能进入游客出行、生产安排、晾晒储存和经营决策。由此，我们开始关注一个更普遍的问题——普通人如何理解不同来源的天气预测，并将不确定的信息转化为更直观的判断？',
+  'Where it begins': '从这里开始', 'Weather touches everyday life': '天气影响着日常生活',
+  'Boat trips, local shops, and food drying all depend on weather conditions.': '游船、临水商铺和食品晾晒，都与天气条件有关。',
+  'The question': '我们关心的问题', 'How should we read a forecast?': '我们该如何理解天气预测？',
+  'Different forecasts can tell different stories. What seems likely, and how sure can we be?': '不同预测可能给出不同答案。什么更有可能发生？我们又有多大把握？',
+  'What this site explores': '这个网站将带你了解', 'Predictions beside actual weather': '把天气预测与实际天气放在一起',
+  'Compare public forecasts with recorded conditions to see what was expected and what happened.': '把公开天气预测与实际记录放在一起，看看预测了什么，实际天气又是怎样。',
+  'What we study next': '我们进一步研究', 'Comparing weather signals': '比较不同天气信号',
+  'Comparing weather forecasts': '比较天气预测',
+  'Bring official observations, weather forecasts, and market-based probability estimates together to compare expectations, uncertainty, and outcomes.': '把官方实测、天气预报与公开的天气预测放在一起，对照预测、天气不确定性与实际结果。',
+  'From community scenes to information needs': '从社区场景到信息需求',
+  'Category': '类别', 'Field observation': '现场观察', 'Weather connection': '天气联系', 'Information need': '信息需求',
+  'Boats and canal-side coffee depend on outdoor space and visitor movement.': '游船、临水咖啡等活动依赖户外空间和游客流动。',
+  'Heat, rainfall, and outdoor comfort may change travel and time spent outdoors.': '高温、降雨和体感舒适度可能改变游客出行与停留。',
+  'How might the weather change? Do different forecast signals agree?': '未来天气如何变化？不同预测信号是否一致？',
+  'Smoked beans involve drying, storage, transport, and sale.': '熏青豆等食品涉及晾晒、储存、运输和销售。',
+  'Temperature, humidity, and rainfall may change processing and storage conditions.': '温度、湿度和降雨可能改变加工与储存条件。',
+  'When might unfavorable weather occur? How uncertain are the forecasts?': '何时可能出现不利天气？预测存在多大不确定性？',
+  'Traditional craft': '传统手工业',
+  'Brick-making and wooden-boat craft show links among materials, labour, and nature.': '砖瓦制作、木船工艺展示出材料、劳动与自然环境的联系。',
+  'Some production stages may be sensitive to temperature, humidity, rainfall, and timing.': '部分生产环节可能对温度、湿度、降雨和作业时机敏感。',
+  'How can simple weather-risk information support production planning and judgment?': '如何用简单的天气风险信息辅助生产安排与判断？',
   'Covered tour boats and a canal-side coffee shop connected to outdoor visitor spaces': '带篷游船与临水咖啡店连接着户外游客空间',
   'How might weather uncertainty shape visitor movement, outdoor access, and service-related choices?': '天气的不确定性可能如何影响游客流动、户外通行与服务选择？',
   'Passenger counts, revenue, operating schedules, workers’ information needs, or a weather effect on demand': '客流、收入、运营安排、从业者的信息需求，或天气对需求的影响',
@@ -65,20 +93,19 @@ const zh = new Map(Object.entries({
   'Boat-building knowledge connects tools, skilled labour, and a water-town setting. It gives historical context; it does not document a current business.': '造船知识连接了工具、技能劳动与水乡环境。它提供历史背景，但不代表当前仍有相关经营活动。',
   'Field photo · Service': '田野照片 · 服务',
   'A canal-side coffee shop sits directly on the water and the street. It raises questions about outdoor comfort and visitor timing; it does not record customer behaviour.': '临水咖啡店同时连接水道与街道，由此可以追问户外舒适度与游客时间选择，但照片本身没有记录消费行为。',
-  'Project handoff': '项目衔接',
-  'Jinxi gave us a question, not a dataset.': '锦溪给了我们一个问题，而不是一组数据。',
-  'The next chapters investigate how weather uncertainty can be forecast, compared, priced, and acted upon — and what access, trust, and power shape those signals.': '接下来的章节考察天气的不确定性如何被预测、比较、定价并转化为行动，以及获取、信任与权力如何塑造这些信号。',
-  'The next chapters investigate how weather uncertainty can be': '接下来的章节考察天气的不确定性如何被',
-  'forecast, compared, priced, and acted upon': '预测、比较、定价并转化为行动',
-  '— and what access, trust, and power shape those signals.': '——以及获取、信任与权力如何塑造这些信号。',
+  'Project handoff': '接下来',
+  'From a local question to a wider comparison': '从一个地方的问题，走向更广泛的比较',
+  'Next, we explore how forecasts describe the future, how they differ, and how they compare with': '接下来，我们将了解天气预测如何描述未来、彼此有何不同，以及它们与',
+  'the weather that actually arrived.': '实际天气如何对应。',
   '· Jinxi': '· 锦溪', '· New York': '· 纽约', '· Mexico City': '· 墨西哥城',
-  'Signals vs outcomes · New York': '预测与结果 · 纽约',
-  'NomadCast · Mexico City': 'NomadCast · 墨西哥城',
+  'Forecasts & observations · New York': '预测与实测 · 纽约',
+  'Weather & daily life · Mexico City': '天气与日常生活 · 墨西哥城',
   'Real market prices': '真实市场价格', 'NOAA observed': 'NOAA 实测',
   'Prototype · simulated activity': '原型 · 模拟活动数据',
-  'Polymarket’s highest-priced temperature range against NOAA’s recorded maximum at LaGuardia, Aug 17–28, 2026. Simple and professional views.': '对照 2026 年 8 月 17–28 日 Polymarket 最高价温度区间与 NOAA 拉瓜迪亚机场实测最高温；提供简明版和专业版。',
-  'From “what will the weather be?” to “what could it mean for my day?” — market expectations, place, activity patterns, and similar days for digital nomads.': '从“天气会怎样”走向“天气对我的一天意味着什么”：为数字游民连接市场预期、地点、活动模式与相似天气日。',
-  'Jinxi field origin · September 2026 · The field visit motivates a broader public-information study; it does not demonstrate a Jinxi-specific need or Polymarket use. Field photographs are from a course visit; confirm reuse permission before publishing beyond the course.': '锦溪田野缘起 · 2026 年 9 月 · 本次走访启发了更广泛的公共信息研究，但不代表锦溪存在特定需求或使用 Polymarket。照片来自课程走访，课程之外发布前应确认使用许可。',
+  'Compare the most likely temperature prediction with recorded weather at LaGuardia, Aug 17–28, 2026.': '对照 2026 年 8 月 17–28 日最可能的气温预测与拉瓜迪亚机场记录的实际天气。',
+  'Prediction range': '预测区间', 'Recorded weather': '实际天气记录',
+  'From “what will the weather be?” to “what could it mean for my day?” using place, daily activities, and patterns from similar weather days.': '从“天气会怎样”走向“天气对我的一天意味着什么”：结合地点、日常活动与相似天气日的模式，理解天气可能带来的影响。',
+  'A weather and daily-life project, beginning in Jinxi and continuing through forecast comparisons and city experiences.': '一个关于天气与日常生活的项目：从锦溪出发，继续比较天气预测，并观察它与城市生活的联系。',
 
   'Research prototype.': '研究原型。',
   'Market and weather values are illustrative placeholders in the format of Polymarket daily-temperature markets. Activity data is simulated.': '市场与天气数值是按 Polymarket 每日温度市场格式制作的示例占位数据，活动数据为模拟数据。',
@@ -97,6 +124,14 @@ const zh = new Map(Object.entries({
   'Prediction vs reality · Interactive visualization': '预测与实况 · 交互可视化',
   'What did the market expect — and what actually happened?': '市场如何预测，后来实际发生了什么？',
   'Each column is one day. The shaded band shows the range the market priced highest; the dot shows the maximum temperature the settlement station recorded. Click any day to set it as the focus for every view below.': '每一列代表一天。色带表示市场价格最高的温度区间，圆点表示结算站记录的最高温度。点击任意日期，可同步更新下方所有视图。',
+  'Each column is one day. The shaded band shows the range the market priced highest; the dot shows the maximum temperature the settlement station recorded.': '每一列代表一天。色带表示市场价格最高的温度区间，圆点表示结算站记录的最高温度。',
+  'Click any day': '点击任意日期，',
+  'to set it as the focus for every view below.': '即可同步更新下方所有视图。',
+  'Market’s most likely range · darker = higher probability': '市场最可能的温度区间 · 颜色越深，概率越高',
+  'Observed maximum (settlement station)': '结算气象站记录的最高气温',
+  'No market / no observation': '无市场数据 / 无实测记录',
+  'Tomorrow · not yet observed': '明日 · 尚无实测记录',
+  'Market-implied': '市场预测', 'Observed': '实际观测',
   'Most likely range': '最可能区间', 'Full probability distribution': '完整概率分布',
   'Tomorrow’s Maximum Temperature': '明日最高气温', 'Rain probability': '降雨概率',
   'Forecast model · not a market': '预测模型 · 非市场数据', 'Measure': '指标', 'Last updated': '最后更新', 'Source': '来源', 'Settlement source': '结算来源',
@@ -136,39 +171,69 @@ const zh = new Map(Object.entries({
 
 const originalText = new WeakMap();
 const originalAttrs = new WeakMap();
+const renderedText = new WeakMap();
+const renderedAttrs = new WeakMap();
+// Own complete bilingual case paragraphs so emphasis survives language changes.
+const caseParagraphs = [...document.querySelectorAll('#next p[data-copy-zh], .meaning-main p[data-copy-zh], body[data-page-title-zh] p[data-copy-zh], .family-scene figcaption, .o-handoff-portrait figcaption, .cafe-portrait figcaption, .guide-entry-image figcaption')];
+const caseSources = new Map(caseParagraphs.map(element=>{
+  const source={en:element.textContent,zh:element.getAttribute('data-copy-zh')||element.textContent};
+  element.setAttribute('data-case-copy','');return [element,source];
+}));
+const caseNames=/非洲|马拉维|伦菲|锦溪|张华阳|墨西哥城|洛杉矶|迭戈|托科|帕蒂奥咖啡馆|帕蒂奥|Africa|Malawi|Rumphi|Jinxi|Zhang HuaYang|Mexico City|Los Angeles|Diego|Thoko|Café Patio|Jason Jiang|28wishes/g;
+function emphasizeCases(language) {
+  caseSources.forEach((source,element)=>{
+    const value=source[language];
+    const fragment=document.createDocumentFragment();let start=0;
+    for(const match of value.matchAll(caseNames)){
+      fragment.append(document.createTextNode(value.slice(start,match.index)));
+      const name=document.createElement('strong');name.className='case-name';name.textContent=match[0];fragment.append(name);start=match.index+match[0].length;
+    }
+    fragment.append(document.createTextNode(value.slice(start)));element.replaceChildren(fragment);
+  });
+}
 
 function translateText(root, language) {
   const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
   const nodes = [];
   while (walker.nextNode()) nodes.push(walker.currentNode);
   nodes.forEach((node) => {
-    if (node.parentElement?.closest('script, style, .site-language')) return;
-    if (!originalText.has(node)) originalText.set(node, node.nodeValue);
+    if (node.parentElement?.closest('script, style, .site-language, .chart-palette, [data-language-owned], [data-case-copy]')) return;
+    if (!originalText.has(node) || (renderedText.has(node) && node.nodeValue !== renderedText.get(node))) originalText.set(node, node.nodeValue);
     const source = originalText.get(node);
-    if (language === 'en') { node.nodeValue = source; return; }
+    if (language === 'en') {
+      if (node.nodeValue !== source) node.nodeValue = source;
+      renderedText.set(node, source);
+      return;
+    }
     const leading = source.match(/^\s*/)?.[0] || '';
     const trailing = source.match(/\s*$/)?.[0] || '';
     const key = source.trim().replace(/\s+/g, ' ');
-    if (zh.has(key)) node.nodeValue = `${leading}${zh.get(key)}${trailing}`;
+    const explicitTranslation = node.parentElement?.getAttribute('data-copy-zh');
+    const translation = explicitTranslation && node.parentElement.childNodes.length === 1 ? explicitTranslation : zh.get(key) ?? (location.pathname.includes('nomadcast') ? translateChapterThree(key) : null);
+    const value = translation != null ? `${leading}${translation}${trailing}` : source;
+    if (node.nodeValue !== value) node.nodeValue = value;
+    renderedText.set(node, value);
   });
 }
 
 function translateAttrs(language) {
-  document.querySelectorAll('[aria-label], [title], option').forEach((node) => {
-    if (!originalAttrs.has(node)) originalAttrs.set(node, { aria: node.getAttribute('aria-label'), title: node.getAttribute('title'), text: node.tagName === 'OPTION' ? node.textContent : null });
+  document.querySelectorAll('[aria-label], [title]').forEach((node) => {
+    if (node.closest('.chart-palette, [data-language-owned]')) return;
+    const live = { aria: node.getAttribute('aria-label'), title: node.getAttribute('title') };
+    if (!originalAttrs.has(node)) originalAttrs.set(node, { ...live });
     const source = originalAttrs.get(node);
+    const last = renderedAttrs.get(node);
+    if (last) ['aria', 'title'].forEach((key) => { if (live[key] !== last[key]) source[key] = live[key]; });
+    const translate = (value) => language === 'zh' ? (zh.get(value) ?? (location.pathname.includes('nomadcast') ? translateChapterThree(value) : value)) : value;
     if (source.aria != null) {
-      const value = language === 'zh' ? (zh.get(source.aria) || source.aria) : source.aria;
+      const value = translate(source.aria);
       if (node.getAttribute('aria-label') !== value) node.setAttribute('aria-label', value);
     }
     if (source.title != null) {
-      const value = language === 'zh' ? (zh.get(source.title) || source.title) : source.title;
+      const value = translate(source.title);
       if (node.getAttribute('title') !== value) node.setAttribute('title', value);
     }
-    if (source.text != null) {
-      const value = language === 'zh' ? (zh.get(source.text.trim()) || source.text) : source.text;
-      if (node.textContent !== value) node.textContent = value;
-    }
+    renderedAttrs.set(node, { aria: node.getAttribute('aria-label'), title: node.getAttribute('title') });
   });
 }
 
@@ -181,11 +246,12 @@ function applyLanguage(language) {
   try { localStorage.setItem(STORAGE_KEY, language); } catch {}
   document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
   const path = location.pathname;
-  document.title = language === 'zh'
-    ? (path.includes('nomadcast') ? 'NomadCast — 天气对我的一天意味着什么？' : '天气 / 信号 — 问题从锦溪开始')
-    : (path.includes('nomadcast') ? 'NomadCast — What could this weather mean for my day?' : 'Weather / Signals — Jinxi raised the question');
+  document.title = document.body.dataset[language === 'zh' ? 'pageTitleZh' : 'pageTitleEn'] || (language === 'zh'
+    ? (path.includes('nomadcast') ? 'Weatherbridge · 03 从信息到行动' : 'Weatherbridge · 01 天气与日常生活')
+    : (path.includes('nomadcast') ? 'Weatherbridge · 03 From information to action' : 'Weatherbridge · 01 Weather & daily life'));
   translateText(document.body, language);
   translateAttrs(language);
+  emphasizeCases(language);
   document.querySelectorAll('.site-language button').forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.language === language)));
   window.dispatchEvent(new CustomEvent('site-language-change', { detail: { language } }));
 }
@@ -213,5 +279,5 @@ let queued = false;
 new MutationObserver(() => {
   if (queued || currentLanguage() !== 'zh') return;
   queued = true;
-  queueMicrotask(() => { queued = false; translateText(document.body, 'zh'); translateAttrs('zh'); });
-}).observe(document.body, { childList: true, subtree: true });
+  queueMicrotask(() => { queued = false; if (currentLanguage() !== 'zh') return; translateText(document.body, 'zh'); translateAttrs('zh'); });
+}).observe(document.body, { childList: true, characterData: true, attributes: true, attributeFilter: ['title', 'aria-label'], subtree: true });

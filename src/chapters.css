@@ -22,6 +22,7 @@
   transition: color 0.2s, border-color 0.2s;
 }
 .cb-list a span { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; color: #8a857a; }
+.cb-list a [data-copy-zh] { font: inherit; color: inherit; }
 .cb-list a small { color: #8a857a; font-size: 11.5px; }
 .cb-list a:hover { color: #f4f1ea; }
 .cb-list a[aria-current='page'] { color: #f4f1ea; border-bottom-color: #c9713f; }
@@ -32,4 +33,12 @@
   .cb-list { margin: 0; }
   .site-language { margin-left: auto; }
   .site-language button { min-width: 32px; padding: 0 6px; }
+}
+@media (max-width: 600px) {
+  .chapterbar-inner { flex-wrap: wrap; height: auto; gap: 4px; padding-block: 8px; }
+  .cb-brand { display: block; }
+  .cb-list { width: 100%; order: 2; height: auto; gap: 0; }
+  .cb-list li { flex: 1; min-width: 0; }
+  .cb-list a { padding: 6px; min-height: 44px; white-space: normal; line-height: 1.35; gap: 5px; font-size: 13px; }
+  .site-language button { min-width: 44px; min-height: 44px; }
 }

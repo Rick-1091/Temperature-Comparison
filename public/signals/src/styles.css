@@ -144,6 +144,13 @@ html,body{height:100%;overflow:hidden}
 .paper-source{margin-top:26px;color:#7c8881;font-size:.65rem;line-height:1.45}
 .paper-source span{margin-right:7px;color:#53645c;font-weight:850;text-transform:uppercase;letter-spacing:.09em}
 .paper-source cite{font-style:normal}
+.paper-source a{display:inline-block;color:var(--actual);text-underline-offset:4px;padding:10px 0;min-height:44px;font-size:.85rem}
+.hit-formula{margin:24px 0;padding:20px 0;border-block:1px solid var(--rule)}
+.formula-expression{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:1.15rem;color:var(--actual);font-family:var(--sans)}
+.formula-fraction{display:inline-flex;flex-direction:column;align-items:center;line-height:1.5;vertical-align:middle}
+.formula-fraction>span:first-child{border-bottom:1px solid currentColor;padding:0 10px 4px}
+.formula-fraction>span:last-child{padding-top:4px}
+.hit-formula .formula-definitions{font-size:.9rem;line-height:1.8}
 @media(max-width:900px){
   .reliability-intro{grid-template-columns:1fr;gap:36px;padding:82px 0 40px}
   .reliability-copy h1{max-width:760px}
@@ -182,4 +189,27 @@ html,body{height:100%;overflow:hidden}
 /* Shared typography roles across all three chapters. */
 h1,h2,h3,.figure-heading h2{font-family:var(--serif)}
 .figure-heading h2{font-size:1.72rem;font-weight:520;letter-spacing:-.02em}
+.simple-onboarding{padding:30px 0 24px;border-bottom:1px solid #dcded7;max-width:850px}
+.simple-onboarding h2{font-size:1.65rem;margin:0 0 14px}
+.simple-onboarding p{font:400 1.05rem/1.7 var(--sans);margin:10px 0;color:#4f5e57}
+.simple-onboarding { max-width: none; }
+.simple-onboarding > p { max-width: 75ch; }
+.market-interface { margin: 28px 0; }
+.market-interface img { display: block; width: 100%; height: auto; border: 1px solid var(--line,#dcded7); }
+.market-interface figcaption { margin-top: 12px; font-size: 14px; line-height: 1.6; color: var(--muted,#4f5e57); }
+.market-explainer { display: grid; grid-template-columns: 1fr; gap: 0; }
+.market-explainer details { border-bottom: 1px solid var(--rule); }
+.market-explainer summary { cursor: pointer; min-height: 44px; padding: 14px 0; font-size: 20px; font-weight: 600; color: var(--actual); }
+.market-explainer details p { padding: 0 0 16px; }
+.market-explainer summary:focus-visible { outline: 2px solid var(--actual); outline-offset: 4px; }
+.market-docs { display: inline-flex; align-items: center; min-height: 44px; margin-top: 16px; color: var(--actual); }
+@media(max-width:800px) { .market-explainer { grid-template-columns: 1fr; gap: 18px; } }
+#market-basics-case{font-size:.9rem}
+.simple-check{padding:30px 0;border-top:1px solid #dcded7}
+.simple-check h2{font-size:1.7rem;margin-bottom:14px}
+.simple-check p{font-size:1rem;line-height:1.7;max-width:75ch;margin:12px 0;color:#4f5e57}
+.simple-check svg{display:block;width:100%;max-width:850px;height:auto}
+.hit-legend{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;margin:14px 0;color:#4f5e57;font-size:1rem;line-height:1.5}
+.hit-legend>span{display:inline-flex;align-items:center;gap:10px}
+.simple-check .hit-legend-key{width:40px;height:12px;flex:0 0 40px}
 

@@ -4,7 +4,7 @@ import { subscribe, setState } from '../state.js';
 export function initHero() {
   const sel = document.getElementById('sel-date');
   sel.innerHTML = [...DAYS].reverse().map((d) =>
-    `<option value="${d.date}">${d.date === TOMORROW_ISO ? 'Tomorrow · September 25' : fmtDate(d.date, { weekday: 'short', month: 'long', day: 'numeric' })}</option>`
+    `<option value="${d.date}">${d.date === TOMORROW_ISO ? 'September 25 · simulated forecast' : fmtDate(d.date, { weekday: 'short', month: 'long', day: 'numeric' })}</option>`
   ).join('');
   sel.addEventListener('change', () => setState({ date: sel.value }));
 

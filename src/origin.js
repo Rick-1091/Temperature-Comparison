@@ -2,20 +2,19 @@ import './fonts.js';
 import './styles.css';
 import './chapters.css';
 import './origin.css';
+import './storyline.css';
 import './site-i18n.js';
 
 const contexts = {
   en: {
-    tourism: '<b>Tourism &amp; service.</b> Rain, heat, and wind can change outdoor access, visitor comfort, boat movement, and the timing of street-facing services.',
-    water: '<b>Water-town systems.</b> Rainfall and water conditions can affect waterways, access, environmental conditions, and the maintenance demands of a water-oriented place.',
-    production: '<b>Production.</b> Field observations of brick and boat-making displays point to a longer history in which materials, labour, timing, and controlled conditions were tightly linked.',
-    agri: '<b>Agriculture &amp; fishery.</b> Temperature, rainfall, water conditions, and seasonal timing can affect growing, aquatic environments, harvesting, and movement through supply chains.',
+    tourism: '<b>Tourism services.</b> Wind, rain, and heat can shape boat trips, outdoor visits, and the comfort of canal-side spaces.',
+    food: '<b>Food processing.</b> Drying, storage, and transport depend on conditions such as temperature, humidity, and rainfall.',
+    craft: '<b>Traditional crafts.</b> Brick-making and boat-building connect materials, skilled work, and the timing of outdoor tasks.',
   },
   zh: {
-    tourism: '<b>旅游与服务。</b>降雨、高温与风会影响户外通行、游客舒适度、船只运行和沿街服务的时间安排。',
-    water: '<b>水乡系统。</b>降雨与水情会影响航道、通行、环境状况，以及水乡基础设施的维护需求。',
-    production: '<b>生产。</b>砖瓦和造船展陈提示我们：材料、劳动、时机与环境控制之间长期紧密相连。',
-    agri: '<b>农业与渔业。</b>气温、降雨、水情与季节节律会影响种植、水生环境、收获及供应链流转。',
+    tourism: '<b>旅游服务。</b>风雨和高温会影响游船、户外游览，以及临水空间的舒适度。',
+    food: '<b>食品加工。</b>晾晒、储存和运输都与温度、湿度、降雨等条件有关。',
+    craft: '<b>传统手工业。</b>砖瓦制作和木船工艺连接着材料、手工劳动与户外作业时机。',
   },
 };
 
