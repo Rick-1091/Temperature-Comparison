@@ -35,6 +35,7 @@
 .guide-entry-image { margin: 0; }
 .guide-entry-image img { display: block; width: 100%; height: auto; }
 .guide-entry-image figcaption { margin-top: 12px; font: 400 14px/1.6 var(--sans); color: var(--ink-2); }
+.story-block .guide-entry-image .image-note { margin: 4px 0 0; font: 400 12px/1.6 var(--sans); color: var(--ink-2); }
 @media(max-width:700px) { .guide-entry-layout { grid-template-columns: 1fr; gap: 24px; } .guide-entry-image { max-width: 440px; } }
 #weather-impact .case-actions, #weather-impact .story-flow, #weather-impact > .wrap > p, #weather-impact .impact-links, #impact-controls { grid-column: 1 / -1; }
 @media (max-width:700px) { #weather-impact > .wrap { grid-template-columns: 1fr; } .cafe-portrait { grid-column: 1; grid-row: auto; margin: 20px 0; max-width: 440px; } }

@@ -555,7 +555,13 @@ function renderSimpleHitHistory() {
         <p>${english?'Cumulative broad-range hit rate':'累计宽松命中率'}：<span class="formula-expression">R<sub>t</sub> = <span class="formula-fraction"><span>∑<sub>i ∈ V<sub>t</sub></sub> h<sub>i</sub></span><span>|V<sub>t</sub>|</span></span> × 100%</span></p>
         <p class="formula-definitions">${english?'Tᵢ: NOAA observed daily high; Iᵢ,₀: highest-priced interval; Iᵢ,−1 / Iᵢ,+1: immediately lower / higher intervals, where available; 𝟙: 1 when the condition holds, otherwise 0; Vₜ: valid days up to date t with both a market interval and an observation.':'Tᵢ：NOAA 实测日最高温；Iᵢ,₀：当日最高报价区间；Iᵢ,−1、Iᵢ,+1：相邻的下、上各一档（有该档时）；𝟙：条件成立记 1，否则记 0；Vₜ：截至日期 t，同时具备市场区间与实测数据的有效日期集合。'}</p>
         <p>${english?'Example: 84–85°F → 82–87°F for adjacent 2°F bins. Sample result: 10 ÷ 12 × 100% ≈ 83.3%.':'示例：相邻温度档宽为 2°F 时，84–85°F → 82–87°F。本样本：10 ÷ 12 × 100% ≈ 83.3%。'}</p>
-      </div>` : `<p>${definition}</p>`}
+      </div>` : `<div class="hit-formula">
+        <p>${english?'Strict-range hit condition':'严格命中条件'}：<span class="formula-expression">h<sub>i</sub> = 𝟙[T<sub>i</sub> ∈ I<sub>i,0</sub>]</span></p>
+        <p>${english?'Cumulative strict-range hit rate':'累计严格命中率'}：<span class="formula-expression">R<sub>t</sub> = <span class="formula-fraction"><span>∑<sub>i ∈ V<sub>t</sub></sub> h<sub>i</sub></span><span>|V<sub>t</sub>|</span></span> × 100%</span></p>
+        <p class="formula-definitions">${english?'Tᵢ: NOAA observed daily high; Iᵢ,₀: highest-priced interval; 𝟙: 1 when the condition holds, otherwise 0; Vₜ: valid days up to date t with both a market interval and an observation.':'Tᵢ：NOAA 实测日最高温；Iᵢ,₀：当日最高报价区间；𝟙：条件成立记 1，否则记 0；Vₜ：截至日期 t，同时具备市场区间与实测数据的有效日期集合。'}</p>
+        <p>${definition}</p>
+        <p>${english?'Sample result: 5 ÷ 12 × 100% ≈ 41.7%.':'本样本：5 ÷ 12 × 100% ≈ 41.7%。'}</p>
+      </div>`}
       <p>${english?'Cumulative hit rate = qualifying days / days with both a market interval and an observation, up to each date. Broad-range hits measure interval coverage at a wider tolerance, not probability calibration or overall forecasting skill. Compare methods at the same interval width. This small historical sample uses NOAA daily highs; observation stations and settlement rules may differ.':'累计命中率＝截至该日的命中天数 ÷ 同时具备市场区间与实测数据的有效天数。宽松命中率衡量较大容差下的区间覆盖率，不等同于概率校准程度或整体预测能力；比较不同方法时应统一区间宽度。本图仅反映短期历史样本，NOAA 观测站点与市场结算规则可能存在差异。'}</p>`;
   });
   document.getElementById('simple-hit-count').textContent = wide;

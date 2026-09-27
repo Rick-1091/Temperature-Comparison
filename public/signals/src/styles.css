@@ -146,8 +146,9 @@ html,body{height:100%;overflow:hidden}
 .paper-source cite{font-style:normal}
 .paper-source a{display:inline-block;color:var(--actual);text-underline-offset:4px;padding:10px 0;min-height:44px;font-size:.85rem}
 .hit-formula{margin:24px 0;padding:20px 0;border-block:1px solid var(--rule)}
-.formula-expression{display:inline-flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:1.15rem;color:var(--actual);font-family:var(--sans)}
-.formula-fraction{display:inline-flex;flex-direction:column;align-items:center;line-height:1.5;vertical-align:middle}
+.formula-expression{display:inline-block;font:600 1.2rem/1.35 "Cambria Math",Cambria,"Times New Roman",serif;color:var(--ink);letter-spacing:0;vertical-align:middle}
+.formula-expression sub{font-size:.7em;line-height:0;vertical-align:sub}
+.formula-fraction{display:inline-flex;flex-direction:column;align-items:center;line-height:1.25;vertical-align:middle;margin:0 3px}
 .formula-fraction>span:first-child{border-bottom:1px solid currentColor;padding:0 10px 4px}
 .formula-fraction>span:last-child{padding-top:4px}
 .hit-formula .formula-definitions{font-size:.9rem;line-height:1.8}
