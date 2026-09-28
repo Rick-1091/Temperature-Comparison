@@ -1,0 +1,3094 @@
+{
+  "metadata": {
+    "collectedAt": "2026-09-28T11:01:11.5659624+00:00",
+    "location": "Mexico City International Airport",
+    "station": "MMMX",
+    "timezone": "America/Mexico_City",
+    "observationUnit": "C",
+    "marketUnit": "C",
+    "observationUrl": "https://aviationweather.gov/api/data/metar?ids=MMMX&hours=240&format=json",
+    "eventsUrl": "https://gamma-api.polymarket.com/events?series_id=11428&closed=true&limit=15&order=endDate&ascending=false",
+    "observationMethod": "Maximum reported METAR temperature within the local calendar day; at least 20 reports spanning at least 20 distinct local hours.",
+    "snapshotPolicy": "Latest Yes quote within 24 hours strictly before local midnight; CLOB fidelity 5 minutes.",
+    "comparisonMethod": "Convert the unrounded Celsius maximum into the native market unit, round to the nearest whole degree for interval membership, and keep the original maximum for display. Not authoritative settlement."
+  },
+  "days": [
+    {
+      "date": "2026-09-19",
+      "day": 19,
+      "actualC": 25,
+      "observationCount": 33,
+      "hourCoverage": 24,
+      "firstObservation": "2026-09-19T06:42:00Z",
+      "lastObservation": "2026-09-20T05:49:00Z",
+      "eventId": "1038087",
+      "marketUrl": "https://polymarket.com/event/highest-temperature-in-mexico-city-on-september-19-2026",
+      "eventApiUrl": "https://gamma-api.polymarket.com/events/slug/highest-temperature-in-mexico-city-on-september-19-2026",
+      "resolutionSource": "https://www.weather.gov/wrh/timeseries?site=mmmx",
+      "snapshotAt": "2026-09-19T06:00:00Z",
+      "outcomes": [
+        {
+          "label": "16°C or below",
+          "low": null,
+          "high": 16,
+          "midpoint": 16,
+          "price": 0.0005,
+          "quotedAt": "2026-09-19T05:55:13Z",
+          "marketId": "4638467",
+          "yesTokenId": "329637427341394638094256856413953554339106066601622977617150835213104840939",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=329637427341394638094256856413953554339106066601622977617150835213104840939&startTs=1789711200&endTs=1789797600&fidelity=5"
+        },
+        {
+          "label": "17°C",
+          "low": 17,
+          "high": 17,
+          "midpoint": 17,
+          "price": 0.0005,
+          "quotedAt": "2026-09-19T05:55:17Z",
+          "marketId": "4638468",
+          "yesTokenId": "18161987682529060478939296631178240004423364792800385321711818397588225400981",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=18161987682529060478939296631178240004423364792800385321711818397588225400981&startTs=1789711200&endTs=1789797600&fidelity=5"
+        },
+        {
+          "label": "18°C",
+          "low": 18,
+          "high": 18,
+          "midpoint": 18,
+          "price": 0.0005,
+          "quotedAt": "2026-09-19T05:55:17Z",
+          "marketId": "4638469",
+          "yesTokenId": "91335901005554405333321205059766993261003324360551199976805114199369239369100",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=91335901005554405333321205059766993261003324360551199976805114199369239369100&startTs=1789711200&endTs=1789797600&fidelity=5"
+        },
+        {
+          "label": "19°C",
+          "low": 19,
+          "high": 19,
+          "midpoint": 19,
+          "price": 0.0005,
+          "quotedAt": "2026-09-19T05:55:13Z",
+          "marketId": "4638470",
+          "yesTokenId": "66855829883221497666614413239512526773535185692320989773009321406154685212538",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=66855829883221497666614413239512526773535185692320989773009321406154685212538&startTs=1789711200&endTs=1789797600&fidelity=5"
+        },
+        {
+          "label": "20°C",
+          "low": 20,
+          "high": 20,
+          "midpoint": 20,
+          "price": 0.0005,
+          "quotedAt": "2026-09-19T05:55:17Z",
+          "marketId": "4638471",
+          "yesTokenId": "20643290288500564113967112750327105185462195941403087150881661810888847519839",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=20643290288500564113967112750327105185462195941403087150881661810888847519839&startTs=1789711200&endTs=1789797600&fidelity=5"
+        },
+        {
+          "label": "21°C",
+          "low": 21,
+          "high": 21,
+          "midpoint": 21,
+          "price": 0.0005,
+          "quotedAt": "2026-09-19T05:55:15Z",
+          "marketId": "4638472",
+          "yesTokenId": "33285672549939767464296091279842906915899331987854233282261835708243563859653",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=33285672549939767464296091279842906915899331987854233282261835708243563859653&startTs=1789711200&endTs=1789797600&fidelity=5"
+        },
+        {
+          "label": "22°C",
+          "low": 22,
+          "high": 22,
+          "midpoint": 22,
+          "price": 0.005,
+          "quotedAt": "2026-09-19T05:55:13Z",
+          "marketId": "4638473",
+          "yesTokenId": "45194781818051302527222276523386782795938825320290324925139865815638330114692",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=45194781818051302527222276523386782795938825320290324925139865815638330114692&startTs=1789711200&endTs=1789797600&fidelity=5"
+        },
+        {
+          "label": "23°C",
+          "low": 23,
+          "high": 23,
+          "midpoint": 23,
+          "price": 0.015,
+          "quotedAt": "2026-09-19T05:55:13Z",
+          "marketId": "4638474",
+          "yesTokenId": "109393098684595644880941325455893587138975745324505688928314796641456576124639",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=109393098684595644880941325455893587138975745324505688928314796641456576124639&startTs=1789711200&endTs=1789797600&fidelity=5"
+        },
+        {
+          "label": "24°C",
+          "low": 24,
+          "high": 24,
+          "midpoint": 24,
+          "price": 0.135,
+          "quotedAt": "2026-09-19T05:55:13Z",
+          "marketId": "4638475",
+          "yesTokenId": "66979613722622563806097374465259109073893235753413157948852051813539691045816",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=66979613722622563806097374465259109073893235753413157948852051813539691045816&startTs=1789711200&endTs=1789797600&fidelity=5"
+        },
+        {
+          "label": "25°C",
+          "low": 25,
+          "high": 25,
+          "midpoint": 25,
+          "price": 0.595,
+          "quotedAt": "2026-09-19T05:55:17Z",
+          "marketId": "4638476",
+          "yesTokenId": "30114215282572650081111473965742993684050281276565107993310591363614063353120",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=30114215282572650081111473965742993684050281276565107993310591363614063353120&startTs=1789711200&endTs=1789797600&fidelity=5"
+        },
+        {
+          "label": "26°C or higher",
+          "low": 26,
+          "high": null,
+          "midpoint": 26,
+          "price": 0.27,
+          "quotedAt": "2026-09-19T05:55:16Z",
+          "marketId": "4638477",
+          "yesTokenId": "109689872833089616635235407645446583335143032398332640611749569697177759739766",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=109689872833089616635235407645446583335143032398332640611749569697177759739766&startTs=1789711200&endTs=1789797600&fidelity=5"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-20",
+      "day": 20,
+      "actualC": 26,
+      "observationCount": 34,
+      "hourCoverage": 23,
+      "firstObservation": "2026-09-20T06:41:00Z",
+      "lastObservation": "2026-09-21T05:45:00Z",
+      "eventId": "1042934",
+      "marketUrl": "https://polymarket.com/event/highest-temperature-in-mexico-city-on-september-20-2026",
+      "eventApiUrl": "https://gamma-api.polymarket.com/events/slug/highest-temperature-in-mexico-city-on-september-20-2026",
+      "resolutionSource": "https://www.weather.gov/wrh/timeseries?site=mmmx",
+      "snapshotAt": "2026-09-20T06:00:00Z",
+      "outcomes": [
+        {
+          "label": "17°C or below",
+          "low": null,
+          "high": 17,
+          "midpoint": 17,
+          "price": 0.0005,
+          "quotedAt": "2026-09-20T05:55:15Z",
+          "marketId": "4685097",
+          "yesTokenId": "67397961283673877182116560161418511808041735997682548946027515732305232627364",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=67397961283673877182116560161418511808041735997682548946027515732305232627364&startTs=1789797600&endTs=1789884000&fidelity=5"
+        },
+        {
+          "label": "18°C",
+          "low": 18,
+          "high": 18,
+          "midpoint": 18,
+          "price": 0.0005,
+          "quotedAt": "2026-09-20T05:55:12Z",
+          "marketId": "4685098",
+          "yesTokenId": "106220795487799459349592329896764698415137538654284604270119980340525333017936",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=106220795487799459349592329896764698415137538654284604270119980340525333017936&startTs=1789797600&endTs=1789884000&fidelity=5"
+        },
+        {
+          "label": "19°C",
+          "low": 19,
+          "high": 19,
+          "midpoint": 19,
+          "price": 0.0005,
+          "quotedAt": "2026-09-20T05:55:14Z",
+          "marketId": "4685099",
+          "yesTokenId": "99911148530020722105194901055730986256935516980279798320566284059532766136079",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=99911148530020722105194901055730986256935516980279798320566284059532766136079&startTs=1789797600&endTs=1789884000&fidelity=5"
+        },
+        {
+          "label": "20°C",
+          "low": 20,
+          "high": 20,
+          "midpoint": 20,
+          "price": 0.0005,
+          "quotedAt": "2026-09-20T05:55:12Z",
+          "marketId": "4685100",
+          "yesTokenId": "29094410940121100633773402898313566242042448080570468752624221522184872189501",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=29094410940121100633773402898313566242042448080570468752624221522184872189501&startTs=1789797600&endTs=1789884000&fidelity=5"
+        },
+        {
+          "label": "21°C",
+          "low": 21,
+          "high": 21,
+          "midpoint": 21,
+          "price": 0.0005,
+          "quotedAt": "2026-09-20T05:55:15Z",
+          "marketId": "4685101",
+          "yesTokenId": "30509593573197055137260899292955744289066628716618506403109389478860057695277",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=30509593573197055137260899292955744289066628716618506403109389478860057695277&startTs=1789797600&endTs=1789884000&fidelity=5"
+        },
+        {
+          "label": "22°C",
+          "low": 22,
+          "high": 22,
+          "midpoint": 22,
+          "price": 0.0005,
+          "quotedAt": "2026-09-20T05:55:14Z",
+          "marketId": "4685102",
+          "yesTokenId": "11054646546085704145715747981186913072485648489989944144779057327431962307403",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=11054646546085704145715747981186913072485648489989944144779057327431962307403&startTs=1789797600&endTs=1789884000&fidelity=5"
+        },
+        {
+          "label": "23°C",
+          "low": 23,
+          "high": 23,
+          "midpoint": 23,
+          "price": 0.001,
+          "quotedAt": "2026-09-20T05:55:15Z",
+          "marketId": "4685103",
+          "yesTokenId": "102209605310416527952624182680948280304196255476801389342811238757205609772971",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=102209605310416527952624182680948280304196255476801389342811238757205609772971&startTs=1789797600&endTs=1789884000&fidelity=5"
+        },
+        {
+          "label": "24°C",
+          "low": 24,
+          "high": 24,
+          "midpoint": 24,
+          "price": 0.02,
+          "quotedAt": "2026-09-20T05:55:15Z",
+          "marketId": "4685104",
+          "yesTokenId": "48736365035009861441609650808475892866319496446694965714211842831947460560583",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=48736365035009861441609650808475892866319496446694965714211842831947460560583&startTs=1789797600&endTs=1789884000&fidelity=5"
+        },
+        {
+          "label": "25°C",
+          "low": 25,
+          "high": 25,
+          "midpoint": 25,
+          "price": 0.115,
+          "quotedAt": "2026-09-20T05:55:12Z",
+          "marketId": "4685105",
+          "yesTokenId": "94764213303264767985243312435427966817083510510147362219553836806746515905513",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=94764213303264767985243312435427966817083510510147362219553836806746515905513&startTs=1789797600&endTs=1789884000&fidelity=5"
+        },
+        {
+          "label": "26°C",
+          "low": 26,
+          "high": 26,
+          "midpoint": 26,
+          "price": 0.56,
+          "quotedAt": "2026-09-20T05:55:12Z",
+          "marketId": "4685106",
+          "yesTokenId": "97159377919392606228902301631243790765180992138508233796297291329911085922494",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=97159377919392606228902301631243790765180992138508233796297291329911085922494&startTs=1789797600&endTs=1789884000&fidelity=5"
+        },
+        {
+          "label": "27°C or higher",
+          "low": 27,
+          "high": null,
+          "midpoint": 27,
+          "price": 0.31,
+          "quotedAt": "2026-09-20T05:55:13Z",
+          "marketId": "4685107",
+          "yesTokenId": "41720740110125845862867943188567317119730009055460454566010758142851851148949",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=41720740110125845862867943188567317119730009055460454566010758142851851148949&startTs=1789797600&endTs=1789884000&fidelity=5"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "day": 21,
+      "actualC": 26,
+      "observationCount": 27,
+      "hourCoverage": 24,
+      "firstObservation": "2026-09-21T06:43:00Z",
+      "lastObservation": "2026-09-22T05:50:00Z",
+      "eventId": "1047793",
+      "marketUrl": "https://polymarket.com/event/highest-temperature-in-mexico-city-on-september-21-2026",
+      "eventApiUrl": "https://gamma-api.polymarket.com/events/slug/highest-temperature-in-mexico-city-on-september-21-2026",
+      "resolutionSource": "https://www.weather.gov/wrh/timeseries?site=mmmx",
+      "snapshotAt": "2026-09-21T06:00:00Z",
+      "outcomes": [
+        {
+          "label": "17°C or below",
+          "low": null,
+          "high": 17,
+          "midpoint": 17,
+          "price": 0.0025,
+          "quotedAt": "2026-09-21T05:55:09Z",
+          "marketId": "4723591",
+          "yesTokenId": "38352888516809420128245391849521438616789423099027572121544449105455405617382",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=38352888516809420128245391849521438616789423099027572121544449105455405617382&startTs=1789884000&endTs=1789970400&fidelity=5"
+        },
+        {
+          "label": "18°C",
+          "low": 18,
+          "high": 18,
+          "midpoint": 18,
+          "price": 0.0005,
+          "quotedAt": "2026-09-21T05:55:09Z",
+          "marketId": "4723592",
+          "yesTokenId": "57226245083272942801793669734379723463620869150649391432493530359150734794535",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=57226245083272942801793669734379723463620869150649391432493530359150734794535&startTs=1789884000&endTs=1789970400&fidelity=5"
+        },
+        {
+          "label": "19°C",
+          "low": 19,
+          "high": 19,
+          "midpoint": 19,
+          "price": 0.0005,
+          "quotedAt": "2026-09-21T05:55:10Z",
+          "marketId": "4723593",
+          "yesTokenId": "70757186413557024027767628536248132210082025290180108486233887770118634769009",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=70757186413557024027767628536248132210082025290180108486233887770118634769009&startTs=1789884000&endTs=1789970400&fidelity=5"
+        },
+        {
+          "label": "20°C",
+          "low": 20,
+          "high": 20,
+          "midpoint": 20,
+          "price": 0.0005,
+          "quotedAt": "2026-09-21T05:55:09Z",
+          "marketId": "4723594",
+          "yesTokenId": "4559277481996487171795200199308817242255983991409180927409917463097129948734",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=4559277481996487171795200199308817242255983991409180927409917463097129948734&startTs=1789884000&endTs=1789970400&fidelity=5"
+        },
+        {
+          "label": "21°C",
+          "low": 21,
+          "high": 21,
+          "midpoint": 21,
+          "price": 0.0005,
+          "quotedAt": "2026-09-21T05:55:08Z",
+          "marketId": "4723595",
+          "yesTokenId": "16169472116660615138938443469451466266764109348475727785491922128457741866931",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=16169472116660615138938443469451466266764109348475727785491922128457741866931&startTs=1789884000&endTs=1789970400&fidelity=5"
+        },
+        {
+          "label": "22°C",
+          "low": 22,
+          "high": 22,
+          "midpoint": 22,
+          "price": 0.0005,
+          "quotedAt": "2026-09-21T05:55:09Z",
+          "marketId": "4723596",
+          "yesTokenId": "126890198430864066364777387461527986205739799736673241172353550639926235549",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=126890198430864066364777387461527986205739799736673241172353550639926235549&startTs=1789884000&endTs=1789970400&fidelity=5"
+        },
+        {
+          "label": "23°C",
+          "low": 23,
+          "high": 23,
+          "midpoint": 23,
+          "price": 0.012,
+          "quotedAt": "2026-09-21T05:55:10Z",
+          "marketId": "4723597",
+          "yesTokenId": "82231992538521920139867050201059972758561050801766054935022491706013505736472",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=82231992538521920139867050201059972758561050801766054935022491706013505736472&startTs=1789884000&endTs=1789970400&fidelity=5"
+        },
+        {
+          "label": "24°C",
+          "low": 24,
+          "high": 24,
+          "midpoint": 24,
+          "price": 0.0225,
+          "quotedAt": "2026-09-21T05:55:08Z",
+          "marketId": "4723598",
+          "yesTokenId": "68249952871287212341779920874565970623983125738998981587015659636793834196082",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=68249952871287212341779920874565970623983125738998981587015659636793834196082&startTs=1789884000&endTs=1789970400&fidelity=5"
+        },
+        {
+          "label": "25°C",
+          "low": 25,
+          "high": 25,
+          "midpoint": 25,
+          "price": 0.125,
+          "quotedAt": "2026-09-21T05:55:09Z",
+          "marketId": "4723599",
+          "yesTokenId": "76376083416511284316908226482918819793866062627868918213211277479304047664685",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=76376083416511284316908226482918819793866062627868918213211277479304047664685&startTs=1789884000&endTs=1789970400&fidelity=5"
+        },
+        {
+          "label": "26°C",
+          "low": 26,
+          "high": 26,
+          "midpoint": 26,
+          "price": 0.515,
+          "quotedAt": "2026-09-21T05:55:09Z",
+          "marketId": "4723600",
+          "yesTokenId": "68467747076462636159034776678387060586416321467323250696007723546619179348115",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=68467747076462636159034776678387060586416321467323250696007723546619179348115&startTs=1789884000&endTs=1789970400&fidelity=5"
+        },
+        {
+          "label": "27°C or higher",
+          "low": 27,
+          "high": null,
+          "midpoint": 27,
+          "price": 0.34,
+          "quotedAt": "2026-09-21T05:55:09Z",
+          "marketId": "4723601",
+          "yesTokenId": "48432303305749475612275808634424435096708021646186638562246856196070543144358",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=48432303305749475612275808634424435096708021646186638562246856196070543144358&startTs=1789884000&endTs=1789970400&fidelity=5"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-22",
+      "day": 22,
+      "actualC": 26,
+      "observationCount": 31,
+      "hourCoverage": 24,
+      "firstObservation": "2026-09-22T06:43:00Z",
+      "lastObservation": "2026-09-23T05:45:00Z",
+      "eventId": "1053301",
+      "marketUrl": "https://polymarket.com/event/highest-temperature-in-mexico-city-on-september-22-2026",
+      "eventApiUrl": "https://gamma-api.polymarket.com/events/slug/highest-temperature-in-mexico-city-on-september-22-2026",
+      "resolutionSource": "https://www.weather.gov/wrh/timeseries?site=mmmx",
+      "snapshotAt": "2026-09-22T06:00:00Z",
+      "outcomes": [
+        {
+          "label": "17°C or below",
+          "low": null,
+          "high": 17,
+          "midpoint": 17,
+          "price": 0.003,
+          "quotedAt": "2026-09-22T05:55:14Z",
+          "marketId": "4757249",
+          "yesTokenId": "66541289150523086784689458255729184304667615259514878325987192986187209531161",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=66541289150523086784689458255729184304667615259514878325987192986187209531161&startTs=1789970400&endTs=1790056800&fidelity=5"
+        },
+        {
+          "label": "18°C",
+          "low": 18,
+          "high": 18,
+          "midpoint": 18,
+          "price": 0.0005,
+          "quotedAt": "2026-09-22T05:55:14Z",
+          "marketId": "4757250",
+          "yesTokenId": "36537238332880619367895984759340642533381172796217048150195518504497819765866",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=36537238332880619367895984759340642533381172796217048150195518504497819765866&startTs=1789970400&endTs=1790056800&fidelity=5"
+        },
+        {
+          "label": "19°C",
+          "low": 19,
+          "high": 19,
+          "midpoint": 19,
+          "price": 0.0005,
+          "quotedAt": "2026-09-22T05:55:13Z",
+          "marketId": "4757251",
+          "yesTokenId": "96832993480301662647593903299949152325224505089142295946539975265246627119563",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=96832993480301662647593903299949152325224505089142295946539975265246627119563&startTs=1789970400&endTs=1790056800&fidelity=5"
+        },
+        {
+          "label": "20°C",
+          "low": 20,
+          "high": 20,
+          "midpoint": 20,
+          "price": 0.0005,
+          "quotedAt": "2026-09-22T05:55:12Z",
+          "marketId": "4757252",
+          "yesTokenId": "32611748631180610731956689329988707866624926876748673807026139529943393289771",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=32611748631180610731956689329988707866624926876748673807026139529943393289771&startTs=1789970400&endTs=1790056800&fidelity=5"
+        },
+        {
+          "label": "21°C",
+          "low": 21,
+          "high": 21,
+          "midpoint": 21,
+          "price": 0.0005,
+          "quotedAt": "2026-09-22T05:55:15Z",
+          "marketId": "4757253",
+          "yesTokenId": "14152198391506478349780145366620279136371220832522052025787364148385085086782",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=14152198391506478349780145366620279136371220832522052025787364148385085086782&startTs=1789970400&endTs=1790056800&fidelity=5"
+        },
+        {
+          "label": "22°C",
+          "low": 22,
+          "high": 22,
+          "midpoint": 22,
+          "price": 0.0005,
+          "quotedAt": "2026-09-22T05:55:14Z",
+          "marketId": "4757254",
+          "yesTokenId": "104167934897357018598431513044269553748000833168372907714979800012295554998239",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=104167934897357018598431513044269553748000833168372907714979800012295554998239&startTs=1789970400&endTs=1790056800&fidelity=5"
+        },
+        {
+          "label": "23°C",
+          "low": 23,
+          "high": 23,
+          "midpoint": 23,
+          "price": 0.01,
+          "quotedAt": "2026-09-22T05:55:15Z",
+          "marketId": "4757255",
+          "yesTokenId": "32534894779441719835309198011000591127882221855238842973219170866888650163140",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=32534894779441719835309198011000591127882221855238842973219170866888650163140&startTs=1789970400&endTs=1790056800&fidelity=5"
+        },
+        {
+          "label": "24°C",
+          "low": 24,
+          "high": 24,
+          "midpoint": 24,
+          "price": 0.02,
+          "quotedAt": "2026-09-22T05:55:14Z",
+          "marketId": "4757256",
+          "yesTokenId": "22642348499216413642706211979803944798361088376562739320720214902565242848122",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=22642348499216413642706211979803944798361088376562739320720214902565242848122&startTs=1789970400&endTs=1790056800&fidelity=5"
+        },
+        {
+          "label": "25°C",
+          "low": 25,
+          "high": 25,
+          "midpoint": 25,
+          "price": 0.265,
+          "quotedAt": "2026-09-22T05:55:13Z",
+          "marketId": "4757257",
+          "yesTokenId": "108419163098427736416633682510250081562141853810118132741372821898187068973438",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=108419163098427736416633682510250081562141853810118132741372821898187068973438&startTs=1789970400&endTs=1790056800&fidelity=5"
+        },
+        {
+          "label": "26°C",
+          "low": 26,
+          "high": 26,
+          "midpoint": 26,
+          "price": 0.605,
+          "quotedAt": "2026-09-22T05:55:15Z",
+          "marketId": "4757258",
+          "yesTokenId": "31440113031077433726616930728069527415689391354163312939317636837755565877315",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=31440113031077433726616930728069527415689391354163312939317636837755565877315&startTs=1789970400&endTs=1790056800&fidelity=5"
+        },
+        {
+          "label": "27°C or higher",
+          "low": 27,
+          "high": null,
+          "midpoint": 27,
+          "price": 0.125,
+          "quotedAt": "2026-09-22T05:55:15Z",
+          "marketId": "4757259",
+          "yesTokenId": "14666101902120533044847464727759234590403842686688861923292126194116888694148",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=14666101902120533044847464727759234590403842686688861923292126194116888694148&startTs=1789970400&endTs=1790056800&fidelity=5"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-23",
+      "day": 23,
+      "actualC": 25,
+      "observationCount": 25,
+      "hourCoverage": 22,
+      "firstObservation": "2026-09-23T06:44:00Z",
+      "lastObservation": "2026-09-24T05:44:00Z",
+      "eventId": "1058666",
+      "marketUrl": "https://polymarket.com/event/highest-temperature-in-mexico-city-on-september-23-2026",
+      "eventApiUrl": "https://gamma-api.polymarket.com/events/slug/highest-temperature-in-mexico-city-on-september-23-2026",
+      "resolutionSource": "https://www.weather.gov/wrh/timeseries?site=mmmx",
+      "snapshotAt": "2026-09-23T06:00:00Z",
+      "outcomes": [
+        {
+          "label": "16°C or below",
+          "low": null,
+          "high": 16,
+          "midpoint": 16,
+          "price": 0.0005,
+          "quotedAt": "2026-09-23T05:55:29Z",
+          "marketId": "4793281",
+          "yesTokenId": "87246368734187504297027399775582445987036433951046851027811445431701324954509",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=87246368734187504297027399775582445987036433951046851027811445431701324954509&startTs=1790056800&endTs=1790143200&fidelity=5"
+        },
+        {
+          "label": "17°C",
+          "low": 17,
+          "high": 17,
+          "midpoint": 17,
+          "price": 0.0005,
+          "quotedAt": "2026-09-23T05:55:39Z",
+          "marketId": "4793282",
+          "yesTokenId": "1683193460225613140889810332374469614557374498226230014890699607077061198378",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=1683193460225613140889810332374469614557374498226230014890699607077061198378&startTs=1790056800&endTs=1790143200&fidelity=5"
+        },
+        {
+          "label": "18°C",
+          "low": 18,
+          "high": 18,
+          "midpoint": 18,
+          "price": 0.0005,
+          "quotedAt": "2026-09-23T05:55:27Z",
+          "marketId": "4793283",
+          "yesTokenId": "113643824801460627836500906258832766828812794080832838931254402096472746128733",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=113643824801460627836500906258832766828812794080832838931254402096472746128733&startTs=1790056800&endTs=1790143200&fidelity=5"
+        },
+        {
+          "label": "19°C",
+          "low": 19,
+          "high": 19,
+          "midpoint": 19,
+          "price": 0.0005,
+          "quotedAt": "2026-09-23T05:55:34Z",
+          "marketId": "4793284",
+          "yesTokenId": "103413221879707234880730895242686129215890657677770492931776203540237660319526",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=103413221879707234880730895242686129215890657677770492931776203540237660319526&startTs=1790056800&endTs=1790143200&fidelity=5"
+        },
+        {
+          "label": "20°C",
+          "low": 20,
+          "high": 20,
+          "midpoint": 20,
+          "price": 0.0005,
+          "quotedAt": "2026-09-23T05:55:37Z",
+          "marketId": "4793285",
+          "yesTokenId": "14742034925151061831848344445115621410871392334841021828411987624392440020783",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=14742034925151061831848344445115621410871392334841021828411987624392440020783&startTs=1790056800&endTs=1790143200&fidelity=5"
+        },
+        {
+          "label": "21°C",
+          "low": 21,
+          "high": 21,
+          "midpoint": 21,
+          "price": 0.0005,
+          "quotedAt": "2026-09-23T05:55:43Z",
+          "marketId": "4793286",
+          "yesTokenId": "6609543626501168365438599928763802614057986485763420987883797558142269995108",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=6609543626501168365438599928763802614057986485763420987883797558142269995108&startTs=1790056800&endTs=1790143200&fidelity=5"
+        },
+        {
+          "label": "22°C",
+          "low": 22,
+          "high": 22,
+          "midpoint": 22,
+          "price": 0.0005,
+          "quotedAt": "2026-09-23T05:55:33Z",
+          "marketId": "4793287",
+          "yesTokenId": "22913758316866003467556338587569814943350226752245440790143202922767408772790",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=22913758316866003467556338587569814943350226752245440790143202922767408772790&startTs=1790056800&endTs=1790143200&fidelity=5"
+        },
+        {
+          "label": "23°C",
+          "low": 23,
+          "high": 23,
+          "midpoint": 23,
+          "price": 0.01,
+          "quotedAt": "2026-09-23T05:55:38Z",
+          "marketId": "4793288",
+          "yesTokenId": "40585710275702581776125389051936460859803501634665244141140261195474750008294",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=40585710275702581776125389051936460859803501634665244141140261195474750008294&startTs=1790056800&endTs=1790143200&fidelity=5"
+        },
+        {
+          "label": "24°C",
+          "low": 24,
+          "high": 24,
+          "midpoint": 24,
+          "price": 0.035,
+          "quotedAt": "2026-09-23T05:55:27Z",
+          "marketId": "4793289",
+          "yesTokenId": "102097746965478426600697024858006186577871700297477189688751121486063138866598",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=102097746965478426600697024858006186577871700297477189688751121486063138866598&startTs=1790056800&endTs=1790143200&fidelity=5"
+        },
+        {
+          "label": "25°C",
+          "low": 25,
+          "high": 25,
+          "midpoint": 25,
+          "price": 0.305,
+          "quotedAt": "2026-09-23T05:55:34Z",
+          "marketId": "4793290",
+          "yesTokenId": "73525446029857862933084215802706778570483503807601415797986795434609066724106",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=73525446029857862933084215802706778570483503807601415797986795434609066724106&startTs=1790056800&endTs=1790143200&fidelity=5"
+        },
+        {
+          "label": "26°C or higher",
+          "low": 26,
+          "high": null,
+          "midpoint": 26,
+          "price": 0.665,
+          "quotedAt": "2026-09-23T05:55:47Z",
+          "marketId": "4793291",
+          "yesTokenId": "20918907485710946308327857687045790764329841278007695243310708794158891493899",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=20918907485710946308327857687045790764329841278007695243310708794158891493899&startTs=1790056800&endTs=1790143200&fidelity=5"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "day": 24,
+      "actualC": 26,
+      "observationCount": 31,
+      "hourCoverage": 24,
+      "firstObservation": "2026-09-24T06:42:00Z",
+      "lastObservation": "2026-09-25T05:45:00Z",
+      "eventId": "1063907",
+      "marketUrl": "https://polymarket.com/event/highest-temperature-in-mexico-city-on-september-24-2026",
+      "eventApiUrl": "https://gamma-api.polymarket.com/events/slug/highest-temperature-in-mexico-city-on-september-24-2026",
+      "resolutionSource": "https://www.weather.gov/wrh/timeseries?site=mmmx",
+      "snapshotAt": "2026-09-24T06:00:00Z",
+      "outcomes": [
+        {
+          "label": "17°C or below",
+          "low": null,
+          "high": 17,
+          "midpoint": 17,
+          "price": 0.0005,
+          "quotedAt": "2026-09-24T05:55:15Z",
+          "marketId": "4838662",
+          "yesTokenId": "95330606183447280583183440706803327828234416690149354786210021571033708495310",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=95330606183447280583183440706803327828234416690149354786210021571033708495310&startTs=1790143200&endTs=1790229600&fidelity=5"
+        },
+        {
+          "label": "18°C",
+          "low": 18,
+          "high": 18,
+          "midpoint": 18,
+          "price": 0.0005,
+          "quotedAt": "2026-09-24T05:55:13Z",
+          "marketId": "4838663",
+          "yesTokenId": "100194554294957494249811145109032694000896492640961204172853637174797587851027",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=100194554294957494249811145109032694000896492640961204172853637174797587851027&startTs=1790143200&endTs=1790229600&fidelity=5"
+        },
+        {
+          "label": "19°C",
+          "low": 19,
+          "high": 19,
+          "midpoint": 19,
+          "price": 0.0005,
+          "quotedAt": "2026-09-24T05:55:13Z",
+          "marketId": "4838664",
+          "yesTokenId": "7351020251561952746014028175089678594309516465704746236827341326889429897828",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=7351020251561952746014028175089678594309516465704746236827341326889429897828&startTs=1790143200&endTs=1790229600&fidelity=5"
+        },
+        {
+          "label": "20°C",
+          "low": 20,
+          "high": 20,
+          "midpoint": 20,
+          "price": 0.0005,
+          "quotedAt": "2026-09-24T05:55:15Z",
+          "marketId": "4838665",
+          "yesTokenId": "48784800749050422226140813211923304331201528765066643216353179192884775609766",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=48784800749050422226140813211923304331201528765066643216353179192884775609766&startTs=1790143200&endTs=1790229600&fidelity=5"
+        },
+        {
+          "label": "21°C",
+          "low": 21,
+          "high": 21,
+          "midpoint": 21,
+          "price": 0.002,
+          "quotedAt": "2026-09-24T05:55:19Z",
+          "marketId": "4838666",
+          "yesTokenId": "16952854143453036664313150455336111673402459255178399542884655366378300361509",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=16952854143453036664313150455336111673402459255178399542884655366378300361509&startTs=1790143200&endTs=1790229600&fidelity=5"
+        },
+        {
+          "label": "22°C",
+          "low": 22,
+          "high": 22,
+          "midpoint": 22,
+          "price": 0.0045,
+          "quotedAt": "2026-09-24T05:55:11Z",
+          "marketId": "4838667",
+          "yesTokenId": "18612938276362150221823678069666395810641929822938425372871806948132201759766",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=18612938276362150221823678069666395810641929822938425372871806948132201759766&startTs=1790143200&endTs=1790229600&fidelity=5"
+        },
+        {
+          "label": "23°C",
+          "low": 23,
+          "high": 23,
+          "midpoint": 23,
+          "price": 0.0025,
+          "quotedAt": "2026-09-24T05:55:26Z",
+          "marketId": "4838668",
+          "yesTokenId": "80307757182314286855785157079892036801750019109424923394105391979246132715169",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=80307757182314286855785157079892036801750019109424923394105391979246132715169&startTs=1790143200&endTs=1790229600&fidelity=5"
+        },
+        {
+          "label": "24°C",
+          "low": 24,
+          "high": 24,
+          "midpoint": 24,
+          "price": 0.0035,
+          "quotedAt": "2026-09-24T05:55:23Z",
+          "marketId": "4838669",
+          "yesTokenId": "82164282861800527392146670276934454842223860268815724278162727205322043593696",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=82164282861800527392146670276934454842223860268815724278162727205322043593696&startTs=1790143200&endTs=1790229600&fidelity=5"
+        },
+        {
+          "label": "25°C",
+          "low": 25,
+          "high": 25,
+          "midpoint": 25,
+          "price": 0.26,
+          "quotedAt": "2026-09-24T05:55:16Z",
+          "marketId": "4838670",
+          "yesTokenId": "54690002762320256583099104720609761819094155764505602494014117877936655775007",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=54690002762320256583099104720609761819094155764505602494014117877936655775007&startTs=1790143200&endTs=1790229600&fidelity=5"
+        },
+        {
+          "label": "26°C",
+          "low": 26,
+          "high": 26,
+          "midpoint": 26,
+          "price": 0.535,
+          "quotedAt": "2026-09-24T05:55:26Z",
+          "marketId": "4838671",
+          "yesTokenId": "40498910826180099765650735418480250541323078243278444846539623953843018224573",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=40498910826180099765650735418480250541323078243278444846539623953843018224573&startTs=1790143200&endTs=1790229600&fidelity=5"
+        },
+        {
+          "label": "27°C or higher",
+          "low": 27,
+          "high": null,
+          "midpoint": 27,
+          "price": 0.225,
+          "quotedAt": "2026-09-24T05:55:23Z",
+          "marketId": "4838672",
+          "yesTokenId": "109877321881442728732635482249363278480070554966392858473991263596955715880343",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=109877321881442728732635482249363278480070554966392858473991263596955715880343&startTs=1790143200&endTs=1790229600&fidelity=5"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-25",
+      "day": 25,
+      "actualC": 25,
+      "observationCount": 37,
+      "hourCoverage": 23,
+      "firstObservation": "2026-09-25T06:43:00Z",
+      "lastObservation": "2026-09-26T05:46:00Z",
+      "eventId": "1069091",
+      "marketUrl": "https://polymarket.com/event/highest-temperature-in-mexico-city-on-september-25-2026",
+      "eventApiUrl": "https://gamma-api.polymarket.com/events/slug/highest-temperature-in-mexico-city-on-september-25-2026",
+      "resolutionSource": "https://www.weather.gov/wrh/timeseries?site=mmmx",
+      "snapshotAt": "2026-09-25T06:00:00Z",
+      "outcomes": [
+        {
+          "label": "16°C or below",
+          "low": null,
+          "high": 16,
+          "midpoint": 16,
+          "price": 0.0005,
+          "quotedAt": "2026-09-25T05:55:13Z",
+          "marketId": "4880508",
+          "yesTokenId": "105650590811777232397062245023136890730085343568291250311034495327072817531701",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=105650590811777232397062245023136890730085343568291250311034495327072817531701&startTs=1790229600&endTs=1790316000&fidelity=5"
+        },
+        {
+          "label": "17°C",
+          "low": 17,
+          "high": 17,
+          "midpoint": 17,
+          "price": 0.0005,
+          "quotedAt": "2026-09-25T05:55:14Z",
+          "marketId": "4880509",
+          "yesTokenId": "77617985964842705356291040188196643003699268415626592309878258465241564367940",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=77617985964842705356291040188196643003699268415626592309878258465241564367940&startTs=1790229600&endTs=1790316000&fidelity=5"
+        },
+        {
+          "label": "18°C",
+          "low": 18,
+          "high": 18,
+          "midpoint": 18,
+          "price": 0.0005,
+          "quotedAt": "2026-09-25T05:55:12Z",
+          "marketId": "4880510",
+          "yesTokenId": "15678686389618608401387556130680892074658677126994738132733964792627623489352",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=15678686389618608401387556130680892074658677126994738132733964792627623489352&startTs=1790229600&endTs=1790316000&fidelity=5"
+        },
+        {
+          "label": "19°C",
+          "low": 19,
+          "high": 19,
+          "midpoint": 19,
+          "price": 0.0005,
+          "quotedAt": "2026-09-25T05:55:12Z",
+          "marketId": "4880511",
+          "yesTokenId": "32051932803296317338520858811162548750185576503528418367612602306891647548413",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=32051932803296317338520858811162548750185576503528418367612602306891647548413&startTs=1790229600&endTs=1790316000&fidelity=5"
+        },
+        {
+          "label": "20°C",
+          "low": 20,
+          "high": 20,
+          "midpoint": 20,
+          "price": 0.0005,
+          "quotedAt": "2026-09-25T05:55:14Z",
+          "marketId": "4880512",
+          "yesTokenId": "110253722977264659692372261855563914364478228061459741213474058171096320598534",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=110253722977264659692372261855563914364478228061459741213474058171096320598534&startTs=1790229600&endTs=1790316000&fidelity=5"
+        },
+        {
+          "label": "21°C",
+          "low": 21,
+          "high": 21,
+          "midpoint": 21,
+          "price": 0.0005,
+          "quotedAt": "2026-09-25T05:55:12Z",
+          "marketId": "4880513",
+          "yesTokenId": "102246304025187106919713166952578827462370020433729318966754371259936917650735",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=102246304025187106919713166952578827462370020433729318966754371259936917650735&startTs=1790229600&endTs=1790316000&fidelity=5"
+        },
+        {
+          "label": "22°C",
+          "low": 22,
+          "high": 22,
+          "midpoint": 22,
+          "price": 0.0005,
+          "quotedAt": "2026-09-25T05:55:12Z",
+          "marketId": "4880514",
+          "yesTokenId": "1048262643017815437640320941309347322719784702799961926488050687355486323889",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=1048262643017815437640320941309347322719784702799961926488050687355486323889&startTs=1790229600&endTs=1790316000&fidelity=5"
+        },
+        {
+          "label": "23°C",
+          "low": 23,
+          "high": 23,
+          "midpoint": 23,
+          "price": 0.01,
+          "quotedAt": "2026-09-25T05:55:10Z",
+          "marketId": "4880515",
+          "yesTokenId": "111047294847892149614718593074606786282802914230742419648787590046813302028567",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=111047294847892149614718593074606786282802914230742419648787590046813302028567&startTs=1790229600&endTs=1790316000&fidelity=5"
+        },
+        {
+          "label": "24°C",
+          "low": 24,
+          "high": 24,
+          "midpoint": 24,
+          "price": 0.06,
+          "quotedAt": "2026-09-25T05:55:12Z",
+          "marketId": "4880516",
+          "yesTokenId": "47533747614509860104847123935408652672747894169082959737023897651933052307352",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=47533747614509860104847123935408652672747894169082959737023897651933052307352&startTs=1790229600&endTs=1790316000&fidelity=5"
+        },
+        {
+          "label": "25°C",
+          "low": 25,
+          "high": 25,
+          "midpoint": 25,
+          "price": 0.29,
+          "quotedAt": "2026-09-25T05:55:15Z",
+          "marketId": "4880517",
+          "yesTokenId": "77555551876764625755252444156079115907055179119982222368548127909687409797572",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=77555551876764625755252444156079115907055179119982222368548127909687409797572&startTs=1790229600&endTs=1790316000&fidelity=5"
+        },
+        {
+          "label": "26°C or higher",
+          "low": 26,
+          "high": null,
+          "midpoint": 26,
+          "price": 0.635,
+          "quotedAt": "2026-09-25T05:55:12Z",
+          "marketId": "4880518",
+          "yesTokenId": "100322300862008569957669045343391309296267624616827596237419820245224251994150",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=100322300862008569957669045343391309296267624616827596237419820245224251994150&startTs=1790229600&endTs=1790316000&fidelity=5"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-26",
+      "day": 26,
+      "actualC": 24,
+      "observationCount": 34,
+      "hourCoverage": 24,
+      "firstObservation": "2026-09-26T06:42:00Z",
+      "lastObservation": "2026-09-27T05:45:00Z",
+      "eventId": "1074018",
+      "marketUrl": "https://polymarket.com/event/highest-temperature-in-mexico-city-on-september-26-2026",
+      "eventApiUrl": "https://gamma-api.polymarket.com/events/slug/highest-temperature-in-mexico-city-on-september-26-2026",
+      "resolutionSource": "https://www.weather.gov/wrh/timeseries?site=mmmx",
+      "snapshotAt": "2026-09-26T06:00:00Z",
+      "outcomes": [
+        {
+          "label": "17°C or below",
+          "low": null,
+          "high": 17,
+          "midpoint": 17,
+          "price": 0.003,
+          "quotedAt": "2026-09-26T05:55:16Z",
+          "marketId": "4906401",
+          "yesTokenId": "19983397376591594612725218724047803845873384567970523438587601420147679209293",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=19983397376591594612725218724047803845873384567970523438587601420147679209293&startTs=1790316000&endTs=1790402400&fidelity=5"
+        },
+        {
+          "label": "18°C",
+          "low": 18,
+          "high": 18,
+          "midpoint": 18,
+          "price": 0.002,
+          "quotedAt": "2026-09-26T05:55:15Z",
+          "marketId": "4906403",
+          "yesTokenId": "79582551264198432246106769702498142271553704199777198811090167490549049047605",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=79582551264198432246106769702498142271553704199777198811090167490549049047605&startTs=1790316000&endTs=1790402400&fidelity=5"
+        },
+        {
+          "label": "19°C",
+          "low": 19,
+          "high": 19,
+          "midpoint": 19,
+          "price": 0.0025,
+          "quotedAt": "2026-09-26T05:55:15Z",
+          "marketId": "4906405",
+          "yesTokenId": "99232683560038869984036054806695809503950876850461672383542219275245401164679",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=99232683560038869984036054806695809503950876850461672383542219275245401164679&startTs=1790316000&endTs=1790402400&fidelity=5"
+        },
+        {
+          "label": "20°C",
+          "low": 20,
+          "high": 20,
+          "midpoint": 20,
+          "price": 0.005,
+          "quotedAt": "2026-09-26T05:55:16Z",
+          "marketId": "4906406",
+          "yesTokenId": "81732891711733004189085629563978262552513353361552364181381820038492650621829",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=81732891711733004189085629563978262552513353361552364181381820038492650621829&startTs=1790316000&endTs=1790402400&fidelity=5"
+        },
+        {
+          "label": "21°C",
+          "low": 21,
+          "high": 21,
+          "midpoint": 21,
+          "price": 0.005,
+          "quotedAt": "2026-09-26T05:55:13Z",
+          "marketId": "4906407",
+          "yesTokenId": "112403419951411889446878044147175390865916081388981977813477130191571841102657",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=112403419951411889446878044147175390865916081388981977813477130191571841102657&startTs=1790316000&endTs=1790402400&fidelity=5"
+        },
+        {
+          "label": "22°C",
+          "low": 22,
+          "high": 22,
+          "midpoint": 22,
+          "price": 0.005,
+          "quotedAt": "2026-09-26T05:55:13Z",
+          "marketId": "4906408",
+          "yesTokenId": "10590795930753806429714915653012422459460413155944824284017887708385192338148",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=10590795930753806429714915653012422459460413155944824284017887708385192338148&startTs=1790316000&endTs=1790402400&fidelity=5"
+        },
+        {
+          "label": "23°C",
+          "low": 23,
+          "high": 23,
+          "midpoint": 23,
+          "price": 0.01,
+          "quotedAt": "2026-09-26T05:55:17Z",
+          "marketId": "4906409",
+          "yesTokenId": "23590620302330379716526907312832871937422679163304873041099262607079344796610",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=23590620302330379716526907312832871937422679163304873041099262607079344796610&startTs=1790316000&endTs=1790402400&fidelity=5"
+        },
+        {
+          "label": "24°C",
+          "low": 24,
+          "high": 24,
+          "midpoint": 24,
+          "price": 0.03,
+          "quotedAt": "2026-09-26T05:55:17Z",
+          "marketId": "4906410",
+          "yesTokenId": "83888366341803913235345414486938398663391200799933494972352378069114223164356",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=83888366341803913235345414486938398663391200799933494972352378069114223164356&startTs=1790316000&endTs=1790402400&fidelity=5"
+        },
+        {
+          "label": "25°C",
+          "low": 25,
+          "high": 25,
+          "midpoint": 25,
+          "price": 0.39,
+          "quotedAt": "2026-09-26T05:55:17Z",
+          "marketId": "4906411",
+          "yesTokenId": "21365404414748274764375147669036464178247637775080541542710380915592931237621",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=21365404414748274764375147669036464178247637775080541542710380915592931237621&startTs=1790316000&endTs=1790402400&fidelity=5"
+        },
+        {
+          "label": "26°C",
+          "low": 26,
+          "high": 26,
+          "midpoint": 26,
+          "price": 0.46,
+          "quotedAt": "2026-09-26T05:55:16Z",
+          "marketId": "4906412",
+          "yesTokenId": "74042045547341761659187255751446062548241350797412297411404884814973156506547",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=74042045547341761659187255751446062548241350797412297411404884814973156506547&startTs=1790316000&endTs=1790402400&fidelity=5"
+        },
+        {
+          "label": "27°C or higher",
+          "low": 27,
+          "high": null,
+          "midpoint": 27,
+          "price": 0.1,
+          "quotedAt": "2026-09-26T05:55:17Z",
+          "marketId": "4906413",
+          "yesTokenId": "103392079515566258548381718553150509132390246084636129151787126929980756091879",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=103392079515566258548381718553150509132390246084636129151787126929980756091879&startTs=1790316000&endTs=1790402400&fidelity=5"
+        }
+      ]
+    },
+    {
+      "date": "2026-09-27",
+      "day": 27,
+      "actualC": 26,
+      "observationCount": 28,
+      "hourCoverage": 24,
+      "firstObservation": "2026-09-27T06:42:00Z",
+      "lastObservation": "2026-09-28T05:53:00Z",
+      "eventId": "1079995",
+      "marketUrl": "https://polymarket.com/event/highest-temperature-in-mexico-city-on-september-27-2026",
+      "eventApiUrl": "https://gamma-api.polymarket.com/events/slug/highest-temperature-in-mexico-city-on-september-27-2026",
+      "resolutionSource": "https://www.weather.gov/wrh/timeseries?site=mmmx",
+      "snapshotAt": "2026-09-27T06:00:00Z",
+      "outcomes": [
+        {
+          "label": "18°C or below",
+          "low": null,
+          "high": 18,
+          "midpoint": 18,
+          "price": 0.0005,
+          "quotedAt": "2026-09-27T05:55:09Z",
+          "marketId": "4948601",
+          "yesTokenId": "112990736369642721342173207338224423254934359212307945562164845767486312786595",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=112990736369642721342173207338224423254934359212307945562164845767486312786595&startTs=1790402400&endTs=1790488800&fidelity=5"
+        },
+        {
+          "label": "19°C",
+          "low": 19,
+          "high": 19,
+          "midpoint": 19,
+          "price": 0.0005,
+          "quotedAt": "2026-09-27T05:55:10Z",
+          "marketId": "4948602",
+          "yesTokenId": "100214471620770558964582587452465659117675749811085181800120771314750722773727",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=100214471620770558964582587452465659117675749811085181800120771314750722773727&startTs=1790402400&endTs=1790488800&fidelity=5"
+        },
+        {
+          "label": "20°C",
+          "low": 20,
+          "high": 20,
+          "midpoint": 20,
+          "price": 0.0005,
+          "quotedAt": "2026-09-27T05:55:10Z",
+          "marketId": "4948603",
+          "yesTokenId": "21660451561731143029832948804739061607859518503477684223003256144771927519555",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=21660451561731143029832948804739061607859518503477684223003256144771927519555&startTs=1790402400&endTs=1790488800&fidelity=5"
+        },
+        {
+          "label": "21°C",
+          "low": 21,
+          "high": 21,
+          "midpoint": 21,
+          "price": 0.0005,
+          "quotedAt": "2026-09-27T05:55:12Z",
+          "marketId": "4948605",
+          "yesTokenId": "86126500467439824583739732185102126769645784056857046587985175168234000459201",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=86126500467439824583739732185102126769645784056857046587985175168234000459201&startTs=1790402400&endTs=1790488800&fidelity=5"
+        },
+        {
+          "label": "22°C",
+          "low": 22,
+          "high": 22,
+          "midpoint": 22,
+          "price": 0.0055,
+          "quotedAt": "2026-09-27T05:55:13Z",
+          "marketId": "4948607",
+          "yesTokenId": "3356057632907303981539805605880668072522041319888957799154897982440307282959",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=3356057632907303981539805605880668072522041319888957799154897982440307282959&startTs=1790402400&endTs=1790488800&fidelity=5"
+        },
+        {
+          "label": "23°C",
+          "low": 23,
+          "high": 23,
+          "midpoint": 23,
+          "price": 0.004,
+          "quotedAt": "2026-09-27T05:55:12Z",
+          "marketId": "4948608",
+          "yesTokenId": "5294051541194194251998897397559486044946895874550491813957604028350532687514",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=5294051541194194251998897397559486044946895874550491813957604028350532687514&startTs=1790402400&endTs=1790488800&fidelity=5"
+        },
+        {
+          "label": "24°C",
+          "low": 24,
+          "high": 24,
+          "midpoint": 24,
+          "price": 0.01,
+          "quotedAt": "2026-09-27T05:55:11Z",
+          "marketId": "4948609",
+          "yesTokenId": "82175631850948135624623746083662532096035917589796326039456471292872656573456",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=82175631850948135624623746083662532096035917589796326039456471292872656573456&startTs=1790402400&endTs=1790488800&fidelity=5"
+        },
+        {
+          "label": "25°C",
+          "low": 25,
+          "high": 25,
+          "midpoint": 25,
+          "price": 0.19,
+          "quotedAt": "2026-09-27T05:55:09Z",
+          "marketId": "4948610",
+          "yesTokenId": "1634317212254233253038306944553785120410649789908241534966512805418090376382",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=1634317212254233253038306944553785120410649789908241534966512805418090376382&startTs=1790402400&endTs=1790488800&fidelity=5"
+        },
+        {
+          "label": "26°C",
+          "low": 26,
+          "high": 26,
+          "midpoint": 26,
+          "price": 0.51,
+          "quotedAt": "2026-09-27T05:55:10Z",
+          "marketId": "4948611",
+          "yesTokenId": "112374946574083933858326954290046017262917482371992722389508258286937841350486",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=112374946574083933858326954290046017262917482371992722389508258286937841350486&startTs=1790402400&endTs=1790488800&fidelity=5"
+        },
+        {
+          "label": "27°C",
+          "low": 27,
+          "high": 27,
+          "midpoint": 27,
+          "price": 0.285,
+          "quotedAt": "2026-09-27T05:55:08Z",
+          "marketId": "4948612",
+          "yesTokenId": "12859835780765877533906895815473556911654081639007545711802027605273680579588",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=12859835780765877533906895815473556911654081639007545711802027605273680579588&startTs=1790402400&endTs=1790488800&fidelity=5"
+        },
+        {
+          "label": "28°C or higher",
+          "low": 28,
+          "high": null,
+          "midpoint": 28,
+          "price": 0.05,
+          "quotedAt": "2026-09-27T05:55:09Z",
+          "marketId": "4948613",
+          "yesTokenId": "107805403625124736313039804843119009659672158511415804326823591061943199189126",
+          "historyUrl": "https://clob.polymarket.com/prices-history?market=107805403625124736313039804843119009659672158511415804326823591061943199189126&startTs=1790402400&endTs=1790488800&fidelity=5"
+        }
+      ]
+    }
+  ],
+  "observations": [
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790592240,
+      "temp": 16,
+      "rawOb": "METAR MMMX 281044Z 06004KT 10SM FEW020 SCT080 16/11 A3027 NOSIG RMK 8/570 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790588520,
+      "temp": 17,
+      "rawOb": "METAR MMMX 280942Z 30007KT 10SM SCT020 BKN080 17/11 A3027 NOSIG RMK 8/530 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790584920,
+      "temp": 17,
+      "rawOb": "METAR MMMX 280842Z 27008KT 10SM BKN020 BKN080 17/11 A3028 NOSIG RMK SLP068 57005 954 8/530 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790581320,
+      "temp": 18,
+      "rawOb": "METAR MMMX 280742Z 36006KT 10SM BKN020 BKN080 18/11 A3028 NOSIG RMK 8/530 HZY LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790577960,
+      "temp": 18,
+      "rawOb": "METAR MMMX 280646Z 26005KT 10SM BKN020 BKN080 18/11 A3028 NOSIG RMK 8/530 HZY LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790574780,
+      "temp": 18,
+      "rawOb": "METAR MMMX 280553Z 28004KT 10SM SCT020 BKN080 18/12 A3029 NOSIG RMK SLP078 52011 963 8/530 HZY LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790570640,
+      "temp": 19,
+      "rawOb": "METAR MMMX 280444Z 36005KT 11SM SCT020 BKN080 19/12 A3029 NOSIG RMK 8/530 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790566920,
+      "temp": 19,
+      "rawOb": "METAR MMMX 280342Z 03012KT 11SM SCT020 19/12 A3029 NOSIG RMK 8/500 ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790563200,
+      "temp": 20,
+      "rawOb": "METAR MMMX 280240Z 01012KT 12SM SCT020 BKN080 BKN220 20/12 A3026 NOSIG RMK SLP082 52027 963 8/538 DSNT CB S SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790560200,
+      "temp": 20,
+      "rawOb": "METAR MMMX 280150Z 02012KT 12SM SCT020 BKN080 20/12 A3023 NOSIG RMK 8/460 CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790558100,
+      "temp": 20,
+      "rawOb": "SPECI MMMX 280115Z 04010G20KT 12SM SCT020 BKN080 20/12 A3022 NOSIG RMK 8/460 CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790556300,
+      "temp": 22,
+      "rawOb": "METAR MMMX 280045Z 04015KT 10SM VCRA SCT020CB BKN080 BKN220 22/11 A3022 NOSIG RMK 8/363 HZY PCPN SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790556240,
+      "temp": 22,
+      "rawOb": "SPECI MMMX 280044Z 03015KT 10SM VCRA SCT020CB BKN080 BKN220 22/11 A3022 NOSIG RMK 8/363 HZY PCPN SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790552700,
+      "temp": 24,
+      "rawOb": "METAR MMMX 272345Z 05015KT 12SM SCT020CB BKN080 BKN220 24/10 A3018 NOSIG RMK SLP038 57012 971 8/363"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790552400,
+      "temp": 24,
+      "rawOb": "SPECI MMMX 272340Z 05017KT 12SM SCT020CB BKN080 BKN220 24/10 A3018 NOSIG RMK 8/363"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790549400,
+      "temp": 26,
+      "rawOb": "METAR MMMX 272250Z 04012KT 12SM BKN020CB BKN080 OVC220 26/08 A3017 TEMPO 6SM -RA RMK 8/363 BINOVC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790545200,
+      "temp": 26,
+      "rawOb": "METAR MMMX 272140Z 36010KT 12SM SCT020CB BKN080 BKN220 26/08 A3019 NOSIG RMK 8/363"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790542320,
+      "temp": 26,
+      "rawOb": "METAR MMMX 272052Z 34006KT 12SM SCT020CB BKN080 BKN220 26/09 A3021 NOSIG RMK SLP050 57029 960 8/363"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790538480,
+      "temp": 25,
+      "rawOb": "METAR MMMX 271948Z 00000KT 9SM BKN020TCU BKN220 25/10 A3025 NOSIG RMK 8/208 HZY FRMG CB E"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790535060,
+      "temp": 25,
+      "rawOb": "METAR MMMX 271851Z 25008KT 9SM BKN020 BKN220 25/10 A3028 NOSIG RMK 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790534040,
+      "temp": 25,
+      "rawOb": "SPECI MMMX 271834Z 27008KT 9SM BKN020 BKN220 25/10 A3029 NOSIG RMK 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790531220,
+      "temp": 23,
+      "rawOb": "METAR MMMX 271747Z 27008KT 9SM BKN020 BKN220 23/11 A3031 NOSIG RMK SLP091 52010 959 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790527740,
+      "temp": 22,
+      "rawOb": "METAR MMMX 271649Z 00000KT 8SM BKN020 22/11 A3034 NOSIG RMK 8/200 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790524080,
+      "temp": 21,
+      "rawOb": "METAR MMMX 271548Z 04005KT 8SM BKN020 21/11 A3034 NOSIG RMK 8/800 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790520420,
+      "temp": 18,
+      "rawOb": "METAR MMMX 271447Z 04006KT 8SM BKN020 18/11 A3034 NOSIG RMK SLP112 52010 956 8/800 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790517000,
+      "temp": 16,
+      "rawOb": "METAR MMMX 271350Z 05005KT 8SM BKN020 16/12 A3033 NOSIG RMK 8/800 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790513100,
+      "temp": 15,
+      "rawOb": "METAR MMMX 271245Z 00000KT 7SM BKN020 BKN250 15/12 A3032 NOSIG RMK 8/808 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790509620,
+      "temp": 15,
+      "rawOb": "METAR MMMX 271147Z 05005KT 8SM BKN025 BKN080 OVC250 15/12 A3032 NOSIG RMK SLP104 52004 951 8/577 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790505600,
+      "temp": 15,
+      "rawOb": "METAR MMMX 271040Z 07003KT 8SM SCT025 BKN080 15/12 A3030 NOSIG RMK 8/570 CI HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790502120,
+      "temp": 15,
+      "rawOb": "METAR MMMX 270942Z 00000KT 8SM FEW025 BKN080 BKN250 15/11 A3030 NOSIG RMK 8/578 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790498580,
+      "temp": 15,
+      "rawOb": "METAR MMMX 270843Z 30005KT 10SM SCT080 15/11 A3030 NOSIG RMK SLP086 57014 952 8/030 ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790494920,
+      "temp": 16,
+      "rawOb": "METAR MMMX 270742Z 28007KT 12SM FEW080 16/11 A3032 NOSIG RMK 8/030 ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790491320,
+      "temp": 17,
+      "rawOb": "METAR MMMX 270642Z 27005KT 12SM SKC 17/11 A3033 NOSIG RMK ISOL AC CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790487900,
+      "temp": 17,
+      "rawOb": "METAR MMMX 270545Z 30008KT 12SM FEW080 17/11 A3035 NOSIG RMK SLP109 52011 951 8/030 ISOL SC CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790484120,
+      "temp": 18,
+      "rawOb": "METAR MMMX 270442Z 31004KT 12SM FEW080 18/11 A3034 NOSIG RMK 8/030 ISOL SC CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790480580,
+      "temp": 19,
+      "rawOb": "METAR MMMX 270343Z 02005KT 12SM FEW040 19/11 A3033 NOSIG RMK 8/500 ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790477100,
+      "temp": 19,
+      "rawOb": "METAR MMMX 270245Z 36008KT 12SM FEW015 19/11 A3031 NOSIG RMK SLP107 52019 901 8/500 AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790473500,
+      "temp": 19,
+      "rawOb": "METAR MMMX 270145Z 02010KT 12SM SCT015 19/11 A3029 NOSIG RMK 8/500 ISOL AC DSNT CB SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790471100,
+      "temp": 19,
+      "rawOb": "SPECI MMMX 270105Z 07012KT 12SM SCT015 BKN080 19/13 A3027 NOSIG RMK 8/530 ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790469900,
+      "temp": 21,
+      "rawOb": "METAR MMMX 270045Z 06012KT 10SM BKN020 BKN080 21/12 A3027 NOSIG RMK 8/460 HZY CI OCNL DROPS PCPN S SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790466600,
+      "temp": 22,
+      "rawOb": "METAR MMMX 262350Z 36008KT 12SM SCT020 BKN080 BKN220 22/10 A3025 NOSIG RMK SLP074 57001 911 8/463 DSNT CB E SE AND W"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790465400,
+      "temp": 22,
+      "rawOb": "SPECI MMMX 262330Z 01008KT 10SM SCT020 SCT080 BKN220 22/10 A3024 NOSIG RMK 8/463 HZY PCPN S SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790463000,
+      "temp": 20,
+      "rawOb": "METAR MMMX 262250Z 34010KT 10SM VCRA BKN020CB BKN080 20/11 A3024 NOSIG RMK 60005 8/960 HZY CI PCPN W NW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790462880,
+      "temp": 20,
+      "rawOb": "SPECI MMMX 262248Z 36012KT 10SM VCRA BKN020CB BKN080 20/11 A3024 NOSIG RMK 8/960 HZY CI PCPN W NW RAE48"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790461800,
+      "temp": 20,
+      "rawOb": "SPECI MMMX 262230Z 03010G20KT 10SM -RA BKN020CB BKN080 OVC220 20/13 A3024 TEMPO 6SM TSRA RMK 8/963 HZY BINOVC RAB30"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790461260,
+      "temp": 22,
+      "rawOb": "SPECI MMMX 262221Z 01020KT 8SM RA BKN020CB BKN080 OVC220 22/12 A3023 TEMPO 6SM TSRA RMK 8/963 HZY RAB20"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790460660,
+      "temp": 24,
+      "rawOb": "SPECI MMMX 262211Z 01012KT 8SM -RA BKN020CB BKN080 OVC220 24/10 A3023 TEMPO 6SM TSRA RMK 8/963 HZY VSBY LWR N NE RAB11"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790459400,
+      "temp": 23,
+      "rawOb": "METAR MMMX 262150Z 32014KT 10SM SCT020CB BKN080 BKN220 23/10 A3023 NOSIG RMK 60005 8/363 HZY OCNL DROPS"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790458200,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 262130Z 33012KT 10SM SCT020CB BKN080 BKN220 23/10 A3023 NOSIG RMK 8/363 HZY OCNL DROPS RAE30"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790457000,
+      "temp": 24,
+      "rawOb": "SPECI MMMX 262110Z 02010KT 10SM -RA BKN020CB BKN080 OVC220 24/09 A3024 TEMPO 6SM TSRA RMK 8/363 HZY BINOVC RAB10"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790455500,
+      "temp": 24,
+      "rawOb": "METAR MMMX 262045Z 29010KT 10SM BKN020CB BKN080 OVC220 24/09 A3024 TEMPO 6SM TSRA RMK SLP063 57028 952 8/363 HZY BINOVC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790451660,
+      "temp": 24,
+      "rawOb": "METAR MMMX 261941Z 31008KT 10SM BKN020TCU BKN080 24/08 A3028 NOSIG RMK 8/230 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790448300,
+      "temp": 23,
+      "rawOb": "METAR MMMX 261845Z 34005KT 10SM SCT020 BKN080 23/09 A3031 NOSIG RMK 8/130 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790447580,
+      "temp": 24,
+      "rawOb": "SPECI MMMX 261833Z 00000KT 10SM SCT020 24/10 A3032 NOSIG RMK 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790444700,
+      "temp": 22,
+      "rawOb": "METAR MMMX 261745Z 32005KT 10SM SCT020 22/09 A3035 NOSIG RMK SLP103 57007 904 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790440860,
+      "temp": 21,
+      "rawOb": "METAR MMMX 261641Z 05010KT 10SM BKN020 21/10 A3037 NOSIG RMK 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790440380,
+      "temp": 21,
+      "rawOb": "SPECI MMMX 261633Z 03008KT 10SM BKN020 21/10 A3037 NOSIG RMK 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790437800,
+      "temp": 19,
+      "rawOb": "METAR MMMX 261550Z 00000KT 10SM BKN020 19/11 A3039 NOSIG RMK 8/100 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790433780,
+      "temp": 18,
+      "rawOb": "METAR MMMX 261443Z 30005KT 10SM BKN020 BKN080 18/11 A3037 NOSIG RMK SLP129 52015 900 8/830 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790430180,
+      "temp": 17,
+      "rawOb": "METAR MMMX 261343Z 05007KT 10SM SCT020 BKN080 BKN220 17/12 A3035 NOSIG RMK 8/538 HZY ISOL CU"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790426580,
+      "temp": 16,
+      "rawOb": "METAR MMMX 261243Z 03006KT 9SM SCT015 BKN080 16/11 A3034 NOSIG RMK 8/530 HZY LWR SC N"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790423040,
+      "temp": 16,
+      "rawOb": "METAR MMMX 261144Z 02005KT 8SM BKN020 BKN080 16/11 A3032 NOSIG RMK SLP106 52003 902 8/570 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790419380,
+      "temp": 16,
+      "rawOb": "METAR MMMX 261043Z 36004KT 9SM SCT020 BKN080 16/11 A3030 NOSIG RMK 8/530 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790415780,
+      "temp": 16,
+      "rawOb": "METAR MMMX 260943Z 02005KT 9SM BKN020 16/11 A3029 NOSIG RMK 8/500 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790412180,
+      "temp": 16,
+      "rawOb": "METAR MMMX 260843Z 30003KT 10SM SCT020 16/12 A3030 NOSIG RMK SLP084 57013 956 8/500 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790408820,
+      "temp": 17,
+      "rawOb": "METAR MMMX 260747Z 33004KT 10SM FEW020 17/12 A3032 NOSIG RMK 8/500 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790404920,
+      "temp": 18,
+      "rawOb": "METAR MMMX 260642Z 28006KT 10SM SCT020 BKN080 18/12 A3034 NOSIG RMK 8/570 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790401560,
+      "temp": 18,
+      "rawOb": "METAR MMMX 260546Z 00000KT 10SM BKN020 BKN080 18/11 A3035 NOSIG RMK SLP101 52013 952 8/530 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790397720,
+      "temp": 18,
+      "rawOb": "METAR MMMX 260442Z 36006KT 10SM SCT020 BKN080 18/11 A3036 NOSIG RMK 8/530 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790390700,
+      "temp": 19,
+      "rawOb": "METAR MMMX 260245Z 36008KT 10SM FEW020 19/11 A3031 NOSIG RMK SLP102 52029 951 8/500 HZY ISOL AC CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790386800,
+      "temp": 20,
+      "rawOb": "METAR MMMX 260140Z 33012KT 10SM FEW020 20/12 A3027 NOSIG RMK 8/500 HZY AC CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790383800,
+      "temp": 20,
+      "rawOb": "METAR MMMX 260050Z 29008KT 8SM SCT020 BKN080 BKN220 20/13 A3025 NOSIG RMK 60005 8/463 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790383500,
+      "temp": 20,
+      "rawOb": "SPECI MMMX 260045Z 28010KT 8SM SCT020 BKN080 BKN220 20/13 A3025 NOSIG RMK 8/463 HZY RAE45"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790382660,
+      "temp": 21,
+      "rawOb": "SPECI MMMX 260031Z 29014KT 8SM -RA SCT015CB BKN080 BKN220 21/13 A3025 NOSIG RMK 8/963 HZY RAB30"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790379900,
+      "temp": 21,
+      "rawOb": "METAR MMMX 252345Z 29015KT 8SM VCRA SCT015CB BKN080 BKN220 21/13 A3023 NOSIG RMK SLP064 57014 901 8/963 HZY PCPN S SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790378160,
+      "temp": 21,
+      "rawOb": "SPECI MMMX 252316Z 28010KT 10SM VCRA SCT015CB SCT080 BKN220 21/14 A3023 NOSIG RMK 8/963 HZY PCPN W TSE01"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790376600,
+      "temp": 20,
+      "rawOb": "METAR MMMX 252250Z 31012KT 10SM TS SCT015CB SCT080 BKN220 20/14 A3023 NOSIG RMK 60055 8/963 HZY PCPN S SE AND W OCNL DROPS"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790376300,
+      "temp": 20,
+      "rawOb": "SPECI MMMX 252245Z 30010KT 10SM TS SCT015CB SCT080 BKN220 20/14 A3023 NOSIG RMK 8/963 HZY PCPN S SE AND W RAE45"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790375400,
+      "temp": 21,
+      "rawOb": "SPECI MMMX 252230Z 31014KT 8SM -TSRA SCT020CB BKN080 BKN220 21/14 A3024 TEMPO 5SM TSRA RMK 8/963 HZY OCNL LTGICCG W NW RAB30"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790374560,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 252216Z 33012KT 8SM TSRA BKN020CB BKN080 OVC220 23/14 A3024 TEMPO 5SM TSRA RMK 8/963 HZY OCNL LTGICCG N NW RAB16"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790374080,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 252208Z 29012KT 8SM -TSRA BKN020CB BKN080 OVC220 23/13 A3023 TEMPO 5SM TSRA RMK 8/963 HZY OCNL LTGICCG N NW RAB06 TSB07"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790373000,
+      "temp": 21,
+      "rawOb": "METAR MMMX 252150Z 28012KT 10SM VCRA SCT020CB BKN080 BKN220 21/13 A3023 NOSIG RMK 60105 8/963 HZY PCPN 1ST QUAD AND W"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790372820,
+      "temp": 21,
+      "rawOb": "SPECI MMMX 252147Z 29012KT 10SM VCRA SCT020CB BKN080 BKN220 21/13 A3023 TEMPO 5SM TSRA RMK 8/963 HZY RAE47 PCPN 1ST QUAD AND W"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790371860,
+      "temp": 21,
+      "rawOb": "SPECI MMMX 252131Z 28010KT 8SM -RA BKN020CB BKN080 OVC220 21/13 A3024 TEMPO 5SM TSRA RMK 8/963 HZY BINOVC RAB30"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790371020,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 252117Z 32012KT 8SM RA BKN020CB BKN080 OVC220 23/11 A3024 TEMPO 5SM -RA RMK 8/963 HZY RAB17"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790370660,
+      "temp": 24,
+      "rawOb": "SPECI MMMX 252111Z 34010G20KT 8SM -RA BKN020CB BKN080 OVC220 24/11 A3024 TEMPO 5SM -RA RMK 8/963 HZY BINOVC RAB10"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790369100,
+      "temp": 24,
+      "rawOb": "METAR MMMX 252045Z 26015KT 10SM VCRA BKN020CB BKN080 OVC220 24/10 A3025 TEMPO 6SM -RA RMK SLP060 57022 907 8/363 HZY PCPN W NW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790365500,
+      "temp": 25,
+      "rawOb": "METAR MMMX 251945Z 30007KT 10SM BKN020TCU 25/10 A3027 NOSIG RMK 8/200 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790361900,
+      "temp": 24,
+      "rawOb": "METAR MMMX 251845Z COR 05008KT 10SM BKN020TCU BKN080 24/10 A3031 NOSIG RMK 8/230 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790358060,
+      "temp": 23,
+      "rawOb": "METAR MMMX 251741Z 12005KT 10SM SCT020 23/09 A3034 NOSIG RMK SLP094 57011 901 8/100 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790357460,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 251731Z 33005KT 10SM FEW020 23/09 A3034 NOSIG RMK 8/100 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790354700,
+      "temp": 21,
+      "rawOb": "METAR MMMX 251645Z 06005KT 10SM FEW020 21/10 A3036 NOSIG RMK 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790351940,
+      "temp": 21,
+      "rawOb": "SPECI MMMX 251559Z 00000KT 10SM SCT020 21/10 A3038 NOSIG RMK 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790351100,
+      "temp": 19,
+      "rawOb": "METAR MMMX 251545Z 00000KT 10SM SCT020 19/11 A3038 NOSIG RMK 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790347320,
+      "temp": 18,
+      "rawOb": "METAR MMMX 251442Z 00000KT 10SM SCT020 18/10 A3037 NOSIG RMK SLP121 52017 904 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790345220,
+      "temp": 18,
+      "rawOb": "SPECI MMMX 251407Z 04007KT 10SM BKN020 18/10 A3036 NOSIG RMK 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790343900,
+      "temp": 16,
+      "rawOb": "METAR MMMX 251345Z 34004KT 8SM BKN020 16/11 A3036 NOSIG RMK 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790340540,
+      "temp": 16,
+      "rawOb": "METAR MMMX 251249Z 30005KT 8SM FEW200 16/11 A3034 NOSIG RMK 8/002 ISOL SC AC HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790336640,
+      "temp": 16,
+      "rawOb": "METAR MMMX 251144Z 31005KT 10SM FEW150 16/11 A3032 NOSIG RMK SLP094 57005 952 8/030 ISOL CI HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790332920,
+      "temp": 16,
+      "rawOb": "METAR MMMX 251042Z 30004KT 10SM FEW150 16/11 A3032 NOSIG RMK 8/030 ISOL SC CI HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790329320,
+      "temp": 16,
+      "rawOb": "METAR MMMX 250942Z 36005KT 9SM FEW025 SCT200 16/11 A3031 NOSIG RMK 8/508 ISOL AC HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790325900,
+      "temp": 17,
+      "rawOb": "METAR MMMX 250845Z 36006KT 9SM SCT025 BKN200 17/11 A3033 NOSIG RMK SLP084 57009 903 8/508 ISOL AC HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790322120,
+      "temp": 17,
+      "rawOb": "METAR MMMX 250742Z 02008KT 8SM BKN025 OVC090 17/11 A3034 NOSIG RMK 8/47/ BINOVC HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790318580,
+      "temp": 18,
+      "rawOb": "METAR MMMX 250643Z 02008KT 8SM BKN025 OVC090 18/11 A3036 NOSIG RMK 8/47/ BINOVC HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790315100,
+      "temp": 18,
+      "rawOb": "METAR MMMX 250545Z 02007KT 8SM BKN025 OVC090 18/11 A3036 NOSIG RMK SLP100 52014 910 8/47/ BINOVC HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790311500,
+      "temp": 19,
+      "rawOb": "METAR MMMX 250445Z 35008KT 9SM SCT025 BKN100 BKN220 19/11 A3036 NOSIG RMK 8/463 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790307840,
+      "temp": 19,
+      "rawOb": "METAR MMMX 250344Z 36007KT 9SM SCT020CB BKN100 BKN220 19/10 A3035 NOSIG RMK 8/363 DSNT PCPN S HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790304000,
+      "temp": 20,
+      "rawOb": "METAR MMMX 250240Z 01012KT 8SM SCT015 BKN080 OVC220 20/11 A3032 NOSIG RMK SLP098 52031 903 8/477 HZY DSNT CB PCPN S SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790300700,
+      "temp": 20,
+      "rawOb": "METAR MMMX 250145Z 36010KT 8SM SCT015 BKN080 BKN220 20/11 A3029 NOSIG RMK 8/463 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790298960,
+      "temp": 21,
+      "rawOb": "SPECI MMMX 250116Z 36015KT 8SM BKN015CB BKN080 OVC220 21/11 A3027 NOSIG RMK 8/963 HZY BINOVC TSE01"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790297100,
+      "temp": 21,
+      "rawOb": "METAR MMMX 250045Z 02016KT 8SM TS BKN015CB BKN080 OVC220 21/12 A3025 TEMPO 5SM TSRA RMK 60105 8/963 HZY PCPN OCNL LTGICCG S SW OCNL DROPS"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790296200,
+      "temp": 22,
+      "rawOb": "SPECI MMMX 250030Z 02018KT 8SM TS BKN015CB BKN080 OVC220 22/14 A3023 TEMPO 5SM TSRA RMK 8/963 HZY PCPN OCNL LTGICCG S SW RAE30 OCNL DROPS"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790294700,
+      "temp": 22,
+      "rawOb": "SPECI MMMX 250005Z 36018KT 8SM -TSRA BKN015CB BKN080 OVC220 22/11 A3023 TEMPO 5SM TSRA RMK 8/963 HZY BINOVC OCNL LTGICCG S SW RAB05"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790293800,
+      "temp": 22,
+      "rawOb": "SPECI MMMX 242350Z 02015KT 7SM TSRA BKN015CB BKN080 OVC220 22/11 A3023 TEMPO 5SM TSRA RMK 8/963 HZY VSBY LWR OCNL LTGICCG S SW TSB50"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790293500,
+      "temp": 22,
+      "rawOb": "METAR MMMX 242345Z 03015KT 8SM RA BKN015CB BKN080 OVC220 22/12 A3022 TEMPO 5SM TSRA RMK SLP063 57008 958 60005 8/363 HZY BINOVC VSBY LWR S SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790293080,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 242338Z 36015KT 8SM RA BKN015CB BKN080 OVC220 23/11 A3022 TEMPO 5SM TSRA RMK 8/363 HZY BINOVC RAB38"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790292660,
+      "temp": 24,
+      "rawOb": "SPECI MMMX 242331Z 02018KT 8SM -RA SCT020CB BKN080 BKN220 24/09 A3022 NOSIG RMK 8/368 HZY RAB30"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790290020,
+      "temp": 26,
+      "rawOb": "METAR MMMX 242247Z 01015KT 8SM SCT020TCU BKN220 26/09 A3020 NOSIG RMK 8/208 HZY DSNT CB SE S"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790286600,
+      "temp": 26,
+      "rawOb": "METAR MMMX 242150Z 36007KT 8SM SCT020TCU BKN220 26/07 A3020 NOSIG RMK 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790282820,
+      "temp": 26,
+      "rawOb": "METAR MMMX 242047Z 05006KT 7SM SCT020TCU BKN220 26/08 A3022 NOSIG RMK SLP052 57028 900 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790279160,
+      "temp": 25,
+      "rawOb": "METAR MMMX 241946Z 30004KT 8SM SCT020 BKN220 25/09 A3026 NOSIG RMK 8/208 HZY DSNT TCU 3RD QUAD"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790275680,
+      "temp": 24,
+      "rawOb": "METAR MMMX 241848Z 24006KT 8SM SCT020 BKN220 24/10 A3029 NOSIG RMK 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790272320,
+      "temp": 23,
+      "rawOb": "METAR MMMX 241752Z 11006KT 8SM SCT020 BKN220 23/11 A3032 NOSIG RMK SLP092 57008 906 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790270640,
+      "temp": 22,
+      "rawOb": "SPECI MMMX 241724Z 00000KT 8SM SCT020 BKN220 22/11 A3034 NOSIG RMK 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790268720,
+      "temp": 20,
+      "rawOb": "METAR MMMX 241652Z 30004KT 7SM SCT020 BKN220 20/10 A3035 NOSIG RMK 8/108 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790264940,
+      "temp": 19,
+      "rawOb": "METAR MMMX 241549Z 32005KT 7SM BKN020 OVC220 19/11 A3036 NOSIG RMK 8/807 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790261280,
+      "temp": 17,
+      "rawOb": "METAR MMMX 241448Z 30004KT 7SM BKN020 OVC220 17/11 A3035 NOSIG RMK SLP120 52011 911 8/807 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790257800,
+      "temp": 16,
+      "rawOb": "METAR MMMX 241350Z 09004KT 7SM FEW020 SCT080 BKN220 16/11 A3034 NOSIG RMK 8/538 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790253660,
+      "temp": 14,
+      "rawOb": "METAR MMMX 241241Z 07004KT 9SM FEW020 BKN200 14/10 A3032 NOSIG RMK 8/508 HZY ISOL AC VSBY LWR S SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790250240,
+      "temp": 14,
+      "rawOb": "METAR MMMX 241144Z 00000KT 9SM SCT020 BKN080 14/11 A3031 NOSIG RMK SLP109 54000 913 8/530 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790246700,
+      "temp": 14,
+      "rawOb": "METAR MMMX 241045Z 00000KT 9SM SKC 14/11 A3030 NOSIG RMK HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790242980,
+      "temp": 15,
+      "rawOb": "METAR MMMX 240943Z 05004KT 10SM FEW020 15/11 A3031 NOSIG RMK 8/500 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790239200,
+      "temp": 16,
+      "rawOb": "METAR MMMX 240840Z 25004KT 10SM FEW020 16/11 A3031 NOSIG RMK SLP092 57002 916 8/500 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790235720,
+      "temp": 16,
+      "rawOb": "METAR MMMX 240742Z 31008KT 10SM FEW020 16/11 A3032 NOSIG RMK 8/500 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790232120,
+      "temp": 17,
+      "rawOb": "METAR MMMX 240642Z 29009KT 10SM FEW020 17/11 A3033 NOSIG RMK 8/500 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790228640,
+      "temp": 17,
+      "rawOb": "METAR MMMX 240544Z 27007KT 10SM FEW020 17/11 A3032 NOSIG RMK SLP108 52007 909 8/500 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790224860,
+      "temp": 18,
+      "rawOb": "METAR MMMX 240441Z 28007KT 10SM FEW020 18/11 A3032 NOSIG RMK 8/500 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790221440,
+      "temp": 18,
+      "rawOb": "METAR MMMX 240344Z 29008KT 10SM FEW020 18/11 A3033 NOSIG RMK 8/500 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790217960,
+      "temp": 19,
+      "rawOb": "METAR MMMX 240246Z 25008KT 10SM FEW020 SCT080 BKN220 19/11 A3030 NOSIG RMK SLP103 52022 914 8/438 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790217600,
+      "temp": 19,
+      "rawOb": "SPECI MMMX 240240Z 25008KT 10SM FEW020 SCT080 BKN220 19/11 A3030 NOSIG RMK 8/438 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790214360,
+      "temp": 21,
+      "rawOb": "METAR MMMX 240146Z 16006KT 8SM SCT020 BKN080 BKN220 21/10 A3027 NOSIG RMK 8/438 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790210700,
+      "temp": 22,
+      "rawOb": "METAR MMMX 240045Z 14006KT 8SM SCT020 BKN080 BKN220 22/10 A3024 NOSIG RMK 8/468 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790207280,
+      "temp": 22,
+      "rawOb": "METAR MMMX 232348Z 14010KT 8SM SCT020CB BKN080 BKN220 22/10 A3022 NOSIG RMK SLP075 57002 915 8/368 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790206140,
+      "temp": 22,
+      "rawOb": "SPECI MMMX 232329Z 16007KT 7SM SCT020CB BKN080 BKN220 22/10 A3022 NOSIG RMK 8/368 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790203740,
+      "temp": 24,
+      "rawOb": "METAR MMMX 232249Z 16006KT 6SM SCT020CB BKN080 BKN220 24/10 A3021 NOSIG RMK 8/368 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790200020,
+      "temp": 25,
+      "rawOb": "METAR MMMX 232147Z 15003KT 6SM SCT020TCU BKN080 BKN220 25/09 A3020 NOSIG RMK 8/238 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790196480,
+      "temp": 24,
+      "rawOb": "METAR MMMX 232048Z 00000KT 8SM SCT020TCU BKN080 BKN220 24/08 A3022 NOSIG RMK SLP060 57022 919 8/238 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790192640,
+      "temp": 24,
+      "rawOb": "METAR MMMX 231944Z 36004KT 7SM SCT020 BKN220 24/09 A3024 NOSIG RMK 8/208 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790189160,
+      "temp": 24,
+      "rawOb": "METAR MMMX 231846Z 06006KT 7SM SCT020 OVC220 24/10 A3027 NOSIG RMK 8/207 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790187960,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 231826Z 00000KT 7SM SCT020 OVC220 23/09 A3029 NOSIG RMK 8/207 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790185860,
+      "temp": 21,
+      "rawOb": "METAR MMMX 231751Z 00000KT 7SM SCT020 OVC220 21/10 A3031 NOSIG RMK 8/207 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790182260,
+      "temp": 20,
+      "rawOb": "METAR MMMX 231651Z 00000KT 7SM SCT020 OVC220 20/11 A3033 NOSIG RMK 8/107 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790178420,
+      "temp": 19,
+      "rawOb": "METAR MMMX 231547Z 11008KT 7SM SCT020 BKN080 OVC220 19/11 A3033 NOSIG RMK 8/837 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790175180,
+      "temp": 17,
+      "rawOb": "METAR MMMX 231453Z 00000KT 7SM SCT020 BKN080 OVC220 17/11 A3032 NOSIG RMK SLP109 52013 903 8/877 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790163780,
+      "temp": 14,
+      "rawOb": "METAR MMMX 231143Z 00000KT 10SM SKC 14/11 A3027 NOSIG RMK SLP089 52003 901 ISOL CI HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790160060,
+      "temp": 15,
+      "rawOb": "METAR MMMX 231041Z 30007KT 10SM SKC 15/11 A3026 NOSIG RMK ISOL AC CI HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790156520,
+      "temp": 16,
+      "rawOb": "METAR MMMX 230942Z 30005KT 10SM FEW250 16/11 A3025 NOSIG RMK 8/002 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790153100,
+      "temp": 16,
+      "rawOb": "METAR MMMX 230845Z 00000KT 10SM FEW100 SCT250 16/11 A3026 NOSIG RMK SLP063 57009 951 8/038"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790149320,
+      "temp": 17,
+      "rawOb": "METAR MMMX 230742Z 36005KT 10SM SCT100 BKN220 17/11 A3027 NOSIG RMK 8/038 ISOL SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790145840,
+      "temp": 17,
+      "rawOb": "METAR MMMX 230644Z 36004KT 10SM SCT025 BKN100 OVC220 17/11 A3029 NOSIG RMK 8/477 LWR SC SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790142300,
+      "temp": 17,
+      "rawOb": "METAR MMMX 230545Z 35007KT 10SM SCT025 BKN100 OVC220 17/12 A3029 NOSIG RMK SLP083 52012 901 8/477 LWR SC SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790138520,
+      "temp": 18,
+      "rawOb": "METAR MMMX 230442Z 31006KT 9SM SCT025 BKN100 OVC220 18/13 A3029 NOSIG RMK 60045 8/477 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790137200,
+      "temp": 17,
+      "rawOb": "SPECI MMMX 230420Z 36006KT 8SM SCT025CB SCT080 OVC220 17/13 A3029 NOSIG RMK 8/367 RAE15 OCNL DROPS HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790136540,
+      "temp": 17,
+      "rawOb": "SPECI MMMX 230409Z 02010KT 7SM -RA BKN025CB BKN080 OVC200 17/13 A3028 NOSIG RMK 8/363 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790135760,
+      "temp": 19,
+      "rawOb": "SPECI MMMX 230356Z 03010KT 8SM -RA BKN025CB OVC200 19/12 A3027 NOSIG RMK 8/307 RAB52 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790135100,
+      "temp": 19,
+      "rawOb": "METAR MMMX 230345Z 04008KT 9SM BKN025TCU OVC200 19/11 A3027 NOSIG RMK 8/207 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790131560,
+      "temp": 19,
+      "rawOb": "METAR MMMX 230246Z 36010KT 10SM FEW020 SCT080 BKN220 19/11 A3025 NOSIG RMK SLP064 52023 956 8/468 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790128020,
+      "temp": 20,
+      "rawOb": "METAR MMMX 230147Z 03012KT 10SM FEW020CB SCT080 BKN220 20/11 A3022 NOSIG RMK 8/368 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790124660,
+      "temp": 21,
+      "rawOb": "METAR MMMX 230051Z 36012KT 8SM SCT020CB BKN080 BKN220 21/11 A3019 NOSIG RMK 8/368 HZY PCPN SW W"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790124180,
+      "temp": 21,
+      "rawOb": "SPECI MMMX 230043Z 36012KT 8SM SCT020CB BKN080 BKN220 21/11 A3019 NOSIG RMK 8/368 HZY PCPN SW W"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790120880,
+      "temp": 23,
+      "rawOb": "METAR MMMX 222348Z 36007KT 10SM SCT020CB BKN080 OVC220 23/09 A3016 NOSIG RMK SLP035 52002 907 60005 8/367 HZY PCPN SSW SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790119920,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 222332Z 03013KT 10SM BKN020CB BKN080 OVC220 23/09 A3015 NOSIG RMK 8/367 HZY RAE29 OCNL DROPS PCPN S SSW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790119620,
+      "temp": 24,
+      "rawOb": "SPECI MMMX 222327Z 35011KT 10SM -RA BKN020CB BKN080 OVC220 24/09 A3015 NOSIG RMK 8/367 HZY RAB25"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790117520,
+      "temp": 24,
+      "rawOb": "METAR MMMX 222252Z 36010KT 10SM SCT020CB BKN080 BKN220 24/08 A3015 NOSIG RMK 8/368 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790113500,
+      "temp": 25,
+      "rawOb": "METAR MMMX 222145Z 35010KT 10SM SCT020TCU BKN080 OVC220 25/06 A3015 NOSIG RMK 8/237 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790110020,
+      "temp": 26,
+      "rawOb": "METAR MMMX 222047Z 08004KT 10SM SCT020TCU BKN080 BKN220 26/05 A3016 NOSIG RMK SLP032 57032 966 8/238 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790106480,
+      "temp": 25,
+      "rawOb": "METAR MMMX 221948Z 11006KT 9SM SCT020 BKN200 25/07 A3019 NOSIG RMK 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790105700,
+      "temp": 25,
+      "rawOb": "SPECI MMMX 221935Z 01005KT 8SM SCT020 BKN200 25/07 A3020 NOSIG RMK 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790103120,
+      "temp": 23,
+      "rawOb": "METAR MMMX 221852Z 08006KT 8SM FEW020 SCT200 23/07 A3024 NOSIG RMK 8/102 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790099160,
+      "temp": 22,
+      "rawOb": "METAR MMMX 221746Z 02006KT 8SM FEW020 22/09 A3027 NOSIG RMK SLP081 57009 964 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790095740,
+      "temp": 21,
+      "rawOb": "METAR MMMX 221649Z 05005KT 8SM FEW020 21/08 A3029 NOSIG RMK 8/100 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790092320,
+      "temp": 20,
+      "rawOb": "METAR MMMX 221552Z 00000KT 8SM FEW020 20/10 A3031 NOSIG RMK 8/100 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790088120,
+      "temp": 18,
+      "rawOb": "METAR MMMX 221442Z 06006KT 9SM SCT020 18/10 A3031 NOSIG RMK SLP102 52011 960 8/800 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790084880,
+      "temp": 16,
+      "rawOb": "METAR MMMX 221348Z 34004KT 10SM SCT080 16/09 A3030 NOSIG RMK 8/030 ISOL CU"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790081040,
+      "temp": 15,
+      "rawOb": "METAR MMMX 221244Z 02003KT 10SM FEW015 SCT080 15/09 A3028 NOSIG RMK 8/530 HZY VSBY LWR SW W"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790077260,
+      "temp": 15,
+      "rawOb": "METAR MMMX 221141Z 36003KT 10SM FEW020 SCT080 15/09 A3026 NOSIG RMK SLP080 52001 958 8/530 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790073960,
+      "temp": 16,
+      "rawOb": "METAR MMMX 221046Z 36003KT 10SM FEW020 BKN080 16/09 A3026 NOSIG RMK 8/570 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790070480,
+      "temp": 15,
+      "rawOb": "METAR MMMX 220948Z 00000KT 10SM BKN020 OVC080 15/09 A3026 NOSIG RMK 8/57/ HZY BINOVC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790066940,
+      "temp": 15,
+      "rawOb": "METAR MMMX 220849Z COR 00000KT 9SM FEW020 15/09 A3026 NOSIG RMK SLP078 57007 962 8/500 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790063220,
+      "temp": 16,
+      "rawOb": "METAR MMMX 220747Z 29007KT 10SM SKC 16/10 A3028 NOSIG RMK HZY ISOL SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790059380,
+      "temp": 16,
+      "rawOb": "METAR MMMX 220643Z 03003KT 10SM FEW020 16/10 A3029 NOSIG RMK 8/500 HZY ISOL AS"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790056200,
+      "temp": 17,
+      "rawOb": "METAR MMMX 220550Z 03005KT 10SM SCT015 17/10 A3029 NOSIG RMK SLP108 52005 962 8/500 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790052240,
+      "temp": 18,
+      "rawOb": "METAR MMMX 220444Z 01006KT 10SM SCT020 BKN080 18/09 A3030 NOSIG RMK 8/530 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790048640,
+      "temp": 19,
+      "rawOb": "METAR MMMX 220344Z 34009KT 10SM SCT020 BKN080 19/10 A3030 NOSIG RMK 8/530 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790045100,
+      "temp": 19,
+      "rawOb": "METAR MMMX 220245Z 02015KT 10SM FEW020 SCT080 19/10 A3027 NOSIG RMK SLP089 52036 964 8/530 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790041920,
+      "temp": 20,
+      "rawOb": "METAR MMMX 220152Z 01015KT 12SM FEW020 20/10 A3023 NOSIG RMK 8/500 ISOL AC CI DSNT CB SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790041620,
+      "temp": 20,
+      "rawOb": "SPECI MMMX 220147Z 02015KT 12SM FEW020 20/10 A3023 NOSIG RMK 8/500 ISOL AC CI DSNT CB SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790037900,
+      "temp": 22,
+      "rawOb": "METAR MMMX 220045Z 03010KT 12SM FEW020 SCT080 SCT220 22/08 A3019 NOSIG RMK 8/432"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790036400,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 220020Z 36010G20KT 12SM FEW020 BKN220 23/07 A3018 NOSIG RMK 8/408"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790034300,
+      "temp": 25,
+      "rawOb": "METAR MMMX 212345Z 34010KT 10SM FEW020 BKN220 25/08 A3016 NOSIG RMK SLP038 57021 967 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790030700,
+      "temp": 26,
+      "rawOb": "METAR MMMX 212245Z 01012KT 12SM FEW020 BKN220 26/06 A3016 NOSIG RMK 8/208"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790026800,
+      "temp": 25,
+      "rawOb": "METAR MMMX 212140Z 03008KT 12SM FEW020 BKN220 25/06 A3018 NOSIG RMK 8/208 DSNT CB E SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790023200,
+      "temp": 25,
+      "rawOb": "METAR MMMX 212040Z 04006KT 10SM FEW020 BKN220 25/06 A3021 NOSIG RMK SLP061 57030 953 8/208 HZY AC DSNT TCU SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790020320,
+      "temp": 25,
+      "rawOb": "METAR MMMX 211952Z 02010KT 9SM FEW020 SCT080 BKN220 25/06 A3024 NOSIG RMK 8/238 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790016540,
+      "temp": 24,
+      "rawOb": "METAR MMMX 211849Z 04008KT 8SM FEW020 OVC220 24/06 A3028 NOSIG RMK 8/207 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790016360,
+      "temp": 24,
+      "rawOb": "SPECI MMMX 211846Z 06007KT 8SM FEW020 OVC220 24/07 A3028 NOSIG RMK 8/207 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790012640,
+      "temp": 22,
+      "rawOb": "METAR MMMX 211744Z 32008KT 8SM SCT020 BKN220 22/10 A3032 NOSIG RMK SLP099 57005 955 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790009220,
+      "temp": 21,
+      "rawOb": "METAR MMMX 211647Z 03004KT 8SM SCT020 BKN220 21/11 A3033 NOSIG RMK 8/208 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790005260,
+      "temp": 20,
+      "rawOb": "METAR MMMX 211541Z 36004KT 8SM SCT020 20/12 A3035 NOSIG RMK 8/200 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1790001660,
+      "temp": 18,
+      "rawOb": "METAR MMMX 211441Z 00000KT 7SM SCT020 18/12 A3034 NOSIG RMK SLP118 52013 958 8/800 HZY ISOL CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789998420,
+      "temp": 15,
+      "rawOb": "METAR MMMX 211347Z 08004KT 6SM SCT080 BKN220 15/12 A3034 NOSIG RMK 8/038 HZY ISOL CU 3RD QUAD"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789994700,
+      "temp": 13,
+      "rawOb": "METAR MMMX 211245Z 08004KT 7SM FEW030 SCT220 13/11 A3032 NOSIG RMK 8/508 BR HZ"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789991100,
+      "temp": 14,
+      "rawOb": "METAR MMMX 211145Z 08004KT 8SM FEW030 SCT220 14/11 A3030 NOSIG RMK SLP101 57003 959 8/508 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789987320,
+      "temp": 15,
+      "rawOb": "METAR MMMX 211042Z 00000KT 8SM SCT030 BKN120 OVC200 15/11 A3030 NOSIG RMK 8/537 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789983720,
+      "temp": 14,
+      "rawOb": "METAR MMMX 210942Z 08004KT 8SM FEW120 BKN200 14/12 A3029 NOSIG RMK 8/038 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789980240,
+      "temp": 15,
+      "rawOb": "METAR MMMX 210844Z 00000KT 9SM FEW120 SCT250 15/12 A3031 NOSIG RMK SLP084 57007 955 8/038 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789976520,
+      "temp": 15,
+      "rawOb": "METAR MMMX 210742Z 07005KT 10SM FEW120 SCT250 15/12 A3032 NOSIG RMK 8/038"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789972980,
+      "temp": 16,
+      "rawOb": "METAR MMMX 210643Z 05005KT 10SM FEW120 SCT250 16/12 A3032 NOSIG RMK 8/038"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789969500,
+      "temp": 17,
+      "rawOb": "METAR MMMX 210545Z 00000KT 10SM FEW120 SCT250 17/13 A3033 NOSIG RMK SLP093 52003 958 8/038 ISOL SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789965900,
+      "temp": 17,
+      "rawOb": "METAR MMMX 210445Z 28004KT 10SM SCT100 BKN250 17/13 A3034 NOSIG RMK 8/038 ISOL SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789962180,
+      "temp": 18,
+      "rawOb": "METAR MMMX 210343Z COR 30006KT 10SM FEW030 SCT100 SCT220 18/13 A3033 NOSIG RMK 60025 8/472 LWR SC SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789960740,
+      "temp": 18,
+      "rawOb": "SPECI MMMX 210319Z 29005KT 10SM SCT030 BKN070 BKN220 18/14 A3033 NOSIG RMK 8/463 RAE15"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789959000,
+      "temp": 18,
+      "rawOb": "METAR MMMX 210250Z 30006KT 7SM -RA BKN015CB BKN080 OVC220 18/14 A3033 NOSIG RMK SLP115 52035 954 60055 8/963 HZY BINOVC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789957500,
+      "temp": 17,
+      "rawOb": "SPECI MMMX 210225Z 30005KT 6SM -RA BKN015CB BKN080 OVC220 17/14 A3032 NOSIG RMK 8/963 HZY DSNT OCNL LTGICCG S SW TSE05 RAB25"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789955400,
+      "temp": 17,
+      "rawOb": "METAR MMMX 210150Z 15006KT 5SM TSRA BKN015CB OVC070 17/13 A3030 NOSIG RMK 60055 8/96/ HZY OCNL LTGICCG W NW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789955280,
+      "temp": 17,
+      "rawOb": "SPECI MMMX 210148Z 14006KT 5SM TSRA BKN015CB OVC070 17/13 A3030 NOSIG RMK 8/96/ HZY OCNL LTGICCG W NW RAB48"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789954680,
+      "temp": 17,
+      "rawOb": "SPECI MMMX 210138Z 36010KT 5SM +TSRA BKN015CB OVC070 17/14 A3029 NOSIG RMK 8/96/ HZY OCNL LTGICCG W NW RAB38"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789954020,
+      "temp": 18,
+      "rawOb": "SPECI MMMX 210127Z 36015KT 6SM TSRA BKN020CB OVC080 18/13 A3029 NOSIG RMK 8/96/ HZY FRQ LTGICCG N RAB27"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789953660,
+      "temp": 20,
+      "rawOb": "SPECI MMMX 210121Z 01015KT 8SM -TSRA BKN020CB OVC080 20/12 A3028 NOSIG RMK 8/96/ HZY OCNL LTGICCG N TSB21"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789953600,
+      "temp": 20,
+      "rawOb": "SPECI MMMX 210120Z 05010KT 8SM -RA BKN020CB OVC080 20/11 A3028 NOSIG RMK 8/96/ HZY BINOVC RAB20"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789951500,
+      "temp": 19,
+      "rawOb": "METAR MMMX 210045Z 09010KT 10SM VCRA SCT020CB BKN080 BKN220 19/11 A3025 NOSIG RMK 8/963 HZY PCPN N AND S"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789950900,
+      "temp": 20,
+      "rawOb": "SPECI MMMX 210035Z 06015KT 10SM VCRA SCT020CB BKN080 BKN220 20/11 A3025 NOSIG RMK 8/963 HZY PCPN N AND S"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789948200,
+      "temp": 22,
+      "rawOb": "METAR MMMX 202350Z 12015G25KT 10SM VCRA BKN020CB BKN080 OVC220 22/11 A3022 NOSIG RMK SLP068 57007 968 8/963 HZY BINOVC PCPN S SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789947000,
+      "temp": 22,
+      "rawOb": "SPECI MMMX 202330Z 11015G25KT 7SM VCRA BKN020CB BKN080 OVC220 22/10 A3021 TEMPO 5SM TSRA RMK 8/963 HZY PCPN 2ND QUAD AND SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789945980,
+      "temp": 24,
+      "rawOb": "SPECI MMMX 202313Z 09020KT 8SM VCRA BKN020CB BKN220 24/11 A3020 NOSIG RMK 8/903 HZY AC PCPN 2ND QUAD AND SW"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789944600,
+      "temp": 26,
+      "rawOb": "METAR MMMX 202250Z 04010KT 8SM VCRA SCT020CB BKN220 26/08 A3020 TEMPO 5SM TSRA RMK 8/303 HZY PCPN 2ND QUAD"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789940700,
+      "temp": 26,
+      "rawOb": "METAR MMMX 202145Z 09006KT 10SM SCT020 BKN220 26/06 A3020 NOSIG RMK 8/208 HZY DSNT CB 1ST 2ND QUAD AND W"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789937100,
+      "temp": 25,
+      "rawOb": "METAR MMMX 202045Z 08007KT 8SM SCT020 BKN220 25/06 A3022 NOSIG RMK SLP056 57032 958 8/208 HZY DSNT CB 1ST 2ND QUAD"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789933260,
+      "temp": 25,
+      "rawOb": "METAR MMMX 201941Z 04007KT 8SM SCT020 BKN220 25/09 A3027 NOSIG RMK 8/208 HZY DSNT TCU E W"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789930140,
+      "temp": 24,
+      "rawOb": "METAR MMMX 201849Z 06008KT 6SM SCT020 BKN220 24/10 A3029 NOSIG RMK 8/208 HZY DSNT TCU 4TH QUAD"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789926420,
+      "temp": 24,
+      "rawOb": "METAR MMMX 201747Z 00000KT 5SM FEW020 BKN220 24/12 A3033 NOSIG RMK SLP093 57008 954 8/208 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789924800,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 201720Z 04004KT 5SM FEW020 SCT220 23/12 A3034 NOSIG RMK 8/102 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789919160,
+      "temp": 20,
+      "rawOb": "METAR MMMX 201546Z 00000KT 4SM FEW020 BKN220 20/12 A3037 NOSIG RMK 8/108 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789915920,
+      "temp": 17,
+      "rawOb": "METAR MMMX 201452Z 11004KT 3SM HZ FEW020 SCT220 17/12 A3037 NOSIG RMK SLP133 52012 902 8/102 TWR VIS"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789912380,
+      "temp": 15,
+      "rawOb": "METAR MMMX 201353Z 05005KT 3SM HZ BKN220 15/12 A3036 NOSIG RMK 8/008 BR 1ST 4TH QUAD TWR VIS"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789908300,
+      "temp": 13,
+      "rawOb": "METAR MMMX 201245Z 06006KT 5SM BKN200 13/11 A3035 TEMPO 3SM BR HZ RMK 8/008 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789904880,
+      "temp": 14,
+      "rawOb": "METAR MMMX 201148Z 00000KT 7SM SKC 14/12 A3034 TEMPO 4SM HZ RMK SLP117 52001 952 HZY ISOL SC CI VSBY LWR N"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789901220,
+      "temp": 14,
+      "rawOb": "METAR MMMX 201047Z 07003KT 8SM SKC 14/11 A3033 NOSIG RMK HZY ISOL SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789897500,
+      "temp": 14,
+      "rawOb": "METAR MMMX 200945Z 08005KT 9SM FEW020 14/11 A3032 NOSIG RMK 8/500 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789893900,
+      "temp": 15,
+      "rawOb": "METAR MMMX 200845Z 09004KT 9SM FEW020 15/11 A3033 NOSIG RMK SLP099 57010 956 8/500 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789890300,
+      "temp": 16,
+      "rawOb": "METAR MMMX 200745Z 07005KT 9SM SCT020 16/11 A3033 NOSIG RMK 8/500 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789886460,
+      "temp": 17,
+      "rawOb": "METAR MMMX 200641Z 33006KT 9SM SCT020 BKN080 17/11 A3035 NOSIG RMK 8/530 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789883340,
+      "temp": 18,
+      "rawOb": "METAR MMMX 200549Z 32007KT 10SM SCT020 BKN080 BKN200 18/11 A3036 NOSIG RMK SLP108 52007 955 8/578 HZY LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789879500,
+      "temp": 18,
+      "rawOb": "METAR MMMX 200445Z 00000KT 10SM SCT015 BKN080 BKN200 18/12 A3037 NOSIG RMK 8/578 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789875780,
+      "temp": 18,
+      "rawOb": "METAR MMMX 200343Z 36007KT 10SM SCT020 BKN080 BKN200 18/12 A3037 NOSIG RMK 8/538 HZY LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789872600,
+      "temp": 17,
+      "rawOb": "METAR MMMX 200250Z 33005KT 10SM SCT015 BKN080 BKN220 17/12 A3034 NOSIG RMK SLP116 52019 956 8/538 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789870560,
+      "temp": 17,
+      "rawOb": "SPECI MMMX 200216Z 32005KT 10SM SCT015 BKN080 BKN220 17/12 A3033 NOSIG RMK 8/438 HZY BLDU"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789868700,
+      "temp": 17,
+      "rawOb": "METAR MMMX 200145Z 09007KT 10SM BKN020 BKN080 OVC220 17/12 A3033 NOSIG RMK 60005 8/477 HZY BINOVC OCNL DROPS"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789868400,
+      "temp": 17,
+      "rawOb": "SPECI MMMX 200140Z 07006KT 10SM BKN020 BKN080 OVC220 17/12 A3033 NOSIG RMK 8/477 HZY BINOVC OCNL DROPS RAE40"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789867500,
+      "temp": 17,
+      "rawOb": "SPECI MMMX 200125Z 03010KT 8SM -RA BKN020 OVC080 17/13 A3032 NOSIG RMK 8/47/ HZY TSE05"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789865100,
+      "temp": 18,
+      "rawOb": "METAR MMMX 200045Z 06010KT 8SM -TSRA BKN020CB OVC080 18/12 A3031 NOSIG RMK 60005 8/96/ HZY OCNL LTGICCG N"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789863600,
+      "temp": 18,
+      "rawOb": "SPECI MMMX 200020Z 05015KT 8SM -TSRA BKN020CB OVC080 18/11 A3030 NOSIG RMK 8/96/ HZY OCNL LTGICCG 1ST QUAD AND S RAB20"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789863300,
+      "temp": 19,
+      "rawOb": "SPECI MMMX 200015Z 06020KT 8SM TS BKN020CB OVC080 19/11 A3029 NOSIG RMK 8/96/ HZY PCPN OCNL LTGICCG 1ST QUAD AND S"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789861800,
+      "temp": 21,
+      "rawOb": "METAR MMMX 192350Z 02015KT 8SM TS BKN020CB OVC080 21/11 A3027 NOSIG RMK SLP087 52003 953 8/96/ HZY PCPN OCNL LTGICCG 1ST 2ND QUAD"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789861500,
+      "temp": 21,
+      "rawOb": "SPECI MMMX 192345Z 02010G20KT 8SM TS BKN020CB OVC080 21/11 A3027 NOSIG RMK 8/96/ HZY PCPN OCNL LTGICCG 1ST 2ND QUAD"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789860300,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 192325Z 04020KT 10SM TS BKN020CB BKN080 OVC220 23/11 A3025 NOSIG RMK 8/963 HZY PCPN OCNL LTGICCG 1ST 2ND QUAD TSB25"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789859100,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 192305Z 02018KT 10SM VCTS BKN020CB BKN080 OVC220 23/11 A3024 NOSIG RMK 8/963 HZY BINOVC PCPN OCNL LTGICCG E SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789858200,
+      "temp": 24,
+      "rawOb": "METAR MMMX 192250Z 36014KT 10SM VCRA BKN020CB BKN080 OVC220 24/09 A3023 NOSIG RMK 8/363 HZY BINOVC PCPN E SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789857000,
+      "temp": 24,
+      "rawOb": "SPECI MMMX 192230Z 36012KT 10SM VCRA BKN020CB BKN080 OVC220 24/07 A3023 NOSIG RMK 8/363 HZY BINOVC PCPN E SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789854600,
+      "temp": 24,
+      "rawOb": "METAR MMMX 192150Z 09003KT 10SM SCT020TCU BKN080 BKN220 24/08 A3023 NOSIG RMK 8/238 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789850700,
+      "temp": 25,
+      "rawOb": "METAR MMMX 192045Z 29008KT 10SM SCT020TCU BKN080 BKN220 25/10 A3026 NOSIG RMK SLP070 57028 964 8/238 HZY DSNT CB S SE"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789846980,
+      "temp": 24,
+      "rawOb": "METAR MMMX 191943Z 13008KT 10SM SCT015 BKN250 24/08 A3029 NOSIG RMK 8/208 DSNT TCU E SE HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789843500,
+      "temp": 23,
+      "rawOb": "METAR MMMX 191845Z 08003KT 10SM SCT015 BKN250 23/09 A3033 NOSIG RMK 8/108 DSNT TCU E SE HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789840020,
+      "temp": 22,
+      "rawOb": "METAR MMMX 191747Z 07012KT 9SM SCT010 BKN250 22/09 A3035 NOSIG RMK SLP111 57002 958 8/108 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789836120,
+      "temp": 21,
+      "rawOb": "METAR MMMX 191642Z 10002KT 8SM SCT010 BKN250 21/12 A3037 NOSIG RMK 8/108 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789832700,
+      "temp": 20,
+      "rawOb": "METAR MMMX 191545Z 05003KT 8SM SCT010 BKN250 20/11 A3038 NOSIG RMK 8/108 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789828920,
+      "temp": 18,
+      "rawOb": "METAR MMMX 191442Z 11003KT 8SM FEW010 BKN250 18/12 A3038 NOSIG RMK SLP122 52008 965 8/108 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789825260,
+      "temp": 17,
+      "rawOb": "METAR MMMX 191341Z 00000KT 9SM FEW015 SCT100 BKN250 17/12 A3036 NOSIG RMK 8/838 HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789821900,
+      "temp": 15,
+      "rawOb": "METAR MMMX 191245Z 27005KT 8SM FEW015 SCT100 BKN250 15/11 A3036 NOSIG RMK 8/838 LWR SC HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789818360,
+      "temp": 16,
+      "rawOb": "METAR MMMX 191146Z 36002KT 8SM FEW015 BKN250 16/11 A3034 NOSIG RMK SLP107 57003 963 8/508 LWR SC ISOL AC HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789814460,
+      "temp": 16,
+      "rawOb": "METAR MMMX 191041Z 02004KT 8SM SCT015 BKN080 BKN250 16/11 A3033 NOSIG RMK 8/538 LWR SC HZY"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789810920,
+      "temp": 16,
+      "rawOb": "METAR MMMX 190942Z 03003KT 8SM SCT020 BKN080 OVC220 16/11 A3034 NOSIG RMK 8/577 LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789807500,
+      "temp": 16,
+      "rawOb": "METAR MMMX 190845Z 01005KT 10SM BKN020 OVC080 16/11 A3034 NOSIG RMK SLP103 57009 965 8/47/ OCNL DROPS LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789803720,
+      "temp": 17,
+      "rawOb": "METAR MMMX 190742Z 01007KT 10SM BKN020 OVC080 17/11 A3037 NOSIG RMK 8/47/ LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789800120,
+      "temp": 17,
+      "rawOb": "METAR MMMX 190642Z 36006KT 10SM BKN025 OVC080 17/11 A3037 NOSIG RMK 8/47/ LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789796700,
+      "temp": 17,
+      "rawOb": "METAR MMMX 190545Z 35006KT 12SM BKN030 BKN100 OVC220 17/11 A3038 NOSIG RMK SLP124 52006 973 8/877 LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789792980,
+      "temp": 18,
+      "rawOb": "METAR MMMX 190443Z 36007KT 12SM SCT030 BKN100 OVC220 18/11 A3038 NOSIG RMK 8/877 LWR SC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789789500,
+      "temp": 18,
+      "rawOb": "METAR MMMX 190345Z 35010KT 12SM FEW030 BKN100 BKN220 18/10 A3038 NOSIG RMK 8/578"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789785600,
+      "temp": 19,
+      "rawOb": "METAR MMMX 190240Z 02012KT 12SM SCT015 BKN080 19/11 A3036 NOSIG RMK SLP124 52022 968 8/530 CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789782600,
+      "temp": 19,
+      "rawOb": "METAR MMMX 190150Z 04012KT 12SM SCT015 BKN080 BKN220 19/11 A3033 NOSIG RMK 8/538"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789780800,
+      "temp": 19,
+      "rawOb": "SPECI MMMX 190120Z 01012KT 12SM SCT015 BKN080 BKN220 19/10 A3032 NOSIG RMK 8/538"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789778700,
+      "temp": 21,
+      "rawOb": "METAR MMMX 190045Z 36007KT 12SM BKN020 BKN080 OVC220 21/08 A3030 NOSIG RMK 8/463 BINOVC DSNT PCPN N"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789775400,
+      "temp": 22,
+      "rawOb": "METAR MMMX 182350Z 08010KT 12SM SCT020 BKN080 BKN220 22/10 A3029 NOSIG RMK SLP095 57008 959 8/463 DSNT CB E AND W"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789771500,
+      "temp": 23,
+      "rawOb": "METAR MMMX 182245Z 05010KT 12SM SCT020 BKN080 23/08 A3029 NOSIG RMK 8/460 CI"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789768200,
+      "temp": 22,
+      "rawOb": "METAR MMMX 182150Z 02014KT 12SM BKN020CB BKN080 OVC220 22/08 A3029 NOSIG RMK 8/363 BINOVC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789767000,
+      "temp": 22,
+      "rawOb": "SPECI MMMX 182130Z 04015KT 12SM BKN020CB BKN080 OVC220 22/08 A3030 NOSIG RMK 8/363 BINOVC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789764000,
+      "temp": 24,
+      "rawOb": "METAR MMMX 182040Z 03012KT 12SM SCT020CB BKN080 BKN220 24/08 A3030 NOSIG RMK SLP093 57022 962 8/363"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789760700,
+      "temp": 23,
+      "rawOb": "METAR MMMX 181945Z 32008KT 12SM BKN020TCU BKN080 OVC220 23/08 A3034 NOSIG RMK 8/237"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789757100,
+      "temp": 23,
+      "rawOb": "METAR MMMX 181845Z 00000KT 12SM BKN020 BKN220 23/09 A3036 NOSIG RMK 8/108 ISOL MDT CU"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789756080,
+      "temp": 23,
+      "rawOb": "SPECI MMMX 181828Z 04005KT 12SM BKN020 BKN220 23/09 A3037 NOSIG RMK 8/108"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789753980,
+      "temp": 21,
+      "rawOb": "METAR MMMX 181753Z 33005KT 12SM SCT020 BKN080 21/08 A3038 NOSIG RMK SLP126 57009 958 8/108"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789749900,
+      "temp": 20,
+      "rawOb": "METAR MMMX 181645Z 03009KT 12SM FEW020 BKN220 20/09 A3042 NOSIG RMK 8/108"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789746060,
+      "temp": 19,
+      "rawOb": "METAR MMMX 181541Z 02006KT 12SM SCT020 BKN220 19/09 A3043 NOSIG RMK 8/108"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789742760,
+      "temp": 17,
+      "rawOb": "METAR MMMX 181446Z 03007KT 12SM BKN020 OVC220 17/09 A3043 NOSIG RMK SLP155 52010 963 8/107"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789739100,
+      "temp": 16,
+      "rawOb": "METAR MMMX 181345Z 29007KT 10SM FEW020 OVC220 16/10 A3041 NOSIG RMK 8/507 HZY ISOL AC"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789735500,
+      "temp": 15,
+      "rawOb": "METAR MMMX 181245Z 30003KT 10SM SCT080 BKN220 15/10 A3040 NOSIG RMK 8/038 HZY SC ARND STN"
+    },
+    {
+      "icaoId": "MMMX",
+      "obsTime": 1789731900,
+      "temp": 14,
+      "rawOb": "METAR MMMX 181145Z 32005KT 9SM FEW020 14/11 A3039 NOSIG RMK SLP137 57005 954 8/500 HZY"
+    }
+  ]
+}

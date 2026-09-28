@@ -1,6 +1,5 @@
 import './decision-network.css';
 
-const root = document.getElementById('decision-network');
 const text = (zh, en) => ({ zh, en });
 // A qualitative scenario comparison, not a model of measured forecast performance.
 const nodes = [
@@ -60,9 +59,11 @@ nodes.unshift({id:'source',level:0,row:1,label:text('今天要做的安排','Tod
 ['protect','loss','next-season','flexible'].forEach((id,row)=>nodes.push({id,level:4,row,label:text('',''),brief:text('可能的后续影响','Possible downstream effect'),detail:text('',''),example:text('','')}));
 const edges = [['source','available'],['source','limited'],['available','official'],['official','plan'],['limited','none'],['none','disruption'],['limited','market'],['market','adjust'],['plan','protect'],['disruption','loss'],['disruption','next-season'],['adjust','flexible'],['adjust','protect']];
 
-if (root) {
+function initDecisionNetwork(root, allowedPlaces, initialPlace) {
+  if (!root) return;
+  const nodes = structuredClone(networkTemplate);
   let selected = null;
-  let place = 'jinxi';
+  let place = initialPlace;
   const lang = () => document.documentElement.lang.startsWith('zh') ? 'zh' : 'en';
   const t = value => value[lang()];
   function applyPlace() {
@@ -125,7 +126,8 @@ if (root) {
       el.append(document.createTextNode(value.slice(start)));if(className)el.className=className;panel.append(el);return el;
     };
     add('h3',node ? t(node.label) : t(text('先选一条信息路径','Choose an information path')));
-    add('p',node ? t(node.detail) : t(text('从左侧人物出发：一、天气消息；二、信息来源；三、眼前安排；四、后续影响。选择节点后，只高亮与它相连的路径。','Start with the person on the left: 1. weather information; 2. information sources; 3. immediate plans; 4. downstream effects. Select a node to highlight its connected paths.')));
+    add('p',node ? t(node.detail) : t(text('从左侧人物出发：一、天气消息；二、信息来源；三、眼前安排；四、后续影响。','Start with the person on the left: 1. weather information; 2. information sources; 3. immediate plans; 4. downstream effects.')));
+    if (!node) add('p',t(text('选择节点后，只高亮与它相连的路径。','Select a node to highlight its connected paths.')));
     if(node&&t(node.example)!==t(node.detail)){add('h4',t(places[place].name));add('p',t(node.example));}
     if(selected&&active.has('market')){const link=add('a',t(text('查看真实市场案例 →','View the actual market example →')));link.href='../signals/index.html#professional';}
     drawEdges();
@@ -136,7 +138,7 @@ if (root) {
     root.replaceChildren();
     const toolbar=document.createElement('div');toolbar.className='decision-toolbar';
     const picker=document.createElement('label');picker.className='decision-place';picker.textContent=t(text('选择地点与人物','Choose a place and person'));
-    const select=document.createElement('select');select.id='decision-place';Object.entries(places).forEach(([key,value])=>{const option=document.createElement('option');option.value=key;option.textContent=t(value.name);option.selected=key===place;select.append(option);});select.addEventListener('change',()=>{place=select.value;selected=null;render();});picker.append(select);toolbar.append(picker);
+    const select=document.createElement('select');select.id=`${root.id}-place`;Object.entries(places).filter(([key])=>allowedPlaces.includes(key)).forEach(([key,value])=>{const option=document.createElement('option');option.value=key;option.textContent=t(value.name);option.selected=key===place;select.append(option);});select.addEventListener('change',()=>{place=select.value;selected=null;render();});picker.append(select);toolbar.append(picker);
     const reset=document.createElement('button');reset.type='button';reset.className='btn-reset';reset.textContent=t(text('显示全部路径','Show all paths'));reset.addEventListener('click',()=>{selected=null;update();});toolbar.append(reset);root.append(toolbar);
     const layout=document.createElement('div');layout.className='decision-layout';root.append(layout);
     const graph=document.createElement('div');graph.className='decision-graph';layout.append(graph);
@@ -161,3 +163,6 @@ if (root) {
   new ResizeObserver(()=>drawEdges()).observe(root);
   window.addEventListener('site-language-change',render);
 }
+const networkTemplate = nodes;
+initDecisionNetwork(document.getElementById('decision-network'), ['jinxi','malawi'], 'jinxi');
+initDecisionNetwork(document.getElementById('mexico-decision-network'), ['mexico'], 'mexico');

@@ -64,7 +64,7 @@ if(root){
         const dot=document.createElement('span');dot.className='decision-dot';dot.setAttribute('aria-hidden','true');const text=document.createElement('span');text.className='decision-copy';const label=document.createElement('strong');label.textContent=t(node.label);const brief=document.createElement('small');brief.textContent=t(node.brief);text.append(label,brief);button.append(dot,text);button.addEventListener('click',()=>{selected=node.id;update();});list.append(button);});
     });
     const panel=document.createElement('aside');panel.className='decision-detail';panel.setAttribute('aria-live','polite');layout.append(panel);
-    const note=document.createElement('p');note.className='decision-footnote';note.textContent=t(copy('机制示意，不是投资建议或实测收益。报道平台为 Kalshi；Polymarket 是否适用取决于有无匹配合约及其规则、成本与可交易性。','Mechanism illustration, not investment advice or observed returns. The report uses Kalshi; applicability to Polymarket depends on matching contracts, rules, costs and tradability.'));root.append(note);
+    const note=document.createElement('p');note.className='decision-footnote';note.textContent=t(copy('机制示意，不是投资建议或实测收益。','Mechanism illustration, not investment advice or observed returns.'));root.append(note);
     update();if(focused)root.querySelector(`[data-node="${focused}"]`)?.focus();
   }
   render();new ResizeObserver(draw).observe(root);window.addEventListener('site-language-change',render);

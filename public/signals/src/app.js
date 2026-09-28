@@ -1,8 +1,31 @@
-// The embedded snapshot contains original SDK quotes and NOAA LaGuardia daily TMAX.
-const series = climateSnapshot.days.map((item) => ({ ...item }));
-const bucketLows = [...new Set(series.flatMap((item) => item.outcomes.map((outcome) => Math.floor(outcome.midpoint / 2) * 2)))].sort((a, b) => a - b);
-const buckets = bucketLows.map((low) => ({ low, high: low + 1 }));
-const binFor = (outcome) => bucketLows.indexOf(Math.floor(outcome.midpoint / 2) * 2);
+// Native market bounds remain immutable; display-unit changes never alter hit membership.
+const isMexico = new URLSearchParams(location.search).get('location') === 'mexico';
+const nativeUnit = isMexico ? 'C' : 'F';
+const temperatureUnit = (() => {
+  const requested = new URLSearchParams(location.search).get('unit');
+  if (requested === 'C' || requested === 'F') return requested;
+  try { return localStorage.getItem('temperature-unit') === 'F' ? 'F' : 'C'; } catch { return 'C'; }
+})();
+const displayValue = value => nativeUnit === temperatureUnit ? value : nativeUnit === 'C' ? value * 9 / 5 + 32 : (value - 32) * 5 / 9;
+const formatNumber = value => Number(value.toFixed(1)).toString();
+const temperature = value => `${formatNumber(displayValue(value))}°${temperatureUnit}`;
+const temperatureDelta = value => `${formatNumber(value * (nativeUnit === temperatureUnit ? 1 : nativeUnit === 'C' ? 9/5 : 5/9))}°${temperatureUnit}`;
+const intervalLabel = bucket => bucket.low === null ? `≤${temperature(bucket.high)}` : bucket.high === null ? `≥${temperature(bucket.low)}` : bucket.low === bucket.high ? temperature(bucket.low) : `${formatNumber(displayValue(bucket.low))}–${temperature(bucket.high)}`;
+const inInterval = (bucket, value) => (bucket.low === null || Math.round(value) >= bucket.low) && (bucket.high === null || Math.round(value) <= bucket.high);
+const monthNumber = 9;
+const monthName = 'September';
+const monthShort = 'Sep';
+const bucketStep = isMexico ? 1 : 2;
+const tickStep = isMexico ? 2 : 4;
+const activeSnapshot = unifiedClimateSnapshot[isMexico ? "mexico" : "laguardia"];
+const series = activeSnapshot.days.map(item => ({
+  ...item, actual: nativeUnit === 'C' ? item.actualC : item.actualC * 9 / 5 + 32,
+  outcomes: item.outcomes.map(bucket => ({...bucket, label: intervalLabel(bucket)}))
+}));
+const bucketLows = [...new Set(series.flatMap((item) => item.outcomes.map((outcome) => Math.floor(outcome.midpoint / bucketStep) * bucketStep)))].sort((a, b) => a - b);
+const bucketLabel = intervalLabel;
+const buckets = bucketLows.map((low) => ({ low, high: low + bucketStep - 1 }));
+const binFor = (outcome) => bucketLows.indexOf(Math.floor(outcome.midpoint / bucketStep) * bucketStep);
 const marketShares = series.map((item) => {
   const total = item.outcomes.reduce((sum, outcome) => sum + outcome.price, 0);
   return buckets.map((_, index) => item.outcomes.filter((outcome) => binFor(outcome) === index).reduce((sum, outcome) => sum + outcome.price, 0) / total * 100);
@@ -11,7 +34,8 @@ const choiceByDay = series.map((item) => item.outcomes.findIndex((outcome) => ou
 const pct = (value) => `${(value * 100).toFixed(1)}%`;
 const sharePct = (value) => `${value.toFixed(1)}%`;
 const outcomeForBin = (dayIndex, binIndex) => series[dayIndex].outcomes.findIndex((outcome) => binFor(outcome) === binIndex);
-const state = { view: "dumbbell", selected: 0, angle: 38, draggingX: null, showActual: false };
+const state = { view: "dumbbell", selected: Math.max(0, series.findIndex(item => item.date === new URLSearchParams(location.search).get('day'))), angle: 38, draggingX: null, showActual: false };
+let sourceDayIndex = state.selected;
 const svg = document.querySelector("#main-chart");
 const wrap = document.querySelector("#chart-wrap");
 const tooltip = document.querySelector("#tooltip");
@@ -35,9 +59,9 @@ const simpleDetail = document.querySelector("#simple-detail");
 const simpleLeaders = series.map((item) => item.outcomes.reduce((leader, outcome) => outcome.price > leader.price ? outcome : leader));
 let areaColors = buckets.map((_, index) => `hsl(${210 - index * 148 / Math.max(1, buckets.length - 1)} 58% ${50 + (index % 3) * 4}%)`);
 const NS = "http://www.w3.org/2000/svg";
-const yMin = Math.floor(Math.min(...bucketLows, ...series.map((item) => item.actual)) / 4) * 4;
-const yMax = Math.ceil(Math.max(...buckets.map((bucket) => bucket.high), ...series.map((item) => item.actual)) / 4) * 4;
-const yTicks = Array.from({ length: Math.floor((yMax - yMin) / 4) + 1 }, (_, index) => yMin + index * 4);
+const yMin = Math.floor(Math.min(...bucketLows, ...series.map((item) => item.actual)) / tickStep) * tickStep;
+const yMax = Math.ceil(Math.max(...buckets.map((bucket) => bucket.high), ...series.map((item) => item.actual)) / tickStep) * tickStep;
+const yTicks = Array.from({ length: Math.floor((yMax - yMin) / tickStep) + 1 }, (_, index) => yMin + index * tickStep);
 let dragStart = null;
 let flatMetrics = null;
 let suppressPointClick = false;
@@ -47,7 +71,7 @@ let language = (() => { try { return localStorage.getItem("temperature-language"
 const localizedCopy = {
   zh: {
     documentTitle: "Weatherbridge · 02 预测与实测",
-    chapterOrigin: "<span>01</span>天气与日常生活 <small>· 锦溪</small>", chapterSignals: "<span>02</span>预测与实测 <small>· 纽约</small>", chapterNomadcast: "<span>03</span>从信息到行动", chapterNext: "下一章 · 03 从信息到行动 <span aria-hidden=\"true\">→</span>",
+    chapterOrigin: "<span>01</span>天气与日常生活", chapterSignals: "<span>02</span>预测与实测", chapterNomadcast: "<span>03</span>从信息到行动", chapterNext: "下一章 · 03 从信息到行动 <span aria-hidden=\"true\">→</span>",
     basicsTitle: "先了解：Polymarket 是什么？",
     basicsCopy: "Polymarket 是一个预测市场：它把未来的问题列成可交易的结果选项，例如“某城市某天的最高温会落在哪个区间？”参与者根据预报、新闻和自己的判断买卖合约，价格随供需变化，形成一个可观察的集体预期。它不是气象机构。",
     interfaceCaption: "Polymarket 天气市场 · 香港最低温",
@@ -93,7 +117,7 @@ const localizedCopy = {
   },
   en: {
     documentTitle: "Weatherbridge · 02 Forecasts & observations",
-    chapterOrigin: "<span>01</span>Weather &amp; daily life <small>· Jinxi</small>", chapterSignals: "<span>02</span>Forecasts &amp; observations <small>· New York</small>", chapterNomadcast: "<span>03</span>From information to action", chapterNext: "Next · Chapter 03: From information to action <span aria-hidden=\"true\">→</span>",
+    chapterOrigin: "<span>01</span>Weather &amp; daily life", chapterSignals: "<span>02</span>Forecasts &amp; observations", chapterNomadcast: "<span>03</span>From information to action", chapterNext: "Next · Chapter 03: From information to action <span aria-hidden=\"true\">→</span>",
     basicsTitle: "First: what is Polymarket?",
     basicsCopy: "Polymarket is a prediction market: questions about future events become tradable outcomes, such as a city’s daily high-temperature range. Participants trade using forecasts, news and their own judgments. Prices change with supply and demand, creating an observable collective expectation. Polymarket is not a meteorological agency.",
     interfaceCaption: "Polymarket weather market · Hong Kong daily low",
@@ -166,14 +190,14 @@ const interactionHints = {
   en: { dumbbell: "Drag the acrylic selector across dates; select a market forecast point for all historical prices.", lines: "Drag the acrylic selector across dates; select a market forecast point for all historical prices.", "three-d": "Drag to rotate the 3D view; select a market forecast point for all historical prices.", heatmap: "Select a cell to choose a date and forecast range; NOAA highs can be overlaid.", area: "Select a colored band to choose a date and temperature range; the y-axis is normalized price share." }
 };
 
-function formatDate(day) { return language === "en" ? `Aug ${day}` : `8 月 ${day} 日`; }
+function formatDate(day) { return language === "en" ? `${monthShort} ${day}` : `${monthNumber} 月 ${day} 日`; }
 function updateObservationStatus() {
   document.querySelector("#observation-status").textContent = language === "en"
     ? `NOAA ${observationFresh ? "updated" : "snapshot"} · market history`
     : `NOAA ${observationFresh ? "已更新" : "快照"} · 市场历史价`;
 }
 function updateViewCopy() {
-  document.querySelector("#view-hint").textContent = viewHints[language][state.view];
+  document.querySelector("#view-hint").textContent = viewHints[language][state.view].replaceAll("NOAA 日最高气温", "NOAA 已报告最高温").replaceAll("NOAA 日最高", "NOAA 已报告最高温").replaceAll("NOAA daily high", "NOAA reported high");
   document.querySelector("#angle-note").textContent = interactionHints[language][state.view];
 }
 function applyLanguage(nextLanguage) {
@@ -193,6 +217,8 @@ function applyLanguage(nextLanguage) {
   updateViewCopy();
   renderSimple();
   select(state.selected);
+  updateMexicoView();
+  updateSourceDialog();
 }
 
 function chosenBucket(index) { return series[index].outcomes[choiceByDay[index]]; }
@@ -216,8 +242,8 @@ function point(x, y, index, type, radius = 6) {
   const bucket = chosenBucket(index);
   const isSelected = index === state.selected;
   const pointLabel = language === "en"
-    ? `${formatDate(item.day)}, observed high ${item.actual}°F, market forecast ${bucket.label}${type === "market" ? ", select to view all forecasts" : ""}`
-    : `8月${item.day}日，实际气温值${item.actual}华氏度，市场预测值${bucket.label}${type === "market" ? "，点击查看全部预测" : ""}`;
+    ? `${formatDate(item.day)}, observed high ${temperature(item.actual)}, market forecast ${bucket.label}${type === "market" ? ", select to view all forecasts" : ""}`
+    : `${formatDate(item.day)}，实际气温值${temperature(item.actual)}，市场预测值${bucket.label}${type === "market" ? "，点击查看全部预测" : ""}`;
   const group = el("g", { class: `data-point${isSelected ? " is-selected" : ""}`, tabindex: "0", role: "button", "aria-label": pointLabel, "data-index": index, "data-type": type });
   el("circle", { cx: x, cy: y, r: 17, class: "hit-target" }, group);
   el("circle", { cx: x, cy: y, r: isSelected ? radius + 8 : radius + 4, class: isSelected ? "point-halo visible" : "point-halo" }, group);
@@ -233,14 +259,14 @@ function renderAxes(left, right, top, bottom, xAt) {
   yTicks.forEach((tick) => {
     const y = temperatureY(tick, top, bottom);
     line(left, y, right, y, "grid-line");
-    label(`${tick}°`, left - 13, y + 4, "axis-label", "end");
+    label(temperature(tick), left - 13, y + 4, "axis-label", "end");
   });
   series.forEach((item, index) => {
     const step = right - left < 500 ? 3 : 2;
     if (index === state.selected || (index % step === 0 && Math.abs(index - state.selected) > 1)) label(`${item.day}`, xAt(index), bottom + 29, index === state.selected ? "axis-label selected" : "axis-label");
   });
-  label(language === "en" ? "August date" : "8 月日期", right, bottom + 52, "axis-caption", "end");
-  label(language === "en" ? "Temperature °F" : "气温 °F", left, top - 18, "axis-caption", "start");
+  label(language === "en" ? `${monthName} date` : `${monthNumber} 月日期`, right, bottom + 52, "axis-caption", "end");
+  label(language === "en" ? `Temperature °${temperatureUnit}` : `气温 °${temperatureUnit}`, left, top - 18, "axis-caption", "start");
 }
 function renderFlat(width, height) {
   const mobile = width < 640;
@@ -284,7 +310,7 @@ function renderThreeD(width, height) {
   yTicks.forEach((tick) => {
     const a = project(0, tick, 0), b = project(series.length - 1, tick, 0), c = project(series.length - 1, tick, 1), d = project(0, tick, 1);
     path([a, b, c, d], tick === yMin ? "plane-edge" : "plane-grid");
-    label(`${tick}°`, a[0] - 13, a[1] + 4, "axis-label", "end");
+    label(temperature(tick), a[0] - 13, a[1] + 4, "axis-label", "end");
   });
   const base = project(0, yMin, 0), top = project(0, yMax, 0);
   line(base[0], base[1], top[0], top[1], "axis-strong");
@@ -303,7 +329,7 @@ function renderThreeD(width, height) {
   });
   const xLabel = project(series.length - 1, yMin, 0);
   label(language === "en" ? "Time →" : "时间 →", xLabel[0], xLabel[1] + 55, "axis-caption", "end");
-  label(language === "en" ? "Temperature °F" : "气温 °F", top[0], top[1] - 17, "axis-caption", "start");
+  label(language === "en" ? `Temperature °${temperatureUnit}` : `气温 °${temperatureUnit}`, top[0], top[1] - 17, "axis-caption", "start");
   const laneA = project(10, yMin + 4, 0), laneB = project(10, yMin + 4, 1);
   label(language === "en" ? "Observed high" : "实际气温值", laneA[0], laneA[1] + 21, "lane-label actual-label");
   label(language === "en" ? "Market forecast" : "市场预测值", laneB[0], laneB[1] - 14, "lane-label market-label");
@@ -320,17 +346,17 @@ function renderHeatmap(width, height) {
   const cellWidth = (right - left) / series.length;
   const cellHeight = (bottom - top) / buckets.length;
   const maxShare = Math.max(...marketShares.flat());
-  label(language === "en" ? "Forecast temperature °F" : "预测温度 °F", left, top - 18, "axis-caption", "start");
+  label(language === "en" ? `Forecast temperature °${temperatureUnit}` : `预测温度 °${temperatureUnit}`, left, top - 18, "axis-caption", "start");
   buckets.forEach((bucket, bucketIndex) => {
     const y = top + (buckets.length - 1 - bucketIndex) * cellHeight;
-    label(`${bucket.low}-${bucket.high}°`, left - 10, y + cellHeight / 2 + 4, "axis-label", "end");
+    label(bucketLabel(bucket), left - 10, y + cellHeight / 2 + 4, "axis-label", "end");
     series.forEach((item, dayIndex) => {
       const share = marketShares[dayIndex][bucketIndex];
       const x = left + dayIndex * cellWidth;
-      const actualInBucket = item.actual >= bucket.low && item.actual <= bucket.high;
+      const actualInBucket = inInterval(bucket, item.actual);
       const cellLabel = language === "en"
-        ? `${formatDate(item.day)}, ${bucket.low}–${bucket.high}°F, normalized price share ${sharePct(share)}${state.showActual && actualInBucket ? ", observed high is in this range" : ""}`
-        : `8月${item.day}日，${bucket.low}至${bucket.high}华氏度，归一化价格占比${sharePct(share)}${state.showActual && actualInBucket ? "，实测气温落在此区间" : ""}`;
+        ? `${formatDate(item.day)}, ${bucketLabel(bucket)}, normalized price share ${sharePct(share)}${state.showActual && actualInBucket ? ", observed high is in this range" : ""}`
+        : `${formatDate(item.day)}，${bucketLabel(bucket)}，归一化价格占比${sharePct(share)}${state.showActual && actualInBucket ? "，实测气温落在此区间" : ""}`;
       const group = el("g", { class: "heat-cell-group", role: "button", tabindex: "0", "data-day": dayIndex, "data-bucket": bucketIndex, "aria-label": cellLabel });
       el("rect", { x: x + 1.5, y: y + 1.5, width: cellWidth - 3, height: cellHeight - 3, rx: 4, class: "heat-cell", style: `--cell-alpha:${(.12 + .88 * share / maxShare).toFixed(3)}` }, group);
       if (state.showActual && actualInBucket) {
@@ -343,8 +369,8 @@ function renderHeatmap(width, height) {
       group.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activate(); } });
       group.addEventListener("pointerenter", (event) => {
         tooltip.innerHTML = language === "en"
-          ? `<strong>${formatDate(item.day)}</strong><span>${bucket.low}-${bucket.high}°F · normalized price share ${sharePct(share)}</span>${state.showActual && actualInBucket ? `<span>Observed high ${item.actual}°F</span>` : ""}`
-          : `<strong>${formatDate(item.day)}</strong><span>${bucket.low}-${bucket.high}°F · 归一化价格占比 ${sharePct(share)}</span>${state.showActual && actualInBucket ? `<span>实际气温值 ${item.actual}°F</span>` : ""}`;
+          ? `<strong>${formatDate(item.day)}</strong><span>${bucketLabel(bucket)} · normalized price share ${sharePct(share)}</span>${state.showActual && actualInBucket ? `<span>Observed high ${temperature(item.actual)}</span>` : ""}`
+          : `<strong>${formatDate(item.day)}</strong><span>${bucketLabel(bucket)} · 归一化价格占比 ${sharePct(share)}</span>${state.showActual && actualInBucket ? `<span>实际气温值 ${temperature(item.actual)}</span>` : ""}`;
         tooltip.hidden = false;
         moveTooltip(event);
       });
@@ -356,7 +382,7 @@ function renderHeatmap(width, height) {
   series.forEach((item, index) => {
     if (!mobile || index % 2 === 0 || index === state.selected) label(`${item.day}`, left + (index + .5) * cellWidth, bottom + 24, index === state.selected ? "axis-label selected" : "axis-label");
   });
-  label(language === "en" ? "August date" : "8 月日期", right, bottom + 48, "axis-caption", "end");
+  label(language === "en" ? `${monthName} date` : `${monthNumber} 月日期`, right, bottom + 48, "axis-caption", "end");
 }
 function renderArea(width, height) {
   flatMetrics = null;
@@ -403,10 +429,10 @@ function renderArea(width, height) {
     series.forEach((item, index) => {
       const x = xAt(index);
       const marker = el("circle", { cx: x, cy: top - 13, r: index === state.selected ? 5 : 4, class: `area-actual-dot${index === state.selected ? " selected" : ""}`,
-        role: "button", tabindex: "0", "aria-label": language === "en" ? `${formatDate(item.day)}, NOAA observed high ${item.actual}°F, select date` : `8月${item.day}日 NOAA 实际气温 ${item.actual} 华氏度，点击选择日期` });
+        role: "button", tabindex: "0", "aria-label": language === "en" ? `${formatDate(item.day)}, NOAA observed high ${temperature(item.actual)}, select date` : `${formatDate(item.day)} NOAA 实际气温 ${temperature(item.actual)}，点击选择日期` });
       marker.addEventListener("click", () => select(index));
       marker.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); select(index); } });
-      if (!mobile || index === state.selected) label(`${item.actual}°`, x, top - 23, index === state.selected ? "area-actual-label selected" : "area-actual-label");
+      if (!mobile || index === state.selected) label(temperature(item.actual), x, top - 23, index === state.selected ? "area-actual-label selected" : "area-actual-label");
     });
   }
   series.forEach((item, index) => {
@@ -414,7 +440,7 @@ function renderArea(width, height) {
       label(`${item.day}`, xAt(index), bottom + 25, index === state.selected ? "axis-label selected" : "axis-label");
     }
   });
-  label(language === "en" ? "August date" : "8 月日期", right, bottom + 48, "axis-caption", "end");
+  label(language === "en" ? `${monthName} date` : `${monthNumber} 月日期`, right, bottom + 48, "axis-caption", "end");
   const bandAt = (event, dayIndex) => {
     const { y } = svgCoordinates(event);
     const shareFromBottom = Math.max(0, Math.min(99.999, (bottom - y) / (bottom - top) * 100));
@@ -422,12 +448,12 @@ function renderArea(width, height) {
   };
   series.forEach((item, dayIndex) => {
     const target = el("rect", { x: left + dayIndex * step, y: top, width: step, height: bottom - top,
-      class: "area-hit-target", role: "button", tabindex: "0", "aria-label": language === "en" ? `${formatDate(item.day)}, view forecast temperature distribution` : `8月${item.day}日，查看市场预测温度区间分布` });
+      class: "area-hit-target", role: "button", tabindex: "0", "aria-label": language === "en" ? `${formatDate(item.day)}, view forecast temperature distribution` : `${formatDate(item.day)}，查看市场预测温度区间分布` });
     target.addEventListener("pointermove", (event) => {
       const bucketIndex = bandAt(event, dayIndex);
       if (bucketIndex < 0) return;
       const bucket = buckets[bucketIndex];
-      tooltip.innerHTML = `<strong>${formatDate(item.day)}</strong><span>${bucket.low}-${bucket.high}°F · ${language === "en" ? "normalized price share" : "归一化价格占比"} ${sharePct(marketShares[dayIndex][bucketIndex])}</span>`;
+      tooltip.innerHTML = `<strong>${formatDate(item.day)}</strong><span>${bucketLabel(bucket)} · ${language === "en" ? "normalized price share" : "归一化价格占比"} ${sharePct(marketShares[dayIndex][bucketIndex])}</span>`;
       tooltip.hidden = false;
       moveTooltip(event);
     });
@@ -466,12 +492,13 @@ function placeGlass() {
   marketMarker.style.top = `${svgTop + temperatureY(marketMid(state.selected), top, bottom)}px`;
 }
 function renderSimpleDetail(index) {
+  sourceDayIndex = index;
   const item = series[index];
   const leader = simpleLeaders[index];
-  const inside = (leader.low === null || item.actual >= leader.low) && (leader.high === null || item.actual <= leader.high);
+  const inside = inInterval(leader, item.actual);
   simpleDetail.innerHTML = language === "en"
-    ? `<strong>${formatDate(item.day)}</strong><span class="market-text">Market ${leader.label} · ${pct(leader.price)}</span><span class="actual-text">Observed ${item.actual}°F</span><span>${inside ? "Observed high is inside the forecast range" : "Observed high is outside the forecast range"}</span>`
-    : `<strong>${formatDate(item.day)}</strong><span class="market-text">市场 ${leader.label} · ${pct(leader.price)}</span><span class="actual-text">实际 ${item.actual}°F</span><span>${inside ? "实际值落在预测区间内" : "实际值未落在预测区间内"}</span>`;
+    ? `<strong>${formatDate(item.day)}</strong><span class="market-text">Market ${leader.label} · ${pct(leader.price)}</span><span class="actual-text">Observed ${temperature(item.actual)}</span><span>${inside ? "Observed high is inside the forecast range" : "Observed high is outside the forecast range"}</span>`
+    : `<strong>${formatDate(item.day)}</strong><span class="market-text">市场 ${leader.label} · ${pct(leader.price)}</span><span class="actual-text">实际 ${temperature(item.actual)}</span><span>${inside ? "实际值落在预测区间内" : "实际值未落在预测区间内"}</span>`;
 }
 function renderSimple() {
   const width = Math.max(simpleSvg.clientWidth, 310);
@@ -490,7 +517,7 @@ function renderSimple() {
     const grid = document.createElementNS(NS, "line");
     grid.setAttribute("x1", left); grid.setAttribute("x2", right); grid.setAttribute("y1", y); grid.setAttribute("y2", y); grid.setAttribute("class", "simple-grid"); simpleSvg.append(grid);
     const tickLabel = document.createElementNS(NS, "text");
-    tickLabel.setAttribute("x", left - 10); tickLabel.setAttribute("y", y + 4); tickLabel.setAttribute("text-anchor", "end"); tickLabel.setAttribute("class", "simple-axis"); tickLabel.textContent = `${tick}°`; simpleSvg.append(tickLabel);
+    tickLabel.setAttribute("x", left - 10); tickLabel.setAttribute("y", y + 4); tickLabel.setAttribute("text-anchor", "end"); tickLabel.setAttribute("class", "simple-axis"); tickLabel.textContent = temperature(tick); simpleSvg.append(tickLabel);
   });
   series.forEach((item, index) => {
     const leader = simpleLeaders[index];
@@ -500,22 +527,23 @@ function renderSimple() {
     const group = document.createElementNS(NS, "g");
     group.setAttribute("class", "simple-point"); group.setAttribute("tabindex", "0"); group.setAttribute("role", "button");
     group.setAttribute("aria-label", language === "en"
-      ? `${formatDate(item.day)}, top-priced market range ${leader.label}, Yes price ${pct(leader.price)}, observed high ${item.actual}°F`
-      : `8月${item.day}日，市场最高报价区间${leader.label}，Yes价格${pct(leader.price)}，实际气温${item.actual}华氏度`);
+      ? `${formatDate(item.day)}, top-priced market range ${leader.label}, Yes price ${pct(leader.price)}, observed high ${temperature(item.actual)}`
+      : `${formatDate(item.day)}，市场最高报价区间${leader.label}，Yes价格${pct(leader.price)}，实际气温${temperature(item.actual)}`);
     const connector = document.createElementNS(NS, "line"); connector.setAttribute("x1", x); connector.setAttribute("x2", x); connector.setAttribute("y1", midpointY); connector.setAttribute("y2", actualY); connector.setAttribute("class", "simple-link"); group.append(connector);
     const mid = document.createElementNS(NS, "circle"); mid.setAttribute("cx", x); mid.setAttribute("cy", midpointY); mid.setAttribute("r", 6); mid.setAttribute("class", "simple-mid"); group.append(mid);
     const actual = document.createElementNS(NS, "circle"); actual.setAttribute("cx", x); actual.setAttribute("cy", actualY); actual.setAttribute("r", 6); actual.setAttribute("class", "simple-actual"); group.append(actual);
-    const hit = (leader.low === null || item.actual >= leader.low) && (leader.high === null || item.actual <= leader.high);
+    const hit = inInterval(leader, item.actual);
     if (hit) { const ring = document.createElementNS(NS, "circle"); ring.setAttribute("cx", x); ring.setAttribute("cy", actualY); ring.setAttribute("r", 10); ring.setAttribute("class", "simple-hit"); group.append(ring); }
     const activate = () => renderSimpleDetail(index);
     group.addEventListener("pointerenter", activate); group.addEventListener("focus", activate); group.addEventListener("click", activate);
     simpleSvg.append(group);
     if (!mobile || index % 2 === 0 || index === series.length - 1) { const date = document.createElementNS(NS, "text"); date.setAttribute("x", x); date.setAttribute("y", bottom + 28); date.setAttribute("text-anchor", "middle"); date.setAttribute("class", "simple-date"); date.textContent = item.day; simpleSvg.append(date); }
   });
-  const hits = series.filter((item, index) => { const leader = simpleLeaders[index]; return (leader.low === null || item.actual >= leader.low) && (leader.high === null || item.actual <= leader.high); }).length;
+  const hits = series.filter((item, index) => { const leader = simpleLeaders[index]; return inInterval(leader, item.actual); }).length;
   document.querySelector("#simple-hit-count").textContent = hits;
   renderSimpleDetail(state.selected);
   renderSimpleHitHistory();
+  updateMexicoView();
 }
 function renderSimpleHitHistory() {
   const observations = series.filter(item => Number.isFinite(item.actual));
@@ -524,13 +552,13 @@ function renderSimpleHitHistory() {
     const sorted = [...item.outcomes].sort((a,b) => a.midpoint-b.midpoint);
     const leader = sorted.reduce((best,entry) => entry.price > best.price ? entry : best);
     const neighbors = sorted.slice(Math.max(0,sorted.indexOf(leader)-1), sorted.indexOf(leader)+2);
-    const contains = bucket => (bucket.low === null || item.actual >= bucket.low) && (bucket.high === null || item.actual <= bucket.high);
+    const contains = bucket => inInterval(bucket, item.actual);
     strict += Number(contains(leader)); wide += Number(neighbors.some(contains));
     return {day:item.day,strict:strict/(index+1),wide:wide/(index+1)};
   });
   const n = points.length;
   if (!n) return;
-  const x = i => 48+i*690/Math.max(1,n-1), y = value => 170-value*140;
+  const x = i => 48+i*690/Math.max(1,n-1), y = value => 230-value*200;
   const english = language === 'en';
   [
     {id:'simple-check',key:'wide',hits:wide,color:'var(--actual)',dash:'8 4',title:english?'How often was the broader range close?':'过去有多少天大致接近实际？',label:english?'Broad-range hit rate':'宽松命中率'},
@@ -539,28 +567,28 @@ function renderSimpleHitHistory() {
     const target = document.getElementById(config.id);
     if (!target) return;
     const definition = config.key === 'wide'
-      ? (english?'A broad-range hit means the NOAA observed daily high falls within the highest-priced interval or either immediately adjacent interval. For 2°F bins, 84–85°F expands to 82–87°F.':'宽松命中：NOAA 观测的日最高温落在最高报价区间，或紧邻它的上、下各一个温度档内。温度档宽为 2°F 时，例如 84–85°F 扩展为 82–87°F。')
-      : (english?'Count a hit only when the observed high is inside the highest-priced range; do not expand its bounds.':'只统计 NOAA 实际日最高温落在市场最高报价区间内的日期，不向两侧扩展。');
+      ? (english ? 'A broad-range hit includes the top-priced interval and its immediately adjacent intervals.' : '宽松命中：观测最高温落在最高报价区间或相邻的上下各一档内。')
+      : (english ? 'Only the highest-priced interval counts; its bounds are not expanded.' : '只统计观测最高温落在市场最高报价区间内的日期，不向两侧扩展。');
     const path = points.map((point,i)=>`${i?'L':'M'}${x(i)},${y(point[config.key])}`).join(' ');
     target.innerHTML = `<h2>${config.title}</h2>
       <p>${config.label}: <b>${config.hits}/${n} · ${(config.hits/n*100).toFixed(1)}%</b></p>
-      <svg viewBox="0 0 790 218" role="img" aria-label="${config.label}">
-        ${[0,.5,1].map(value=>`<line x1="48" x2="738" y1="${y(value)}" y2="${y(value)}" stroke="#dcded7"/><text x="40" y="${y(value)+4}" text-anchor="end" font-size="13" fill="#4f5e57">${value*100}%</text>`).join('')}
+      <svg viewBox="0 0 790 278" role="img" aria-label="${config.label}">
+        ${Array.from({length:11},(_,i)=>i/10).map(value=>`<line x1="48" x2="738" y1="${y(value)}" y2="${y(value)}" stroke="#dcded7" stroke-opacity="${value===0||value===.5||value===1?1:.5}"/><text x="40" y="${y(value)+4}" text-anchor="end" font-size="12" fill="#4f5e57">${Math.round(value*100)}%</text>`).join('')}
         <path data-hit-rate="${config.key}" d="${path}" fill="none" stroke="${config.color}" stroke-width="3" stroke-dasharray="${config.dash}"/>
-        ${points.filter((_,i)=>i%2===0||i===n-1).map(point=>`<text x="${x(points.indexOf(point))}" y="197" text-anchor="middle" font-size="13" fill="#4f5e57">${english?'Aug ':'8/'}${point.day}</text>`).join('')}
+        ${points.filter((_,i)=>i%2===0||i===n-1).map(point=>`<text x="${x(points.indexOf(point))}" y="257" text-anchor="middle" font-size="13" fill="#4f5e57">${english ? monthShort+' ' : monthNumber+'/'}${point.day}</text>`).join('')}
       </svg>
       <div class="hit-legend"><span><svg class="hit-legend-key" viewBox="0 0 40 12" aria-hidden="true"><line x1="2" x2="38" y1="6" y2="6" stroke="${config.color}" stroke-width="3" stroke-dasharray="${config.dash}"/></svg>${config.label}</span></div>
       ${config.key === 'wide' ? `<div class="hit-formula">
         <p>${english?'Broad-range hit condition':'宽松命中条件'}：<span class="formula-expression">h<sub>i</sub> = 𝟙[T<sub>i</sub> ∈ (I<sub>i,−1</sub> ∪ I<sub>i,0</sub> ∪ I<sub>i,+1</sub>)]</span></p>
         <p>${english?'Cumulative broad-range hit rate':'累计宽松命中率'}：<span class="formula-expression">R<sub>t</sub> = <span class="formula-fraction"><span>∑<sub>i ∈ V<sub>t</sub></sub> h<sub>i</sub></span><span>|V<sub>t</sub>|</span></span> × 100%</span></p>
-        <p class="formula-definitions">${english?'Tᵢ: NOAA observed daily high; Iᵢ,₀: highest-priced interval; Iᵢ,−1 / Iᵢ,+1: immediately lower / higher intervals, where available; 𝟙: 1 when the condition holds, otherwise 0; Vₜ: valid days up to date t with both a market interval and an observation.':'Tᵢ：NOAA 实测日最高温；Iᵢ,₀：当日最高报价区间；Iᵢ,−1、Iᵢ,+1：相邻的下、上各一档（有该档时）；𝟙：条件成立记 1，否则记 0；Vₜ：截至日期 t，同时具备市场区间与实测数据的有效日期集合。'}</p>
-        <p>${english?'Example: 84–85°F → 82–87°F for adjacent 2°F bins. Sample result: 10 ÷ 12 × 100% ≈ 83.3%.':'示例：相邻温度档宽为 2°F 时，84–85°F → 82–87°F。本样本：10 ÷ 12 × 100% ≈ 83.3%。'}</p>
+        <p class="formula-definitions">${english?'Tᵢ: NOAA observed high; Iᵢ,₀: highest-priced interval; Iᵢ,−1 / Iᵢ,+1: immediately lower / higher intervals, where available; 𝟙: 1 when the condition holds, otherwise 0; Vₜ: valid days up to date t with both a market interval and an observation.':'Tᵢ：NOAA 观测最高温；Iᵢ,₀：当日最高报价区间；Iᵢ,−1、Iᵢ,+1：相邻的下、上各一档（有该档时）；𝟙：条件成立记 1，否则记 0；Vₜ：截至日期 t，同时具备市场区间与实测数据的有效日期集合。'}</p>
+        <p>${english ? (isMexico ? `Example: native 1°C bins, ${temperature(25)} → ${intervalLabel({low:24,high:26})}.` : `Example: native 2°F bins, ${intervalLabel({low:84,high:85})} → ${intervalLabel({low:82,high:87})}.`) : (isMexico ? `示例：原始 1°C 档，${temperature(25)} → ${intervalLabel({low:24,high:26})}。` : `示例：原始 2°F 档，${intervalLabel({low:84,high:85})} → ${intervalLabel({low:82,high:87})}。`)} ${english ? 'Sample result' : '本样本'}：${wide} ÷ ${n} × 100% ≈ ${(wide/n*100).toFixed(1)}%。</p>
       </div>` : `<div class="hit-formula">
         <p>${english?'Strict-range hit condition':'严格命中条件'}：<span class="formula-expression">h<sub>i</sub> = 𝟙[T<sub>i</sub> ∈ I<sub>i,0</sub>]</span></p>
         <p>${english?'Cumulative strict-range hit rate':'累计严格命中率'}：<span class="formula-expression">R<sub>t</sub> = <span class="formula-fraction"><span>∑<sub>i ∈ V<sub>t</sub></sub> h<sub>i</sub></span><span>|V<sub>t</sub>|</span></span> × 100%</span></p>
-        <p class="formula-definitions">${english?'Tᵢ: NOAA observed daily high; Iᵢ,₀: highest-priced interval; 𝟙: 1 when the condition holds, otherwise 0; Vₜ: valid days up to date t with both a market interval and an observation.':'Tᵢ：NOAA 实测日最高温；Iᵢ,₀：当日最高报价区间；𝟙：条件成立记 1，否则记 0；Vₜ：截至日期 t，同时具备市场区间与实测数据的有效日期集合。'}</p>
+        <p class="formula-definitions">${english?'Tᵢ: NOAA observed high; Iᵢ,₀: highest-priced interval; 𝟙: 1 when the condition holds, otherwise 0; Vₜ: valid days up to date t with both a market interval and an observation.':'Tᵢ：NOAA 观测最高温；Iᵢ,₀：当日最高报价区间；𝟙：条件成立记 1，否则记 0；Vₜ：截至日期 t，同时具备市场区间与实测数据的有效日期集合。'}</p>
         <p>${definition}</p>
-        <p>${english?'Sample result: 5 ÷ 12 × 100% ≈ 41.7%.':'本样本：5 ÷ 12 × 100% ≈ 41.7%。'}</p>
+        <p>${english ? 'Sample result' : '本样本'}：${strict} ÷ ${n} × 100% ≈ ${(strict/n*100).toFixed(1)}%。</p>
       </div>`}
       <p>${english?'Cumulative hit rate = qualifying days / days with both a market interval and an observation, up to each date. Broad-range hits measure interval coverage at a wider tolerance, not probability calibration or overall forecasting skill. Compare methods at the same interval width. This small historical sample uses NOAA daily highs; observation stations and settlement rules may differ.':'累计命中率＝截至该日的命中天数 ÷ 同时具备市场区间与实测数据的有效天数。宽松命中率衡量较大容差下的区间覆盖率，不等同于概率校准程度或整体预测能力；比较不同方法时应统一区间宽度。本图仅反映短期历史样本，NOAA 观测站点与市场结算规则可能存在差异。'}</p>`;
   });
@@ -583,8 +611,8 @@ function render() {
   areaLegend.hidden = state.view !== "area";
   summaryLegend.hidden = state.view === "area";
   svg.setAttribute("aria-label", language === "en"
-    ? (state.view === "area" ? "Smooth stacked area chart of normalized historical prices by daily forecast range" : "Daily NOAA observed highs and Polymarket historical temperature forecasts for New York LaGuardia Airport")
-    : (state.view === "area" ? "每日预测温度区间历史价格归一化占比的平滑堆叠面积图" : "纽约拉瓜迪亚机场每日 NOAA 实测气温与 Polymarket 历史预测价格对比图"));
+    ? (state.view === "area" ? "Smooth stacked area chart of normalized historical prices by daily forecast range" : "Daily NOAA observed highs and Polymarket historical temperature forecasts for the selected airport")
+    : (state.view === "area" ? "每日预测温度区间历史价格归一化占比的平滑堆叠面积图" : "所选机场每日 NOAA 实测气温与 Polymarket 历史预测价格对比图"));
   if (state.view === "three-d") renderThreeD(width, height);
   else if (state.view === "heatmap") renderHeatmap(width, height);
   else if (state.view === "area") renderArea(width, height);
@@ -592,32 +620,34 @@ function render() {
 }
 function select(index) {
   state.selected = (index + series.length) % series.length;
+  sourceDayIndex = state.selected;
   const item = series[state.selected];
   const bucket = chosenBucket(state.selected);
   const share = bucket.price;
   const defaultChoice = choiceByDay[state.selected] === item.outcomes.findIndex((outcome) => outcome.price === Math.max(...item.outcomes.map((entry) => entry.price)));
   document.querySelector("#selected-date").textContent = formatDate(item.day);
-  document.querySelector("#actual-value").textContent = `${item.actual}°F`;
+  document.querySelector("#actual-value").textContent = `${temperature(item.actual)}`;
   document.querySelector("#market-value").textContent = bucket.label;
-  const hit = (bucket.low === null || item.actual >= bucket.low) && (bucket.high === null || item.actual <= bucket.high);
+  const hit = inInterval(bucket, item.actual);
   const distance = hit ? 0 : bucket.low !== null && item.actual < bucket.low ? bucket.low - item.actual : item.actual - bucket.high;
-  document.querySelector("#difference-value").textContent = language === "en" ? (hit ? "Inside range" : `${distance}°F apart`) : (hit ? "落在区间内" : `相差 ${distance}°F`);
+  document.querySelector("#difference-value").textContent = language === "en" ? (hit ? "Inside range" : `${temperatureDelta(distance)} apart`) : (hit ? "落在区间内" : `相差 ${temperatureDelta(distance)}`);
   document.querySelector("#difference-explain").textContent = language === "en"
-    ? `NOAA daily high ${item.actual}°F; ${defaultChoice ? "top-priced" : "selected"} range ${bucket.label}, Yes price ${pct(share)}. Market resolution may use a different source.`
-    : `NOAA 日最高 ${item.actual}°F；${defaultChoice ? "最高报价" : "所选区间"} ${bucket.label}，Yes 价格 ${pct(share)}。市场结算值可能采用不同来源。`;
+    ? `NOAA maximum reported temperature ${temperature(item.actual)}; ${defaultChoice ? "top-priced" : "selected"} range ${bucket.label}, Yes price ${pct(share)}. Market resolution may use a different source.`
+    : `NOAA 已报告观测最高温 ${temperature(item.actual)}；${defaultChoice ? "最高报价" : "所选区间"} ${bucket.label}，Yes 价格 ${pct(share)}。市场结算值可能采用不同来源。`;
   const marketLink = document.querySelector("#market-link");
   marketLink.href = item.marketUrl;
-  marketLink.textContent = language === "en" ? `Polymarket NYC Aug ${item.day} market ↗` : `Polymarket 纽约 8/${item.day} 市场 ↗`;
+  marketLink.textContent = language === "en" ? `Polymarket ${isMexico ? "Mexico City" : "NYC"} ${monthShort} ${item.day} market ↗` : `Polymarket ${isMexico ? "墨西哥城" : "纽约"} ${monthNumber}/${item.day} 市场 ↗`;
   document.querySelector("#point-counter").textContent = `${String(state.selected + 1).padStart(2, "0")} / ${series.length}`;
   render();
   if (!predictionPanel.hidden) renderPrediction();
+  updateSourceDialog();
 }
 function showTooltip(event, index) {
   const item = series[index];
   const bucket = chosenBucket(index);
   tooltip.innerHTML = language === "en"
-    ? `<strong>${formatDate(item.day)}</strong><span>NOAA observed ${item.actual}°F</span><span>Market forecast ${bucket.label} · ${pct(bucket.price)}</span>`
-    : `<strong>${formatDate(item.day)}</strong><span>NOAA 实测 ${item.actual}°F</span><span>市场预测 ${bucket.label} · ${pct(bucket.price)}</span>`;
+    ? `<strong>${formatDate(item.day)}</strong><span>NOAA observed ${temperature(item.actual)}</span><span>Market forecast ${bucket.label} · ${pct(bucket.price)}</span>`
+    : `<strong>${formatDate(item.day)}</strong><span>NOAA 实测 ${temperature(item.actual)}</span><span>市场预测 ${bucket.label} · ${pct(bucket.price)}</span>`;
   tooltip.hidden = false;
   moveTooltip(event);
 }
@@ -681,7 +711,7 @@ buckets.forEach((bucket, index) => {
   const swatch = document.createElement("i");
   swatch.style.backgroundColor = areaColors[index];
   swatch.setAttribute("aria-hidden", "true");
-  item.append(swatch, document.createTextNode(`${bucket.low}-${bucket.high}°F`));
+  item.append(swatch, document.createTextNode(`${bucketLabel(bucket)}`));
   areaLegendItems.append(item);
 });
 tabs.forEach((tab) => tab.addEventListener("click", () => {
@@ -757,8 +787,32 @@ const pageObserver = new IntersectionObserver((entries) => {
 }, { root: pageDeck, threshold: [.55, .8] });
 pagePanels.forEach((panel) => pageObserver.observe(panel));
 locationSelects.forEach((select) => select.addEventListener("change", () => {
-  locationSelects.forEach((peer) => { peer.value = select.value; });
+  const next = new URL(location.href);
+  if (select.value === 'mexico') next.searchParams.set('location', 'mexico');
+  else next.searchParams.delete('location');
+  next.hash = document.querySelector('.page-dot.active')?.dataset.pageTarget || 'professional';
+  location.assign(next.href);
 }));
+if (new URLSearchParams(location.search).get('location') === 'mexico') {
+  locationSelects.forEach(select => { select.value = 'mexico'; });
+}
+document.querySelectorAll('[data-unit]').forEach(control => {
+  control.setAttribute('aria-pressed', String(control.dataset.unit === temperatureUnit));
+  control.addEventListener('click', () => {
+    if (control.dataset.unit === temperatureUnit) return;
+    try { localStorage.setItem('temperature-unit', control.dataset.unit); } catch {}
+    const next = new URL(location.href);
+    next.searchParams.set('unit', control.dataset.unit);
+    next.searchParams.set('day', series[sourceDayIndex].date);
+    next.hash = document.querySelector('.page-dot.active')?.dataset.pageTarget || 'professional';
+    location.assign(next.href);
+  });
+});
+document.querySelectorAll('[data-sources-open]').forEach(button => button.addEventListener('click', () => {
+  updateSourceDialog(true);
+  document.querySelector('#source-dialog').showModal();
+}));
+document.querySelector('#sources-close').addEventListener('click', () => document.querySelector('#source-dialog').close());
 applyLanguage(language);
 // Case-study links open their matching view directly; ordinary visits stay simple.
 function openLinkedPage() {
@@ -768,32 +822,8 @@ function openLinkedPage() {
 window.addEventListener("hashchange", openLinkedPage);
 requestAnimationFrame(openLinkedPage);
 
-async function refreshObservedHighs() {
-  const status = document.querySelector("#observation-status");
-  try {
-    const response = await fetch(document.querySelector("#noaa-link").href, {
-      cache: "no-store", signal: AbortSignal.timeout(8000)
-    });
-    if (!response.ok) throw new Error(`NOAA HTTP ${response.status}`);
-    const rows = await response.json();
-    if (!Array.isArray(rows)) throw new Error("NOAA response is not an array");
-    const observations = new Map(rows.filter((row) => row.STATION === "USW00014732")
-      .map((row) => [row.DATE, Number(row.TMAX)]));
-    const highs = series.map((item) => observations.get(`2026-08-${item.day}`));
-    if (highs.some((value) => !Number.isFinite(value) || value < 40 || value > 120)) {
-      throw new Error("NOAA data has missing or unexpected daily highs");
-    }
-    series.forEach((item, index) => { item.actual = highs[index]; });
-    observationFresh = true;
-    updateObservationStatus();
-    renderSimple();
-    select(state.selected);
-  } catch {
-    observationFresh = false;
-    updateObservationStatus();
-  }
-}
-refreshObservedHighs();
+// Verified observation archives are immutable; do not overwrite them with a different statistic.
+
 
 window.addEventListener('chart-palette-change', ({detail}) => {
   const rgb = color => color.match(/[\da-f]{2}/gi).map(channel => parseInt(channel,16));

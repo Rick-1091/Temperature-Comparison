@@ -21,8 +21,6 @@ import * as d3 from 'd3';
 // views in chapter 03's main story without replacing their data or identifiers.
 const impactCharts = document.getElementById('impact-charts');
 if (impactCharts) {
-  // Keep the existing information-path comparison intact, after the café story.
-  impactCharts.before(document.getElementById('information-paths'));
   ['s03', 's04'].forEach((id,index) => {
     const fold=document.createElement('details');fold.className='activity-fold';fold.id=`activity-fold-${index+1}`;
     const summary=document.createElement('summary');summary.dataset.copyZh=index?'二、天气与活动关系 · 点击展开':'一、地点与活动地图 · 点击展开';summary.textContent=index?'2. Weather and activity · Expand':'1. Places and activity map · Expand';
