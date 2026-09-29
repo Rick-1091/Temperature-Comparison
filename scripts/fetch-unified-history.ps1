@@ -17,8 +17,10 @@ foreach ($city in $cities) {
   foreach ($event in ($events | Where-Object {$_.closed -and $_.eventDate -ge $firstDate -and $_.eventDate -lt $today} | Sort-Object eventDate)) {
     if ($event.resolutionSource -notmatch $city.station.ToLower()) {continue}
     $date = $event.eventDate
+    # 按站点当地日归组，避免直接按 UTC 日期切分造成两地统计口径不同。
     $dayObs = @($observations | Where-Object {$_.temp -ne $null -and [TimeZoneInfo]::ConvertTime([DateTimeOffset]::FromUnixTimeSeconds([long]$_.obsTime),$tz).ToString('yyyy-MM-dd') -eq $date})
     $hours = @($dayObs | ForEach-Object {[TimeZoneInfo]::ConvertTime([DateTimeOffset]::FromUnixTimeSeconds([long]$_.obsTime),$tz).Hour} | Sort-Object -Unique)
+    # 排除覆盖不足的日期；METAR 报告最高温并非连续观测峰值或官方结算值。
     if ($dayObs.Count -lt 20 -or $hours.Count -lt 20) {continue}
     $midnight = [DateTime]::SpecifyKind([DateTime]::Parse($date),[DateTimeKind]::Unspecified)
     $target = [DateTimeOffset]::new($midnight,$tz.GetUtcOffset($midnight)).ToUnixTimeSeconds()
@@ -30,6 +32,7 @@ foreach ($city in $cities) {
       $token = ($market.clobTokenIds | ConvertFrom-Json)[$yesIndex]
       $historyUrl = 'https://clob.polymarket.com/prices-history?market='+$token+'&startTs='+($target-86400)+'&endTs='+$target+'&fidelity=5'
       $history = Invoke-RestMethod -Uri $historyUrl -TimeoutSec 25
+      # 只取当地当天开始前的最后报价，避免把结果已知后的价格当作预测。
       $point = $history.history | Where-Object {$_.t -lt $target -and $_.t -ge ($target-86400)} | Sort-Object t | Select-Object -Last 1
       if ($null -eq $point -or $point.p -lt 0 -or $point.p -gt 1) {break}
       $label = $market.groupItemTitle
@@ -45,6 +48,7 @@ foreach ($city in $cities) {
   }
   $snapshots[$city.key] = [ordered]@{metadata=[ordered]@{collectedAt=[DateTimeOffset]::UtcNow.ToString('o');location=$city.label;station=$city.station;timezone=$city.iana;observationUnit='C';marketUnit=$city.unit;observationUrl=$obsUrl;eventsUrl=$eventsUrl;observationMethod='Maximum reported METAR temperature within the local calendar day; at least 20 reports spanning at least 20 distinct local hours.';snapshotPolicy='Latest Yes quote within 24 hours strictly before local midnight; CLOB fidelity 5 minutes.';comparisonMethod='Convert the unrounded Celsius maximum into the native market unit, round to the nearest whole degree for interval membership, and keep the original maximum for display. Not authoritative settlement.'};days=$records;observations=@($observations | Select-Object icaoId,obsTime,temp,rawOb)}
 }
+# 两地只保留共同的有效日期，防止比较不同时间窗口的历史表现。
 $common = @($snapshots.laguardia.days.date | Where-Object {$_ -in $snapshots.mexico.days.date} | Sort-Object | Select-Object -Last $MaxDays)
 if ($common.Count -lt 2) {throw 'Insufficient complete paired dates shared by both cities'}
 foreach ($key in @('laguardia','mexico')) {$snapshots[$key].days=@($snapshots[$key].days | Where-Object {$_.date -in $common})}

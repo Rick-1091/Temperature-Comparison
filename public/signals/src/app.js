@@ -26,6 +26,7 @@ const bucketLows = [...new Set(series.flatMap((item) => item.outcomes.map((outco
 const bucketLabel = intervalLabel;
 const buckets = bucketLows.map((low) => ({ low, high: low + bucketStep - 1 }));
 const binFor = (outcome) => bucketLows.indexOf(Math.floor(outcome.midpoint / bucketStep) * bucketStep);
+// 归一化价格仅用于展示各区间的相对支持度，不代表已校准的天气概率。
 const marketShares = series.map((item) => {
   const total = item.outcomes.reduce((sum, outcome) => sum + outcome.price, 0);
   return buckets.map((_, index) => item.outcomes.filter((outcome) => binFor(outcome) === index).reduce((sum, outcome) => sum + outcome.price, 0) / total * 100);
@@ -546,6 +547,7 @@ function renderSimple() {
   updateMexicoView();
 }
 function renderSimpleHitHistory() {
+  // 严格命中只看最高报价档；宽松命中加入相邻档，曲线按截至该日的有效样本累计。
   const observations = series.filter(item => Number.isFinite(item.actual));
   let strict = 0, wide = 0;
   const points = observations.map((item, index) => {
@@ -619,6 +621,7 @@ function render() {
   else renderFlat(width, height);
 }
 function select(index) {
+  // 所有图表、详情和来源链接共用选中日期，避免显示不同日期的数据。
   state.selected = (index + series.length) % series.length;
   sourceDayIndex = state.selected;
   const item = series[state.selected];
