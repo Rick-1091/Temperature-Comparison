@@ -24,6 +24,7 @@ if(root){
   let selected=null;
   const t=value=>value[document.documentElement.lang.startsWith('zh')?'zh':'en'];
   function connected(id){
+    // 分别追溯上游和下游，仅高亮所选节点的路径，不展开无关的兄弟分支。
     const found=new Set([id]);
     function walk(key,direction){edges.filter(e=>e[direction]===key).forEach(e=>{const next=e[1-direction];found.add(next);walk(next,direction);});}
     walk(id,0);walk(id,1);return found;
