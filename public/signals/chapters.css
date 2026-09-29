@@ -1,6 +1,7 @@
-/* Mirrors src/chapters.css, plus offsets so the full-screen page deck sits below the bar. */
+/* Navigation occupies its own rows; the page deck receives the remaining height. */
+body { display: grid; grid-template-rows: auto auto minmax(0, 1fr); --navigation-gap: 8px; --navigation-inset: 12px; }
 .chapterbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 30;
+  position: relative; z-index: 30;
   background: #22211f; color: #bfb8aa;
   font-family: 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   font-size: 12.5px; line-height: 1;
@@ -15,9 +16,19 @@
 .cb-list a[aria-current='page'] { color: #f4f1ea; border-bottom-color: #c9713f; }
 .cb-list a[aria-current='page'] span { color: #e39a6b; }
 
-.page-deck { margin-top: 40px; height: calc(100dvh - 40px); }
-.page-panel { height: calc(100dvh - 40px); }
-.page-switcher { top: 56px; }
+.page-deck { margin-top: 0; height: 100%; min-height: 0; }
+.page-panel { height: 100%; }
+.page-switcher {
+  position: static; transform: none; justify-self: center;
+  width: max-content; max-width: calc(100% - 2 * var(--navigation-inset));
+  margin: var(--navigation-gap) 0; flex-wrap: wrap; justify-content: center; align-items: center;
+}
+.data-controls { min-width: 0; max-width: 100%; }
+.data-controls .location-picker { min-width: 0; }
+.data-controls .location-picker select { min-width: 0; max-width: 100%; }
+@media (min-width: 801px) {
+  .data-controls { width: auto; flex: 1; }
+}
 
 .cb-next {
   display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 10px 16px;
@@ -36,4 +47,13 @@
   .cb-list { width: 100%; height: auto; gap: 0; }
   .cb-list li { flex: 1; min-width: 0; }
   .cb-list a { padding: 6px; min-height: 44px; white-space: normal; line-height: 1.35; gap: 5px; font-size: 13px; }
+  .data-controls { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; }
+  .data-controls .location-picker { grid-column: 1 / -1; margin-left: 0; }
+  .data-controls .location-picker select { flex: 1; }
+  .data-controls .unit-picker { justify-self: start; }
+  .data-controls .unit-picker > span { display: none; }
+  .data-controls > .sources-button { justify-self: end; }
+}
+@media (max-width: 360px) {
+  .data-controls .unit-picker, .data-controls > .sources-button { grid-column: 1 / -1; }
 }
