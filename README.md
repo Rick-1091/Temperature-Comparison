@@ -6,7 +6,7 @@
 |---|---|---|
 | 01 Origin · Jinxi | `index.html` | 锦溪田野观察：项目缘起与证据边界 |
 | 02 Signals vs outcomes · New York | `public/signals/` | 温度对照：NOAA 实测 × Polymarket 真实历史价格（下文） |
-| 03 NomadCast · Mexico City | `nomadcast/index.html` | 面向数字游民的天气信号探索原型（活动数据为模拟数据） |
+| 03 NomadCast · Mexico City | `nomadcast/index.html` | 开篇特稿：用本工具在 Polymarket 上对冲天气风险（示例情景）；面向数字游民的天气信号探索原型（活动数据为模拟数据） |
 
 `jinxi/` 保留原始的独立锦溪页面及照片；第 01 章直接引用 `jinxi/assets/` 中的图片。
 

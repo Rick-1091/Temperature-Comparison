@@ -85,6 +85,7 @@ export function initMap() {
   corr.on('mouseenter', function (e, d) { tipFor(e, d, this.__v, true); }).on('mousemove', moveTip).on('mouseleave', hideTip)
     .on('click', (e, d) => setState({ activity: getState().activity === d.activity ? null : d.activity }));
 
+  window.addEventListener('site-language-change', () => { const s = getState(); const ctx = mapContext(s); renderMode(ctx, s); renderPattern(ctx, activityMeans(ctx.days), s); });
   subscribe((s) => {
     const ctx = mapContext(s);
     const m = activityMeans(ctx.days);
@@ -139,14 +140,29 @@ export function initMap() {
   }
 }
 
+const lang = () => { try { return localStorage.getItem('temperature-language') === 'en' ? 'en' : 'zh'; } catch { return 'zh'; } };
+const ZH_WEATHER = { sunny: '晴朗', rainy: '降雨', hot: '炎热', cool: '凉爽', windy: '大风' };
+const ZH_ACT = { cafe: '户外咖啡店', cowork: '共享办公', walk: '步行', cycle: '骑行', park: '公园', museum: '室内休闲' };
+const zhDate = (iso) => { const [, m, d] = iso.split('-').map(Number); return `${m}月${d}日`; };
+
 function renderMode(ctx, s) {
   const el = document.getElementById('map-mode');
   const tag = ctx.mode === 'observed' ? '<span class="tag tag-obs">Observed</span>' : '<span class="tag tag-inf">Inferred</span>';
-  const txt = ctx.mode === 'observed'
-    ? `Showing activity <b>observed on ${ctx.label}</b>.`
-    : ctx.mode === 'weather'
-      ? `Showing mean activity across <b>${ctx.label}</b>. The selected date is ignored while a weather filter is set.`
-      : `No activity is observed for ${dayByDate[s.date].isForecast ? 'tomorrow' : 'this day'}. Showing the mean across <b>${ctx.label}</b> (see section 05).`;
+  const sel = dayByDate[s.date];
+  let txt;
+  if (lang() === 'zh') {
+    txt = ctx.mode === 'observed'
+      ? `显示 <b>${zhDate(sel.date)}实测</b>的活动。`
+      : ctx.mode === 'weather'
+        ? `显示 <b>历史上 ${ctx.days.length} 个${ZH_WEATHER[s.weather]}日</b>的平均活动。设置天气筛选时，所选日期不起作用。`
+        : `${sel.isForecast ? '明天' : '这一天'}没有活动实测，因此显示 <b>与${sel.isForecast ? '明天' : zhDate(sel.date)}相似的 ${ctx.days.length} 天</b>的平均值（见第 03 节）。`;
+  } else {
+    txt = ctx.mode === 'observed'
+      ? `Showing activity <b>observed on ${ctx.label}</b>.`
+      : ctx.mode === 'weather'
+        ? `Showing mean activity across <b>${ctx.label}</b>. The selected date is ignored while a weather filter is set.`
+        : `No activity is observed for ${sel.isForecast ? 'tomorrow' : 'this day'}. Showing the mean across <b>${ctx.label}</b> (see section 03).`;
+  }
   el.innerHTML = tag + `<span>${txt}</span>`;
 }
 
@@ -158,6 +174,7 @@ function renderLegend(s) {
 }
 
 function renderPattern(ctx, m, s) {
+  if (lang() === 'zh') { renderPatternZh(ctx, m, s); return; }
   const b = BASELINE;
   const scope = ctx.mode === 'weather' ? `On historically ${weatherById[s.weather].label.toLowerCase()} days <span class="num">(n = ${ctx.days.length})</span>`
     : ctx.mode === 'observed' ? `On ${ctx.label}` : `On the ${ctx.days.length} historically similar days`;
@@ -188,6 +205,39 @@ function renderPattern(ctx, m, s) {
   }
   document.getElementById('map-pattern').innerHTML = text +
     '<span class="caveat">A description of the (simulated) activity log. It does not indicate which place is better, and says nothing about why.</span>';
+}
+
+function renderPatternZh(ctx, m, s) {
+  const b = BASELINE;
+  const scope = ctx.mode === 'weather' ? `在历史上的${ZH_WEATHER[s.weather]}日 <span class="num">(n = ${ctx.days.length})</span>`
+    : ctx.mode === 'observed' ? `在${zhDate(dayByDate[s.date].date)}` : `在历史上 ${ctx.days.length} 个相似天气日`;
+  const sum = (mm, ids) => ids.reduce((acc, id) => acc + (mm[id].mean || 0), 0);
+  const share = (mm, num, den) => sum(mm, num) / (sum(mm, den) || 1);
+  const P = (v) => `${Math.round(v * 100)}%`;
+  let text;
+
+  if (s.activity) {
+    const id = s.activity;
+    if (m[id].mean == null) text = `${scope}，${ZH_ACT[id]}<span class="num">没有可用实测</span>。`;
+    else {
+      const rel = m[id].mean / b[id].mean - 1;
+      text = `${scope}，${ZH_ACT[id]}活动比全部实测日的平均水平${rel >= 0 ? '高' : '低'} <span class="num ${rel > 0 ? 'warm' : ''}">${Math.abs(Math.round(rel * 100))}%</span>。`;
+    }
+  } else if (s.group === 'work') {
+    text = `${scope}，室内共享办公占实测工作类活动的 <span class="num">${P(share(m, ['cowork'], ['cowork', 'cafe']))}</span>，全部日期为 ${P(share(b, ['cowork'], ['cowork', 'cafe']))}。`;
+  } else if (s.group === 'mobility') {
+    const rel = sum(m, ['walk', 'cycle']) / sum(b, ['walk', 'cycle']) - 1;
+    text = `${scope}，步行与骑行比全部日期的平均水平${rel >= 0 ? '高' : '低'} <span class="num ${rel > 0 ? 'warm' : ''}">${Math.abs(Math.round(rel * 100))}%</span>。`;
+  } else if (s.group === 'leisure') {
+    text = `${scope}，室内场馆占实测休闲活动的 <span class="num">${P(share(m, ['museum'], ['museum', 'park']))}</span>，全部日期为 ${P(share(b, ['museum'], ['museum', 'park']))}。`;
+  } else {
+    const all = ACTIVITIES.map((a) => a.id);
+    const si = share(m, ['cowork', 'museum'], all), bi = share(b, ['cowork', 'museum'], all);
+    const more = si > bi + 0.02 ? '更高' : si < bi - 0.02 ? '更低' : '相近';
+    text = `${scope}，室内地点在实测活动中的占比${more}：<span class="num">${P(si)}</span>，全部日期为 ${P(bi)}。`;
+  }
+  document.getElementById('map-pattern').innerHTML = text +
+    '<span class="caveat">这只是对（模拟）活动记录的描述，不代表哪个地点更好，也不解释原因。</span>';
 }
 
 function buildFilters() {
