@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weatherbridge · Weather guide</title>
+  <link rel="stylesheet" href="../ui-theme.css" />
+</head>
+<body data-page-title-zh="Weatherbridge · 天气判断小指南" data-page-title-en="Weatherbridge · Weather guide">
+  <nav class="chapterbar" aria-label="Website chapters">
+    <div class="wrap chapterbar-inner">
+      <a class="cb-brand" href="../index.html">Weatherbridge</a>
+      <ol class="cb-list"><li><a href="index.html#weather-guide" data-copy-zh="返回：从信息到行动">Back: From information to action</a></li></ol>
+    </div>
+  </nav>
+  <main>
+    <section class="story-block">
+      <div class="wrap">
+        <h1 data-copy-zh="让天气判断更容易理解">Make weather expectations easier to understand</h1>
+        <h3 class="reading-subtitle" data-copy-zh="（一）先理解天气信号">(1) Understand weather signals first</h3>
+        <p><span data-copy-zh="面对天气的不确定性，用户首先需要知道三件事：">When facing uncertain weather, users first need to understand three things: </span><strong data-copy-zh="最可能出现什么天气、不同判断有多分散、过去的判断与实际结果有多接近。">the most likely weather, how dispersed expectations are, and how closely past expectations matched actual outcomes.</strong></p>
+        <p><span data-copy-zh="我们的可视化将官方天气信息、Polymarket 不同温度区间的市场价格以及历史实测结果放在统一视图中。用户可以看到市场当前最支持的温度区间，并通过各区间的">Our visualization brings official weather information, Polymarket prices for different temperature ranges, and historical observations into a unified view. Users can see the temperature range currently favored by the market and use the </span><strong data-copy-zh="相对价格分布">relative price distribution</strong><span data-copy-zh="判断市场意见是集中还是分散，再结合官方预报和预警进行判断。"> across ranges to assess whether market expectations are concentrated or dispersed, then consider official forecasts and warnings.</span></p>
+        <p><span data-copy-zh="这些数据提供的是">These data provide </span><strong data-copy-zh="辅助信息，而不是确定答案">supporting information, not a certain answer</strong><span data-copy-zh="；查看信息本身也不需要参与交易。">; viewing the information does not require trading.</span></p>
+        <h3 class="reading-subtitle" data-copy-zh="（二）把不确定性转化为提前准备">(2) Turn uncertainty into preparation</h3>
+        <p data-copy-zh="信息的价值不只是知道“明天多少度”，而是帮助用户提前判断是否需要调整安排。">The value of information is not simply knowing tomorrow’s temperature, but helping users decide in advance whether to adjust their plans.</p>
+        <p data-copy-zh="例如，当降雨风险升高或不同信号之间存在较大分歧时，一个依赖户外晾晒的家庭可以提前准备遮盖空间、缩短单次晾晒时间，或分批处理粮食；旅游和临水经营者也可以据此调整户外活动安排。">For example, when rainfall risk rises or different signals disagree substantially, a household relying on outdoor drying can prepare covered space, shorten each drying session, or process grain in batches. Tourism and waterfront businesses can also adjust outdoor activities accordingly.</p>
+        <p data-copy-zh="因此，界面重点呈现：">The interface therefore focuses on:</p>
+        <p><strong data-copy-zh="可能出现的天气 → 判断的集中程度 → 历史表现 → 可调整的时间空间">Possible weather → Concentration of expectations → Historical performance → Flexibility in timing and space</strong></p>
+        <p data-copy-zh="系统并不替用户作决定，而是降低理解概率、分布和预测误差的门槛，让天气不确定性变得更容易被用于实际 planning。">The system does not make decisions for users. It makes probabilities, distributions, and forecast errors easier to understand, so weather uncertainty can better inform practical planning.</p>
+        <h3 class="reading-subtitle" data-copy-zh="（三）在常用天气信息渠道受限时提供另一条信号">(3) Offer another signal when usual weather-information channels are limited</h3>
+        <p><span data-copy-zh="在某些地区或特殊情况下，广播、电视或本地气象信息可能暂时不可获得。若用户仍能联网，并且存在对应地点和日期、交易相对活跃的 prediction market，Polymarket 可以提供一种来自市场参与者集体判断的">In some regions or circumstances, radio, television, or local weather information may be temporarily unavailable. If users still have internet access and a relatively active prediction market exists for the relevant place and date, Polymarket can offer a </span><strong data-copy-zh="补充信息信号">supplementary information signal</strong><span data-copy-zh="。"> based on market participants’ collective expectations.</span></p>
+        <p data-copy-zh="用户可以查看：">Users can review:</p>
+        <blockquote class="guide-signal"><p><strong data-copy-zh="当前最受支持的温度区间 → 各结果的市场支持分布 → 过去类似判断与最终结果的历史对照">Currently favored temperature range → Distribution of market support across outcomes → Historical comparisons of similar expectations with final results</strong></p></blockquote>
+        <p><span data-copy-zh="这些信息可以帮助用户形成一个">This information can help users form a </span><strong data-copy-zh="有不确定性边界的粗略判断">rough judgment with explicit uncertainty boundaries</strong><span data-copy-zh="，而不是完全依赖单一来源。"> rather than relying entirely on one source.</span></p>
+        <p><span data-copy-zh="但 prediction-market price 受到参与人数、流动性、交易行为和市场规则影响，并不等同于专业气象机构发布的 forecast probability；历史 NOAA 实测值与市场实际结算口径也可能不同。因此，在暴雨、高温、台风等涉及安全的天气事件中，">However, prediction-market prices are affected by participation, liquidity, trading behavior, and market rules, and are not equivalent to forecast probabilities issued by professional meteorological agencies. Historical NOAA observations may also differ from the market’s actual settlement criteria. For safety-related weather events such as heavy rain, extreme heat, or typhoons, </span><strong data-copy-zh="当地气象部门和应急机构的正式预警仍应作为首要依据。在非紧急情况之下，">official warnings from local meteorological and emergency agencies should remain the primary reference. In non-emergency situations, </strong><span data-copy-zh="我们的目标不是用 Polymarket 替代天气预报，而是在不同天气信息之间建立一个更容易理解的比较界面，让普通用户看到“预测是什么、分歧有多大、过去表现如何”。">our goal is not to replace weather forecasts with Polymarket, but to build an easier-to-understand comparison interface across weather information sources, helping ordinary users see what is predicted, how much disagreement exists, and how expectations performed in the past.</span></p>
+        <a href="index.html#weather-guide" data-copy-zh="← 返回第三页">← Back to Chapter 03</a>
+      </div>
+    </section>
+  </main>
+  <script type="module">
+    import '../src/fonts.js';
+    import '../src/styles.css';
+    import '../src/chapters.css';
+    import '../src/storyline.css';
+    import '../src/site-i18n.js';
+  </script>
+  <script type="module" src="/ui-theme.js"></script>
+</body>
+</html>

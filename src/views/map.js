@@ -134,9 +134,9 @@ export function initMap() {
       <h4>Activity by district · indoor vs outdoor</h4>
       ${sums.map((x) => `
         <div class="dbar"><span>${x.a}</span>
-          <span class="track"><i style="width:${(x.ind / max) * 100}%;background:#3F5F86"></i><i style="width:${(x.out / max) * 100}%;background:#9DB38F"></i></span>
+          <span class="track"><i style="width:${(x.ind / max) * 100}%;background:var(--chart-primary,#3F5F86)"></i><i style="width:${(x.out / max) * 100}%;background:var(--chart-secondary,#9DB38F)"></i></span>
           <span class="pct">${x.tot ? Math.round((x.ind / x.tot) * 100) + '% in' : '—'}</span></div>`).join('')}
-      <div class="dbar-key"><span><i style="background:#3F5F86"></i>Indoor</span><span><i style="background:#9DB38F"></i>Outdoor</span><span>Bar length = summed activity of visible places</span></div>`;
+      <div class="dbar-key"><span><i style="background:var(--chart-primary,#3F5F86)"></i>Indoor</span><span><i style="background:var(--chart-secondary,#9DB38F)"></i>Outdoor</span><span>Bar length = summed activity of visible places</span></div>`;
   }
 }
 

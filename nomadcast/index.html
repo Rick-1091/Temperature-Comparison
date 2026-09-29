@@ -3,42 +3,200 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>NomadCast — What could this weather mean for my day?</title>
-  <meta name="description" content="What weather signals can mean: for one person's day, for a city and its industries, and for the people who hedge weather risk with prediction markets." />
+  <title>Weatherbridge · 03 From information to action</title>
+  <link rel="stylesheet" href="../ui-theme.css" />
+  <meta name="description" content="From understandable weather information and SDG 13 to a sourced ice-cream-shop weather-hedging case." />
 </head>
 <body>
   <nav class="chapterbar" aria-label="Website chapters">
     <div class="wrap chapterbar-inner">
-      <a class="cb-brand" href="../index.html">Weather / Signals</a>
+      <a class="cb-brand" href="../index.html">Weatherbridge</a>
       <ol class="cb-list">
-        <li><a href="../index.html"><span>01</span>Origin <small>· Jinxi</small></a></li>
-        <li><a href="../signals/index.html"><span>02</span>Signals vs outcomes <small>· New York</small></a></li>
-        <li><a href="index.html" aria-current="page"><span>03</span>NomadCast <small>· Mexico City</small></a></li>
+        <li><a href="../index.html"><span>01</span>Weather &amp; daily life</a></li>
+        <li><a href="../signals/index.html"><span>02</span>Forecasts &amp; observations</a></li>
+        <li><a href="index.html" aria-current="page"><span>03</span><span data-copy-zh="从信息到行动">From information to action</span></a></li>
       </ol>
     </div>
   </nav>
 
+  <main class="meaning-main">
+    <section class="story-block">
+      <div class="wrap">
+        <header class="scenario-heading"><div class="scenario-number" aria-hidden="true">01</div><div>
+          <p class="eyebrow" data-copy-zh="非洲 · 马拉维 · 基于真实背景的模拟家庭">Africa · Malawi · A simulated household grounded in regional context</p>
+          <h1 data-copy-zh="托科：雨还没来，今天可以先准备什么？">Thoko: before the rain arrives, what can the family prepare?</h1>
+        </div></header>
+        <p data-copy-zh="托科家的玉米还铺在院子里。天色变了，他想知道雨什么时候可能来，今天还能晒多久，收粮的袋子和屋里的空地要不要先准备好。">Thoko’s maize is still spread out in the yard. As the sky changes, he wants to know when rain might arrive, how much drying time remains, and whether to prepare sacks and clear space indoors.</p>
+        <div class="story-grid family-response">
+          <article><h3 data-copy-zh="先看与自己有关的信息">Start with relevant information</h3><p data-copy-zh="晾晒需要看当地降雨时间和湿度；出行还要考虑风雨与高温。不同安排，需要不同的天气信号。">Drying needs local rainfall timing and humidity; travel also needs wind, rain, and heat information. Different plans need different weather signals.</p></article>
+          <article><h3 data-copy-zh="再看判断有多确定">Then ask how certain it is</h3><p data-copy-zh="把可能情况与分歧一起呈现，帮助家庭提前安排遮盖、搬运和晾晒时间，而不是只给一个确定的答案。">Show possible outcomes and disagreement together, helping a household plan covers, moving grain, and drying time rather than offering a single certain answer.</p></article>
+        </div>
+      </div>
+    </section>
+    <section class="story-block" id="weather-guide">
+      <div class="wrap guide-entry-layout">
+        <div class="guide-entry-copy">
+        <h2 data-copy-zh="让天气判断容易看懂">Make weather expectations easier to understand</h2>
+        <p data-copy-zh="怎么看预测、怎样提前准备，以及常用天气消息中断时还能参考什么？">How can we read forecasts, prepare ahead, and find another reference when usual weather updates are disrupted?</p>
+        <a href="weather-guide.html" data-copy-zh="阅读天气判断小指南 →">Read the weather guide →</a>
+        </div>
+        <figure class="guide-entry-image"><img src="/thoko-weather-guide.png" width="1086" height="1448" alt="A family reading a weather display beside drying maize." loading="lazy" /><figcaption data-copy-zh="托科 · 非洲马拉维农户">Thoko · Farmer in Malawi, Africa</figcaption><p class="image-note" data-copy-zh="插图中的天气数值仅用于演示界面。">Weather values in the illustration are interface examples only.</p></figure>
+      </div>
+    </section>
+    <section class="story-block" id="information-paths">
+      <div class="wrap">
+        <h2 data-copy-zh="天气消息不够时，还能看什么？">When weather information is limited, what else can we read?</h2>
+        <p data-copy-zh="先选一个地点，再从人物的今日安排出发，沿四级分支看信息怎样影响选择，以及可能带来的后续影响。">Choose a place, then start with the person’s plans and follow four levels of information, choices and possible downstream effects.</p>
+        <div id="decision-network" data-language-owned></div>
+      </div>
+    </section>
+    <section class="story-block" id="business-report">
+      <div class="wrap">
+        <p class="eyebrow" data-copy-zh="经营安排之后 · 再看财务风险">After operational planning · Consider financial risk</p>
+        <h3 data-copy-zh="先减少浪费，再考虑怎样分担损失">Reduce waste first, then consider sharing losses</h3>
+        <p data-copy-zh="提前调整座位、排班和备货，是第一步。对天气高度敏感的商户，还可以进一步理解“对冲”：让一份合约在不利天气发生时按规则兑付，尝试抵消部分经营损失。它不同于套利，也不是保证获利。">Adjusting seats, shifts and supplies comes first. A weather-sensitive business could also consider hedging: a contract that pays under an adverse weather outcome may offset part of a business loss. This differs from arbitrage and does not guarantee a profit.</p>
+        <div class="guide-entry-layout">
+        <div class="guide-entry-copy">
+        <h2 data-copy-zh="一家冰淇淋店怎样应对冷天气？">How does an ice cream shop respond to cold weather?</h2>
+        <p data-copy-zh="《纽约邮报》2026 年 7 月 16 日报道了洛杉矶冰淇淋店 28wishes。店主 Jason Jiang 表示，气温低于 70°F（约 21°C）时，生意减少约 20%。兄弟二人每天在 Kalshi 天气市场投入约 20 美元，尝试用冷天合约收益抵消经营损失。">The New York Post reported on Los Angeles ice cream shop 28wishes on July 16, 2026. Owner Jason Jiang said business fell about 20% below 70°F (about 21°C). The brothers put about $20 a day into Kalshi weather markets, seeking to offset business losses with cold-weather contract returns.</p>
+        <p data-copy-zh="他向记者报告的月收益最高约为 1,500 美元。">He reported monthly earnings of up to $1,500.</p>
+        <p class="story-note" data-copy-zh="（该报道使用的平台是 Kalshi，而非 Polymarket；Kalshi 也是一个预测市场，参与者可以交易未来事件结果的合约。）">(The report uses Kalshi, not Polymarket. Kalshi is also a prediction market where participants can trade contracts on future event outcomes.)</p>
+        <a href="https://nypost.com/2026/07/16/lifestyle/california-ice-cream-shop-owner-bets-on-weather-to-help-pay-rent/" target="_blank" rel="noopener noreferrer" data-copy-zh="阅读原报道 · New York Post，2026 年 7 月 16 日 →">Read the original · New York Post, July 16, 2026 →</a>
+        <a href="https://currently.att.yahoo.com/att/savvy-ice-cream-shop-owner-000854279.html" target="_blank" rel="noopener noreferrer" data-copy-zh="查看同作者转载 →">Read the same-author republication →</a>
+        <p data-copy-zh="报道使用 Kalshi，展示预测市场对冲的一种用途。若通过 Polymarket 的天气合约做类似安排，需要匹配地点、日期和风险，并核算价格、费用与可交易性；合约可能亏损，实际经营损失也未必得到充分抵消。">The report uses Kalshi to illustrate prediction-market hedging. A comparable Polymarket approach requires matching place, date and risk, and assessment of prices, fees and tradability. Contracts can lose money and may not sufficiently offset business losses.</p>
+        </div>
+        <figure class="guide-entry-image">
+          <img src="../28wishes-owners.png" width="1086" height="1448" alt="Illustration of two ice cream shop owners holding ice cream at 28wishes" loading="lazy" />
+          <figcaption data-copy-zh="Jason Jiang 和 James Jiang · 28wishes 冰淇淋店店主">Jason Jiang and James Jiang · Owners of 28wishes ice cream shop</figcaption>
+        </figure>
+        </div>
+        <h3 data-copy-zh="同样的天气，不同的风险安排">The same weather, different risk choices</h3>
+        <p data-copy-zh="从 28wishes 出发，点击节点比较冷天、暖天与是否购买冷天合约。这里只展示可能路径，不估算店铺实际损失。">Start with 28wishes and select a node to compare cold and warm weather, with or without a cold-weather contract. These are possible paths, not estimates of the shop’s actual losses.</p>
+        <div id="hedging-network" data-language-owned></div>
+      </div>
+    </section>
+    <section class="story-block impact-intro" id="weather-impact">
+      <div class="wrap">
+        <header class="scenario-heading"><div class="scenario-number" aria-hidden="true">02</div><div>
+          <p class="eyebrow" data-copy-zh="墨西哥城 · 帕蒂奥咖啡馆 · 模拟情景">Mexico City · Café Patio · Fictional scenario</p>
+          <h2 data-copy-zh="明天的客人，会坐在室外还是走进店里？">Will tomorrow's customers sit outside or move indoors?</h2>
+        </div></header>
+        <div class="scenario-body"><div>
+          <p data-copy-zh="迭戈（Diego）在墨西哥城经营着一家名叫帕蒂奥（Café Patio）的咖啡馆。晚上打烊前，他还没定好明天的安排：门外的桌椅要不要全部摆出？早班多留一位员工，还是等午后再加人？冷饮原料今天订多少，才能既够用又不积压？">Diego runs a café called Café Patio in Mexico City. Before closing, he still needs to settle tomorrow’s plans: should all outdoor tables be set up? Does the morning shift need another person, or would help be more useful in the afternoon? How much stock should he order for cold drinks without leaving too much unused?</p>
+          <p data-copy-zh="如果下雨，露天座位用不上，客人可能转到室内；如果晴热，遮阳位置和冷饮可能更受欢迎。但天气判断还不一致，店主不想把座位、排班和备货一次定死。">Rain could leave outdoor seats unused and bring customers inside. On a hot, sunny day, shaded tables and cold drinks might be more popular. With weather expectations still divided, the owner wants to keep seating, shifts, and supplies flexible.</p>
+          <p class="scenario-question" data-copy-zh="迭戈想知道：明天更像哪种天气？以前这样的日子，附近的人都在哪里活动？今晚哪些准备可以先做，哪些可以再等等？">Diego wants to know: what weather is most likely tomorrow? Where were people active on similar days? Which preparations can be made tonight, and which can wait?</p>
+        </div><aside class="scenario-context">
+          <h3 data-copy-zh="今晚要定下来的三件事">Three decisions for tonight</h3>
+          <p data-copy-zh="座位：室内与户外各留多少位置？">Seating: how much space should be reserved indoors and outdoors?</p>
+          <p data-copy-zh="人员：哪个时段需要更多人手？">Staffing: which hours may need more help?</p>
+          <p data-copy-zh="备货：冷热饮怎样分配，能否分批补货？">Supplies: how should hot and cold drinks be balanced, and can stock be replenished in stages?</p>
+          <p class="story-note" data-copy-zh="迭戈、帕蒂奥咖啡馆与经营情节为虚构；下方图表使用模拟活动数据。">Diego, Café Patio, and the business story are fictional; the charts below use simulated activity data.</p>
+        </aside></div>
+        <figure class="cafe-portrait">
+          <img src="../patio-owner.png" width="1122" height="1402" alt="Illustration of the fictional café owner Diego holding a coffee cup" loading="lazy" />
+          <figcaption data-copy-zh="迭戈 · 帕蒂奥咖啡馆店主">Diego · Owner of Café Patio</figcaption>
+        </figure>
+        <div class="activity-guide">
+          <div id="mexico-decision-network" data-language-owned></div>
+          <h3 data-copy-zh="从图表到明天的安排">From charts to tomorrow’s plans</h3>
+          <p data-copy-zh="天气判断的价值，不只在于知道明天有多热，也在于提前安排。把天气变化与活动放在一起看，经营者可以考虑如何分配座位、调整人手和分批备货，减少临时改动与不必要的浪费。下面两张图按需展开，展示模拟活动中的联系。">Weather expectations can support preparation, not just describe tomorrow’s temperature. Reading weather alongside activity can inform seats, shifts and staged supplies, potentially reducing last-minute changes and waste. Expand the two charts below to explore relationships in simulated activity.</p>
+          <nav class="activity-steps" aria-label="Activity chart views">
+            <a href="#activity-fold-1"><b data-copy-zh="一、看地点">1. Explore places</b><span data-copy-zh="人们在哪里活动？先看室内外空间。">Where do people spend time? Compare indoor and outdoor spaces.</span></a>
+            <a href="#activity-fold-2"><b data-copy-zh="二、看天气与活动">2. Connect weather and activity</b><span data-copy-zh="哪些活动随天气一起变化？">Which activities vary with the weather?</span></a>
+          </nav>
+        </div>
+        <p class="story-note"><span data-copy-zh="下方天气、市场价格和活动量仍为模拟数据。">Weather, market prices and activity below remain simulated.</span><br><span data-copy-zh="第二页另行展示同日期的 NOAA METAR 观测与 Polymarket 历史报价，不与模拟活动量合并计算命中率。">Chapter 02 separately compares same-date NOAA METAR observations and historical Polymarket quotes; simulated activity is not used to calculate hit rates.</span></p>
+        <a href="../signals/index.html?location=mexico#professional" data-copy-zh="查看墨西哥城预测与观测对照 →">View Mexico City forecasts and observations →</a>
+        <div id="impact-controls"></div>
+      </div>
+    </section>
+    <div id="impact-charts"></div>
+    <section class="story-block">
+      <div class="wrap">
+        <header class="scenario-heading"><div class="scenario-number" aria-hidden="true">03</div><div>
+        <p class="eyebrow" data-copy-zh="从提前安排，到经营风险应对">From preparation to managing business risk</p>
+        <h2 data-copy-zh="看懂天气变化，让咖啡馆提前做好安排">Understand changing weather, and help the café plan ahead</h2>
+        </div></header>
+        <p data-copy-zh="回到迭戈在墨西哥城经营的帕蒂奥咖啡馆：借助我们的可视化工具，迭戈可以查看可能的温度范围、判断有多集中，以及过去预测与实测的差距，再结合官方预报安排座位、人员和备货。">Returning to Diego’s Café Patio in Mexico City: our visualization could help Diego read likely temperature ranges, see how concentrated expectations are, and compare past forecasts with observations, then use official forecasts to plan seating, staffing, and supplies.</p>
+        <div class="story-grid">
+          <article><h3 data-copy-zh="天气偏冷">Colder weather</h3><p data-copy-zh="如果判断偏向较冷天气，店主可以优先准备室内座位、调整冷热饮备货，并为户外客流变化留出人员调配空间。">If expectations point to cooler weather, the owner could prepare indoor seating, adjust hot and cold drink supplies, and keep staffing flexible as outdoor foot traffic changes.</p></article>
+          <article><h3 data-copy-zh="天气偏暖">Warmer weather</h3><p data-copy-zh="如果判断偏向较暖天气，店主可以提前检查遮阳与通风、准备冷饮，并结合客流记录灵活安排户外座位和服务人员。">If expectations point to warmer weather, the owner could check shade and ventilation, prepare cold drinks, and use past foot-traffic records to plan outdoor seating and staffing.</p></article>
+        </div>
+        <p data-copy-zh="判断比较分散时，不急着一次备齐所有物料，而是分批准备、保留调整空间。工具的作用不是替店主作决定，而是让天气信息更容易看懂，帮助他把准备做在变化之前。">When expectations are spread out, the owner could prepare supplies in stages and leave room to adjust. The tool would not make decisions for the owner; it would make weather information easier to read and support preparation before conditions change.</p>
+        <p class="story-note" data-copy-zh="咖啡馆为模拟案例，图表中的活动量不等于营业额。实际使用需有对应地点和日期的市场数据，并结合官方预报与店铺经营记录。">The café is a simulated case, and charted activity is not revenue. Practical use requires market data for the relevant place and date, alongside official forecasts and the café’s own business records.</p>
+      </div>
+    </section>
+    <section class="story-block" id="climate-adaptation">
+      <div class="wrap">
+        <header class="scenario-heading"><div class="scenario-number" aria-hidden="true">04</div><div>
+        <p class="eyebrow" data-copy-zh="宏观意义 · 气候适应与可持续发展">Wider significance · Climate adaptation and sustainable development</p>
+        <h2 data-copy-zh="从信息理解到气候适应">From understanding information to climate adaptation</h2>
+        </div></header>
+        <section class="equity-intro" id="information-equity">
+          <h3 data-copy-zh="一、信息平权">1. Information equity</h3>
+          <p data-copy-zh="我们的目标不是让每个人都成为气象或预测市场专家，而是让更多人都能看懂这些信息，并把它用于自己的生活与决策。">Our goal is not to make everyone a meteorology or prediction-market expert, but to help more people understand this information and use it in their own lives and decisions.</p>
+            <details class="story-details" id="equity-details">
+              <summary data-copy-zh="点击展开详细说明">Expand the explanation</summary>
+              <div class="story-details-body">
+              <p data-copy-zh="在本项目中，信息平权意味着把原本分散、专业、难以解释的天气信息，转化为普通人也能理解和比较的公共信息。">In this project, information equity means turning scattered, specialized and difficult-to-explain weather information into public information that ordinary people can understand and compare.</p>
+              <p data-copy-zh="官方天气观测、Polymarket 的预测市场价格、不同温度区间的分布以及历史实际结果，本身都可以公开获取，但这些数据并不天然容易使用。对缺乏金融、气象或数据分析背景的用户来说，“市场最看好哪个温度区间”“不同判断有多分散”“过去这些判断与实际结果有多接近”都需要额外解释。">Official weather observations, Polymarket prediction-market prices, distributions across temperature ranges and historical outcomes are publicly accessible, but they are not inherently easy to use. People without a background in finance, meteorology or data analysis need additional explanations of which temperature range the market favors, how widely expectations differ and how closely past expectations matched actual outcomes.</p>
+              <p data-copy-zh="本项目通过统一的交互式可视化，把这些复杂信号放在同一个语境中，让用户无需理解交易机制，也能看懂天气判断及其不确定性。对于依赖天气的旅游服务、食品晾晒、户外经营和日常生活而言，这种设计希望减少专业信息与普通用户之间的理解差距，使天气信息从“少数人能分析的数据”变成“更多人能够用于提前准备的参考”。">By placing these complex signals in a shared interactive visualization, the project helps people read weather expectations and their uncertainty without needing to understand trading mechanisms. For weather-dependent tourism services, food drying, outdoor businesses and everyday life, the design aims to narrow the understanding gap between specialist information and ordinary users, turning data that only a few can analyze into a reference that more people can use to prepare ahead.</p>
+              <p data-copy-zh="因此，这里的信息平权不仅是 access to data，更是 access to understanding and decision-making ability。">Information equity here is therefore not only access to data, but also access to understanding and decision-making ability.</p>
+              </div>
+            </details>
+        </section>
+        <h3 class="sdg-section-title" data-copy-zh="二、气候适应与可持续发展">2. Climate adaptation and sustainable development</h3>
+        <div class="story-grid">
+          <article>
+            <h3 data-copy-zh="SDG 13.3 · 理解风险信息">SDG 13.3 · Understand risk information</h3>
+            <p data-copy-zh="用清楚的可视化帮助人们理解天气不确定性，与提高气候风险意识和能力的目标相呼应。这是项目的设计方向。">Clear visualizations of weather uncertainty align with awareness and capacity building. This is the project's design intention.</p>
+            <details class="story-details" id="sdg-awareness-details">
+              <summary data-copy-zh="点击展开详细说明">Expand the explanation</summary>
+              <div class="story-details-body">
+              <p data-copy-zh="本项目与 SDG 13.3 的联系，在于提升普通用户理解气候与天气风险信息的能力。">The project's connection to SDG 13.3 lies in strengthening ordinary users' ability to understand climate and weather risk information.</p>
+              <p data-copy-zh="天气相关信息往往以温度、概率、预警等级、市场价格或历史记录等形式出现，但这些数据对于非专业用户并不总是容易理解。本项目将 NOAA 实测温度、Polymarket 不同温度区间的市场信号以及历史结果整合到统一的可视化中，使用户能够直接看到“市场当前更看好什么结果”“不同判断是否集中”“过去的市场判断与实际天气之间存在怎样的差异”。">Weather information often appears as temperatures, probabilities, warning levels, market prices or historical records, which are not always easy for non-specialists to understand. This project brings NOAA observed temperatures, Polymarket signals across temperature ranges and historical outcomes into a shared visualization, showing which outcome the market currently favors, whether expectations are concentrated and how past market judgments differed from actual weather.</p>
+              <p data-copy-zh="这种设计并不是为了让用户学习复杂的气象学或金融知识，而是降低理解天气不确定性的门槛，让风险信息从专业数据转化为普通人能够阅读、比较和讨论的公共信息。">The design is not intended to teach complex meteorology or finance. It lowers the barrier to understanding weather uncertainty, transforming specialist risk data into public information that ordinary people can read, compare and discuss.</p>
+              </div>
+            </details>
+          </article>
+          <article>
+            <h3 data-copy-zh="SDG 13.1 · 为变化做好准备">SDG 13.1 · Prepare for changing conditions</h3>
+            <p data-copy-zh="让日常安排更能应对天气变化，与增强适应能力的目标相呼应。实际效果需要在具体地点和使用场景中评估。">More adaptable everyday plans align with resilience and adaptive capacity. Their effects need evaluation in specific places and uses.</p>
+            <details class="story-details" id="sdg-preparation-details">
+              <summary data-copy-zh="点击展开详细说明">Expand the explanation</summary>
+              <div class="story-details-body">
+              <p data-copy-zh="本项目与 SDG 13.1 的联系，则体现在帮助用户把对天气不确定性的理解转化为更充分的准备。">The project's connection to SDG 13.1 lies in helping users turn their understanding of weather uncertainty into better preparation.</p>
+              <p data-copy-zh="对依赖天气条件的活动来说，真正重要的并不只是知道一个“明天多少度”的数字，而是提前了解可能出现的天气范围以及判断本身有多大不确定性。例如，户外出行、食品晾晒、临水旅游和小型经营活动都可能根据天气变化调整时间、规模或准备方式。">For weather-dependent activities, what matters is not merely a number for tomorrow's temperature, but knowing the range of possible conditions and the uncertainty of those expectations in advance. Outdoor travel, food drying, waterside tourism and small businesses may adjust their timing, scale or preparation as weather conditions change.</p>
+              <p data-copy-zh="通过将预测信号、分布和历史结果进行直观比较，本项目希望给用户留下更多提前调整的空间，而不是在天气发生后再被动应对。系统本身不替用户作决定，也不把 prediction market 当作官方预报的替代，而是提供一个额外的信息层，帮助用户更有依据地理解风险并安排下一步行动。">By making forecast signals, distributions and historical outcomes easy to compare, this project aims to give users more room to adjust beforehand instead of reacting only after the weather arrives. The system does not decide for users or treat prediction markets as a replacement for official forecasts. It provides an additional information layer to help users understand risk and plan their next steps on a more informed basis.</p>
+              </div>
+            </details>
+          </article>
+        </div>
+        <a href="https://sdgs.un.org/goals/goal13" target="_blank" rel="noopener noreferrer" data-copy-zh="查看联合国 SDG 13 的目标原文 →">Read the UN's SDG 13 targets →</a>
+      </div>
+    </section>
+  </main>
+  <details class="research-appendix">
+    <summary data-copy-zh="更多图表：预测快照、逐日对照与数据说明 · 模拟数据">More charts: forecast snapshot, daily comparison, and methods · simulated data</summary>
   <div class="proto-strip">
     <div class="wrap">
       <span class="proto-dot"></span>
       <strong>Research prototype.</strong>
       Market and weather values are illustrative placeholders in the format of Polymarket daily-temperature markets. Activity data is simulated.
-      <a href="#s07">Read the limitations →</a>
+      <a href="#s06">Read the limitations →</a>
       <a href="../signals/index.html">Verified market vs. observation data: Chapter 02 →</a>
     </div>
   </div>
 
   <header class="statebar" id="statebar">
     <div class="wrap statebar-inner">
-      <a class="brand" href="#s01">NOMADCAST</a>
+      <a class="brand" href="#s01">Weatherbridge</a>
       <nav class="secnav" aria-label="Sections">
         <a href="#s01"><span>01</span>Market</a>
-        <a href="#s02"><span>02</span>Network</a>
-        <a href="#s03"><span>03</span>Similar days</a>
-        <a href="#s04"><span>04</span>City</a>
-        <a href="#s05"><span>05</span>Hedgers</a>
-        <a href="#s06"><span>06</span>Simulation</a>
-        <a href="#s07"><span>07</span>Evidence</a>
+        <a href="#s02"><span>02</span>Reality</a>
+        <a href="#s03"><span>03</span>Place</a>
+        <a href="#s04"><span>04</span>Network</a>
+        <a href="#s06"><span>06</span>Evidence</a>
       </nav>
       <div class="state-chips" id="state-chips" aria-live="polite"></div>
       <button class="btn-reset" id="btn-reset" type="button">Reset filters</button>
@@ -61,9 +219,6 @@
               <span class="select-wrap">
                 <select id="sel-location">
                   <option value="mxc" selected>Mexico City</option>
-                  <option disabled>Lisbon — no data yet</option>
-                  <option disabled>Medellín — no data yet</option>
-                  <option disabled>Chiang Mai — no data yet</option>
                 </select>
               </span>
             </label>
@@ -74,9 +229,11 @@
           </div>
 
           <ol class="flow" aria-label="How to read this page">
-            <li><span>My day</span></li>
-            <li><span>My city</span></li>
-            <li><span>Going further: hedging</span></li>
+            <li><span>Market expectation</span></li>
+            <li><span>Actual weather</span></li>
+            <li><span>Place + activity context</span></li>
+            <li><span>Historical evidence</span></li>
+            <li class="flow-you"><span>Your interpretation</span></li>
           </ol>
         </div>
 
@@ -97,90 +254,38 @@
       </div>
     </section>
 
-    <!-- PART A · PERSONAL LIFE -->
-    <div class="part-break" id="part-personal">
-      <div class="wrap">
-        <p class="part-kicker">Part A · Personal life</p>
-        <p class="part-title">First, what the weather could mean for one person’s day.</p>
-      </div>
-    </div>
-
-    <!-- 02 NETWORK -->
+    <!-- 02 PREDICTION VS REALITY -->
     <section class="sec" id="s02">
       <div class="wrap">
         <header class="sec-head grid">
           <div class="sec-num">02</div>
           <div class="sec-titles">
-            <p class="eyebrow">Weather × activity · Network visualization</p>
-            <h2>How are weather conditions and everyday activities connected?</h2>
-            <p class="dek">A bipartite network of observed co-occurrence. A link appears when an activity’s average level on days with that condition is at least 5% above its average across all days. <strong>Hover</strong> to trace connections; <strong>click</strong> to filter the other views.</p>
+            <p class="eyebrow">Prediction vs reality · Interactive visualization</p>
+            <h2>What did the market expect — and what actually happened?</h2>
+            <p class="dek">Each column is one day. The shaded band shows the range the market priced highest; the dot shows the maximum temperature the settlement station recorded. <strong>Click any day</strong> to set it as the focus for every view below.</p>
           </div>
           <div class="sec-meta">
-            <div class="data-tags"><span class="tag tag-obs">Observed</span><span class="tag tag-inf">Inferred</span></div>
+            <div class="data-tags"><span class="tag tag-market">Market-implied</span><span class="tag tag-obs">Observed</span></div>
+            <div class="toggle" role="group" aria-label="Timeline encoding" id="tl-toggle">
+              <button type="button" data-mode="mode" class="on">Most likely range</button>
+              <button type="button" data-mode="dist">Full probability distribution</button>
+            </div>
           </div>
         </header>
-        <div class="network" id="network"></div>
-        <div class="net-foot">
-          <div class="net-legend" id="net-legend"></div>
-          <p class="claim">Connection strength represents observed association, not causation.</p>
-        </div>
+        <div class="timeline" id="timeline"></div>
+        <div class="tl-readout" id="tl-readout"></div>
       </div>
     </section>
 
-    <!-- 03 SIMILAR DAYS -->
+    <!-- 03 PLACE -->
     <section class="sec" id="s03">
       <div class="wrap">
         <header class="sec-head grid">
           <div class="sec-num">03</div>
           <div class="sec-titles">
-            <p class="eyebrow">Similar days · Advanced visualization with a simple baseline</p>
-            <h2>What happened on similar days?</h2>
-            <p class="dek">We match past days whose <em>observed</em> weather resembles the selected day’s expected weather, then show what activity looked like on each of them. Click a column to inspect that day.</p>
-          </div>
-          <div class="sec-meta">
-            <div class="data-tags"><span class="tag tag-inf">Inferred match</span><span class="tag tag-obs">Observed activity</span></div>
-          </div>
-        </header>
-
-        <div class="sim-target" id="sim-target"></div>
-
-        <div class="grid sim-grid">
-          <div class="sim-heat-col">
-            <div class="sim-heat-head">
-              <p class="sim-count" id="sim-count"></p>
-              <button class="btn-link" id="btn-all-similar" type="button">View all similar days</button>
-            </div>
-            <div class="heatmap" id="heatmap"></div>
-            <div class="heat-legend" id="heat-legend"></div>
-          </div>
-          <div class="sim-bars-col">
-            <p class="side-kicker">Simple comparison</p>
-            <h3 class="bars-title">Average activity across similar days</h3>
-            <p class="bars-sub" id="bars-sub"></p>
-            <div class="bars" id="bars"></div>
-            <p class="fineprint">Bars are means over non-missing cells; the thin tick is the mean over all observed days. Differences on 8 days are small-sample and unstable.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PART B · CITY LIFE -->
-    <div class="part-break" id="part-city">
-      <div class="wrap">
-        <p class="part-kicker">Part B · City life</p>
-        <p class="part-title">Then, what the same weather means for a city and the businesses in it.</p>
-      </div>
-    </div>
-
-    <!-- 04 PLACE + INDUSTRIES -->
-    <section class="sec" id="s04">
-      <div class="wrap">
-        <header class="sec-head grid">
-          <div class="sec-num">04</div>
-          <div class="sec-titles">
-            <p class="eyebrow">Place · Spatiotemporal visualization</p>
-            <h2>Where might weather matter in the city?</h2>
-            <p class="dek">Weather-sensitive places digital nomads use, sized by observed activity for the selected day or weather condition. The map shows <em>where</em> activity happens — not where you should go.</p>
+            <p class="eyebrow" data-copy-zh="地点 · 地图与分区对照">Places · Map and district comparison</p>
+            <h2 data-copy-zh="天气变化时，活动发生在哪里？">Where does activity happen as weather changes?</h2>
+            <p class="dek" data-copy-zh="圆点大小表示模拟活动量。选择雨天、热天等条件，对照不同地点与分区的室内外活动。">Circle size represents simulated activity. Select rainy, hot, or other conditions to compare indoor and outdoor activity across places and districts.</p>
           </div>
           <div class="sec-meta">
             <div class="data-tags"><span class="tag tag-obs">Observed</span><span class="tag tag-inf">Inferred</span><span class="tag tag-mock">Simulated</span></div>
@@ -211,104 +316,38 @@
             <p class="fineprint">Boundaries are simplified and schematic. Café and coworking locations are anonymised IDs. Public parks and museums use their real names and approximate positions.</p>
           </aside>
         </div>
-
-        <div class="ind-block">
-          <header class="ind-head">
-            <p class="side-kicker"><span class="tag tag-inf">Inferred</span> From places to industries</p>
-            <h3>Behind each kind of place is a business that carries the weather risk.</h3>
-            <p class="ind-dek">Each card compares activity on days with one weather condition against all observed days. When activity falls, the business behind it loses revenue.</p>
-          </header>
-          <div class="ind-grid" id="industries"></div>
-          <p class="fineprint">Activity levels are simulated. A change in activity is a proxy for demand, not a measured revenue loss.</p>
-        </div>
       </div>
     </section>
 
-    <!-- PART C · GOING FURTHER -->
-    <div class="part-break" id="part-further">
+    <!-- 04 NETWORK -->
+    <section class="sec" id="s04">
       <div class="wrap">
-        <p class="part-kicker">Part C · Going further</p>
-        <p class="part-title">Finally, what if people want more than a better-planned day?</p>
-      </div>
-    </div>
-
-    <!-- 05 HEDGERS -->
-    <section class="sec report" id="s05">
-      <div class="wrap">
-        <header class="rp-head grid">
-          <div class="sec-num">05</div>
-          <div class="rp-titles">
-            <p class="eyebrow">Feature · The hedgers <span class="tag tag-mock">Illustrative scenario</span></p>
-            <p class="rp-kicker">In Jinxi, people could compare different weather signals to plan their days, and the sections above do the same for one person and one city. What if someone wants to go a step further?</p>
-            <h2 class="rp-headline">A cold day costs the café. A Polymarket contract pays it back.</h2>
-            <p class="rp-dek">How a small business in Mexico City’s nomad economy could use this tool to price weather risk, buy a prediction on Polymarket, and soften the loss when the weather turns against it.</p>
+        <header class="sec-head grid">
+          <div class="sec-num">04</div>
+          <div class="sec-titles">
+            <p class="eyebrow" data-copy-zh="活动联系 · 关系网络">Activity connections · Network</p>
+            <h2 data-copy-zh="不同天气，哪些活动更常出现？">Which activities are more common in different weather?</h2>
+            <p class="dek" data-copy-zh="连线表示某种天气下，模拟活动均值比全部日期的均值高至少 5%。悬停查看联系，点击节点联动其他图表。">A link marks simulated activity averaging at least 5% above its all-day mean under a weather condition. Hover to trace connections; click a node to filter the other charts.</p>
+          </div>
+          <div class="sec-meta">
+            <div class="data-tags"><span class="tag tag-obs">Observed</span><span class="tag tag-inf">Inferred</span></div>
+            <button class="btn-reset" id="network-reset" type="button" data-copy-zh="重置筛选">Reset filters</button>
           </div>
         </header>
-
-        <div class="grid rp-body">
-          <div class="rp-story">
-            <p class="rp-lede">Marisol runs a rooftop café in Roma Norte. Most of her customers are remote workers with laptops, and they follow the sun. When a cool, wet day comes in, the terrace empties and she estimates she loses about $200 in sales.</p>
-            <p>She can’t change the weather, but she can take the other side of it. Polymarket lists a daily market on Mexico City’s maximum temperature, split into 2°C ranges. Each “Yes” share costs its market price and pays $1 if the day settles in that range. If she owns shares in the cool ranges, the market pays her on exactly the days her terrace is quiet.</p>
-            <p>The idea isn’t hers. In Los Angeles, the owners of the ice cream shop 28 Wishes told reporters they put about $20 a day into weather contracts on Kalshi because sales drop about 20% below 70°F. They said the payouts covered up to 43% of their rent in a good month (<a href="https://nypost.com/2026/07/16/lifestyle/california-ice-cream-shop-owner-bets-on-weather-to-help-pay-rent/" target="_blank" rel="noopener">New York Post, July 16, 2026 ↗</a>).</p>
-            <blockquote class="rp-quote">“People don’t come into the shop when it’s cold, and they don’t come in when it’s raining. So we wanted a way to make money on those days.”<cite>Jason Jiang, 28 Wishes, Los Angeles · real quote</cite></blockquote>
-            <p>What Marisol needs before buying is what this chapter provides: what the market is charging, whether its prices have held up against the real weather, and how much a day like this has actually cost places like hers.</p>
-          </div>
-
-          <aside class="rp-side">
-            <figure class="rp-fig">
-              <figcaption class="side-kicker">Her four checks</figcaption>
-              <ol class="rp-steps">
-                <li><a href="#s01"><span>01</span>Price the risk</a><p>Tomorrow, the cool 24–25°C range trades at 18%, so one Yes share costs about $0.18.</p></li>
-                <li><a href="../signals/index.html"><span>02</span>Check the price is fair</a><p>How often did the market’s favourite come true? Chapter 02’s accuracy trend tracks it day by day.</p></li>
-                <li><a href="#s03"><span>03</span>Size the loss</a><p>On similar cool, wet days, how far did rooftop and park activity fall?</p></li>
-                <li><a href="#s06"><span>04</span>Run the numbers</a><p>Try her case in the simulation below before buying anything on Polymarket.</p></li>
-              </ol>
-            </figure>
-          </aside>
-        </div>
-
-        <div class="grid rp-foot">
-          <div class="rp-bridge">
-            <h3>Why a hedger reads this differently</h3>
-            <p>A trader wants to beat the market. A hedger only needs the price to be roughly fair and the market to settle against the real weather. The contract’s losses land on good days, when the business earns them back. That is why the calibration check in <a href="../signals/index.html">Chapter 02</a> matters more to Marisol than any single forecast.</p>
-          </div>
-          <div class="rp-limits">
-            <h3>Limits of this scenario</h3>
-            <ul>
-              <li>Marisol and her café are invented. The market prices are this page’s mock values, and the $200 loss is an assumption.</li>
-              <li>A temperature contract doesn’t cover rain. A cool day that settles at 22–23°C falls outside the range she bought.</li>
-              <li>Markets settle on one station (MMMX), which may differ from the weather on her street.</li>
-              <li>The 28 Wishes figures are self-reported and unaudited, and they come from Kalshi, not Polymarket.</li>
-              <li>This illustrates a mechanism. It is not financial advice, and prediction-market access depends on local law.</li>
-            </ul>
-          </div>
+        <div class="network" id="network"></div>
+        <div class="net-foot">
+          <div class="net-legend" id="net-legend"></div>
+          <p class="claim" data-copy-zh="连线展示模拟数据中的共同变化，不表示天气造成了该变化。">Links show co-variation in simulated data, not a causal weather effect.</p>
         </div>
       </div>
     </section>
 
-    <!-- 06 SIMULATION -->
-    <section class="sec" id="s06">
+
+    <!-- 06 EVIDENCE -->
+    <section class="sec evidence" id="s06">
       <div class="wrap">
         <header class="sec-head grid">
           <div class="sec-num">06</div>
-          <div class="sec-titles">
-            <p class="eyebrow">Simulation · Hedging a weather loss</p>
-            <h2>What does a bad-weather day cost a shop owner, with and without a hedge?</h2>
-            <p class="dek">Pick a business and the weather that hurts it. Set a normal day’s revenue, how much bad weather takes away, the Polymarket price of that weather, and how much to spend on contracts. The simulation compares costs and final results.</p>
-          </div>
-          <div class="sec-meta">
-            <div class="data-tags"><span class="tag tag-market">Market-implied</span><span class="tag tag-mock">Simulated</span></div>
-          </div>
-        </header>
-        <div class="hedge" id="hedge"></div>
-      </div>
-    </section>
-
-    <!-- 07 EVIDENCE -->
-    <section class="sec evidence" id="s07">
-      <div class="wrap">
-        <header class="sec-head grid">
-          <div class="sec-num">07</div>
           <div class="sec-titles">
             <p class="eyebrow">Evidence · Data · Limitations</p>
             <h2>How do we know?</h2>
@@ -335,7 +374,17 @@
           <div><dt>Methodology</dt><dd><a href="#ev-D">Data transformations (D)</a></dd></div>
           <div><dt>Known issues</dt><dd>3 days without station observation · 1 day without a listed market · 1 day without activity data · rain probability comes from a forecast model, not a market</dd></div>
         </dl>
-        <p class="endnote">NomadCast · InfoVis course project, 2026. Built to support interpretation, not to make decisions for you.</p>
+        <p class="endnote">Weather &amp; daily life · InfoVis course project, 2026. Built to support interpretation, not to make decisions for you.</p>
+      </div>
+    </section>
+    <section class="story-block" id="climate-adaptation">
+      <div class="wrap">
+        <h2 data-copy-zh="从信息理解到气候适应">From understanding information to climate adaptation</h2>
+        <div class="story-grid">
+          <article><h3 data-copy-zh="SDG 13.3 · 理解风险信息">SDG 13.3 · Understand risk information</h3><p data-copy-zh="用清楚的可视化帮助人们理解天气不确定性，与提高气候风险意识和能力的目标相呼应。这是项目的设计方向。">Clear visualizations of weather uncertainty align with awareness and capacity building. This is the project's design intention.</p></article>
+          <article><h3 data-copy-zh="SDG 13.1 · 为变化做好准备">SDG 13.1 · Prepare for changing conditions</h3><p data-copy-zh="让日常安排更能应对天气变化，与增强适应能力的目标相呼应。实际效果需要在具体地点和使用场景中评估。">More adaptable everyday plans align with resilience and adaptive capacity. Their effects need evaluation in specific places and uses.</p></article>
+        </div>
+        <a href="https://sdgs.un.org/goals/goal13" target="_blank" rel="noopener noreferrer" data-copy-zh="查看联合国 SDG 13 的目标原文 →">Read the UN's SDG 13 targets →</a>
       </div>
     </section>
   </main>
@@ -344,6 +393,8 @@
   <div class="scrim" id="scrim"></div>
   <div class="tooltip" id="tooltip" role="tooltip"></div>
 
+  </details>
   <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/ui-theme.js"></script>
 </body>
 </html>

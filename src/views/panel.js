@@ -1,6 +1,5 @@
 import { ACTIVITIES, BINS, BASELINE, dayByDate, fmtDate, modeBin, binOfTemp, completeness, weatherById } from '../data.js';
 import { subscribe, setState } from '../state.js';
-import { currentSimilar } from './similar.js';
 
 export function initPanel() {
   const panel = document.getElementById('panel');
@@ -24,8 +23,6 @@ export function initPanel() {
 }
 
 function render(root, d, s) {
-  const sim = currentSimilar(s).results;
-  const rank = sim.findIndex((r) => r.day.date === d.date);
   const top = modeBin(d);
   const hit = binOfTemp(d.actual);
   const comp = completeness(d);
@@ -34,7 +31,6 @@ function render(root, d, s) {
     <button class="p-close" type="button" aria-label="Close">×</button>
     <p class="p-kicker">Historical day record</p>
     <h3 class="p-date">${fmtDate(d.date, { weekday: 'long', month: 'long', day: 'numeric' })}</h3>
-    <p class="p-sim">${rank >= 0 ? `Similarity ${sim[rank].sim.toFixed(2)} · rank ${rank + 1} of ${sim.length} similar days` : 'Not in the current similar-day set'}</p>
 
     <div class="p-sec">
       <h4>Prediction-market probabilities <span class="tag tag-market">Market</span></h4>

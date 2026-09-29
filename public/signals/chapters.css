@@ -30,3 +30,10 @@
   .cb-list a small, .cb-brand { display: none; }
   .cb-list { margin: 0; }
 }
+@media (max-width: 600px) {
+  .chapterbar-inner { flex-wrap: wrap; height: auto; gap: 4px; padding-block: 8px; }
+  .cb-brand { display: block; }
+  .cb-list { width: 100%; height: auto; gap: 0; }
+  .cb-list li { flex: 1; min-width: 0; }
+  .cb-list a { padding: 6px; min-height: 44px; white-space: normal; line-height: 1.35; gap: 5px; font-size: 13px; }
+}

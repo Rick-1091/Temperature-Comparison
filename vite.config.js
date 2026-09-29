@@ -11,6 +11,7 @@ export default defineConfig({
       input: {
         origin: page('./index.html'),
         nomadcast: page('./nomadcast/index.html'),
+        weatherGuide: page('./nomadcast/weather-guide.html'),
       },
     },
   },

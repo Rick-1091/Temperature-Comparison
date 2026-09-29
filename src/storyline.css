@@ -1,0 +1,92 @@
+.story-block { padding: 64px 0; border-top: 1px solid var(--rule); }
+.story-block h1 { max-width: 18ch; font-size: clamp(36px, 5vw, 64px); line-height: 1.18; margin: 0 0 24px; }
+.story-block h2 { font-size: clamp(28px, 3.3vw, 42px); line-height: 1.25; margin: 0 0 20px; }
+.story-block h3 { font: 600 22px/1.4 var(--sans); margin: 0 0 12px; }
+.story-block p { max-width: 65ch; font: 400 18px/1.7 var(--sans); color: var(--ink-2); margin: 0 0 20px; text-wrap: pretty; }
+.story-block a, .research-appendix summary { color: var(--rain); text-underline-offset: 4px; }
+.story-block a { display: inline-flex; align-items: center; min-height: 44px; }
+.story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 32px; }
+.story-grid article { padding-top: 24px; border-top: 1px solid var(--rule); }
+.equity-intro { padding-block: 24px 32px; border-top: 1px solid var(--rule); }
+.story-details > summary, .activity-fold > summary { min-height: 44px; display: flex; align-items: center; gap: 12px; color: var(--rain); font: 600 16px/1.5 var(--sans); cursor: pointer; list-style: none; }
+.story-details > summary::-webkit-details-marker, .activity-fold > summary::-webkit-details-marker { display: none; }
+.story-details > summary::before, .activity-fold > summary::before { content: '+'; font-size: 22px; }
+.story-details[open] > summary::before, .activity-fold[open] > summary::before { content: '−'; }
+.story-details > summary:focus-visible, .activity-fold > summary:focus-visible { outline: 2px solid var(--rain); outline-offset: 4px; }
+.story-details-body { padding-top: 16px; }
+.story-details-body p:last-child { margin-bottom: 0; }
+.story-block .sdg-section-title { margin-top: 24px; }
+#climate-adaptation .story-grid { margin-top: 20px; margin-bottom: 24px; align-items: start; }
+.story-block .story-note { font-size: 15px; color: var(--ink-2); }
+.guide-scope-note .story-note { margin-bottom: 4px; }
+.guide-signal { margin: 24px 0; padding-left: 24px; border-left: 3px solid var(--ink-2); }
+.guide-signal p { margin: 0; }
+.story-flow { display: flex; flex-wrap: wrap; gap: 16px; padding: 24px 0; margin: 20px 0; border-block: 1px solid var(--rule); font: 500 18px/1.6 var(--sans); }
+.story-flow span:not(:last-child)::after { content: '→'; margin-left: 16px; color: var(--warm); }
+.research-appendix { border-top: 1px solid var(--rule); }
+.research-appendix > summary { padding: 24px max(24px, calc((100vw - 1296px) / 2)); font: 500 18px/1.5 var(--sans); cursor: pointer; }
+.research-appendix > .statebar { position: static; }
+.impact-intro { padding-bottom: 32px; }
+.scenario-heading { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 28px; margin-bottom: 32px; align-items: start; }
+.scenario-number { color: var(--warm); font: 400 64px/1.1 var(--sans); }
+.scenario-heading h1, .scenario-heading h2 { max-width: none; font-size: clamp(28px, 3.3vw, 42px); margin-bottom: 0; }
+.scenario-heading .eyebrow { color: var(--warm); font-size: 14px; margin: 0 0 16px; }
+.scenario-body { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 56px; }
+.scenario-context, .scenario-question { padding-top: 24px; border-top: 1px solid var(--rule); }
+.story-block a.scenario-next { display: flex; gap: 20px; width: fit-content; margin-top: 16px; text-decoration: none; }
+#business-report { padding-bottom: 24px; }
+#business-report .guide-entry-layout { margin-bottom: 32px; align-items: start; }
+#weather-impact { padding-top: 32px; }
+#weather-impact > .wrap { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); gap: 0 40px; }
+#weather-impact .scenario-heading { grid-column: 1 / -1; }
+#weather-impact .scenario-body { grid-column: 1; display: block; }
+#weather-impact .scenario-context { margin-top: 28px; }
+.cafe-portrait { grid-column: 2; grid-row: 2; margin: 0; align-self: start; }
+.cafe-portrait img { display: block; width: 100%; height: auto; }
+.cafe-portrait figcaption { color: var(--ink-2); font: 400 14px/1.6 var(--sans); margin-top: 12px; }
+.guide-entry-layout { display: grid; grid-template-columns: minmax(0,1.6fr) minmax(0,1fr); gap: 40px; align-items: center; }
+.guide-entry-image { margin: 0; }
+.guide-entry-image img { display: block; width: 100%; height: auto; }
+.guide-entry-image figcaption { margin-top: 12px; font: 400 14px/1.6 var(--sans); color: var(--ink-2); }
+.story-block .guide-entry-image .image-note { margin: 4px 0 0; font: 400 12px/1.6 var(--sans); color: var(--ink-2); }
+@media(max-width:700px) { .guide-entry-layout { grid-template-columns: 1fr; gap: 24px; } .guide-entry-image { max-width: 440px; } }
+#weather-impact .case-actions, #weather-impact .story-flow, #weather-impact > .wrap > p, #weather-impact .impact-links, #impact-controls { grid-column: 1 / -1; }
+@media (max-width:700px) { #weather-impact > .wrap { grid-template-columns: 1fr; } .cafe-portrait { grid-column: 1; grid-row: auto; margin: 20px 0; max-width: 440px; } }
+@media (max-width: 700px) { .scenario-heading { grid-template-columns: 48px minmax(0,1fr); gap: 16px; } .scenario-number { font-size: 42px; } .scenario-body { grid-template-columns: 1fr; gap: 24px; } }
+.impact-links { display: flex; flex-wrap: wrap; gap: 12px 32px; }
+.case-actions { margin: 24px 0; padding-top: 16px; border-top: 1px solid var(--rule); }
+.activity-guide { grid-column: 1 / -1; margin-top: 32px; padding-block: 28px; border-block: 1px solid var(--rule); }
+.activity-steps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 32px; }
+.activity-fold { border-block: 1px solid var(--rule); }
+.activity-fold > summary { padding: 10px max(24px,calc((100vw - 1296px)/2)); }
+.activity-fold > summary:hover { background: var(--bg-2); }
+.story-block .activity-steps a { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; padding-block: 12px; }
+.activity-steps b { color: var(--rain); font-size: 20px; }
+.activity-steps span { font-size: 16px; line-height: 1.7; color: var(--ink-2); }
+.forecast-entry { margin-top: 16px; font-size: 15px; }
+@media(max-width:700px) { .activity-steps { grid-template-columns: 1fr; gap: 8px; } }
+#impact-controls .hero-controls { margin-top: 16px; gap: 16px 24px; align-items: flex-end; }
+#impact-controls .ctl select { font-size: 24px; min-height: 44px; padding-bottom: 6px; }
+#impact-controls .btn-reset { min-height: 44px; padding: 10px 16px; }
+#impact-controls .chart-palette { position: relative; margin: 0; }
+#impact-controls .chart-palette summary { min-height: 44px; padding: 10px 16px; border: 1px solid var(--rule); }
+#impact-controls .palette-fields { position: absolute; right: 0; top: calc(100% + 8px); z-index: 20; width: min(480px, calc(100vw - 48px)); box-sizing: border-box; background: var(--bg); border: 1px solid var(--rule); }
+@media (max-width: 700px) {
+  #impact-controls .hero-controls { gap: 16px; }
+  #impact-controls .palette-fields { position: static; margin-top: 8px; }
+}
+#impact-charts .sec-num { display: none; }
+#impact-charts .sec-head { grid-template-columns: 1fr auto; }
+#impact-charts .sec-titles { grid-column: 1; }
+#impact-charts #s03 .sec-titles .dek { max-width: none; }
+#impact-charts .sec-meta { grid-column: 2; }
+#impact-charts .sec { scroll-margin-top: 80px; }
+#impact-charts .heatmap { min-width: 0; max-width: 100%; overflow-x: auto; }
+#impact-charts .sim-heat-col { min-width: 0; }
+#impact-charts .heatmap svg { overflow: hidden; }
+@media (max-width: 700px) {
+  #impact-charts .sec-head { grid-template-columns: 1fr; }
+  #impact-charts .sec-meta { grid-column: 1; align-items: flex-start; }
+  .impact-links { flex-direction: column; gap: 4px; }
+}
+@media (max-width: 700px) { .story-grid { grid-template-columns: 1fr; gap: 24px; } .story-block { padding: 40px 0; } }
