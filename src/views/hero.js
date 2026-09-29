@@ -11,7 +11,7 @@ export function initHero() {
   const root = document.getElementById('market');
   subscribe((s) => {
     sel.value = s.date;
-    render(root, dayByDate[s.date]);
+    if (root) render(root, dayByDate[s.date]);
   });
 }
 

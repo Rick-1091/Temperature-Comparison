@@ -1,5 +1,6 @@
 @font-face{font-family:"Site Plex";src:url("signals/fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:"Site Plex";src:url("signals/fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2");font-weight:500 800;font-display:swap}
+@font-face{font-family:"Site Plex";src:url("signals/fonts/ibm-plex-sans-latin-500-normal.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Site Plex";src:url("signals/fonts/ibm-plex-sans-latin-600-normal.woff2") format("woff2");font-weight:600;font-display:swap}
 html.site-unified{--sans:"Site Plex","Microsoft YaHei","PingFang SC",system-ui,sans-serif;--serif:var(--sans);--ink:#233b39;--ink-2:#4e6260;--ink-3:#697c79;--muted:#5d726e;--rain:#346d86;--warm:#af542e;--text-heading:#235b58;--text-subheading:#346d86;--text-accent:#af542e;--actual:#167c77;--market:#d85b3b;--chart-primary:#167c77;--chart-secondary:#d85b3b}
 .site-unified body,.site-unified button,.site-unified input,.site-unified select,.site-unified .chapterbar{font-family:var(--sans)}
 .site-unified .cb-brand,.site-unified .statebar .brand { display: inline-flex; align-items: center; gap: 10px; letter-spacing: 0; text-transform: none; flex-shrink: 0; }

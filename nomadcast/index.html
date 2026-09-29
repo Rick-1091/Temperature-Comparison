@@ -23,7 +23,7 @@
     <section class="story-block">
       <div class="wrap">
         <header class="scenario-heading"><div class="scenario-number" aria-hidden="true">01</div><div>
-          <p class="eyebrow" data-copy-zh="非洲 · 马拉维 · 基于真实背景的模拟家庭">Africa · Malawi · A simulated household grounded in regional context</p>
+          <p class="eyebrow" data-copy-zh="非洲 · 马拉维 · 模拟家庭">Africa · Malawi · Simulated household</p>
           <h1 data-copy-zh="托科：雨还没来，今天可以先准备什么？">Thoko: before the rain arrives, what can the family prepare?</h1>
         </div></header>
         <p data-copy-zh="托科家的玉米还铺在院子里。天色变了，他想知道雨什么时候可能来，今天还能晒多久，收粮的袋子和屋里的空地要不要先准备好。">Thoko’s maize is still spread out in the yard. As the sky changes, he wants to know when rain might arrive, how much drying time remains, and whether to prepare sacks and clear space indoors.</p>
@@ -107,7 +107,22 @@
         </div>
         <p class="story-note"><span data-copy-zh="下方天气、市场价格和活动量仍为模拟数据。">Weather, market prices and activity below remain simulated.</span><br><span data-copy-zh="第二页另行展示同日期的 NOAA METAR 观测与 Polymarket 历史报价，不与模拟活动量合并计算命中率。">Chapter 02 separately compares same-date NOAA METAR observations and historical Polymarket quotes; simulated activity is not used to calculate hit rates.</span></p>
         <a href="../signals/index.html?location=mexico#professional" data-copy-zh="查看墨西哥城预测与观测对照 →">View Mexico City forecasts and observations →</a>
-        <div id="impact-controls"></div>
+        <div id="impact-controls">          <div class="hero-controls">
+            <label class="ctl">
+              <span class="ctl-label">Location</span>
+              <span class="select-wrap">
+                <select id="sel-location">
+                  <option value="mxc" selected>Mexico City</option>
+                </select>
+              </span>
+            </label>
+            <label class="ctl">
+              <span class="ctl-label">Date</span>
+              <span class="select-wrap"><select id="sel-date"></select></span>
+            </label>
+          </div>
+
+<button class="btn-reset" id="btn-reset" type="button" data-copy-zh="重置筛选">Reset filters</button></div>
       </div>
     </section>
     <div id="impact-charts"></div>
@@ -115,7 +130,7 @@
       <div class="wrap">
         <header class="scenario-heading"><div class="scenario-number" aria-hidden="true">03</div><div>
         <p class="eyebrow" data-copy-zh="从提前安排，到经营风险应对">From preparation to managing business risk</p>
-        <h2 data-copy-zh="看懂天气变化，让咖啡馆提前做好安排">Understand changing weather, and help the café plan ahead</h2>
+        <h2 data-copy-zh="看懂天气变化，让咖啡馆提前做好安排">Understand changing weather and help a small business plan ahead</h2>
         </div></header>
         <p data-copy-zh="回到迭戈在墨西哥城经营的帕蒂奥咖啡馆：借助我们的可视化工具，迭戈可以查看可能的温度范围、判断有多集中，以及过去预测与实测的差距，再结合官方预报安排座位、人员和备货。">Returning to Diego’s Café Patio in Mexico City: our visualization could help Diego read likely temperature ranges, see how concentrated expectations are, and compare past forecasts with observations, then use official forecasts to plan seating, staffing, and supplies.</p>
         <div class="story-grid">
@@ -175,108 +190,42 @@
         <a href="https://sdgs.un.org/goals/goal13" target="_blank" rel="noopener noreferrer" data-copy-zh="查看联合国 SDG 13 的目标原文 →">Read the UN's SDG 13 targets →</a>
       </div>
     </section>
+
+    <section class="story-block" id="s05">
+      <div class="wrap">
+        <header class="scenario-heading"><div class="scenario-number" aria-hidden="true">05</div><div>
+          <h2 data-copy-zh="数据来源展示">Data sources</h2>
+        </div></header>
+        <p data-copy-zh="真实观测、市场报价与模拟情景分别来自哪里？在这里查看来源与原始记录。">See where observations, market quotes and simulated scenarios come from, with links to the underlying records.</p>
+        <div class="story-grid">
+          <article>
+            <h3 data-copy-zh="一、实际气温 · NOAA">1. Observed temperature · NOAA</h3>
+            <p data-copy-zh="第二页的纽约与墨西哥城气温来自 NOAA 航空气象中心的机场 METAR 观测，站点分别为 KLGA 与 MMMX。两地均按当地自然日取最高报告温度，不等同于市场最终结算值。">Chapter 02 uses airport METAR observations from NOAA's Aviation Weather Center: KLGA for New York and MMMX for Mexico City. Both use the highest reported temperature within the local calendar day, which may differ from the market settlement value.</p>
+            <a href="../signals/data/laguardia-unified.json" target="_blank" rel="noopener" data-copy-zh="查看纽约原始记录 →">View New York records →</a><br>
+            <a href="../signals/data/mexico-unified.json" target="_blank" rel="noopener" data-copy-zh="查看墨西哥城原始记录 →">View Mexico City records →</a>
+          </article>
+          <article>
+            <h3 data-copy-zh="二、市场报价 · Polymarket">2. Market quotes · Polymarket</h3>
+            <p data-copy-zh="第二页的温度区间来自 Polymarket 每日天气市场，历史价格来自其 CLOB 报价记录。使用当地当天开始前的报价；每个日期对应的市场链接与采集时间，可在第二页“数据来源”中查看。">Chapter 02 takes temperature ranges from daily Polymarket weather markets and historical quotes from its CLOB records. Quotes precede the start of each local day. Open Data sources in Chapter 02 for each date's market link and collection details.</p>
+            <a href="../signals/index.html?location=laguardia#professional" data-copy-zh="查看纽约数据与来源 →">View New York data and sources →</a><br>
+            <a href="../signals/index.html?location=mexico#professional" data-copy-zh="查看墨西哥城数据与来源 →">View Mexico City data and sources →</a>
+          </article>
+          <article>
+            <h3 data-copy-zh="三、活动地图与关系图 · 模拟数据">3. Activity maps and networks · Simulated data</h3>
+            <p data-copy-zh="本页的天气、市场价格与活动量为本地生成的模拟数据，用于演示交互。地图采用简化位置，咖啡馆与经营故事为虚构，不代表真实客流、收入或因果关系，也不参与第二页命中率计算。">This page uses locally generated weather, market and activity data to demonstrate interactions. Locations are schematic and the café story is fictional. These are not measured visits, revenue or causal effects, and are not used in Chapter 02's hit rates.</p>
+            <a href="https://github.com/Rick-1091/Temperature-Comparison/blob/main/src/data.js" target="_blank" rel="noopener" data-copy-zh="查看模拟数据代码 →">View simulation code →</a>
+          </article>
+          <article>
+            <h3 data-copy-zh="四、案例与目标 · 原始资料">4. Case study and goals · Original sources</h3>
+            <p data-copy-zh="28wishes 冰淇淋店案例来自《纽约邮报》报道，使用的平台为 Kalshi；气候适应目标对应联合国 SDG 13.1 与 13.3。">The 28wishes case comes from a New York Post report and uses Kalshi. The climate-adaptation goals refer to UN SDG 13.1 and 13.3.</p>
+            <a href="https://nypost.com/2026/07/16/lifestyle/california-ice-cream-shop-owner-bets-on-weather-to-help-pay-rent/" target="_blank" rel="noopener" data-copy-zh="阅读冰淇淋店原报道 →">Read the original case report →</a><br>
+            <a href="https://sdgs.un.org/goals/goal13" target="_blank" rel="noopener" data-copy-zh="查看联合国 SDG 13 →">View UN SDG 13 →</a>
+          </article>
+        </div>
+      </div>
+    </section>
   </main>
-  <details class="research-appendix">
-    <summary data-copy-zh="更多图表：预测快照、逐日对照与数据说明 · 模拟数据">More charts: forecast snapshot, daily comparison, and methods · simulated data</summary>
-  <div class="proto-strip">
-    <div class="wrap">
-      <span class="proto-dot"></span>
-      <strong>Research prototype.</strong>
-      Market and weather values are illustrative placeholders in the format of Polymarket daily-temperature markets. Activity data is simulated.
-      <a href="#s06">Read the limitations →</a>
-      <a href="../signals/index.html">Verified market vs. observation data: Chapter 02 →</a>
-    </div>
-  </div>
-
-  <header class="statebar" id="statebar">
-    <div class="wrap statebar-inner">
-      <a class="brand" href="#s01">Weatherbridge</a>
-      <nav class="secnav" aria-label="Sections">
-        <a href="#s01"><span>01</span>Market</a>
-        <a href="#s02"><span>02</span>Reality</a>
-        <a href="#s03"><span>03</span>Place</a>
-        <a href="#s04"><span>04</span>Network</a>
-        <a href="#s06"><span>06</span>Evidence</a>
-      </nav>
-      <div class="state-chips" id="state-chips" aria-live="polite"></div>
-      <button class="btn-reset" id="btn-reset" type="button">Reset filters</button>
-    </div>
-  </header>
-
-  <main>
-    <!-- 01 HERO -->
-    <section class="sec hero" id="s01">
-      <div class="wrap grid">
-        <div class="hero-left">
-          <p class="eyebrow"><span class="sec-idx">01</span> Market snapshot · Basic visualization</p>
-          <h1>What could tomorrow’s weather mean for your day?</h1>
-          <p class="hero-dek">Explore prediction-market expectations, actual weather, and patterns from similar days.</p>
-          <p class="tagline">From <em>“What will the weather be?”</em> to <em>“What could this weather mean for my day?”</em></p>
-
-          <div class="hero-controls">
-            <label class="ctl">
-              <span class="ctl-label">Location</span>
-              <span class="select-wrap">
-                <select id="sel-location">
-                  <option value="mxc" selected>Mexico City</option>
-                </select>
-              </span>
-            </label>
-            <label class="ctl">
-              <span class="ctl-label">Date</span>
-              <span class="select-wrap"><select id="sel-date"></select></span>
-            </label>
-          </div>
-
-          <ol class="flow" aria-label="How to read this page">
-            <li><span>Market expectation</span></li>
-            <li><span>Actual weather</span></li>
-            <li><span>Place + activity context</span></li>
-            <li><span>Historical evidence</span></li>
-            <li class="flow-you"><span>Your interpretation</span></li>
-          </ol>
-        </div>
-
-        <div class="hero-right">
-          <div class="market" id="market"></div>
-        </div>
-      </div>
-
-      <div class="wrap">
-        <div class="legend-strip">
-          <span class="legend-title">Throughout this page</span>
-          <span class="tag tag-market">Market-implied</span><span class="legend-def">a crowd’s priced expectation</span>
-          <span class="tag tag-obs">Observed</span><span class="legend-def">recorded after the fact</span>
-          <span class="tag tag-inf">Inferred</span><span class="legend-def">aggregated or matched by us</span>
-          <span class="tag tag-missing">Missing</span><span class="legend-def">shown, never filled in</span>
-          <span class="tag tag-mock">Simulated</span><span class="legend-def">prototype data</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- 02 PREDICTION VS REALITY -->
-    <section class="sec" id="s02">
-      <div class="wrap">
-        <header class="sec-head grid">
-          <div class="sec-num">02</div>
-          <div class="sec-titles">
-            <p class="eyebrow">Prediction vs reality · Interactive visualization</p>
-            <h2>What did the market expect — and what actually happened?</h2>
-            <p class="dek">Each column is one day. The shaded band shows the range the market priced highest; the dot shows the maximum temperature the settlement station recorded. <strong>Click any day</strong> to set it as the focus for every view below.</p>
-          </div>
-          <div class="sec-meta">
-            <div class="data-tags"><span class="tag tag-market">Market-implied</span><span class="tag tag-obs">Observed</span></div>
-            <div class="toggle" role="group" aria-label="Timeline encoding" id="tl-toggle">
-              <button type="button" data-mode="mode" class="on">Most likely range</button>
-              <button type="button" data-mode="dist">Full probability distribution</button>
-            </div>
-          </div>
-        </header>
-        <div class="timeline" id="timeline"></div>
-        <div class="tl-readout" id="tl-readout"></div>
-      </div>
-    </section>
-
+  <div id="activity-chart-templates" hidden>
     <!-- 03 PLACE -->
     <section class="sec" id="s03">
       <div class="wrap">
@@ -343,57 +292,10 @@
     </section>
 
 
-    <!-- 06 EVIDENCE -->
-    <section class="sec evidence" id="s06">
-      <div class="wrap">
-        <header class="sec-head grid">
-          <div class="sec-num">06</div>
-          <div class="sec-titles">
-            <p class="eyebrow">Evidence · Data · Limitations</p>
-            <h2>How do we know?</h2>
-            <p class="dek">Every number on this page traces back to one of three sources and a small set of transformations. Here is what they are, and what they cannot tell you.</p>
-          </div>
-        </header>
-
-        <div class="ev-list" id="ev-list"></div>
-
-        <div class="limits">
-          <h3>Claim boundaries</h3>
-          <ul>
-            <li><span>01</span>Market probability is not an official weather forecast.</li>
-            <li><span>02</span>Association does not imply causation.</li>
-            <li><span>03</span>Historical activity patterns do not guarantee future behavior.</li>
-            <li><span>04</span>Observed users may not represent all digital nomads.</li>
-            <li><span>05</span>Missing data is visibly marked rather than silently interpolated.</li>
-          </ul>
-        </div>
-
-        <dl class="colophon">
-          <div><dt>Data last updated</dt><dd>Sep 24, 2026 · 10:32 AM CST</dd></div>
-          <div><dt>Repository</dt><dd><a href="https://github.com/Rick-1091/Temperature-Comparison">github.com/Rick-1091/Temperature-Comparison</a></dd></div>
-          <div><dt>Methodology</dt><dd><a href="#ev-D">Data transformations (D)</a></dd></div>
-          <div><dt>Known issues</dt><dd>3 days without station observation · 1 day without a listed market · 1 day without activity data · rain probability comes from a forecast model, not a market</dd></div>
-        </dl>
-        <p class="endnote">Weather &amp; daily life · InfoVis course project, 2026. Built to support interpretation, not to make decisions for you.</p>
-      </div>
-    </section>
-    <section class="story-block" id="climate-adaptation">
-      <div class="wrap">
-        <h2 data-copy-zh="从信息理解到气候适应">From understanding information to climate adaptation</h2>
-        <div class="story-grid">
-          <article><h3 data-copy-zh="SDG 13.3 · 理解风险信息">SDG 13.3 · Understand risk information</h3><p data-copy-zh="用清楚的可视化帮助人们理解天气不确定性，与提高气候风险意识和能力的目标相呼应。这是项目的设计方向。">Clear visualizations of weather uncertainty align with awareness and capacity building. This is the project's design intention.</p></article>
-          <article><h3 data-copy-zh="SDG 13.1 · 为变化做好准备">SDG 13.1 · Prepare for changing conditions</h3><p data-copy-zh="让日常安排更能应对天气变化，与增强适应能力的目标相呼应。实际效果需要在具体地点和使用场景中评估。">More adaptable everyday plans align with resilience and adaptive capacity. Their effects need evaluation in specific places and uses.</p></article>
-        </div>
-        <a href="https://sdgs.un.org/goals/goal13" target="_blank" rel="noopener noreferrer" data-copy-zh="查看联合国 SDG 13 的目标原文 →">Read the UN's SDG 13 targets →</a>
-      </div>
-    </section>
-  </main>
-
+  </div>
   <aside class="panel" id="panel" aria-hidden="true" aria-label="Day detail"></aside>
   <div class="scrim" id="scrim"></div>
   <div class="tooltip" id="tooltip" role="tooltip"></div>
-
-  </details>
   <script type="module" src="/src/main.js"></script>
   <script type="module" src="/ui-theme.js"></script>
 </body>

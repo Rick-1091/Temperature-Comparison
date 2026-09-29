@@ -30,7 +30,7 @@
 .scenario-heading { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 28px; margin-bottom: 32px; align-items: start; }
 .scenario-number { color: var(--warm); font: 400 64px/1.1 var(--sans); }
 .scenario-heading h1, .scenario-heading h2 { max-width: none; font-size: clamp(28px, 3.3vw, 42px); margin-bottom: 0; }
-.scenario-heading .eyebrow { color: var(--warm); font-size: 14px; margin: 0 0 16px; }
+.scenario-heading .eyebrow { color: var(--warm); font-size: 14px; margin: 0 0 16px; max-width: none; }
 .scenario-body { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 56px; }
 .scenario-context, .scenario-question { padding-top: 24px; border-top: 1px solid var(--rule); }
 .story-block a.scenario-next { display: flex; gap: 20px; width: fit-content; margin-top: 16px; text-decoration: none; }
@@ -56,10 +56,27 @@
 .impact-links { display: flex; flex-wrap: wrap; gap: 12px 32px; }
 .case-actions { margin: 24px 0; padding-top: 16px; border-top: 1px solid var(--rule); }
 .activity-guide { grid-column: 1 / -1; margin-top: 32px; padding-block: 28px; border-block: 1px solid var(--rule); }
+.activity-guide > [data-language-owned] { margin-bottom: 32px; }
 .activity-steps { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 32px; }
-.activity-fold { border-block: 1px solid var(--rule); }
-.activity-fold > summary { padding: 10px max(24px,calc((100vw - 1296px)/2)); }
-.activity-fold > summary:hover { background: var(--bg-2); }
+.activity-fold { border: 0; }
+.activity-fold[open] { grid-column: 1 / -1; }
+.activity-fold > summary {
+  display: list-item; list-style: disclosure-closed inside;
+  margin: 0; padding-block: 12px;
+  color: var(--chart-primary,#167c77); font: 600 20px/1.5 var(--sans);
+}
+.activity-fold[open] > summary { list-style-type: disclosure-open; }
+.activity-fold > summary::-webkit-details-marker { display: inline; }
+.activity-fold > summary::before, .activity-fold[open] > summary::before { content: none; }
+.activity-fold > summary:hover { background: transparent; }
+.activity-fold > summary > span { display: block; margin-top: 10px; font-weight: 400; }
+.activity-fold .sec { padding-block: 32px; }
+.activity-fold .sec > .wrap { width: 100%; padding-inline: 0; }
+.activity-fold .sec-num { display: none; }
+.activity-fold .sec-head { grid-template-columns: 1fr auto; }
+.activity-fold .sec-titles { grid-column: 1; }
+.activity-fold .sec-meta { grid-column: 2; }
+@media(max-width:700px) { .activity-fold .sec-head { grid-template-columns: 1fr; } .activity-fold .sec-meta { grid-column: 1; } }
 .story-block .activity-steps a { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; text-decoration: none; padding-block: 12px; }
 .activity-steps b { color: var(--rain); font-size: 20px; }
 .activity-steps span { font-size: 16px; line-height: 1.7; color: var(--ink-2); }
@@ -71,9 +88,17 @@
 #impact-controls .chart-palette { position: relative; margin: 0; }
 #impact-controls .chart-palette summary { min-height: 44px; padding: 10px 16px; border: 1px solid var(--rule); }
 #impact-controls .palette-fields { position: absolute; right: 0; top: calc(100% + 8px); z-index: 20; width: min(480px, calc(100vw - 48px)); box-sizing: border-box; background: var(--bg); border: 1px solid var(--rule); }
+#impact-controls .palette-fields { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 12px 16px; }
+#impact-controls .palette-fields > label:first-child, #impact-controls .palette-fields > p { grid-column: 1 / -1; }
+#impact-controls .palette-fields > label { min-width: 0; }
+#impact-controls .palette-fields input[type=color] { flex-shrink: 0; }
+#impact-controls .palette-fields > button { justify-self: start; grid-column: 1 / -1; }
 @media (max-width: 700px) {
   #impact-controls .hero-controls { gap: 16px; }
   #impact-controls .palette-fields { position: static; margin-top: 8px; }
+}
+@media (max-width: 400px) {
+  #impact-controls .palette-fields > label:not(:first-child) { flex-direction: column; align-items: flex-start; }
 }
 #impact-charts .sec-num { display: none; }
 #impact-charts .sec-head { grid-template-columns: 1fr auto; }

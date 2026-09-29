@@ -156,7 +156,7 @@ function initDecisionNetwork(root, allowedPlaces, initialPlace) {
       });
     });
     const panel=document.createElement('aside');panel.className='decision-detail';panel.setAttribute('aria-live','polite');panel.setAttribute('aria-atomic','true');layout.append(panel);
-    const foot=document.createElement('p');foot.className='decision-footnote';foot.textContent=t(text('情景路径展示可能影响，不是实测损失或确定因果。市场信号需要联网，并匹配地点、日期与天气变量；它只作补充，不替代官方预报和预警。锦溪与伦菲尚未接入适用市场。','Scenario paths illustrate possible consequences, not measured losses or established causality. Markets require internet access and matching place, date and weather variable. They supplement forecasts and warnings. No relevant Jinxi or Rumphi markets are connected.'));root.append(foot);
+    const foot=document.createElement('p');foot.className='decision-footnote';foot.textContent=t(text('情景路径展示可能影响，不是实测损失或确定因果。','Scenario paths illustrate possible consequences, not measured losses or established causality.'));root.append(foot);
     update();if(focused)root.querySelector(`[data-node="${focused}"]`)?.focus();
   }
   render();

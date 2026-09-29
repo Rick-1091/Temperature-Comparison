@@ -6,14 +6,11 @@ import './site-i18n.js';
 import './decision-network.js';
 import './hedging-network.js';
 
-import { initStatebar } from './views/statebar.js';
 import { initHero } from './views/hero.js';
-import { initTimeline } from './views/timeline.js';
 import { initMap } from './views/map.js';
 import { initNetwork } from './views/network.js';
 import { initPanel } from './views/panel.js';
-import { initEvidence } from './views/evidence.js';
-import { setState } from './state.js';
+import { setState, resetFilters } from './state.js';
 import { WEATHER, CATEGORIES, categoryById, weatherById } from './data.js';
 import * as d3 from 'd3';
 
@@ -23,8 +20,9 @@ const impactCharts = document.getElementById('impact-charts');
 if (impactCharts) {
   ['s03', 's04'].forEach((id,index) => {
     const fold=document.createElement('details');fold.className='activity-fold';fold.id=`activity-fold-${index+1}`;
-    const summary=document.createElement('summary');summary.dataset.copyZh=index?'二、天气与活动关系 · 点击展开':'一、地点与活动地图 · 点击展开';summary.textContent=index?'2. Weather and activity · Expand':'1. Places and activity map · Expand';
-    fold.append(summary,document.getElementById(id));impactCharts.append(fold);
+    const entry=document.querySelector(`.activity-steps a[href="#${fold.id}"]`);
+    const summary=document.createElement('summary');summary.append(entry.querySelector('b'),entry.querySelector('span'));
+    fold.append(summary,document.getElementById(id));entry.replaceWith(fold);
   });
   impactCharts.nextElementSibling.after(document.getElementById('business-report'));
   document.querySelectorAll('a[href="#activity-fold-1"],a[href="#activity-fold-2"],a[href="#s03"],a[href="#s04"]').forEach(link=>link.addEventListener('click',()=>{
@@ -38,13 +36,11 @@ if (impactCharts) {
   ['panel', 'scrim', 'tooltip'].forEach((id) => document.body.append(document.getElementById(id)));
 }
 
-initStatebar();
+document.getElementById('btn-reset')?.addEventListener('click', resetFilters);
 initHero();
-initTimeline();
 initMap();
 initNetwork();
 initPanel();
-initEvidence();
 document.getElementById('network-reset')?.addEventListener('click', () => {
   setState({ date: '2026-09-24', weather: 'all', group: 'all', activity: null, panelDate: null, hover: null, showAllSimilar: false });
 });
