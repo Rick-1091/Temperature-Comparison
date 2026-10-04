@@ -46,3 +46,11 @@ npm run build    # 输出到 dist/
 重新采集数据：在项目的 Python 环境安装 `polymarket-client` 和 `httpx`，运行 `python scripts/fetch-nyc-history.py`。脚本只在 12 天 × 11 档全部成功且站点、日期、报价时间通过检查后，写入 `public/signals/data/nyc-aug-2026.json` 和 `public/signals/src/data.js`。静态单文件版本由 `node scripts/build-huggingface.mjs` 生成（会去掉仅在完整网站内有效的章节导航）。
 
 Hugging Face Static Space：将 [`huggingface/index.html`](huggingface/index.html) 与 [`huggingface/README.md`](huggingface/README.md) 放在 Space 根目录；HTML 已内嵌 CSS、JS 和历史数据。
+
+
+
+https://github.com/user-attachments/assets/7d36f13e-3f87-40f1-aa21-4f25d9aa37d8
+
+
+
+
