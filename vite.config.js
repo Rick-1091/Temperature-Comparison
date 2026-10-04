@@ -10,6 +10,9 @@ export default defineConfig({
     rollupOptions: {
       input: {
         origin: page('./index.html'),
+        jinxi: page('./cases/jinxi/index.html'),
+        malawi: page('./cases/malawi/index.html'),
+        mexicoCity: page('./cases/mexico-city/index.html'),
         nomadcast: page('./nomadcast/index.html'),
         weatherGuide: page('./nomadcast/weather-guide.html'),
         decide: page('./nomadcast/decide.html'),
