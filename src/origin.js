@@ -2,6 +2,8 @@ import './fonts.js';
 import './styles.css';
 import './chapters.css';
 import './origin.css';
+import './cover.css';
+import './cover.js';
 import './storyline.css';
 import './site-i18n.js';
 

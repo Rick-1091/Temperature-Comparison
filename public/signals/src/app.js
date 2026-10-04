@@ -640,6 +640,10 @@ function select(index) {
   const marketLink = document.querySelector("#market-link");
   marketLink.href = item.marketUrl;
   marketLink.textContent = language === "en" ? `Polymarket ${isMexico ? "Mexico City" : "NYC"} ${monthShort} ${item.day} market ↗` : `Polymarket ${isMexico ? "墨西哥城" : "纽约"} ${monthNumber}/${item.day} 市场 ↗`;
+  const evidenceLink = document.querySelector('#noaa-link');
+  evidenceLink.href = `sources.html?location=${isMexico?'mexico':'laguardia'}&day=${item.date}&unit=${temperatureUnit}&lang=${language}`;
+  evidenceLink.textContent = language === 'en' ? 'This day’s observation evidence ↗' : '这一天的观测来源 ↗';
+  document.querySelector('.guided-entry a').href = `guide.html?location=${isMexico?'mexico':'laguardia'}&day=${item.date}&unit=${temperatureUnit}&lang=${language}`;
   document.querySelector("#point-counter").textContent = `${String(state.selected + 1).padStart(2, "0")} / ${series.length}`;
   render();
   if (!predictionPanel.hidden) renderPrediction();

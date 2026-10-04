@@ -1,9 +1,20 @@
 /* Chapter 01 · Jinxi origin page */
-.o-hero { padding-bottom: 96px; }
-.o-hero .grid { align-items: end; }
+.o-hero { padding-bottom: 70px; }
+.task-entry{display:grid;gap:10px;margin:30px 0 0;max-width:620px}
+.task-entry a{display:grid;gap:5px;padding:15px 18px;border:1px solid var(--rule);background:var(--paper);color:var(--ink);text-decoration:none;transition:border-color .2s,transform .2s}
+.task-entry a:hover{border-color:var(--rain);transform:translateX(3px)}
+.task-entry a:focus-visible{outline:3px solid var(--rain);outline-offset:3px}
+.task-entry .task-entry-primary{border-left:4px solid var(--rain)}
+.task-entry small{color:var(--warm);font:500 11px/1.4 var(--mono);letter-spacing:.04em}
+.task-entry strong{color:#235b58;font:600 clamp(20px,2.2vw,27px)/1.2 var(--sans)}
+.task-entry span{color:var(--ink-2);font-size:14px}
+.task-entry-note{max-width:60ch;color:var(--ink-2);font:13px/1.55 var(--sans);margin:12px 0 0}
+.o-hero .grid { align-items: center; }
 .o-hero-left { grid-column: 1 / span 6; }
 .o-hero-right { grid-column: 7 / span 6; padding-left: 40px; }
-.o-hero h1 { font-size: clamp(56px, 7vw, 104px); line-height: 0.94; letter-spacing: -0.035em; }
+.o-hero h2 { font-size: clamp(48px, 6vw, 80px); line-height: 0.99; letter-spacing: -0.035em; }
+.o-hero .hero-dek{font-size:19px;line-height:1.37;margin-top:17px}
+.sec.o-hero{padding-top:42px}
 .o-chapters li span { border-top-width: 1px; }
 .o-chapters li.on span { color: var(--ink); border-top: 1.5px solid var(--warm); font-weight: 500; }
 

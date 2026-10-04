@@ -1,0 +1,34 @@
+const query=new URLSearchParams(location.search);
+const state={language:['zh','en'].includes(query.get('lang'))?query.get('lang'):(localStorage.getItem('temperature-language')==='en'?'en':'zh'),activity:'drying',action:'prepare'};
+const context={location:query.get('location')==='laguardia'?'laguardia':'mexico',day:/^2026-09-(19|2[0-7])$/.test(query.get('day')||'')?query.get('day'):'2026-09-23',unit:query.get('unit')==='F'?'F':'C'};
+const text={
+navOrigin:['缘起','Origin'],navHistory:['历史对照','Historical comparison'],navDecide:['准备练习','Preparation exercise'],navDeep:['深入了解','Explore further'],backComparison:['← 回到历史对照','← Back to the comparison'],scenarioFlag:['模拟练习 · 不是明日天气预测','Simulated exercise · Not tomorrow’s forecast'],title:['知道天气有变数，<br>今天能先准备什么？','When weather is uncertain,<br>what can you prepare today?'],lead:['从一个真实生活中的活动出发，分清“已经知道”“还需要核对”和“可以提前准备”。这里不推断实际损失，也不替你作决定。','Start with an everyday activity. Separate what you know, what you still need to verify, and what you could prepare. This does not estimate actual losses or make a decision for you.'],boundary:['前一页的机场最高温是历史数据；本页情景和选择均为模拟。晾晒、游船或临水经营还需要当地降雨、湿度、风和正式预警等信息。','The airport highs on the previous page are historical. These choices are simulated. Drying, boating and outdoor business also need local rain, humidity, wind and official warnings.'],chooseActivity:['选择活动','Choose an activity'],activityQuestion:['你今天要安排什么？','What are you planning today?'],chooseAction:['想一想应对','Consider a response'],actionQuestion:['信息还不完整时，你会先做什么？','What would you do before the information is complete?'],readSignal:['再核对信息','Check the evidence'],signalQuestion:['哪些证据能帮助下一步判断？','What evidence could inform the next step?'],historyLink:['回看一个真实历史温度判断 →','Review a real historical temperature judgment →'],storyLink:['看天气信息的完整路径 →','Explore the full weather-information path →'],sdgLink:['信息理解与气候适应 →','Understanding information and climate adaptation →'],hedgeLink:['进阶：经营与对冲案例 →','Advanced: business and hedging case →'],sourcesLink:['情景与数据来源 →','Scenario and data sources →'],sourceLink:['核对前一页那天的数据来源 →','Check sources for the previous day →'],homeLink:['回到锦溪缘起 →','Return to the Jinxi origin →']};
+const scenarios={
+ drying:{name:['晾晒粮食','Drying grain'],known:['今天需要决定是否继续晾晒，但这里没有你所在村庄的实时天气。','You need to decide whether to continue drying, but this site has no live village forecast.'],need:['本地逐小时降雨可能性、湿度、预警，以及遮盖与室内空间。','Local hourly rain information, humidity, warnings, and available cover or indoor space.'],prepare:['先清出遮盖空间，分批晾晒，设定何时收回的条件；不把历史最高温当作降雨预测。','Clear cover space, dry in batches, and decide a condition for bringing grain in; do not treat a historical high as a rain forecast.']},
+ outdoor:{name:['临水小店','Waterfront small business'],known:['室外座位和客流可能受天气影响，但本项目没有实测客流或收入。','Outdoor seating and visitor flow may vary with weather, but this project has no measured footfall or revenue.'],need:['当地降雨、风、体感温度、正式预警，以及店内可用座位。','Local rain, wind, apparent temperature, official warnings and available indoor seating.'],prepare:['预留室内座位或遮雨方案，检查营业时段；不要把情景路径当成损失预测。','Reserve indoor seats or a rain plan and review opening hours; do not treat a scenario path as a loss estimate.']},
+ boats:{name:['安排游船','Planning boat trips'],known:['游船与游客暴露于风雨和水面条件，气温高低本身不足以判断安全。','Boat trips depend on wind, rain and water conditions; temperature alone cannot establish safety.'],need:['当地风速、雷暴/降雨和水面预警；运营与应急规则优先。','Local wind, thunderstorm/rain and water warnings; operational and emergency rules take priority.'],prepare:['检查停航和改期条件，给游客留出通知时间；有安全预警时遵从主管部门。','Check cancellation or rescheduling conditions and allow time to notify visitors; follow authorities when safety warnings are issued.']}
+};
+const actions={prepare:['先准备可逆的备用方案','Prepare a reversible backup'],wait:['先查正式预报和预警','Check official forecasts and warnings first'],assume:['只凭市场温度价格直接决定','Decide from the market temperature price alone']};
+const t=(zh,en)=>state.language==='en'?en:zh;
+const $=s=>document.querySelector(s);
+function button(value,label,pressed){const b=document.createElement('button');b.type='button';b.dataset.value=value;b.textContent=label;b.setAttribute('aria-pressed',String(pressed));return b}
+function render(){
+ document.documentElement.lang=state.language==='en'?'en':'zh-CN';
+ localStorage.setItem('temperature-language',state.language);
+ document.querySelectorAll('[data-i18n]').forEach(el=>el.innerHTML=text[el.dataset.i18n]?.[state.language==='en'?1:0]||'');
+ document.querySelectorAll('[data-lang]').forEach(el=>{el.setAttribute('aria-pressed',String(el.dataset.lang===state.language));el.onclick=()=>{state.language=el.dataset.lang;localStorage.setItem('temperature-language',state.language);render()}});
+ const act=$('#activity-choices');act.replaceChildren(...Object.entries(scenarios).map(([key,value])=>{const b=button(key,t(...value.name),state.activity===key);b.onclick=()=>{state.activity=key;render()};return b}));
+ const list=$('#action-choices');list.replaceChildren(...Object.entries(actions).map(([key,value])=>{const b=button(key,t(...value),state.action===key);b.onclick=()=>{state.action=key;render()};return b}));
+ const current=scenarios[state.activity],feedback=$('#feedback');feedback.replaceChildren();
+ const heading=document.createElement('h3');heading.textContent=t('一种可检验的准备方式','A preparation you can check');feedback.append(heading);
+ const response=state.action==='assume'?t('只有历史温度市场价格，还不足以判断这项活动该怎么安排。先核对下面列出的本地信息，再决定。','Historical temperature prices alone cannot determine this activity. Check the local information below before deciding.'):state.action==='wait'?t('正式预报与预警是合理的第一步；同时可以考虑低成本、可撤回的准备。','Official forecasts and warnings are a sound first step; you can also consider low-cost, reversible preparations.'):t(...current.prepare);
+ const p=document.createElement('p');p.textContent=response;feedback.append(p);
+ const evidence=$('#needed-evidence');evidence.replaceChildren();
+ const sub=document.createElement('h3');sub.textContent=t(...current.name);evidence.append(sub);
+ [[t('已经知道：','What we know: '),current.known],[t('还需要核对：','Still to check: '),current.need],[t('可以先准备：','Possible preparation: '),current.prepare]].forEach(([label,value])=>{const line=document.createElement('p');const strong=document.createElement('strong');strong.textContent=label;line.append(strong,document.createTextNode(t(...value)));evidence.append(line)});
+ const preserved=new URLSearchParams({...context,lang:state.language});
+ $('#comparison-nav').href=`../signals/guide.html?${preserved}`;$('#comparison-back').href=$('#comparison-nav').href;$('#historical-link').href=$('#comparison-nav').href;$('#source-link').href=`../signals/sources.html?${preserved}`;
+ history.replaceState(null,'',`${location.pathname}?${preserved}`);
+ document.title=t('Weatherbridge · 练习提前准备','Weatherbridge · Practice preparing');
+}
+render();

@@ -11,6 +11,7 @@ function updateMexicoView() {
   }));
   document.querySelectorAll('[data-unit-label]').forEach(node => {node.textContent=english?'Unit':'单位';});
   document.querySelectorAll('[data-sources-open]').forEach(node => {node.textContent=english?'Data sources ↗':'数据来源 ↗';});
+  set('.guided-entry', `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=zh">← 先从一天下手：历史对照与逐日来源</a> · 这里是扩展视图，不是实时天气预报。`, `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=en">← Start with one day: comparison and sources</a> · This is an advanced view, not a live forecast.`);
   document.querySelectorAll('.unit-switch').forEach(node => {
     node.setAttribute('aria-label',english?'Temperature unit':'温度单位');
     node.querySelectorAll('[data-unit]').forEach(button => {
@@ -28,10 +29,10 @@ function updateMexicoView() {
   set('.data-note-summary', '<strong>数据说明</strong> 用当天开始前的市场判断，对照当天的机场观测。', '<strong>About the data</strong> Pre-day market expectations compared with that day’s airport observations.');
   set('.data-details-body p:nth-child(1)', `<strong>气温从哪里来</strong> NOAA 航空气象中心提供 ${city}${airport}（${meta.station}）的观测记录。我们取当地当天最高的一次报告温度；每天至少有 20 条记录，覆盖 20 个不同小时。这个数值可能遗漏报告之间的峰值。`, `<strong>Observed temperature</strong> NOAA’s Aviation Weather Center provides observations for ${city} ${airport} (${meta.station}). We take each local day’s highest reported temperature, retaining days with at least 20 reports across 20 distinct hours. Peaks between reports may be missed.`);
   set('.data-details-body p:nth-child(2)', '<strong>市场判断从哪里来</strong> 温度区间和历史价格来自 Polymarket 官方接口。使用当天当地零点前 24 小时内各档最近可得的 Yes 报价，按 5 分钟间隔采样；不使用结果已知后的价格。', '<strong>Market expectations</strong> Ranges and historical prices come from Polymarket’s official APIs. For each range, we use the latest available Yes quote within 24 hours before local midnight, sampled at five-minute intervals—not prices after the result was known.');
-  set('.data-details-body p:nth-child(3)', '<strong>怎样计算命中</strong> 先将观测温度换算至市场原始单位并取整，再判断是否落入区间。切换显示单位不会改变命中率。两地市场区间宽度不同，命中率不能直接作为预测能力排名；观测温度也不一定等于市场结算值。完整来源和原始记录见“数据来源”。', '<strong>How hits are calculated</strong> Convert observations to the market’s native unit, round to whole degrees, then check interval membership. Display-unit changes do not affect hits. Different interval widths prevent a direct ranking of forecasting quality; observations may differ from settlement values. Open Data sources for the full records.');
+  set('.data-details-body p:nth-child(3)', '<strong>怎样计算命中</strong> 先将观测温度换算至市场原始单位并取整，再判断是否落入区间。切换显示单位不会改变命中率。两地市场区间宽度不同，命中率不能直接作为预测能力排名；观测温度也不一定等于市场结算值。逐日来源见“数据来源”。', '<strong>How hits are calculated</strong> Convert observations to the market’s native unit, round to whole degrees, then check interval membership. Display-unit changes do not affect hits. Different interval widths prevent a direct ranking of forecasting quality; observations may differ from settlement values. Open Data sources for the day-specific evidence.');
   set('.simple-footer>p', '两地统一使用 METAR 观测最高温；单位切换不改变命中率。观测不一定等于市场结算值。', 'Both cities use maximum reported METAR temperatures; switching units does not change hits. Observations may differ from settlement.');
-  set('#noaa-link', 'NOAA 官方观测接口 ↗', 'NOAA official observations ↗');
-  document.querySelector('#noaa-link').href = meta.observationUrl;
+  set('#noaa-link', '这一天的观测来源 ↗', 'This day’s observation evidence ↗');
+  document.querySelector('#noaa-link').href = `sources.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=${language}`;
   document.querySelector('#observation-status').textContent = english ? 'NOAA METAR snapshot · historical quotes' : 'NOAA METAR 快照 · 历史报价';
   ['simple-check', 'professional-check'].forEach(id => {
     const target = document.getElementById(id);

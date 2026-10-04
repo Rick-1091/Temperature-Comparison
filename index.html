@@ -3,35 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Weatherbridge · 01 Weather &amp; daily life</title>
+  <title>Weatherbridge · Read a weather judgment</title>
   <link rel="stylesheet" href="ui-theme.css" />
-  <meta name="description" content="Start with everyday life in Jinxi, then explore how weather forecasts compare with recorded conditions and shape daily decisions." />
+  <meta name="description" content="See one historical Polymarket temperature judgment beside the airport temperature recorded later, then explore the evidence behind it." />
 </head>
 <body class="origin">
   <nav class="chapterbar" aria-label="Website chapters">
     <div class="wrap chapterbar-inner">
       <a class="cb-brand" href="index.html">Weatherbridge</a>
-      <ol class="cb-list">
-        <li><a href="index.html" aria-current="page"><span>01</span>Weather &amp; daily life</a></li>
-        <li><a href="signals/index.html"><span>02</span>Forecasts &amp; observations</a></li>
-        <li><a href="nomadcast/index.html"><span>03</span><span data-copy-zh="从信息到行动">From information to action</span></a></li>
-      </ol>
+      <div class="cover-nav"><a href="#top" data-copy-zh="关于">About</a><a href="signals/sources.html" data-copy-zh="数据">Data</a></div>
     </div>
   </nav>
 
   <main>
+    <section class="cover" aria-labelledby="cover-title">
+      <div class="wrap cover-main">
+        <p class="cover-kicker" data-copy-zh="让天气信息，更容易被每个人理解">WEATHER INFORMATION, FOR EVERYONE</p>
+        <h1 id="cover-title"><span data-copy-zh="天气难以确定。">Weather is uncertain.</span><br /><span class="cover-title-accent" data-copy-zh="生活仍要决定。">Life still needs decisions.</span></h1>
+        <p class="cover-intro" data-copy-zh="把天气信号、判断分歧与实际结果放在一起，让日常选择更有依据。">Compare weather signals, uncertainty and outcomes. Make everyday decisions with a clearer picture.</p>
+        <div class="cover-actions">
+          <a class="cover-primary" href="signals/guide.html"><span data-copy-zh="进入 Weatherbridge">Enter Weatherbridge</span><span aria-hidden="true">↗</span></a>
+          <a class="cover-secondary" href="#top"><span data-copy-zh="从故事开始">Explore the story</span><span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="cover-limit" data-copy-zh="理解与比较的补充工具 · 正式天气预警优先">A companion for understanding · official weather warnings come first</p>
+      </div>
+      <div class="cover-community wrap">
+        <div class="cover-bridge"><span class="bridge-label">Weatherbridge</span><div class="bridge-outputs"><span data-copy-zh="什么更可能？">What is most likely?</span><span data-copy-zh="判断有多分散？">How divided are the signals?</span><span data-copy-zh="过去结果如何？">What happened before?</span></div></div>
+        <svg class="crowd-connections" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true"><g id="crowd-lines"></g></svg>
+        <div class="cover-crowd" id="cover-crowd" data-language-owned></div>
+        <p class="crowd-hint" data-copy-zh="点选一个人物，听听他们的问题">Choose a person. Start with their question.</p>
+      </div>
+    </section>
+
     <!-- HERO -->
     <header class="sec hero o-hero" id="top">
       <div class="wrap grid">
         <div class="o-hero-left">
           <p class="eyebrow"><span class="sec-idx">01</span> Jinxi · Weather in everyday life</p>
-          <h1>Weather and<br />everyday life</h1>
+          <h2>Weather and<br />everyday life</h2>
           <p class="hero-dek">In Jinxi, we began to notice how weather touches everyday life. Wind and rain affect boat trips, canal-side shops depend on visitors, and food drying depends on the weather. Weather shapes how people travel, work, and run their businesses.</p>
-          <ol class="flow o-chapters" aria-label="Chapters of this website">
-            <li class="on"><span>01 Start with Jinxi</span></li>
-            <li><span>02 Compare forecasts and observations</span></li>
-            <li><span>03 Explore weather in daily life</span></li>
-          </ol>
+          <div class="task-entry" aria-label="Choose a task">
+            <a class="task-entry-primary" href="signals/guide.html"><small data-copy-zh="真实历史数据 · 约 1 分钟">Historical data · about 1 minute</small><strong data-copy-zh="回看一次天气判断">Review one weather judgment</strong><span data-copy-zh="先看市场当时最支持什么，再看当天实际如何 →">See what the market favored, then what happened →</span></a>
+            <a href="nomadcast/decide.html"><small data-copy-zh="模拟练习 · 不是真实预报">Practice scenario · not a live forecast</small><strong data-copy-zh="练习如何提前准备">Practice preparing ahead</strong><span data-copy-zh="选一个日常场景，判断还需要哪些信息 →">Choose an activity and identify the information it needs →</span></a>
+          </div>
+          <p class="task-entry-note" data-copy-zh="本项目目前展示的是 2026 年 9 月的历史对照和模拟情景；不能用它预测明天或替代正式天气预警。">This project currently shows September 2026 historical comparisons and simulated scenarios; it cannot forecast tomorrow or replace official warnings.</p>
         </div>
         <div class="o-hero-right">
           <div class="river-figure">
@@ -166,7 +181,7 @@
             <p class="case-source-note" data-copy-zh="托科、家庭与晾晒情节为虚构；地区的信息障碍背景来自上述资料。">Thoko, her household, and the drying story are fictional; the regional information-barrier context comes from the sources above.</p>
           </aside>
         </div>
-        <a class="case-next" href="signals/index.html" data-copy-zh="天气预测，能不能更容易看懂？ →">Could weather predictions be easier to understand? →</a>
+        <a class="case-next" href="signals/guide.html" data-copy-zh="天气预测，能不能更容易看懂？ →">Could weather predictions be easier to understand? →</a>
       </div>
     </section>
   </main>

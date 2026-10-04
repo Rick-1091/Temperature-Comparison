@@ -216,6 +216,8 @@ html,body{height:100%;overflow:hidden}
 h1,h2,h3,.figure-heading h2{font-family:var(--serif)}
 .figure-heading h2{font-size:1.72rem;font-weight:520;letter-spacing:-.02em}
 .simple-onboarding{padding:30px 0 24px;border-bottom:1px solid #dcded7;max-width:850px}
+.guided-entry{margin:18px 0 0;padding:12px 16px;background:#e9eee7;border-left:3px solid #167c77;color:#405d58;font:500 14px/1.5 var(--sans)}
+.guided-entry a{color:#006e69;font-weight:700}
 .simple-onboarding h2{font-size:1.65rem;font-weight:800;margin:0 0 14px}
 .simple-shell[data-location="mexico"] > :not(.simple-topbar):not(.simple-onboarding):not(.mexico-observations),
 .shell[data-location="mexico"] > :not(.topbar):not(.mexico-observations){display:none!important}
