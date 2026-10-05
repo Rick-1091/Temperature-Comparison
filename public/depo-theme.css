@@ -27,6 +27,7 @@ body.journey{
 .journey .chapter a{color:#113d82;font-weight:500}
 .journey #polymarket a,.journey #action>a,.journey .finale a{color:var(--poster-white)}
 .journey .chapter figure>img{border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
+.journey .hero-illustration img{box-sizing:border-box;border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
 .journey .chapter figure>figcaption{opacity:1;color:inherit}
 .journey .viewfinder{border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
 .journey .viewfinder img{border:0;border-radius:0;box-shadow:none}
