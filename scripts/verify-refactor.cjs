@@ -20,6 +20,7 @@ let activeBrowser;
    for(const lang of ['zh','en']){
     await page.locator('[data-language='+lang+']').click();
     assert.equal(await page.locator('html').getAttribute('lang'),lang==='en'?'en':'zh-CN');
+    assert.equal(await page.locator('[data-zh]:not([data-en]),[data-en]:not([data-zh])').count(),0,'Missing bilingual copy pair on '+routes[i]);
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Overflow '+routes[i]+' '+width+' '+lang);
    }
    if(width===1440||width===390){await page.locator('[data-language=zh]').click();await page.screenshot({path:out+'/'+i+'-'+width+'.png',fullPage:true});}
@@ -42,8 +43,10 @@ let activeBrowser;
   }
   for(let step=1;step<5;step++){
    await page.locator('.next').click();
-   assert.equal(await page.locator('.story-visual').getAttribute('data-stage'),String(step));
-   assert.ok(await page.locator('#visual-event > *').count()>0);
+   assert.equal(await page.locator('.story-steps button').nth(step).getAttribute('aria-current'),'step');
+   assert.equal(await page.locator('.story-visual > img').count(),1);
+   assert.equal(await page.locator('.story-visual > :not(img)').count(),0);
+   assert.ok((await page.locator('#visual-caption').innerText()).length>0);
   }
   const next=await page.locator('.finish').getAttribute('href');
   assert.ok(next.includes(slug==='jinxi'?'malawi':slug==='malawi'?'mexico-city':'signals/introduction'));
@@ -106,6 +109,7 @@ let activeBrowser;
   await page.locator('#start-game').click();await page.locator('#first-choice').waitFor();
   assert.equal(await page.locator('#scene canvas').count(),1);
   await page.locator('[data-first=information]').click();
+  assert.ok(!/[0-9¢]/.test(await page.locator('#weather-panel').innerText()),'Teaching panel must use qualitative information, not fabricated quotes or history');
   await page.locator('[data-choice='+choice+']').click();
   await page.locator('#reveal-weather').click();
   if(weather==='rain'&&choice==='cover'){
@@ -117,6 +121,26 @@ let activeBrowser;
   assert.equal(await page.locator('.decision-comparison article').count(),4);
  }
  console.log('PASS: real WebGL, eight decision/outcome states and shared-weather debrief');
+  await page.goto(base+'experience/food-drying/?location=mexico&day=2026-09-24&unit=F&lang=zh&replay=rain',{waitUntil:'networkidle'});
+  await page.locator('#text-mode').click();await page.locator('#start-game').click();
+  assert.ok((await page.locator('#game-status').innerText()).includes('已知这一天会下雨'));
+  await page.locator('[data-first=store]').click();
+  await page.locator('#change-choice').click();
+  await page.locator('[data-choice=cover]').click();await page.locator('#reveal-weather').click();
+  assert.ok((await page.locator('#choice-consequence').innerText()).includes('遮盖'));
+  await page.locator('#debrief-link').click();await page.waitForLoadState('networkidle');
+  const sameWeather=await page.locator('#same-weather-link').getAttribute('href');
+  assert.ok(sameWeather.includes('replay=rain')&&sameWeather.includes('day=2026-09-24'));
+  const historyLink=await page.locator('#history-link').getAttribute('href');
+  assert.ok(historyLink.includes('location=mexico')&&historyLink.includes('unit=F'));
+  await page.locator('#same-weather-link').click();await page.waitForLoadState('networkidle');
+  await page.locator('#text-mode').click();await page.locator('#start-game').click();
+  await page.locator('[data-first=all]').click();await page.locator('#reveal-weather').click();
+  assert.ok((await page.locator('#game-status').innerText()).includes('阵雨'));
+  await page.locator('#restart-game').click();
+  assert.ok(!page.url().includes('replay='));
+  assert.ok(await page.locator('#start-game').isVisible());
+  console.log('PASS: change preparation, known-weather replay and retained historical context');
  await page.emulateMedia({reducedMotion:'reduce'});await page.goto(base+'experience/food-drying/?lang=en',{waitUntil:'networkidle'});
  assert.equal(await page.locator('#pause-motion').innerText(),'Resume animation');
  await page.locator('#text-mode').click();await page.locator('#start-game').click();

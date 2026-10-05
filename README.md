@@ -36,7 +36,7 @@ For each Polymarket interval, use the last available Yes quote within 24 hours b
 
 Current snapshots: `public/signals/data/mexico-unified.json`, `laguardia-unified.json`, `unified-market.js`. Earlier August data and original extraction scripts remain archival material, not the current default. Daily Sources links distinguish derived project archives from original APIs and settlement sources.
 
-The drying game uses an independent, authored rainfall model (60% rain draw), synthetic quotes and illustrative records. These do not come from the temperature snapshots and are not a Malawi forecast. It models exposure and drying opportunity qualitatively—not food safety, yield, economic loss or financial advice. Official warnings take priority. Hedging requires matched place/date/variable/settlement, liquidity, costs and basis risk.
+The drying game uses an independent teaching model for rainfall. Its information panel describes uncertainty in words and suggests preparations; it displays no market quotes or historical rainfall records. The scenario does not use the temperature snapshots or a live Malawi forecast. It models exposure and drying opportunity qualitatively—not food safety, yield, economic loss or financial advice. Official warnings take priority. Hedging requires matched place/date/variable/settlement, liquidity, costs and basis risk.
 
 ## Verification
 ```sh

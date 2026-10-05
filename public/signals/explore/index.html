@@ -13,7 +13,7 @@
   </section>
   <section class="workspace" aria-label="气温时间序列可视化">
     <div class="workspace-head">
-      <div><h2 id="location-title">纽约拉瓜迪亚机场 · 最高气温</h2><p>2026 年 8 月 17-28 日 <span>/</span> 华氏度 °F <span>/</span> 市场价取当地当日 00:00 前最近报价</p></div>
+      <div><h2 id="location-title">纽约拉瓜迪亚机场 · 最高气温</h2><p>正在读取历史记录…</p></div>
       <div class="legend" aria-label="图例"><span><i class="legend-key actual-key"></i> 实际气温值（NOAA）</span><span><i class="legend-key market-key"></i> 市场预测值（历史价最高区间）</span></div>
     </div>
     <div class="view-tabs" role="group" aria-label="选择图表视图">
@@ -26,27 +26,27 @@
     </div>
     <div id="heatmap-options" class="heatmap-options" hidden>
       <div class="heatmap-scale"><span>归一化历史价格占比</span><i aria-hidden="true"></i><small>低</small><small>高</small></div>
-      <div class="heatmap-controls"><button id="toggle-actual" type="button" aria-pressed="false"><span class="toggle-track" aria-hidden="true"><span></span></span>显示最终实际温度</button></div>
+      <div class="heatmap-controls"><button id="toggle-actual" type="button" aria-pressed="false"><span class="toggle-track" aria-hidden="true"><span></span></span>显示机场观测最高温</button></div>
     </div>
-    <div id="area-legend" class="area-legend" aria-label="预测温度区间图例" hidden><div id="area-legend-items" class="area-legend-items"></div><button id="toggle-actual-area" class="actual-toggle" type="button" aria-pressed="false"><span class="toggle-track" aria-hidden="true"><span></span></span>显示最终实际温度</button></div>
+    <div id="area-legend" class="area-legend" aria-label="预测温度区间图例" hidden><div id="area-legend-items" class="area-legend-items"></div><button id="toggle-actual-area" class="actual-toggle" type="button" aria-pressed="false"><span class="toggle-track" aria-hidden="true"><span></span></span>显示机场观测最高温</button></div>
     <div class="chart-wrap" id="chart-wrap">
       <div id="selection-glass" class="selection-glass" aria-hidden="true"><span class="glass-glint"></span></div>
       <svg id="main-chart" role="group" aria-label="纽约拉瓜迪亚机场每日实际气温值与市场预测值对比图"></svg>
       <div id="focus-markers" class="focus-markers" aria-hidden="true"><span class="focus-point actual"></span><span class="focus-point market"></span></div>
       <div id="tooltip" class="tooltip" hidden></div>
       <section id="prediction-panel" class="prediction-panel" aria-label="当日所有市场预测区间" hidden>
-        <div class="prediction-head"><div><span>Polymarket · Yes 历史价格</span><h3 id="prediction-title">8 月 17 日</h3></div><button id="close-prediction" type="button" aria-label="关闭预测分布面板">×</button></div>
+        <div class="prediction-head"><div><span>Polymarket · Yes 历史价格</span><h3 id="prediction-title">—</h3></div><button id="close-prediction" type="button" aria-label="关闭预测分布面板">×</button></div>
         <p>点击一个温度区间，将其作为主图的市场预测值。</p>
         <div id="prediction-bars" class="prediction-bars"></div>
-        <div class="prediction-foot"><span>价格不是押注人数；各档取最近可得报价</span><button id="reset-prediction" type="button">恢复最高报价</button></div>
+        <div class="prediction-foot"><span>各区间报价取自当天开始前；来源页可核对具体时间</span><button id="reset-prediction" type="button">恢复最高报价</button></div>
       </section>
     </div>
-    <div class="chart-footer"><span id="angle-note">拖动亚克力板选择日期；点击橙色点查看预测分布。</span><div class="chart-actions"><button id="prev-point" type="button" aria-label="选择前一天">←</button><span id="point-counter">01 / 12</span><button id="next-point" type="button" aria-label="选择后一天">→</button></div></div>
+    <div class="chart-footer"><span id="angle-note">拖动亚克力板选择日期；点击橙色点查看预测分布。</span><div class="chart-actions"><button id="prev-point" type="button" aria-label="选择前一天">←</button><span id="point-counter">—</span><button id="next-point" type="button" aria-label="选择后一天">→</button></div></div>
   </section>
   <section class="reading" aria-label="选中日期的详情">
-    <div class="reading-date"><span>当前日期</span><strong id="selected-date">8 月 17 日</strong></div>
-    <div class="reading-metric"><span>实际气温值 <small>NOAA 实测</small></span><strong id="actual-value">80°F</strong></div>
-    <button id="open-prediction" class="reading-metric market-reading" type="button" aria-label="查看并选择当日市场预测值"><span>市场预测值 <small>历史价格</small><b>查看全部预测 ↗</b></span><strong id="market-value">84-85°F</strong></button>
+    <div class="reading-date"><span>当前日期</span><strong id="selected-date">—</strong></div>
+    <div class="reading-metric"><span>实际气温值 <small>NOAA 实测</small></span><strong id="actual-value">—</strong></div>
+    <button id="open-prediction" class="reading-metric market-reading" type="button" aria-label="查看并选择当日市场预测值"><span>市场预测值 <small>历史价格</small><b>查看全部预测 ↗</b></span><strong id="market-value">—</strong></button>
     <div class="reading-diff"><span>与 NOAA 日最高对照</span><strong id="difference-value">—</strong><p id="difference-explain">市场结算来源与 NOAA 日最高可能不同。</p></div>
   </section>
   <details class="data-details"><summary data-zh="历史区间覆盖 +" data-en="Historical interval coverage +">历史区间覆盖 +</summary><section id="professional-check" class="simple-check"></section></details>
@@ -56,14 +56,14 @@
       <details class="data-details">
         <summary>查看数据口径</summary>
         <div class="data-details-body">
-          <p><strong>实测</strong> NOAA NCEI 拉瓜迪亚机场站 USW00014732，每日最高气温 TMAX（°F），2026 年 8 月 17–28 日；内置核验快照并尝试在线刷新。</p>
-          <p><strong>市场</strong> 逐日 11 个温度区间的 Polymarket Yes-token 历史价格，取纽约当地日期 00:00 前最近可得报价。不同区间的实际报价时间可能不同；价格不是预测人数，各区间价格之和也未必是 100%。热力图与面积图将当日价格之和归一化，仅供分布对照。可在项目数据文件查看逐档报价时间及 token ID。</p>
-          <p><strong>口径限制</strong> NOAA 日最高与市场规则指定的逐小时结算来源不同，不能仅据两者差值判定市场结算是否预测正确；例如 8 月 24 日市场结算区间 80–81°F，而 NOAA 日最高是 82°F。市场链接随所选日期切换。</p>
+          <p><strong>实测</strong> NOAA METAR 机场报告，按当地日内最高的一次报告温度统计。逐日来源与归档记录见数据来源页。</p>
+          <p><strong>市场</strong> Polymarket 各温度区间的历史 Yes 报价，取当地当日开始前 24 小时内最后可得值。热力图和面积图将每天各档报价归一化，用于比较价格分布。逐档报价时间及 token ID 可在数据来源页核对。</p>
+          <p><strong>口径限制</strong> 机场报告与合约结算可能使用不同来源。完整的比较规则见方法页，市场链接随所选日期切换。</p>
         </div>
       </details>
     </div>
     <a class="wb-primary" href="../../experience/food-drying/" data-zh="进入 3D 晾晒体验 →" data-en="Enter the 3D drying experience →"></a>
-    <div class="source-links"><a id="noaa-link" href="https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&amp;stations=USW00014732&amp;startDate=2026-08-17&amp;endDate=2026-08-28&amp;dataTypes=TMAX&amp;units=standard&amp;format=json">NOAA 实测数据接口 ↗</a><a id="market-link" href="https://polymarket.com/event/highest-temperature-in-nyc-on-august-17-2026">Polymarket 纽约 8/17 市场 ↗</a></div>
+    <div class="source-links"><a id="noaa-link" href="../sources/">逐日观测来源 ↗</a><a id="market-link" href="../sources/">逐日市场来源 ↗</a></div>
   </footer>
 </main>
 </section>

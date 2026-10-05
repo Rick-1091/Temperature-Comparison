@@ -10,4 +10,3 @@ export function resolveChoice(choice, weather) {
  };
 }
 export function drawWeather(random=Math.random) { return random()<.6?'rain':'sun'; }
-

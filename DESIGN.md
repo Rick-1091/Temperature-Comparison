@@ -111,7 +111,7 @@ Shared actions and language controls use the small `wb-radius` corner. Reading s
 
 The Mexico historical example now passes through the Polymarket introduction before Guided view, preserving selection. This route correction changes no layout or tokens.
 
-Focus is visible: shared links, buttons, summaries, and selects use a 3px rust outline offset 4px. Cover buttons, links, and summaries override this with gold and a 6px offset. Journey's earlier blue focus rule is superseded by the later shared stylesheet on current Guided pages. Cover case circles scale to 1.04 on hover over .2s; story image filtering transitions over .3s. Reduced-motion CSS removes transitions and animations; the courtyard starts paused under reduced motion and offers manual pause. Exact extensions are recorded in the sidecar.
+Focus is visible: shared links, buttons, summaries, and selects use a 3px rust outline offset 4px. Cover buttons, links, and summaries override this with gold and a 6px offset. Journey's earlier blue focus rule is superseded by the later shared stylesheet on current Guided pages. Cover case circles scale to 1.04 on hover over .2s; story images remain unobstructed, with captions and supporting data outside the image. Reduced-motion CSS removes transitions and animations; the courtyard starts paused under reduced motion and offers manual pause. Exact extensions are recorded in the sidecar.
 
 ## Do's and Don'ts
 

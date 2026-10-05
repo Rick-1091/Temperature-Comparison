@@ -104,17 +104,17 @@ const localizedCopy = {
     simpleLegend: "<span><i class=\"actual-key\"></i>实际气温</span><span><i class=\"market-key\"></i>市场预测值</span>",
     hitLabel: "天落在最高报价区间", historyCount: "共 12 天 · 历史快照", dailyComparison: "每日对照", forecastResult: "预测与结果", shorter: "线段越短，两者越接近",
     simpleFooter: "Yes 价格代表市场价格，不代表人数。NOAA 日最高与市场结算来源可能存在口径差异。", professionalCta: "向右查看专业版 <span aria-hidden=\"true\">→</span>",
-    proTitle: "市场猜的温度 <em>v.s.</em><br><span>天气最后给的答案</span>", proLead: "把市场预测的温度区间与最终实测值放在同一条时间轴上，逐日查看预测分布和偏差。",
-    locationTitle: "纽约拉瓜迪亚机场 · 最高气温", period: "2026 年 8 月 17–28 日 <span>/</span> 华氏度 °F <span>/</span> 市场价取当地当日 00:00 前最近报价",
+    proTitle: "市场猜的温度 <em>v.s.</em><br><span>天气最后给的答案</span>", proLead: "按日期比较市场报价最高的温度区间与机场报告的最高温，也可查看各区间的报价分布。",
+    locationTitle: "纽约拉瓜迪亚机场 · 最高气温", period: "历史记录 <span>/</span> 华氏度 °F <span>/</span> 市场价取当地当日 00:00 前最近报价",
     legend: "<span><i class=\"legend-key actual-key\"></i> 实际气温值（NOAA）</span><span><i class=\"legend-key market-key\"></i> 市场预测值（历史价最高区间）</span>",
     tabDumbbell: "<span class=\"tab-icon icon-pair\" aria-hidden=\"true\"></span>逐日对照", tabLines: "<span class=\"tab-icon icon-lines\" aria-hidden=\"true\"></span>双线趋势", tab3d: "<span class=\"tab-icon icon-cube\" aria-hidden=\"true\"></span>3D 双轨", tabHeatmap: "<span class=\"tab-icon icon-heat\" aria-hidden=\"true\"></span>预测热力图", tabArea: "<span class=\"tab-icon icon-area\" aria-hidden=\"true\"></span>预测面积图",
-    heatScale: "<span>归一化历史价格占比</span><i aria-hidden=\"true\"></i><small>低</small><small>高</small>", showActual: "<span class=\"toggle-track\" aria-hidden=\"true\"><span></span></span>显示最终实际温度",
-    predictionSource: "Polymarket · Yes 历史价格", predictionIntro: "点击一个温度区间，将其作为主图的市场预测值。", predictionFoot: "价格不是押注人数；各档取最近可得报价", resetPrediction: "恢复最高报价",
+    heatScale: "<span>归一化历史价格占比</span><i aria-hidden=\"true\"></i><small>低</small><small>高</small>", showActual: "<span class=\"toggle-track\" aria-hidden=\"true\"><span></span></span>显示机场观测最高温",
+    predictionSource: "Polymarket · Yes 历史价格", predictionIntro: "点击一个温度区间，将其作为主图的市场预测值。", predictionFoot: "各区间报价取自当天开始前；来源页可核对具体时间", resetPrediction: "恢复最高报价",
     currentDate: "当前日期", actualMetric: "实际气温值 <small>NOAA 实测</small>", marketMetric: "市场预测值 <small>历史价格</small><b>查看全部预测 ↗</b>", compareMetric: "与 NOAA 日最高对照",
     dataSummary: "<strong>真实历史数据</strong> NOAA 日最高 × Polymarket 当日零点前价格。口径差异见详情。", dataDetails: "查看数据口径",
-    observedDetail: "<strong>实测</strong> NOAA NCEI 拉瓜迪亚机场站 USW00014732，每日最高气温 TMAX（°F），2026 年 8 月 17–28 日；内置核验快照并尝试在线刷新。",
-    marketDetail: "<strong>市场</strong> 逐日 11 个温度区间的 Polymarket Yes-token 历史价格，取纽约当地日期 00:00 前最近可得报价。不同区间的实际报价时间可能不同；价格不是预测人数，各区间价格之和也未必是 100%。热力图与面积图将当日价格之和归一化，仅供分布对照。",
-    limitDetail: "<strong>口径限制</strong> NOAA 日最高与市场规则指定的逐小时结算来源不同，不能仅据两者差值判定市场结算是否预测正确。市场链接随所选日期切换。", noaaLink: "NOAA 实测数据接口 ↗"
+    observedDetail: "<strong>实测</strong> NOAA METAR 机场报告，按当地日内最高的一次报告温度统计。逐日来源与归档记录见数据来源页。",
+    marketDetail: "<strong>市场</strong> Polymarket 各温度区间的历史 Yes 报价，取当地当日开始前 24 小时内最后可得值。热力图和面积图将每天各档报价归一化，用于比较价格分布。",
+    limitDetail: "<strong>口径限制</strong> 机场报告与合约结算可能使用不同来源。完整的比较规则见方法页，市场链接随所选日期切换。", noaaLink: "NOAA 实测数据接口 ↗"
   },
   en: {
     documentTitle: "Weatherbridge · 02 Forecasts & observations",
@@ -150,17 +150,17 @@ const localizedCopy = {
     simpleLegend: "<span><i class=\"actual-key\"></i>Observed temperature</span><span><i class=\"market-key\"></i>Market forecast</span>",
     hitLabel: "days inside the top-priced range", historyCount: "12 days · historical snapshot", dailyComparison: "DAILY COMPARISON", forecastResult: "Forecast vs. result", shorter: "Shorter lines mean closer estimates",
     simpleFooter: "Yes prices are market prices, not bettor counts. NOAA daily highs and market resolution sources may differ.", professionalCta: "View professional analysis <span aria-hidden=\"true\">→</span>",
-    proTitle: "What the market predicted <em>v.s.</em><br><span>what the weather delivered</span>", proLead: "Compare forecast temperature ranges with observed highs on the same timeline, day by day.",
-    locationTitle: "New York LaGuardia Airport · Daily High", period: "August 17–28, 2026 <span>/</span> Fahrenheit °F <span>/</span> latest price before local midnight",
+    proTitle: "What the market predicted <em>v.s.</em><br><span>what the weather delivered</span>", proLead: "Compare the top-priced temperature range with the airport’s reported high for each day, and explore quotes across ranges.",
+    locationTitle: "New York LaGuardia Airport · Daily High", period: "Historical records <span>/</span> Fahrenheit °F <span>/</span> latest price before local midnight",
     legend: "<span><i class=\"legend-key actual-key\"></i> Observed high (NOAA)</span><span><i class=\"legend-key market-key\"></i> Market forecast (top-priced range)</span>",
     tabDumbbell: "<span class=\"tab-icon icon-pair\" aria-hidden=\"true\"></span>Daily compare", tabLines: "<span class=\"tab-icon icon-lines\" aria-hidden=\"true\"></span>Trends", tab3d: "<span class=\"tab-icon icon-cube\" aria-hidden=\"true\"></span>3D tracks", tabHeatmap: "<span class=\"tab-icon icon-heat\" aria-hidden=\"true\"></span>Heatmap", tabArea: "<span class=\"tab-icon icon-area\" aria-hidden=\"true\"></span>Area view",
     heatScale: "<span>Normalized historical price share</span><i aria-hidden=\"true\"></i><small>Low</small><small>High</small>", showActual: "<span class=\"toggle-track\" aria-hidden=\"true\"><span></span></span>Show observed high",
-    predictionSource: "Polymarket · Historical Yes price", predictionIntro: "Choose a temperature range to replace the market value in the main chart.", predictionFoot: "Prices are not bettor counts; each range uses its latest available quote", resetPrediction: "Restore top price",
+    predictionSource: "Polymarket · Historical Yes price", predictionIntro: "Choose a temperature range to replace the market value in the main chart.", predictionFoot: "Quotes are from before the day began; check exact times on the sources page", resetPrediction: "Restore top price",
     currentDate: "Selected date", actualMetric: "Observed high <small>NOAA</small>", marketMetric: "Market forecast <small>Historical price</small><b>View all forecasts ↗</b>", compareMetric: "Compared with NOAA daily high",
     dataSummary: "<strong>Historical data</strong> NOAA daily highs × Polymarket prices before local midnight. See methodology for caveats.", dataDetails: "View methodology",
-    observedDetail: "<strong>Observed</strong> NOAA NCEI LaGuardia Airport station USW00014732 daily TMAX (°F), August 17–28, 2026; the site keeps a verified snapshot and attempts an online refresh.",
-    marketDetail: "<strong>Market</strong> Historical Polymarket Yes-token prices for 11 temperature ranges per day, using the latest available quote before 00:00 local time. Prices are not bettor counts and may not sum to 100%; heatmap and area views normalize each day’s prices.",
-    limitDetail: "<strong>Method limit</strong> NOAA daily TMAX and the market’s specified hourly resolution source can differ, so their gap alone does not determine whether the market resolved correctly. The market link follows the selected date.", noaaLink: "NOAA observed-data API ↗"
+    observedDetail: "<strong>Observed</strong> NOAA METAR airport reports, summarized by the maximum reported temperature within each local day. Check the source page for daily evidence and archived records.",
+    marketDetail: "<strong>Market</strong> Historical Yes quotes across Polymarket temperature ranges, using the last available quote in the 24 hours before the local day began. Heatmap and area views normalize each day’s quotes to compare their distribution.",
+    limitDetail: "<strong>Method limit</strong> Airport reports and contract settlement may use different sources. See Methods for the comparison rules; market links follow the selected date.", noaaLink: "NOAA observed-data API ↗"
   }
 };
 
@@ -187,8 +187,8 @@ const viewHints = {
 };
 
 const interactionHints = {
-  zh: { dumbbell: "拖动亚克力板选择日期；点击市场预测点查看全部历史报价。", lines: "拖动亚克力板选择日期；点击市场预测点查看全部历史报价。", "three-d": "拖动图表调整 3D 视角；点击市场预测点查看全部历史报价。", heatmap: "点击色块选择日期与预测区间；可显示 NOAA 最终气温。", area: "点击彩色带选择日期与温度区间；纵轴为归一化价格占比。" },
-  en: { dumbbell: "Drag the acrylic selector across dates; select a market forecast point for all historical prices.", lines: "Drag the acrylic selector across dates; select a market forecast point for all historical prices.", "three-d": "Drag to rotate the 3D view; select a market forecast point for all historical prices.", heatmap: "Select a cell to choose a date and forecast range; NOAA highs can be overlaid.", area: "Select a colored band to choose a date and temperature range; the y-axis is normalized price share." }
+  zh: { dumbbell: "拖动竖向选区切换日期；点击市场预测点查看全部历史报价。", lines: "拖动竖向选区切换日期；点击市场预测点查看全部历史报价。", "three-d": "拖动图表调整 3D 视角；点击市场预测点查看全部历史报价。", heatmap: "点击色块选择日期与预测区间；可显示 NOAA 最终气温。", area: "点击彩色带选择日期与温度区间；纵轴为归一化价格占比。" },
+  en: { dumbbell: "Drag the vertical selection area across dates; select a market forecast point for all historical prices.", lines: "Drag the vertical selection area across dates; select a market forecast point for all historical prices.", "three-d": "Drag to rotate the 3D view; select a market forecast point for all historical prices.", heatmap: "Select a cell to choose a date and forecast range; NOAA highs can be overlaid.", area: "Select a colored band to choose a date and temperature range; the y-axis is normalized price share." }
 };
 
 function formatDate(day) { return language === "en" ? `${monthShort} ${day}` : `${monthNumber} 月 ${day} 日`; }

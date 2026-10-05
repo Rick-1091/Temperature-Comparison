@@ -1,6 +1,9 @@
 export const stories = {
   "jinxi": {
-    "role": "SEE",
+    "role": [
+      "生活中的天气影响",
+      "SEE"
+    ],
     "title": [
       "天气怎样进入锦溪的日常生活？",
       "How does weather enter everyday life in Jinxi?"
@@ -21,12 +24,12 @@ export const stories = {
           "One sky. Different activities."
         ],
         [
-          "游船、食品展示、水边活动和传统制作，对天气的敏感方式并不相同。",
-          "Boat trips, food displays, waterside activity and traditional making relate to weather in different ways."
+          "游船更关心雨和风，晾晒更关心雨和湿度。",
+          "Boat trips depend on rain and wind; food drying depends on rain and humidity."
         ],
         [
-          "游船关心雨、风与水面条件；食品处理可能更关心湿度与晾晒窗口。先认清活动，才能问对天气问题。",
-          "Boat trips depend on rain, wind and water conditions; food handling may need humidity and drying windows. Start with the activity to ask the right weather question."
+          "同一条天气消息，对不同活动的意义不同。游船经营者想知道能否出航；晾晒食品的人想知道还能晒多久。",
+          "The same weather message means different things for different activities. A boat operator wants to know whether a trip can go ahead; someone drying food wants to know how much drying time remains."
         ]
       ],
       [
@@ -53,16 +56,16 @@ export const stories = {
           "Find relevant information"
         ],
         [
-          "先问需要什么，再找信号。",
-          "Identify the need before finding a signal."
+          "你需要知道哪里的、什么时候的天气？",
+          "Which place and time do you need weather information for?"
         ],
         [
-          "活动 → 天气变量 → 地点和时间。",
-          "Activity → weather variable → place and time."
+          "晾晒要看当地下午是否下雨；游船还要看出航时的风。",
+          "For drying, check whether rain is expected locally that afternoon. For a boat trip, also check the wind at departure."
         ],
         [
-          "一条信息只有对应你所在地点、安排的时段和关心的变量，才有助于准备。",
-          "Information helps preparation when it matches your place, planned time and weather variable."
+          "先说清要做什么、在哪里、什么时候做，再查看对应的降雨、湿度、风或温度信息。",
+          "First specify what you plan to do, where and when. Then look for the matching rain, humidity, wind or temperature information."
         ]
       ],
       [
@@ -71,16 +74,16 @@ export const stories = {
           "Preparation choices"
         ],
         [
-          "不同活动，留下不同的调整空间。",
-          "Different activities need different room to adjust."
+          "雨还没来，可以先准备什么？",
+          "What can you prepare before rain arrives?"
         ],
         [
           "游客可改期；食品可遮盖；制作可调整工序。",
           "Visitors might reschedule; food might be covered; production timing might be adjusted."
         ],
         [
-          "准备的价值在于保留选择。还要考虑人手、空间和材料，不只看天气数字。",
-          "Preparation preserves options. Labour, space and materials matter alongside weather numbers."
+          "准备的价值在于保留选择：提前备好遮盖物，看到下雨迹象时就能及时遮住晾晒的食品。还要看看是否有足够的人手和收储空间。",
+          "Preparation preserves options: having a cover ready lets you protect drying food when signs of rain appear. Check that you also have enough help and storage space."
         ]
       ],
       [
@@ -97,14 +100,14 @@ export const stories = {
           "What weather information do I actually need?"
         ],
         [
-          "带着具体需求，再去理解信息的可得性。下一个故事看一户家庭怎样面对难以使用的本地信息。",
-          "With a specific need in mind, consider access to information. The next story follows a household facing hard-to-use local information."
+          "先想清楚自己的活动需要哪种天气信息。接下来，看看 Thoko 怎样决定院子里的玉米还能晒多久。",
+          "First identify the weather information your activity needs. Next, follow Thoko as she decides how long the maize can stay outside."
         ]
       ]
     ],
     "next": "../malawi/",
     "cta": [
-      "NEED：走进马拉维 →",
+      "走进马拉维：为什么需要天气信息 →",
       "NEED: continue to Malawi →"
     ],
     "source": [
@@ -113,14 +116,25 @@ export const stories = {
     ]
   },
   "malawi": {
-    "role": "NEED",
+    "role": [
+      "为什么需要天气信息",
+      "NEED"
+    ],
     "title": [
       "玉米还在院子里，要收起来吗？",
       "The maize is outside. Should it come in?"
     ],
     "image": "thoko-family.png",
+    "caption": [
+      "模拟家庭情景：院子里的玉米正在晾晒。",
+      "Fictional household scene: maize drying in the courtyard."
+    ],
+    "alt": [
+      "一家人在院子里摊晒玉米的插画。",
+      "Illustration of a family spreading maize to dry in a courtyard."
+    ],
     "note": [
-      "Thoko 是伦菲的一位模拟家庭成员。",
+      "以马拉维伦菲为背景的虚构家庭故事，主人公为 Thoko。",
       "Thoko is a fictional household member in Rumphi."
     ],
     "steps": [
@@ -166,16 +180,16 @@ export const stories = {
           "Need information"
         ],
         [
-          "找的是降雨窗口，不是外地温度。",
-          "The need is a rain window, not a temperature elsewhere."
+          "下午会不会下雨，玉米还能晒多久？",
+          "Will it rain this afternoon, and how long can the maize keep drying?"
         ],
         [
           "本地降雨时间、湿度与正式预警。",
           "Local rain timing, humidity and official warnings."
         ],
         [
-          "粮食受潮和干燥速度涉及雨与湿度；温度不能单独回答这些问题。相关信息要先与需求匹配。",
-          "Rain and humidity affect dampness and drying speed. Temperature alone cannot answer these questions. Match information to the need."
+          "雨会打湿玉米，湿度也影响干燥速度。Thoko 要找的是村里接下来几小时的降雨和湿度信息。",
+          "Rain can wet the maize, and humidity affects how quickly it dries. Thoko needs rainfall and humidity information for her village over the next few hours."
         ]
       ],
       [
@@ -202,22 +216,22 @@ export const stories = {
           "Understand the need"
         ],
         [
-          "信息平权，也包括看懂与用得上。",
-          "Information equity includes understanding and usefulness."
+          "这条天气消息，适用于 Thoko 的院子吗？",
+          "Does this weather message apply to Thoko’s courtyard?"
         ],
         [
-          "补充信号的前提，是它真的与生活有关。",
-          "A supplementary signal must be relevant to the activity."
+          "只有地点、时间和天气变量都匹配，信息才值得参考。",
+          "A signal is useful only when its place, timing and weather variable match the decision."
         ],
         [
-          "下一站有可查看的历史温度市场。先看看一个经营者如何提出问题，再学习怎样读市场信号。",
-          "The next city has historical temperature markets to examine. Follow a business owner’s question, then learn how to read a market signal."
+          "拿到天气信息还不够，Thoko 还要知道它说的是哪里、什么时候，会不会下雨。下一个故事里，Diego 也要为明天的营业找对信息。",
+          "Access to weather information is not enough. Thoko needs to know where and when it applies, and whether it addresses rain. In the next story, Diego also needs relevant information to plan tomorrow’s opening."
         ]
       ]
     ],
     "next": "../mexico-city/",
     "cta": [
-      "USE：走进墨西哥城 →",
+      "走进墨西哥城：如何用信息做准备 →",
       "USE: continue to Mexico City →"
     ],
     "source": [
@@ -227,12 +241,23 @@ export const stories = {
     "url": "https://www.adaptation-undp.org/projects/gcf-saving-lives-protecting-agriculture-based-livelihoods-malawi-m-climes"
   },
   "mexico-city": {
-    "role": "USE",
+    "role": [
+      "如何用信息做准备",
+      "USE"
+    ],
     "title": [
       "墨西哥城：明天怎么安排营业？",
       "Mexico City: how should tomorrow’s opening be planned?"
     ],
     "image": "patio-owner.png",
+    "caption": [
+      "模拟经营情景：店主需要提前安排座位、人员和备货。",
+      "Fictional business scene: the owner plans seating, staffing and supplies."
+    ],
+    "alt": [
+      "咖啡店内，一位店主端着咖啡的插画。",
+      "Illustration of a café owner holding a cup of coffee inside his shop."
+    ],
     "note": [
       "Diego 与店铺是模拟经营情景。",
       "Diego and the shop are a fictional business scenario."
@@ -252,8 +277,8 @@ export const stories = {
           "Outdoor seating, staffing and supplies all need preparation."
         ],
         [
-          "经营安排有提前量。知道可能出现的天气范围，能帮助思考哪些安排保留弹性。",
-          "Business plans take lead time. A range of possible weather outcomes helps identify which arrangements should stay flexible."
+          "Diego 今天就要决定明天摆多少户外座位、备多少饮料、安排多少员工。",
+          "Diego has to decide today how many outdoor seats to prepare, how many drinks to stock and how many staff to schedule for tomorrow."
         ]
       ],
       [
@@ -270,8 +295,8 @@ export const stories = {
           "Outdoor comfort, drink supplies and staffing."
         ],
         [
-          "温度影响户外舒适度，但经营需求还受雨、节假日和其他条件影响。把关心的活动与天气变量分开看。",
-          "Temperature affects outdoor comfort, while rain, holidays and other conditions also affect demand. Separate the activity from the weather variable."
+          "天气热时，Diego 可以检查户外遮阳、饮料库存和员工轮班。客人来不来，还要看下雨、节假日和其他情况。",
+          "In hot weather, Diego can check outdoor shade, drink stocks and staff shifts. Whether customers come also depends on rain, holidays and other conditions."
         ]
       ],
       [
@@ -280,16 +305,16 @@ export const stories = {
           "Read a market"
         ],
         [
-          "市场更支持哪个温度区间？",
-          "Which temperature range does the market favour?"
+          "先弄懂市场报价，再看温度判断。",
+          "Understand market quotes before reading a temperature judgment."
         ],
         [
-          "看价格的分布，不只看最高的一档。",
-          "Look at the price distribution, not only the leading range."
+          "接下来的入门页会用一个例子，说明怎样比较各温度区间的报价。",
+          "The introduction that follows uses an example to explain how to compare quotes across temperature ranges."
         ],
         [
-          "最高报价显示市场倾向；其余区间也有价格，就能看出判断是集中在一档还是分散在多档。",
-          "The highest quote shows the market’s leaning. Quotes across other ranges show whether support is concentrated or spread out."
+          "先看哪档温度的报价最高，再看其他区间的报价。如果几档价格接近，市场的判断就没有集中在单一结果上。",
+          "Start with the highest-priced temperature range, then compare the other quotes. If several ranges have similar prices, the market is not concentrated on one outcome."
         ]
       ],
       [
@@ -306,8 +331,8 @@ export const stories = {
           "Compare historical quotes with airport observations from the day."
         ],
         [
-          "历史对照让偏差变得可见。读价格前，先理解它表示什么；再核对日期、地点与观测方法。",
-          "Historical comparisons make differences visible. Understand what a price means before checking dates, places and observation methods."
+          "看看当天开始前报价最高的温度区间，再对照当天机场报告的最高温。下一页先解释怎样读报价，然后展示逐日记录。",
+          "Look at the top-priced range before the day began, then compare it with the airport’s reported high that day. The next page explains quotes before showing the daily records."
         ]
       ],
       [
@@ -316,16 +341,16 @@ export const stories = {
           "Prepare the business"
         ],
         [
-          "先准备经营，再考虑风险转移。",
-          "Prepare operations before considering risk transfer."
+          "先想好座位、排班和备货怎样调整。",
+          "First decide how seating, staffing and supplies could change."
         ],
         [
-          "先理解信号，再决定如何调整。",
-          "Understand the signal before choosing an adjustment."
+          "天气更热、下雨或客流改变时，哪些安排可以改？",
+          "If it gets hotter, rains or customer numbers change, which plans can you adjust?"
         ],
         [
-          "弹性排班、座位与备货能保留选择。若还考虑合约，需要另行核对合约与经营风险是否匹配。",
-          "Flexible staffing, seating and supplies preserve options. A contract requires a separate check that it matches the business exposure."
+          "Diego 可以准备遮阳、调整员工轮班，或分批补充饮料。想进一步了解合约怎样分担损失，可展开下面的说明。",
+          "Diego can prepare shade, adjust staff shifts or restock drinks in smaller batches. Open the explanation below to explore how a contract might share some losses."
         ]
       ]
     ],

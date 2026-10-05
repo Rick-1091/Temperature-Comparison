@@ -7,6 +7,7 @@ export function setupLanguage() {
     language = next === 'en' ? 'en' : 'zh';
     document.documentElement.lang = language === 'zh' ? 'zh-CN' : 'en';
     document.querySelectorAll('[data-zh][data-en]').forEach(el => { el.textContent = el.dataset[language]; });
+    document.querySelectorAll('[data-alt-zh][data-alt-en]').forEach(el => { el.alt = language === 'zh' ? el.dataset.altZh : el.dataset.altEn; });
     document.querySelectorAll('[data-language]').forEach(el => el.setAttribute('aria-pressed', String(el.dataset.language === language)));
     if (document.body.dataset['title' + (language === 'zh' ? 'Zh' : 'En')]) document.title = document.body.dataset['title' + (language === 'zh' ? 'Zh' : 'En')];
     document.querySelectorAll('[data-preserve-language]').forEach(el => {
