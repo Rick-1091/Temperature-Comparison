@@ -5,58 +5,37 @@
   <title>Weatherbridge · 天气难以确定，决定不能等</title>
   <meta name="description" content="Explore supplementary weather signals when conventional forecasts are limited. Three stories about weather and everyday decisions.">
   <link rel="icon" href="/weatherbridge-logo.png">
-</head>
+<link rel="stylesheet" href="/site.css"></head>
 <body class="landing" data-title-zh="Weatherbridge · 天气难以确定，决定不能等" data-title-en="Weatherbridge · Decisions cannot wait">
   <a class="skip-link" href="#main" data-zh="跳到正文" data-en="Skip to content">跳到正文</a>
-  <header class="landing-nav">
-    <a class="landing-brand" href="./" aria-label="Weatherbridge"><img src="/weatherbridge-logo.png" alt="" width="32" height="32">Weatherbridge</a>
-    <nav aria-label="Main navigation"><button type="button" data-open-about data-zh="关于" data-en="About">关于</button><a href="signals/sources.html" data-preserve-language data-zh="数据" data-en="Data">数据</a></nav>
-    <div class="page-language" role="group" aria-label="语言 / Language"><button type="button" data-language="zh">中</button><button type="button" data-language="en">EN</button></div>
-  </header>
+  <wb-header></wb-header>
   <main id="main" class="landing-cover">
     <div class="landing-hero">
       <h1><span data-zh="天气难以确定。" data-en="Weather is uncertain.">天气难以确定。</span><span class="landing-accent" data-zh="决定不能等。" data-en="Decisions cannot wait.">决定不能等。</span></h1>
       <p class="landing-intro" data-zh="常规预报受限时，探索日常决策可参考的补充天气信号。" data-en="Explore supplementary weather signals when conventional forecasts are limited.">常规预报受限时，探索日常决策可参考的补充天气信号。</p>
-      <div class="landing-actions"><a class="landing-enter" href="cases/jinxi/" data-preserve-language><span data-zh="进入 Weatherbridge" data-en="Enter Weatherbridge">进入 Weatherbridge</span><span aria-hidden="true">→</span></a>
-      <details class="landing-about" id="project-about"><summary><span data-zh="关于这个项目" data-en="About this project">关于这个项目</span><span class="disclosure-mark" aria-hidden="true">+</span></summary>
-        <div class="about-body">
-          <h2 data-zh="我们的问题" data-en="Question">我们的问题</h2>
-          <p data-zh="当常规天气预报无法获得时，Polymarket 能否为日常安排提供补充天气信号？匹配的合约是否也可能帮助抵消部分天气相关经营损失？" data-en="When conventional forecasts are unavailable, can Polymarket provide supplementary weather signals for everyday planning? Could matching contracts also help offset weather-related business losses?">当常规天气预报无法获得时，Polymarket 能否为日常安排提供补充天气信号？匹配的合约是否也可能帮助抵消部分天气相关经营损失？</p>
-          <h2 data-zh="为谁而做" data-en="Users">为谁而做</h2>
-          <p data-zh="天气服务不足地区的天气敏感行业从业者，以及具备基本金融素养、希望管理天气相关损失的小商户。" data-en="Weather-sensitive workers in underserved communities, and small-business owners with basic financial literacy interested in managing weather-related losses.">天气服务不足地区的天气敏感行业从业者，以及具备基本金融素养、希望管理天气相关损失的小商户。</p>
-          <h2 data-zh="可以做什么" data-en="Task">可以做什么</h2>
-          <p data-zh="理解可能的气温、判断分歧与历史表现，识别可以提前做的准备以及对冲的限制。需要能联网，并有对应地点、日期和天气变量的市场。" data-en="Understand likely temperatures, uncertainty, and historical performance; identify practical preparations and potential hedging limitations. Internet access and relevant markets are prerequisites.">理解可能的气温、判断分歧与历史表现，识别可以提前做的准备以及对冲的限制。需要能联网，并有对应地点、日期和天气变量的市场。</p>
-          <p class="about-limit" data-zh="市场信号是补充，不替代正式预报与预警。当前展示历史数据及模拟人物情景，不提供明日预报或保证收益。" data-en="Market signals supplement official forecasts and warnings. This site presents historical data and fictional scenarios, not tomorrow’s forecast or guaranteed returns.">市场信号是补充，不替代正式预报与预警。当前展示历史数据及模拟人物情景，不提供明日预报或保证收益。</p>
-        </div>
-      </details></div>
-      <div class="landing-principles">
-        <p><strong data-zh="补充信息" data-en="SUPPLEMENTARY SIGNALS">补充信息</strong><span data-zh="常规天气预报受限时。" data-en="When normal forecasts are limited.">常规天气预报受限时。</span></p>
-        <p><strong data-zh="日常选择" data-en="FOR EVERYDAY DECISIONS">日常选择</strong><span data-zh="天气敏感行业与小商户。" data-en="For weather-sensitive workers and small businesses.">天气敏感行业与小商户。</span></p>
-        <p><strong data-zh="先理解，再行动" data-en="UNDERSTAND BEFORE ACTING">先理解，再行动</strong><span data-zh="气温 · 不确定性 · 历史表现。" data-en="Temperature · uncertainty · past performance.">气温 · 不确定性 · 历史表现。</span></p>
-      </div>
     </div>
     <nav class="case-path" aria-label="三个独立故事 / Three independent stories">
       <a class="case-entry" href="cases/jinxi/" data-preserve-language>
         <span class="case-circle"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M9 39h46l-9 12H20Z M19 38V22h26v16M14 22l18-9 18 9M8 56q6-5 12 0t12 0t12 0t12 0" /></svg></span>
-        <h2 data-zh="锦溪" data-en="Jinxi">锦溪</h2><span class="case-location" data-zh="中国 · 锦溪" data-en="Jinxi, China">中国 · 锦溪</span>
+        <span class="case-purpose">SEE</span><h2 data-zh="锦溪" data-en="Jinxi">锦溪</h2><span class="case-location" data-zh="中国 · 锦溪" data-en="Jinxi, China">中国 · 锦溪</span>
         <p data-zh="天气影响游船、晾晒与当地劳动。" data-en="Weather shapes tourism, food drying and local work.">天气影响游船、晾晒与当地劳动。</p>
         <span class="case-link" data-zh="走进锦溪 →" data-en="Explore Jinxi →">走进锦溪 →</span>
       </a>
       <a class="case-entry" href="cases/malawi/" data-preserve-language>
         <span class="case-circle"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M31 56V14M31 27Q13 27 13 13q18 0 18 14ZM31 39Q49 39 49 25q-18 0-18 14ZM31 51Q13 51 13 37q18 0 18 14ZM39 14l6-6m5 12h7" /></svg></span>
-        <h2 data-zh="马拉维" data-en="Malawi">马拉维</h2><span class="case-location" data-zh="非洲 · 伦菲" data-en="Rumphi, Malawi">非洲 · 伦菲</span>
+        <span class="case-purpose">NEED</span><h2 data-zh="马拉维" data-en="Malawi">马拉维</h2><span class="case-location" data-zh="非洲 · 伦菲" data-en="Rumphi, Malawi">非洲 · 伦菲</span>
         <p data-zh="本地天气信息难以获得时，怎样决定？" data-en="What if useful local weather information is hard to access?">本地天气信息难以获得时，怎样决定？</p>
         <span class="case-link" data-zh="认识托科 →" data-en="Meet Thoko →">认识托科 →</span>
       </a>
       <a class="case-entry" href="cases/mexico-city/" data-preserve-language>
         <span class="case-circle"><svg viewBox="0 0 64 64" aria-hidden="true"><path d="M14 25h31v17q0 10-15 10T14 42ZM45 28h5q14 7 0 15h-5M10 57h42M22 16q-6-5 0-11m13 11q-6-5 0-11" /></svg></span>
-        <h2 data-zh="墨西哥城" data-en="Mexico City">墨西哥城</h2><span class="case-location" data-zh="墨西哥" data-en="Mexico">墨西哥</span>
+        <span class="case-purpose">USE</span><h2 data-zh="墨西哥城" data-en="Mexico City">墨西哥城</h2><span class="case-location" data-zh="墨西哥" data-en="Mexico">墨西哥</span>
         <p data-zh="天气信号能怎样帮助安排生活与经营？" data-en="Can weather signals support planning and business decisions?">天气信号能怎样帮助安排生活与经营？</p>
         <span class="case-link" data-zh="走进墨西哥城 →" data-en="Explore Mexico City →">走进墨西哥城 →</span>
       </a>
     </nav>
-    <p class="landing-end" data-zh="三个故事，从你关心的一个开始。" data-en="Three stories. Start with the one that matters to you.">三个故事，从你关心的一个开始。</p>
+    <p class="landing-end" data-zh="从看见生活，到理解需求，再到使用信息。" data-en="SEE everyday life. NEED relevant information. USE it to prepare.">三个故事，从你关心的一个开始。</p>
   </main>
-  <script type="module" src="/src/landing.js"></script>
+  <script src="/site-header.js"></script><script type="module" src="/src/landing.js"></script>
 </body>
 </html>

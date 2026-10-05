@@ -1,0 +1,11 @@
+/* Advanced charts share the current site palette and type; renderer colours keep their meaning. */
+body{font-family:Plex,'Microsoft YaHei',sans-serif;background:var(--wb-paper);color:var(--wb-ink)}
+.professional-page{--paper:var(--wb-paper);--ink:var(--wb-ink);--muted:var(--wb-muted);--line:var(--wb-line);--actual:#167c77;--market:#a94b2e}
+.shell{max-width:1240px;padding:28px var(--wb-inset) 64px}
+.topbar{position:static;gap:20px}.back-guided{font-size:14px;text-decoration:none}
+.intro h1{font:600 clamp(30px,4vw,48px)/1.2 Plex,'Microsoft YaHei',sans-serif;color:var(--wb-ink)}
+.unit-switch button{min-height:44px}.data-controls{min-width:0}.chart-wrap{min-width:0}
+.data-note .wb-primary{background:var(--wb-ink);color:white}
+html,body{height:auto;overflow:auto}
+.professional-page{height:auto;min-height:0;overflow:visible;scroll-snap-align:none}
+@media(max-width:650px){.topbar{display:flex;flex-wrap:wrap}.data-controls{width:100%;gap:12px}.location-picker{max-width:100%}.location-picker select{max-width:100%}.workspace-head .legend{flex-wrap:wrap}.shell{padding-top:24px}.intro{padding:20px 0}.data-note{flex-wrap:wrap}.data-note-copy{min-width:0}}

@@ -1,56 +1,48 @@
-# Weather / Signals
+# Weatherbridge
+A bilingual course prototype: Story → Evidence → Action.
 
-三章节的完整网站，每页顶部有统一的章节导航：
+## Current journey
+Cover → SEE / Jinxi → NEED / Malawi → USE / Mexico City → What is Polymarket? → Guided historical comparison → 3D food-drying courtyard → Debrief.
 
-| 章节 | 路径 | 内容 |
-|---|---|---|
-| 01 Origin · Jinxi | `index.html` | 锦溪田野观察：项目缘起与证据边界 |
-| 02 Signals vs outcomes · New York | `public/signals/` | 温度对照：NOAA 实测 × Polymarket 真实历史价格（下文） |
-| 03 NomadCast · Mexico City | `nomadcast/index.html` | 开篇特稿：用本工具在 Polymarket 上对冲天气风险（示例情景）；面向数字游民的天气信号探索原型（活动数据为模拟数据） |
+| Route | Purpose |
+|---|---|
+| / | Three connected story entrances; no competing chapter menu |
+| /cases/jinxi/ | Field observations, expandable photographs and weather questions |
+| /cases/malawi/ | Fictional Thoko household: information needs and preparation |
+| /cases/mexico-city/ | Fictional business decisions; preparation before possible hedging |
+| /signals/introduction/ | Authored price example; prices are not voter shares |
+| /signals/guide/ | One historical day first, distribution next, nine days on request |
+| /signals/explore/ | Five optional advanced SVG chart views |
+| /signals/methods/ | Quote timing, units, interval membership and limitations |
+| /signals/sources/ | Date-specific market, quote and archived observation evidence |
+| /experience/food-drying/ | Three.js fixed-camera courtyard with four preparations |
+| /experience/food-drying/debrief/ | Same-weather comparison, without a right/wrong score |
+| /about/ | Project question, users and information equity |
 
-`jinxi/` 保留原始的独立锦溪页面及照片；第 01 章直接引用 `jinxi/assets/` 中的图片。
-
-## 运行与部署
-
-```bash
-npm install
-npm run dev      # http://localhost:5173/
-npm run build    # 输出到 dist/
+## Run and deploy
+```sh
+npm ci
+npm run dev
+npm run build
+npm run preview -- --host 127.0.0.1 --port 8017
 ```
+Render: build `npm ci && npm run build`, publish `dist`.
+Always test the production build: legacy Jinxi and NomadCast URLs are redirected in build output rather than exposed as chapters. Their original source is retained as migration material. Native signals pages under `public/` are copied without bundling.
 
-静态托管需要构建步骤：Render 的 Build Command 填 `npm ci && npm run build`，Publish Directory 填 `dist`。页面之间均为相对链接，可部署在子路径下。
+## Evidence and boundaries
+Both current airports use September 19–27, 2026 archived snapshots. NOAA Aviation Weather Center METAR observations are grouped by airport-local date; the maximum reported temperature is retained when at least 20 reports span at least 20 distinct hours. METAR maxima can miss peaks between reports and are not necessarily market settlement temperatures.
 
-第 02 章（`public/signals/`）是原生 HTML/JS，Vite 原样复制、不打包，也可单独直接打开 `public/signals/index.html`。
+For each Polymarket interval, use the last available Yes quote within 24 hours before local midnight, sampled at five-minute intervals. Quote timestamps can differ. Celsius/Fahrenheit changes display only: rounded market-native units determine interval membership. Different native bin widths prevent simple city rankings; nine days do not establish forecasting skill. Historical prices are not voter shares or calibrated weather probabilities.
 
----
+Current snapshots: `public/signals/data/mexico-unified.json`, `laguardia-unified.json`, `unified-market.js`. Earlier August data and original extraction scripts remain archival material, not the current default. Daily Sources links distinguish derived project archives from original APIs and settlement sources.
 
-# 温度对照 / Temperature Comparison（第 02 章）
+The drying game uses an independent, authored rainfall model (60% rain draw), synthetic quotes and illustrative records. These do not come from the temperature snapshots and are not a Malawi forecast. It models exposure and drying opportunity qualitatively—not food safety, yield, economic loss or financial advice. Official warnings take priority. Hedging requires matched place/date/variable/settlement, liquidity, costs and basis risk.
 
-纽约拉瓜迪亚机场 2026 年 8 月 17–28 日每日最高气温：比较 NOAA 实测与 Polymarket 同日最高报价预测区间。网站采用可左右滑动的三页结构：研究原理页解释预测市场的信息聚合机制，简明版呈现每日最高报价区间与实际气温，专业版保留逐日对照、双线趋势、3D 双轨、热力图与堆叠面积图。
+## Verification
+```sh
+node scripts/verify-guided-data.mjs
+node scripts/verify-refactor.cjs
+```
+Browser regression requires Playwright and Chrome; set `WEATHERBRIDGE_PLAYWRIGHT` and `WEATHERBRIDGE_BROWSER` when they are not on standard paths. Screenshots and Chrome profiles are ignored under `.cache/` on the project drive. Includes 12 routes, bilingual widths 320/390/768/1440, 15 story states, five advanced charts, seven redirects, eight game outcome states, reduced motion and text fallback. Automated correctness is not evidence of novice comprehension; user testing remains necessary.
 
-三个页面均可在中文与英文之间即时切换；语言选择会保存在浏览器中，图表提示、日期详情和预测分布面板也会同步切换。
-
-第 02 章的全站章节导航也会跟随语言切换，确保从锦溪缘起、纽约数据对照到 NomadCast 的入口保持一致。
-
-简明版借鉴论文图表常见的克制网格、直接标注与高对比数据编码，使用项目自身的原生 SVG 实现；未复制第三方仓库的图片素材。
-
-## 数据
-
-- NOAA NCEI Daily Summaries，站点 `USW00014732`（LaGuardia Airport），`TMAX`，华氏度。内置核验快照；页面加载时尝试从[官方接口](https://www.ncei.noaa.gov/access/services/data/v1?dataset=daily-summaries&stations=USW00014732&startDate=2026-08-17&endDate=2026-08-28&dataTypes=TMAX&units=standard&format=json)刷新。
-- Polymarket 每日 NYC 最高温事件，每天 11 个 Yes-token 温度区间。使用官方 `polymarket-client` Python SDK 的 `get_event` 与 `list_price_history(as_of)`，查询纽约当地日期 00:00 前最近可得报价。原始区间、价格、报价 UTC 时间、market ID 与 token ID 见 [`public/signals/data/nyc-aug-2026.json`](public/signals/data/nyc-aug-2026.json)。每个日期的市场链接随页面选择更新。
-- 主图默认显示最高报价区间；用户可在分布面板换选任何区间。热力图和面积图按固定 2°F 格网显示，并将当日 11 档价格之和归一化为 100%。极端的开放区间（“及以下”“及以上”）仅在这些图中映射至边缘格，准确范围见分布面板和数据文件。
-- Yes 价格不是下注人数。报价时间在区间之间可能不同，价格总和也不必等于 100%。NOAA 每日 TMAX 与市场规则指定的逐小时结算来源可能不同，不能单凭页面差值评价市场结算准确率。
-
-## 复现
-
-重新采集数据：在项目的 Python 环境安装 `polymarket-client` 和 `httpx`，运行 `python scripts/fetch-nyc-history.py`。脚本只在 12 天 × 11 档全部成功且站点、日期、报价时间通过检查后，写入 `public/signals/data/nyc-aug-2026.json` 和 `public/signals/src/data.js`。静态单文件版本由 `node scripts/build-huggingface.mjs` 生成（会去掉仅在完整网站内有效的章节导航）。
-
-Hugging Face Static Space：将 [`huggingface/index.html`](huggingface/index.html) 与 [`huggingface/README.md`](huggingface/README.md) 放在 Space 根目录；HTML 已内嵌 CSS、JS 和历史数据。
-
-
-
-https://github.com/user-attachments/assets/7d36f13e-3f87-40f1-aa21-4f25d9aa37d8
-
-
-
-
+Legacy `src/main.js`, `src/views/`, `jinxi/index.html`, `nomadcast/` are intentionally unbuilt migration sources. Build inputs in `vite.config.js` own the final public routes. See `docs/restructure-audit.md`.

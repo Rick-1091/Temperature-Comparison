@@ -1,0 +1,83 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-05T09:51:22+08:00",
+  "title": "Design System: Weatherbridge",
+  "extensions": {
+    "focus": [
+      { "name": "shared", "outline": "3px solid var(--wb-accent)", "outlineOffset": "4px", "targets": "a, button, summary, select :focus-visible", "source": "public/site.css" },
+      { "name": "cover", "outline": "3px solid var(--accent)", "outlineOffset": "6px", "targets": "button, a, summary :focus-visible", "source": "src/cover.css" },
+      { "name": "journey-legacy", "outline": "3px solid var(--blue)", "outlineOffset": "3px", "purpose": "Earlier journey declaration; current Guided markup loads site.css afterward, which overrides it.", "source": "public/journey.css" }
+    ],
+    "shadows": [
+      { "name": "story-overlay", "value": "0 4px 22px #183e3a22", "purpose": "Signal, options, and summary overlays within story imagery." }
+    ],
+    "motion": [
+      { "name": "cover-circle", "value": "transform .2s, border-color .2s", "purpose": "Hover scales to 1.04 and changes border to cover accent; the later scale rule replaces the earlier translation." },
+      { "name": "story-image", "value": "filter .3s", "purpose": "Stage 1 applies brightness(.6)." },
+      { "name": "reduced-motion", "value": "@media(prefers-reduced-motion:reduce)", "purpose": "Shared CSS disables animation and transition, sets scroll-behavior:auto; cover removes hover transform; courtyard starts paused and reacts to preference changes." },
+      { "name": "courtyard", "value": "requestAnimationFrame", "purpose": "Fixed-camera scene animation with manual pause, hidden-document pause, and static updates after choices." }
+    ],
+    "breakpoints": [
+      { "name": "courtyard-small", "value": "400px", "purpose": "max-width: scene height 290px; overlay padding 18px." },
+      { "name": "shared-and-cover", "value": "640px", "purpose": "max-width: wrapped header, vertical case path, smaller cover type and circles." },
+      { "name": "story-and-explore", "value": "650px", "purpose": "max-width: stacked story and field observations, wrapped exploration controls." },
+      { "name": "journey-comparison", "value": "760px", "purpose": "max-width: stacked comparison; distribution outcome mark hidden." },
+      { "name": "courtyard-stack", "value": "850px", "purpose": "max-width: 360px scene followed by static decision panel." },
+      { "name": "courtyard-desktop", "value": "851px", "purpose": "min-width: scene width calc(100% - 380px)." }
+    ],
+    "provenance": {
+      "styles": ["public/site.css", "src/cover.css", "src/story.css", "src/game.css", "public/signals/explore/explore.css", "public/journey.css"],
+      "method": "Static source inspection, including later CSS overrides and current markup. No browser pass in this documentation task.",
+      "scope": "Observed reusable system only. No synthesized tonal ramps or universal legacy chart standard. Snippets preserve existing CSS states; they do not implement routing or application state. Font assets remain supplied by the host page."
+    }
+  },
+  "components": [
+    {
+      "name": "Primary action",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Shared filled action. No custom hover fill exists in the source.",
+      "html": "<a class=\"ds-primary\" href=\"#continue\">Continue →</a>",
+      "css": ".ds-primary{display:inline-flex;align-items:center;min-height:48px;background:var(--wb-ink,#183e3a);color:#fff;padding:12px 20px;border:0;border-radius:var(--wb-radius,4px);text-decoration:none;font-family:Plex,'Microsoft YaHei',sans-serif}.ds-primary:focus-visible{outline:3px solid var(--wb-accent,#a94b2e);outline-offset:4px}"
+    },
+    {
+      "name": "Shared navigation controls",
+      "kind": "nav",
+      "description": "Text and language portion of the single shared header; original logo omitted from this isolated preview.",
+      "html": "<header class=\"ds-header\"><a class=\"ds-brand\" href=\"/\">Weatherbridge</a><nav aria-label=\"Site navigation\"><a href=\"/about/\">About</a><a href=\"/signals/sources/\">Sources</a></nav><div class=\"ds-language\" aria-label=\"Language\"><button aria-pressed=\"false\">中</button><button aria-pressed=\"true\">EN</button></div></header>",
+      "css": ".ds-header{display:flex;align-items:center;gap:24px;min-height:76px;padding:14px var(--wb-inset,clamp(20px,6vw,86px));border-bottom:1px solid var(--wb-line,#d5d7c9);background:var(--wb-paper,#f5f2e9);color:var(--wb-ink,#183e3a);font-family:Plex,'Microsoft YaHei',sans-serif}.ds-header a{color:inherit;text-decoration:none}.ds-brand{font-size:20px;font-weight:600;white-space:nowrap}.ds-header nav{margin-left:auto;display:flex;gap:24px}.ds-header nav a{font-size:14px}.ds-language{display:flex;gap:3px}.ds-language button{font:inherit;min-height:44px;padding:8px;background:none;color:inherit;border:1px solid transparent;border-radius:var(--wb-radius,4px);cursor:pointer}.ds-language button[aria-pressed=true]{border-color:currentColor}.ds-header a:focus-visible,.ds-language button:focus-visible{outline:3px solid var(--wb-accent,#a94b2e);outline-offset:4px}@media(max-width:640px){.ds-header{gap:12px;min-height:66px;flex-wrap:wrap}.ds-brand{font-size:17px}.ds-header nav{gap:14px}.ds-header nav a{font-size:13px}.ds-language{margin-left:auto}}"
+    },
+    {
+      "name": "Shared disclosure",
+      "kind": "custom",
+      "description": "Native progressive disclosure with the shared top rule and muted explanatory text.",
+      "html": "<details class=\"ds-disclosure\"><summary>Sources &amp; limitations</summary><p>Check sources &amp; methods →</p></details>",
+      "css": ".ds-disclosure{border-top:1px solid var(--wb-line,#d5d7c9);margin:24px 0;padding:12px 0;color:var(--wb-ink,#183e3a);font-family:Plex,'Microsoft YaHei',sans-serif}.ds-disclosure summary{padding:10px 0;font-weight:600;cursor:pointer}.ds-disclosure p{font-size:15px;max-width:75ch;color:var(--wb-muted,#52685e);line-height:1.8}.ds-disclosure summary:focus-visible{outline:3px solid var(--wb-accent,#a94b2e);outline-offset:4px}"
+    },
+    {
+      "name": "Courtyard choice",
+      "kind": "button",
+      "description": "Paper choice button from the staged courtyard interaction.",
+      "html": "<button class=\"ds-choice\">Prepare a cover</button>",
+      "css": ".ds-choice{min-height:44px;padding:10px 14px;border:1px solid var(--wb-line,#d5d7c9);background:var(--wb-paper,#f5f2e9);color:var(--wb-ink,#183e3a);font-family:Plex,'Microsoft YaHei',sans-serif;font-size:16px;cursor:pointer;text-align:left}.ds-choice:hover{background:#e2ece5}.ds-choice:focus-visible{outline:3px solid var(--wb-accent,#a94b2e);outline-offset:4px}"
+    },
+    {
+      "name": "Guided evidence select",
+      "kind": "input",
+      "description": "Retained journey field styling with the later shared focus rule; not a new global input standard.",
+      "html": "<label class=\"ds-field\">Location<select aria-label=\"Location\"><option>Mexico City</option><option>New York</option></select></label>",
+      "css": ".ds-field{display:grid;gap:4px;font-family:Plex,'Microsoft YaHei',sans-serif;font-size:13px;color:var(--muted,#526660)}.ds-field select{font-family:Plex,'Microsoft YaHei',sans-serif;font-size:17px;line-height:1.55;min-height:44px;padding:8px 32px 8px 12px;border:1px solid #b9b9af;border-radius:3px;background:var(--light,#faf8f3);color:var(--ink,#243d3b);max-width:100%}.ds-field select:focus-visible{outline:3px solid var(--wb-accent,#a94b2e);outline-offset:4px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Dark-teal cover, warm-paper stories",
+    "overview": "Weatherbridge opens with a restrained, pure dark-teal cover and three independent SEE / NEED / USE story entries. Stories, evidence, and action occupy warm-paper surfaces, with a shared Weatherbridge / About / Sources / language header. Existing fonts, logo, photographs, illustrations, and case icons remain the visual vocabulary.\n\nUnderstanding unfolds through story steps and optional explanations. The action experience is a real fixed-camera, lowpoly Three.js courtyard with visible decisions and consequences. This document records implemented styles, not a proposed refactor or a new chart standard.",
+    "keyCharacteristics": ["Dark-teal entry and warm-paper reading surfaces.", "Shared navigation and retained bilingual typography and assets.", "Progressive disclosure with a real courtyard decision experience."],
+    "rules": [
+      { "name": "The Chart Context Rule", "body": "Legacy charts retain renderer-specific styles and semantic encodings; their palettes and controls are not a new universal standard.", "section": "colors" },
+      { "name": "The Shared Shell Rule", "body": "Use the shared Weatherbridge / About / Sources / language header on current routes; preserve language and selected evidence context across navigation.", "section": "components" }
+    ],
+    "dos": ["Do retain the existing fonts, identity assets, photographs, and illustrations.", "Do keep the cover focused on the connected SEE → NEED → USE story entries.", "Do reveal technical explanation progressively while keeping sources and limitations accessible.", "Do preserve language and selected evidence context across navigation."],
+    "donts": ["Don't promote retained renderer-specific chart styles into a universal standard.", "Don't replace the real courtyard scene with a decorative screenshot or an orbit-controlled viewer.", "Don't invent palette ramps, typography scales, hover states, or layout tokens absent from the implementation."]
+  }
+}

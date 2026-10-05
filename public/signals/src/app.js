@@ -67,7 +67,7 @@ let dragStart = null;
 let flatMetrics = null;
 let suppressPointClick = false;
 let observationFresh = false;
-let language = (() => { try { return localStorage.getItem("temperature-language") === "en" ? "en" : "zh"; } catch { return "zh"; } })();
+let language = (() => { try { return (new URLSearchParams(location.search).get('lang') || localStorage.getItem("temperature-language")) === "en" ? "en" : "zh"; } catch { return "zh"; } })();
 
 const localizedCopy = {
   zh: {
@@ -205,10 +205,12 @@ function applyLanguage(nextLanguage) {
   language = nextLanguage === "en" ? "en" : "zh";
   try { localStorage.setItem("temperature-language", language); } catch {}
   document.documentElement.lang = language === "en" ? "en" : "zh-CN";
-  document.title = localizedCopy[language].documentTitle;
+  document.title = language==='en'?'Weatherbridge · Advanced exploration':'Weatherbridge · 高级探索';
+  document.querySelectorAll('[data-zh][data-en]').forEach(el=>el.textContent=el.dataset[language]);
+  window.dispatchEvent(new CustomEvent('wb-language',{detail:language}));
   staticBindings.forEach(([selector, key]) => document.querySelectorAll(selector).forEach((node) => { node.innerHTML = localizedCopy[language][key]; }));
   languageButtons.forEach((button) => { const active = button.dataset.language === language; button.classList.toggle("active", active); button.setAttribute("aria-pressed", String(active)); });
-  document.querySelector(".page-switcher").setAttribute("aria-label", language === "en" ? "Pages and language" : "页面与语言");
+  document.querySelector(".page-switcher")?.setAttribute("aria-label", language === "en" ? "Pages and language" : "页面与语言");
   document.querySelector(".chapterbar")?.setAttribute("aria-label", language === "en" ? "Website chapters" : "网站章节");
   locationSelects.forEach((select) => select.setAttribute("aria-label", language === "en" ? "Choose location" : "选择地点"));
   document.querySelector("#prev-point").setAttribute("aria-label", language === "en" ? "Previous day" : "选择前一天");
@@ -219,7 +221,9 @@ function applyLanguage(nextLanguage) {
   renderSimple();
   select(state.selected);
   updateMexicoView();
-  updateSourceDialog();
+  document.querySelector('#page-title').textContent=language==='en'?'Advanced exploration':'高级探索';
+  document.querySelector('.back-guided').href=`../guide/?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=${language}`;
+
 }
 
 function chosenBucket(index) { return series[index].outcomes[choiceByDay[index]]; }
@@ -493,6 +497,7 @@ function placeGlass() {
   marketMarker.style.top = `${svgTop + temperatureY(marketMid(state.selected), top, bottom)}px`;
 }
 function renderSimpleDetail(index) {
+  if (!simpleDetail) return;
   sourceDayIndex = index;
   const item = series[index];
   const leader = simpleLeaders[index];
@@ -502,6 +507,7 @@ function renderSimpleDetail(index) {
     : `<strong>${formatDate(item.day)}</strong><span class="market-text">市场 ${leader.label} · ${pct(leader.price)}</span><span class="actual-text">实际 ${temperature(item.actual)}</span><span>${inside ? "实际值落在预测区间内" : "实际值未落在预测区间内"}</span>`;
 }
 function renderSimple() {
+  if (!simpleSvg) return;
   const width = Math.max(simpleSvg.clientWidth, 310);
   const height = Math.max(simpleSvg.clientHeight, 390);
   const mobile = width < 620;
@@ -594,12 +600,12 @@ function renderSimpleHitHistory() {
       </div>`}
       <p>${english?'Cumulative hit rate = qualifying days / days with both a market interval and an observation, up to each date. Broad-range hits measure interval coverage at a wider tolerance, not probability calibration or overall forecasting skill. Compare methods at the same interval width. This small historical sample uses NOAA daily highs; observation stations and settlement rules may differ.':'累计命中率＝截至该日的命中天数 ÷ 同时具备市场区间与实测数据的有效天数。宽松命中率衡量较大容差下的区间覆盖率，不等同于概率校准程度或整体预测能力；比较不同方法时应统一区间宽度。本图仅反映短期历史样本，NOAA 观测站点与市场结算规则可能存在差异。'}</p>`;
   });
-  document.getElementById('simple-hit-count').textContent = wide;
-  document.querySelector('.simple-summary>span').textContent = english ? 'days inside the broader range' : '天落在宽松范围内';
+  if(document.getElementById('simple-hit-count'))document.getElementById('simple-hit-count').textContent = wide;
+  if(document.querySelector('.simple-summary>span'))document.querySelector('.simple-summary>span').textContent = english ? 'days inside the broader range' : '天落在宽松范围内';
 }
 function goToPage(name) {
   const target = document.querySelector(`[data-page="${name}"]`);
-  if (!target) return;
+  if (!target || !pageDeck) return;
   pageDeck.style.scrollBehavior = "auto";
   pageDeck.scrollLeft = target.offsetLeft;
   requestAnimationFrame(() => { pageDeck.style.scrollBehavior = ""; });
@@ -641,13 +647,17 @@ function select(index) {
   marketLink.href = item.marketUrl;
   marketLink.textContent = language === "en" ? `Polymarket ${isMexico ? "Mexico City" : "NYC"} ${monthShort} ${item.day} market ↗` : `Polymarket ${isMexico ? "墨西哥城" : "纽约"} ${monthNumber}/${item.day} 市场 ↗`;
   const evidenceLink = document.querySelector('#noaa-link');
-  evidenceLink.href = `sources.html?location=${isMexico?'mexico':'laguardia'}&day=${item.date}&unit=${temperatureUnit}&lang=${language}`;
+  evidenceLink.href = `../sources/?location=${isMexico?'mexico':'laguardia'}&day=${item.date}&unit=${temperatureUnit}&lang=${language}`;
   evidenceLink.textContent = language === 'en' ? 'This day’s observation evidence ↗' : '这一天的观测来源 ↗';
-  document.querySelector('.guided-entry a').href = `guide.html?location=${isMexico?'mexico':'laguardia'}&day=${item.date}&unit=${temperatureUnit}&lang=${language}`;
+  const guidedLink=document.querySelector('.back-guided');
+  if(guidedLink)guidedLink.href = `../guide/?location=${isMexico?'mexico':'laguardia'}&day=${item.date}&unit=${temperatureUnit}&lang=${language}`;
+  const address=new URL(location.href);
+  address.searchParams.set('day',item.date);
+  address.searchParams.set('lang',language);
+  history.replaceState(null,'',address);
   document.querySelector("#point-counter").textContent = `${String(state.selected + 1).padStart(2, "0")} / ${series.length}`;
   render();
   if (!predictionPanel.hidden) renderPrediction();
-  updateSourceDialog();
 }
 function showTooltip(event, index) {
   const item = series[index];
@@ -779,20 +789,10 @@ window.addEventListener("pointerup", () => {
   dragStart = null;
 });
 new ResizeObserver(render).observe(svg);
-new ResizeObserver(renderSimple).observe(simpleSvg);
+if(simpleSvg)new ResizeObserver(renderSimple).observe(simpleSvg);
 pageButtons.forEach((button) => button.addEventListener("click", () => goToPage(button.dataset.pageTarget)));
 languageButtons.forEach((button) => button.addEventListener("click", () => applyLanguage(button.dataset.language)));
-const pageObserver = new IntersectionObserver((entries) => {
-  const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-  if (!visible) return;
-  const name = visible.target.dataset.page;
-  document.querySelectorAll(".page-dot").forEach((button) => {
-    const active = button.dataset.pageTarget === name;
-    button.classList.toggle("active", active);
-    button.setAttribute("aria-pressed", String(active));
-  });
-}, { root: pageDeck, threshold: [.55, .8] });
-pagePanels.forEach((panel) => pageObserver.observe(panel));
+
 locationSelects.forEach((select) => select.addEventListener("change", () => {
   const next = new URL(location.href);
   if (select.value === 'mexico') next.searchParams.set('location', 'mexico');
@@ -816,10 +816,8 @@ document.querySelectorAll('[data-unit]').forEach(control => {
   });
 });
 document.querySelectorAll('[data-sources-open]').forEach(button => button.addEventListener('click', () => {
-  updateSourceDialog(true);
-  document.querySelector('#source-dialog').showModal();
+  location.assign(`../sources/?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=${language}`);
 }));
-document.querySelector('#sources-close').addEventListener('click', () => document.querySelector('#source-dialog').close());
 applyLanguage(language);
 // Case-study links open their matching view directly; ordinary visits stay simple.
 function openLinkedPage() {

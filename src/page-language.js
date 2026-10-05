@@ -15,6 +15,7 @@ export function setupLanguage() {
       el.href = url.href;
     });
     try { localStorage.setItem('temperature-language', language); } catch {}
+    window.dispatchEvent(new CustomEvent('wb-language', {detail:language}));
   }
   document.querySelectorAll('[data-language]').forEach(el => el.addEventListener('click', () => apply(el.dataset.language)));
   apply();

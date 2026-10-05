@@ -1,340 +1,342 @@
-// Keep illustrative decisions separate from the real historical data tools.
 export const stories = {
   "jinxi": {
+    "role": "SEE",
     "title": [
-      "锦溪：天气与水边生活",
-      "Jinxi: life by the water"
+      "天气怎样进入锦溪的日常生活？",
+      "How does weather enter everyday life in Jinxi?"
     ],
     "image": "jinxi-river-wide.png",
-    "alt": [
-      "锦溪水乡河道与游船",
-      "Canal and boats in Jinxi"
+    "note": [
+      "锦溪实地观察；插画用于叙事。",
+      "Jinxi field observations; narrative illustration."
     ],
     "steps": [
       [
         [
-          "人物与地点",
-          "People & place"
+          "看见生活",
+          "See everyday life"
         ],
         [
-          "一条河，几种靠天气安排的生活。",
-          "One canal. Several weather-sensitive livelihoods."
+          "同一片天空，不同的活动。",
+          "One sky. Different activities."
         ],
         [
-          "游船、食品晾晒与户外经营，都需要提前安排。",
-          "Boat trips, food drying and outdoor businesses all need preparation."
+          "游船、食品展示、水边活动和传统制作，对天气的敏感方式并不相同。",
+          "Boat trips, food displays, waterside activity and traditional making relate to weather in different ways."
         ],
         [
-          "故事来自团队实地观察，不代表已测量的损失或当地所有人的需求。",
-          "This story draws on team field observations, not measured losses or the needs of every resident."
+          "游船关心雨、风与水面条件；食品处理可能更关心湿度与晾晒窗口。先认清活动，才能问对天气问题。",
+          "Boat trips depend on rain, wind and water conditions; food handling may need humidity and drying windows. Start with the activity to ask the right weather question."
         ]
       ],
       [
         [
-          "困境",
-          "Problem"
+          "提出问题",
+          "Ask a question"
         ],
         [
-          "知道温度，不等于知道能不能开船。",
-          "Temperature alone cannot tell you whether to run a boat trip."
+          "“天气好不好”，还不够具体。",
+          "“Is the weather good?” is not specific enough."
         ],
         [
-          "雨、风与湿度，可能比一个温度数字更重要。",
-          "Rain, wind and humidity may matter more than a temperature number."
+          "是担心游客淋雨，还是食品受潮？",
+          "Are you concerned about wet visitors or damp food?"
         ],
         [
-          "不同活动需要不同变量。不能把某个城市的温度市场直接当作锦溪的降雨或游船安全信息。",
-          "Different activities need different variables. A temperature market elsewhere cannot stand in for Jinxi rainfall or boat safety information."
+          "把一个笼统的问题拆成降雨、风、湿度或温度，就更容易找到与活动有关的信息。",
+          "Breaking the question into rain, wind, humidity or temperature makes relevant information easier to find."
         ]
       ],
       [
         [
-          "信息",
-          "Information"
+          "找对信息",
+          "Find relevant information"
         ],
         [
-          "先看本地预警，再看补充信号。",
-          "Local warnings first. Supplementary signals second."
+          "先问需要什么，再找信号。",
+          "Identify the need before finding a signal."
         ],
         [
-          "只有地点、日期与天气变量匹配，市场信息才有比较意义。",
-          "A market is relevant only when its place, date and weather variable match."
+          "活动 → 天气变量 → 地点和时间。",
+          "Activity → weather variable → place and time."
         ],
         [
-          "当前没有接入锦溪本地天气市场。项目中的墨西哥城与纽约历史温度对照，是学习如何比较信号的示例，不是锦溪预报。",
-          "No Jinxi weather market is connected. The Mexico City and New York historical temperature comparisons teach signal comparison; they are not Jinxi forecasts."
+          "一条信息只有对应你所在地点、安排的时段和关心的变量，才有助于准备。",
+          "Information helps preparation when it matches your place, planned time and weather variable."
         ]
       ],
       [
         [
-          "选择",
-          "Decision"
+          "准备选择",
+          "Preparation choices"
         ],
         [
-          "准备可调整的安排。",
-          "Make plans you can adjust."
+          "不同活动，留下不同的调整空间。",
+          "Different activities need different room to adjust."
         ],
         [
-          "预留遮盖、灵活排班或改期空间；安全问题以正式预警为先。",
-          "Leave room for cover, flexible shifts or rescheduling; follow official warnings for safety."
+          "游客可改期；食品可遮盖；制作可调整工序。",
+          "Visitors might reschedule; food might be covered; production timing might be adjusted."
         ],
         [
-          "这些是情景中的可选安排，不是系统给出的行动建议，也没有计算收入或损失。",
-          "These are scenario options, not system recommendations. Revenue and losses have not been calculated."
+          "准备的价值在于保留选择。还要考虑人手、空间和材料，不只看天气数字。",
+          "Preparation preserves options. Labour, space and materials matter alongside weather numbers."
         ]
       ],
       [
         [
-          "收获",
-          "What we learn"
+          "带走问题",
+          "Take the question forward"
         ],
         [
-          "先问“我需要什么天气信息？”",
-          "First ask: what weather information do I need?"
+          "锦溪给了我们一个问题，而不是一个数据集。",
+          "Jinxi gave us a question, not a dataset."
         ],
         [
-          "理解需求，比多看一条不相关的预测更重要。",
-          "Understanding your need matters more than another irrelevant prediction."
+          "我真正需要什么天气信息？",
+          "What weather information do I actually need?"
         ],
         [
-          "下一站：当有用的本地天气信息难以获得，一个家庭如何准备？",
-          "Next: how might a household prepare when useful local weather information is hard to access?"
+          "带着具体需求，再去理解信息的可得性。下一个故事看一户家庭怎样面对难以使用的本地信息。",
+          "With a specific need in mind, consider access to information. The next story follows a household facing hard-to-use local information."
         ]
       ]
     ],
     "next": "../malawi/",
     "cta": [
-      "进入马拉维故事 →",
-      "Continue to Malawi →"
+      "NEED：走进马拉维 →",
+      "NEED: continue to Malawi →"
     ],
     "source": [
-      "团队锦溪实地照片与观察；人物决策为解释性情景。",
-      "Team field photographs and observations in Jinxi; decisions are illustrative scenarios."
+      "团队单次实地访问记录：游船、食品展示与博物馆工艺展陈。观察能引出天气变量的问题，但不证明当前损失、因果关系或当地工具需求。没有接入锦溪本地市场。",
+      "A single team visit documented boats, food displays and museum craft exhibits. These raise questions about weather variables, not evidence of current losses, causal effects or demand for a tool. No Jinxi market is connected."
     ]
   },
   "malawi": {
+    "role": "NEED",
     "title": [
-      "马拉维：晾晒之前，先想下一步",
-      "Malawi: prepare before drying"
+      "玉米还在院子里，要收起来吗？",
+      "The maize is outside. Should it come in?"
     ],
     "image": "thoko-family.png",
-    "alt": [
-      "模拟家庭人物 Thoko 与家人",
-      "Illustrated fictional household: Thoko and family"
+    "note": [
+      "Thoko 是伦菲的一位模拟家庭成员。",
+      "Thoko is a fictional household member in Rumphi."
     ],
     "steps": [
       [
         [
-          "人物与地点",
-          "People & place"
+          "晾晒",
+          "Drying"
         ],
         [
-          "Thoko 家的玉米还在院子里。",
-          "Thoko’s maize is still outside."
+          "Thoko 还想再晒一会儿。",
+          "Thoko wants a little more drying time."
         ],
         [
-          "伦菲的一户模拟家庭，需要安排粮食晾晒与收储。",
-          "A fictional household in Rumphi needs to plan maize drying and storage."
+          "玉米需要晾干，家里也要安排收储。",
+          "The maize needs drying, and the household needs to arrange storage."
         ],
         [
-          "Thoko 是模拟人物，不是受访者。地区背景参考马拉维气候信息与农业适应项目。",
-          "Thoko is fictional, not an interview participant. Regional context draws on Malawi climate-information and agricultural-adaptation projects."
+          "晾晒与收储是一组相连的安排：天气窗口、储藏空间和劳动时间都很重要。",
+          "Drying and storage are linked decisions. The weather window, available space and labour all matter."
         ]
       ],
       [
         [
-          "困境",
-          "Problem"
+          "雨会来吗",
+          "Will rain arrive?"
         ],
         [
-          "还能晒多久？",
-          "How much longer can it dry?"
+          "天色变了，能等多久？",
+          "The sky has changed. How long can it wait?"
         ],
         [
-          "宽泛的天气消息，不一定能回答村里何时下雨。",
-          "Broad weather messages may not explain when rain will reach a village."
+          "宽泛的消息，没有说清村里何时下雨。",
+          "Broad messages do not explain when rain will reach the village."
         ],
         [
-          "信息受限不一定意味着完全没有预报。当地适用性、获取时机与信息理解，都可能影响使用。",
-          "Limited information does not necessarily mean no forecasts exist. Local relevance, timing and understanding can all affect use."
+          "有消息与有用的消息不同。地点、时间和不确定性越清楚，家庭越容易安排下一步。",
+          "Having a message is different from having a useful message. Clear place, timing and uncertainty help a household plan."
         ]
       ],
       [
         [
-          "信息",
-          "Information"
+          "需要信息",
+          "Need information"
         ],
         [
-          "先找与晾晒有关的本地信息。",
-          "Look for locally relevant drying information."
+          "找的是降雨窗口，不是外地温度。",
+          "The need is a rain window, not a temperature elsewhere."
         ],
         [
-          "降雨时间、湿度与预警，比外地温度市场更相关。",
-          "Rain timing, humidity and warnings matter more than a temperature market elsewhere."
+          "本地降雨时间、湿度与正式预警。",
+          "Local rain timing, humidity and official warnings."
         ],
         [
-          "当前没有接入伦菲降雨市场。墨西哥城温度不能预测马拉维降雨。只有能联网、存在匹配且有足够交易的市场，才可能提供补充信号。",
-          "No Rumphi rainfall market is connected. Mexico City temperature cannot predict Malawi rain. Supplementary market signals require internet access and a relevant, sufficiently traded market."
+          "粮食受潮和干燥速度涉及雨与湿度；温度不能单独回答这些问题。相关信息要先与需求匹配。",
+          "Rain and humidity affect dampness and drying speed. Temperature alone cannot answer these questions. Match information to the need."
         ]
       ],
       [
         [
-          "选择",
-          "Decision"
+          "留出选择",
+          "Leave options"
         ],
         [
-          "给变化留出准备空间。",
-          "Leave room to respond."
+          "继续、分批，还是先遮盖？",
+          "Continue, split the batch or cover it?"
         ],
         [
-          "可以考虑分批晾晒、准备遮盖或提前收储。",
-          "A household might dry smaller batches, prepare covers or store food earlier."
+          "在消息还不完整时，也可以提前准备。",
+          "Preparation is possible even while information is incomplete."
         ],
         [
-          "储藏空间与劳动时间可能有限。这里展示可讨论的选择，不估算粮食损失，也不证明这些做法必然有效。",
-          "Storage and labour may be limited. These are options to discuss, not quantified crop losses or proof that the options will work."
+          "分批处理能保留一部分晾晒机会；准备遮盖缩短应对时间；提前收储减少暴露，但也减少日晒。",
+          "Smaller batches preserve some drying opportunity; a ready cover shortens response time; early storage reduces exposure but also drying time."
         ]
       ],
       [
         [
-          "收获",
-          "What we learn"
+          "看清需求",
+          "Understand the need"
         ],
         [
-          "看懂信息，也要看清缺什么。",
-          "Understand the information—and what is missing."
+          "信息平权，也包括看懂与用得上。",
+          "Information equity includes understanding and usefulness."
         ],
         [
-          "没有相关数据时，不把无关信号当成答案。",
-          "When relevant data is missing, an unrelated signal is not an answer."
+          "补充信号的前提，是它真的与生活有关。",
+          "A supplementary signal must be relevant to the activity."
         ],
         [
-          "下一站探索一个已有历史温度市场的城市，看看信号如何与实际结果比较。",
-          "Next, explore a city with historical temperature markets and compare signals with observed outcomes."
+          "下一站有可查看的历史温度市场。先看看一个经营者如何提出问题，再学习怎样读市场信号。",
+          "The next city has historical temperature markets to examine. Follow a business owner’s question, then learn how to read a market signal."
         ]
       ]
     ],
     "next": "../mexico-city/",
     "cta": [
-      "进入墨西哥城故事 →",
-      "Continue to Mexico City →"
+      "USE：走进墨西哥城 →",
+      "USE: continue to Mexico City →"
     ],
     "source": [
-      "模拟家庭情景；地区背景参考 UNDP M-CLIMES。",
-      "Fictional household scenario; regional context: UNDP M-CLIMES."
+      "家庭与决策均为模拟。地区背景参考 UNDP M-CLIMES。尚未接入伦菲降雨市场；墨西哥城或纽约温度不是马拉维预报。市场补充信息需要联网和相关市场，正式预警优先。",
+      "The household and choices are fictional. Regional context: UNDP M-CLIMES. No Rumphi rainfall market is connected. Mexico City or NYC temperatures are not Malawi forecasts. Market signals require internet access and relevant markets; official warnings take priority."
     ],
     "url": "https://www.adaptation-undp.org/projects/gcf-saving-lives-protecting-agriculture-based-livelihoods-malawi-m-climes"
   },
   "mexico-city": {
+    "role": "USE",
     "title": [
-      "墨西哥城：先安排经营，再理解合约",
-      "Mexico City: plan first, understand contracts second"
+      "墨西哥城：明天怎么安排营业？",
+      "Mexico City: how should tomorrow’s opening be planned?"
     ],
     "image": "patio-owner.png",
-    "alt": [
-      "模拟小型经营者 Diego",
-      "Illustrated fictional small-business owner Diego"
+    "note": [
+      "Diego 与店铺是模拟经营情景。",
+      "Diego and the shop are a fictional business scenario."
     ],
     "steps": [
       [
         [
-          "人物与地点",
-          "People & place"
+          "开门之前",
+          "Before opening"
         ],
         [
-          "Diego 明天要开门营业。",
-          "Diego needs to open tomorrow."
+          "Diego 要安排明天的营业。",
+          "Diego needs to plan tomorrow’s opening."
         ],
         [
-          "一家模拟小店，需要安排户外座位、人员与备货。",
-          "A fictional small business needs to plan outdoor seating, staffing and supplies."
+          "户外座位、人员与备货，都需要先想一步。",
+          "Outdoor seating, staffing and supplies all need preparation."
         ],
         [
-          "Diego 与店铺情景均为模拟，未测量真实客流、收入或损失。",
-          "Diego and the business scenario are fictional. Customer traffic, revenue and losses have not been measured."
+          "经营安排有提前量。知道可能出现的天气范围，能帮助思考哪些安排保留弹性。",
+          "Business plans take lead time. A range of possible weather outcomes helps identify which arrangements should stay flexible."
         ]
       ],
       [
         [
-          "困境",
-          "Problem"
+          "天气与活动",
+          "Weather and activity"
         ],
         [
-          "热不热，会影响哪些安排？",
-          "Which plans could change if it gets hot?"
+          "如果很热，哪些安排会变？",
+          "If it gets hot, which plans might change?"
         ],
         [
-          "温度可能影响户外舒适度，却不能直接预测营业额。",
-          "Temperature may affect outdoor comfort, but cannot directly predict sales."
+          "户外舒适度、饮品备货与轮班。",
+          "Outdoor comfort, drink supplies and staffing."
         ],
         [
-          "需求还受降雨、节假日与经营条件影响。温度合约不能完整反映一家店的天气风险。",
-          "Demand also depends on rain, holidays and business conditions. A temperature contract cannot capture every weather-related business risk."
+          "温度影响户外舒适度，但经营需求还受雨、节假日和其他条件影响。把关心的活动与天气变量分开看。",
+          "Temperature affects outdoor comfort, while rain, holidays and other conditions also affect demand. Separate the activity from the weather variable."
         ]
       ],
       [
         [
-          "信息",
-          "Information"
+          "读市场",
+          "Read a market"
         ],
         [
-          "把市场判断与实测结果放在一起。",
-          "Compare market judgments with observed outcomes."
+          "市场更支持哪个温度区间？",
+          "Which temperature range does the market favour?"
         ],
         [
-          "看最受支持的温度区间、分布与历史偏差。",
-          "Look at the leading temperature range, distribution and historical differences."
+          "看价格的分布，不只看最高的一档。",
+          "Look at the price distribution, not only the leading range."
         ],
         [
-          "现有工具比较 2026 年 9 月 19–27 日的 Polymarket 历史报价与 NOAA METAR 观测。价格是市场信号，不是经验证的气象概率；小样本不能证明长期准确性，观测口径也不一定等于结算口径。",
-          "The existing tool compares Polymarket historical quotes and NOAA METAR observations for 19–27 September 2026. Prices are market signals, not validated weather probabilities. The small sample cannot establish long-term accuracy, and observation and settlement methods may differ."
+          "最高报价显示市场倾向；其余区间也有价格，就能看出判断是集中在一档还是分散在多档。",
+          "The highest quote shows the market’s leaning. Quotes across other ranges show whether support is concentrated or spread out."
         ]
       ],
       [
         [
-          "选择",
-          "Decision"
+          "看结果",
+          "Review outcomes"
         ],
         [
-          "先考虑经营准备，再考虑风险转移。",
-          "Consider operational preparation before risk transfer."
+          "当时的判断，后来怎样？",
+          "What happened after that judgment?"
         ],
         [
-          "灵活排班与备货是一层；匹配的合约才可能是另一层。",
-          "Flexible staffing and supplies are one layer; a matching contract may be another."
+          "把历史报价与当天机场观测放在一起。",
+          "Compare historical quotes with airport observations from the day."
         ],
         [
-          "潜在对冲需要匹配地点、日期、变量与结算规则，还受成本、流动性和基差风险影响。机场温度与店铺损失并不等价，合约不能保证补偿损失或获利。",
-          "Potential hedging requires matching location, date, variable and settlement rules, and depends on costs, liquidity and basis risk. Airport temperature is not the same as shop losses. A contract guarantees neither compensation nor profit."
+          "历史对照让偏差变得可见。读价格前，先理解它表示什么；再核对日期、地点与观测方法。",
+          "Historical comparisons make differences visible. Understand what a price means before checking dates, places and observation methods."
         ]
       ],
       [
         [
-          "收获",
-          "What we learn"
+          "准备经营",
+          "Prepare the business"
         ],
         [
-          "理解信号，不把信号当承诺。",
-          "Understand a signal without treating it as a promise."
+          "先准备经营，再考虑风险转移。",
+          "Prepare operations before considering risk transfer."
         ],
         [
-          "进入历史数据工具，自己比较判断与结果。",
-          "Enter the historical-data tool and compare judgments with outcomes."
+          "先理解信号，再决定如何调整。",
+          "Understand the signal before choosing an adjustment."
         ],
         [
-          "数据工具不提供明日预报或投资建议。可以先完成温度对照，再选择是否阅读经营情景练习。",
-          "The data tool offers neither tomorrow’s forecast nor investment advice. Compare temperatures first, then optionally explore the business-scenario exercise."
+          "弹性排班、座位与备货能保留选择。若还考虑合约，需要另行核对合约与经营风险是否匹配。",
+          "Flexible staffing, seating and supplies preserve options. A contract requires a separate check that it matches the business exposure."
         ]
       ]
     ],
-    "next": "../../signals/guide.html",
+    "next": "../../signals/introduction/",
     "cta": [
-      "打开历史温度对照 →",
-      "Open historical temperature comparison →"
+      "先看：Polymarket 是什么？ →",
+      "First: what is Polymarket? →"
     ],
     "source": [
-      "Polymarket 历史市场报价；NOAA METAR 机场观测。完整日期链接与口径见数据来源页。",
-      "Polymarket historical market quotes; NOAA METAR airport observations. See the sources page for daily links and methods."
+      "人物和经营结果为模拟，不估算经济损失。真实证据来自 2026-09-19 至 09-27 的历史温度市场与 NOAA METAR。市场价不是人数比例或经校准的天气概率；观测未必等于结算结果。",
+      "People and business outcomes are fictional; no economic loss is estimated. Real evidence uses temperature markets and NOAA METAR for 19-27 September 2026. Prices are not voter shares or calibrated weather probabilities; observations need not match settlement."
     ]
   }
 };

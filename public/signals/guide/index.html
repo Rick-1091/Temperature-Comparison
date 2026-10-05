@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Weatherbridge · 回看一次天气判断</title>
+  <meta name="description" content="逐日对照 Polymarket 历史报价与机场气温观测；明确历史样本、口径和局限。">
+  <link rel="stylesheet" href="../../journey.css"><link rel="stylesheet" href="../../site.css"><link rel="icon" href="../../weatherbridge-logo.png">
+<style>.history-disclosure{margin:24px 0}.history-disclosure>summary{padding:16px 0;cursor:pointer;font-weight:600}.journey-hero{padding-bottom:10px}.section-line{border-top:1px solid var(--wb-line)}.comparison article{border-left:0!important}.kicker{color:var(--wb-muted)}.next-path{gap:20px}.next-path a{border-radius:4px}.history-disclosure .history{padding-bottom:12px}</style></head>
+<body data-page="guide">
+  <a class="skip" href="#main">跳到正文 / Skip to content</a>
+  <wb-header></wb-header>
+  <main id="main" class="journey-wrap">
+    <div class="crumb"><a href="../../" data-i18n="backHome">← 回到首页</a><span>02 / <span data-i18n="crumbHistory">历史对照</span></span></div>
+    <section class="journey-hero"><p class="kicker" data-i18n="historicalFlag">真实数据 · 历史回看，不是实时预报</p><h1 data-i18n="historyTitle">市场判断，后来怎样？</h1><p class="lead" data-zh="先看一个温度判断，再与当天观测比较。" data-en="Start with one temperature judgment, then compare it with the day’s observation.">先看一个温度判断，再与当天观测比较。</p></section>
+    <div class="journey-controls"><label><span data-i18n="place">地点</span><select id="place"><option value="mexico">墨西哥城 · MMMX</option><option value="laguardia">纽约 · KLGA</option></select></label><label><span data-i18n="date">日期</span><select id="day"></select></label><fieldset><legend data-i18n="unit">单位</legend><button type="button" data-unit="C">°C</button><button type="button" data-unit="F">°F</button></fieldset></div>
+    <section class="one-day" aria-labelledby="day-title"><div class="section-line"><span>01 / <span data-i18n="oneDay">先看这一天</span></span><a id="source-link" href="../sources/" data-i18n="dayEvidence">查看这一天的数据来源 →</a></div><h2 id="day-title"></h2><div class="comparison"><article><span class="metric-name" data-i18n="marketRange">市场最支持的区间</span><strong id="leading-range">—</strong><p id="leading-price"></p></article><div class="compare-arrow" aria-hidden="true">→</div><article><span class="metric-name" data-i18n="observed">当天机场观测最高温</span><strong id="observed-value">—</strong><p id="observation-detail"></p></article></div><p id="verdict" class="verdict" aria-live="polite"></p><details class="method"><summary data-i18n="priceMeaning">报价表示什么？ +</summary><p class="explainer" data-i18n="priceCaveat">这里的百分比是历史 Yes 合约报价，不是参与者人数占比，也不是经验证准确的气象概率。</p></details></section>
+    <section class="distribution" aria-labelledby="distribution-title"><div class="section-line"><span>02 / <span data-i18n="marketSpread">市场意见有多分散？</span></span></div><h2 id="distribution-title" data-i18n="distributionTitle">同一天，各温度区间的报价</h2><p data-i18n="spreadCaveat">横条表示各区间相对报价；不是把所有价格相加成 100%。点击一档，查看它的原始报价记录。</p><div id="range-list" class="range-list"></div></section>
+    <details class="history-disclosure"><summary data-i18n="nineDays">再看九天</summary><section class="history" aria-labelledby="history-title"><div class="section-line"><span>03 / <span data-i18n="nineDays">再看九天</span></span><a id="advanced-link" href="../explore/" data-i18n="advancedLink">打开专业图表 →</a></div><h2 id="history-title" data-i18n="historySummary">一个结果不能说明整体可靠性</h2><p id="hit-summary"></p><div class="table-scroll"><table><caption data-i18n="historyTable">逐日记录；选择一行回到单日对照</caption><thead><tr><th scope="col" data-i18n="date">日期</th><th scope="col" data-i18n="topRange">最高报价区间</th><th scope="col" data-i18n="observedShort">实测</th><th scope="col" data-i18n="strictShort">严格</th><th scope="col" data-i18n="broadShort">宽松</th></tr></thead><tbody id="history-body"></tbody></table></div><details class="method"><summary data-i18n="methodTitle">两种命中是什么意思？为什么不能比较预测能力？</summary><p data-i18n="methodCopy">严格命中：当天实测按市场原始单位取整后，落在最高报价区间。宽松命中：也允许落在紧邻的一档。纽约和墨西哥城的市场区间宽度不同；九天样本很小，机场报告最高温也可能与市场结算温度不同。这些比率只是本项目的描述性对照，不是预测准确率证明。</p></details></section></details>
+    <div class="next-path"><a id="practice-link" href="../../experience/food-drying/" data-i18n="practiceLink">接着练习：信息如何帮助提前准备 →</a><a id="method-link" href="../sources/" data-i18n="allSources">查看完整数据来源与口径 →</a><a href="../methods/" data-i18n="researchLink">进阶：预测市场为何可能提供信号 →</a></div>
+  </main>
+  <script type="module" src="../../journey.js"></script>
+<script src="../../site-header.js"></script></body>
+</html>
+
+

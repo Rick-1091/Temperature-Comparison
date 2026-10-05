@@ -18,7 +18,7 @@ function updateMexicoView() {
       button.textContent = button.dataset.unit === 'C' ? (english ? '°C Celsius' : '°C 摄氏度') : (english ? '°F Fahrenheit' : '°F 华氏度');
     });
   });
-  simpleSvg.setAttribute('aria-label', `${city} ${first}–${last}: NOAA METAR × Polymarket`);
+  simpleSvg?.setAttribute('aria-label', `${city} ${first}–${last}: NOAA METAR × Polymarket`);
   set('.simple-copy .eyebrow', `${city} · ${airport} · 2026 年 9 月`, `${city} · ${airport} · SEPTEMBER 2026`);
   set('.simple-summary>small', `共 ${series.length} 天 · 同口径历史快照`, `${series.length} days · standardized historical snapshot`);
   set('#location-title', `${city}${airport} · 观测最高温`, `${city} ${airport} · Reported high`);
@@ -32,7 +32,7 @@ function updateMexicoView() {
   set('.data-details-body p:nth-child(3)', '<strong>怎样计算命中</strong> 先将观测温度换算至市场原始单位并取整，再判断是否落入区间。切换显示单位不会改变命中率。两地市场区间宽度不同，命中率不能直接作为预测能力排名；观测温度也不一定等于市场结算值。逐日来源见“数据来源”。', '<strong>How hits are calculated</strong> Convert observations to the market’s native unit, round to whole degrees, then check interval membership. Display-unit changes do not affect hits. Different interval widths prevent a direct ranking of forecasting quality; observations may differ from settlement values. Open Data sources for the day-specific evidence.');
   set('.simple-footer>p', '两地统一使用 METAR 观测最高温；单位切换不改变命中率。观测不一定等于市场结算值。', 'Both cities use maximum reported METAR temperatures; switching units does not change hits. Observations may differ from settlement.');
   set('#noaa-link', '这一天的观测来源 ↗', 'This day’s observation evidence ↗');
-  document.querySelector('#noaa-link').href = `sources.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=${language}`;
+  document.querySelector('#noaa-link').href = `../sources/?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=${language}`;
   document.querySelector('#observation-status').textContent = english ? 'NOAA METAR snapshot · historical quotes' : 'NOAA METAR 快照 · 历史报价';
   ['simple-check', 'professional-check'].forEach(id => {
     const target = document.getElementById(id);
