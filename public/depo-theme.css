@@ -1,0 +1,91 @@
+/* Depo-inspired visual language, adapted to Weatherbridge's existing story.
+   Data encodings, photographs, captions and interaction logic remain intact. */
+:root{
+  --poster-ink:#111111;--poster-paper:#faf7f2;--poster-white:#ffffff;
+  --poster-blue:#1965e9;--poster-yellow:#f7ba3a;--poster-coral:#d95c5c;
+  --poster-teal:#38bbb3;--poster-lime:#cbed2a;--poster-purple:#783de8;
+  --poster-border:3px solid var(--poster-ink);--poster-radius:16px;
+  --poster-shadow:6px 6px 0 var(--poster-ink);
+}
+body.journey{
+  --wb-paper:var(--poster-paper);--wb-ink:var(--poster-ink);
+  --wb-muted:#464646;--wb-accent:#174ca8;--wb-line:var(--poster-ink);
+  --wb-radius:12px;background:var(--poster-paper);color:var(--poster-ink);
+}
+.journey main>.chapter{border-top:var(--poster-border)}
+.journey .chapter h2{text-wrap:balance}
+.journey #polymarket>h2{max-width:none}
+.journey #jinxi,.journey #evidence{background:var(--poster-paper);color:var(--poster-ink)}
+.journey #malawi{background:var(--poster-yellow);color:var(--poster-ink)}
+.journey #mexico{background:var(--poster-teal);color:var(--poster-ink)}
+.journey #polymarket,.journey #action{background:var(--poster-purple);color:var(--poster-white)}
+.journey #why-polymarket,.journey #reflection{background:var(--poster-coral);color:var(--poster-ink)}
+.journey .chapter.finale{background:var(--poster-blue);color:var(--poster-white)}
+.journey .chapter .eyebrow{display:inline-block;padding:10px 16px;background:var(--poster-paper);color:var(--poster-ink);border:var(--poster-border);border-radius:6px;font-weight:600}
+.journey .chapter .caption{color:inherit;opacity:.9}
+.journey .chapter .bridge{border-color:var(--poster-ink)}
+.journey .chapter a{color:#113d82;font-weight:500}
+.journey #polymarket a,.journey #action>a,.journey .finale a{color:var(--poster-white)}
+.journey .chapter figure>img{border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
+.journey .chapter figure>figcaption{opacity:1;color:inherit}
+.journey .viewfinder{border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
+.journey .viewfinder img{border:0;border-radius:0;box-shadow:none}
+.journey .chapter :is(button,select){border:var(--poster-border);border-radius:10px;background:var(--poster-paper);color:var(--poster-ink)}
+.journey .chapter button{box-shadow:3px 3px 0 var(--poster-ink)}
+.journey .chapter :is(button,a,summary,select):focus-visible{outline:3px solid currentColor;outline-offset:6px}
+.journey .chapter button:disabled{box-shadow:none}
+.journey .orbit-controls button[aria-pressed=true]{background:var(--poster-lime);color:var(--poster-ink);border-color:var(--poster-ink)}
+.journey #pause-boat{background:var(--poster-paper);color:var(--poster-ink)}
+.journey .business-lab{background:var(--poster-white);color:var(--poster-ink);padding:clamp(18px,3vw,40px);border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
+.journey .business-grid aside{background:var(--poster-yellow);color:var(--poster-ink);border:var(--poster-border);border-radius:12px;padding:20px}
+.journey .business-lab #business-map{border:2px solid var(--poster-ink);border-radius:10px}
+.journey .business-lab #activity-history{background:var(--poster-white)}
+.journey .business-lab input{accent-color:#167970}
+.journey #polymarket .intro-market{--quote-highlight:var(--poster-lime);--quote-fill:#cbb9f3;--quote-grid:#cbb9f3;border-top:2px solid var(--poster-white)}
+.journey #polymarket .explanation>div{background:var(--poster-paper);color:var(--poster-ink);border:var(--poster-border);border-radius:var(--poster-radius);padding:28px;box-shadow:var(--poster-shadow)}
+.journey #polymarket .explanation>div p{margin-bottom:0}
+.journey #evidence .big-values{padding:0;border:0;gap:24px}
+.journey #evidence .big-values>div{min-width:0;padding:24px;border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow);background:var(--poster-yellow)}
+.journey #evidence .big-values>div:last-child{background:var(--poster-teal)}
+.journey #evidence .big-values strong{color:var(--poster-ink)}
+.journey #price-distribution,.journey #evidence .evidence-plots{padding:24px;background:var(--poster-white);border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
+.journey #evidence .nine-days button{background:var(--poster-white)}
+.journey #evidence .nine-days button[aria-pressed=true]{background:var(--poster-lime);outline:2px solid var(--poster-ink)}
+.journey #evidence details,.journey #action details{padding:20px 24px;background:var(--poster-white);color:var(--poster-ink);border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:4px 4px 0 var(--poster-ink)}
+.journey #evidence details p,.journey #action details p{color:var(--poster-ink)}
+.journey #evidence details summary,.journey #action details summary{font-weight:600}
+.journey #evidence .legacy-evidence-frame{border:0;border-radius:0;box-shadow:none;background:var(--poster-paper)}
+.journey #why-polymarket .paper-support{padding:28px;background:var(--poster-white);border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
+.journey #action .diorama{background:var(--poster-paper);border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow);overflow:hidden}
+.journey #action .game-overlay{background:var(--poster-paper);color:var(--poster-ink)}
+.journey #action .game-progress{color:var(--poster-white);border-color:var(--poster-white)}
+.journey #action .game-progress [aria-current=step]{color:var(--poster-lime)}
+.journey #action .game-overlay .wb-primary{background:var(--poster-lime);color:var(--poster-ink);border:var(--poster-border);border-radius:10px;box-shadow:4px 4px 0 var(--poster-ink)}
+.journey #action .game-buttons button:hover,.journey #action .game-settings button:hover{background:var(--poster-yellow)}
+.journey #reflection .review-row{background:var(--poster-white);color:var(--poster-ink);border:var(--poster-border);border-radius:var(--poster-radius);padding:24px;margin-top:20px;box-shadow:var(--poster-shadow)}
+.journey #reflection .review-row.selected{background:var(--poster-lime)}
+.journey #reflection .review-row.selected strong{color:var(--poster-ink)}
+.journey .chapter.finale :is(h2,p){max-width:29ch;text-align:center;margin-inline:auto}
+.journey footer{background:var(--poster-ink);color:var(--poster-paper);border-top:var(--poster-border)}
+.journey footer a{color:var(--poster-paper)}
+
+/* The original five-view explorer uses the same frame and controls.
+   Keep all renderer palettes untouched: color still encodes the data. */
+.evidence-embedded body{--wb-paper:var(--poster-paper);--wb-ink:var(--poster-ink);--wb-muted:#464646;--wb-line:var(--poster-ink);--wb-accent:#174ca8;background:var(--poster-paper);color:var(--poster-ink)}
+.evidence-embedded .professional-page{--ink:var(--poster-ink);--paper:var(--poster-paper)}
+.evidence-embedded .workspace{border:0;border-radius:0;box-shadow:none;background:transparent}
+.evidence-embedded .workspace-head h2{font-family:Plex,"Microsoft YaHei",sans-serif}
+.evidence-embedded :is(select,.unit-switch,.sources-button){border:2px solid var(--poster-ink);border-radius:8px}
+.evidence-embedded .unit-switch button[aria-pressed=true]{background:var(--poster-lime);color:var(--poster-ink)}
+.evidence-embedded .reading{background:var(--poster-teal);color:var(--poster-ink);border:2px solid var(--poster-ink);border-radius:12px}
+@media(max-width:850px){
+  .journey #polymarket .explanation>div{padding:22px}
+  .journey #evidence .big-values{grid-template-columns:1fr}
+  .journey #evidence .big-values>div{padding:22px}
+  .journey #evidence .evidence-plots,.journey #price-distribution{padding:18px}
+  .journey #evidence details,.journey #action details{padding:16px}
+}
+@media(max-width:450px){
+  .journey .chapter .eyebrow{font-size:12px;padding:8px 10px}
+  .journey .business-grid aside{padding:16px}
+}

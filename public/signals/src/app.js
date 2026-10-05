@@ -1,4 +1,5 @@
 // Native market bounds remain immutable; display-unit changes never alter hit membership.
+if(new URLSearchParams(location.search).get('embed')==='true')document.documentElement.classList.add('evidence-embedded');
 const isMexico = new URLSearchParams(location.search).get('location') === 'mexico';
 const nativeUnit = isMexico ? 'C' : 'F';
 const temperatureUnit = (() => {
@@ -35,7 +36,8 @@ const choiceByDay = series.map((item) => item.outcomes.findIndex((outcome) => ou
 const pct = (value) => `${(value * 100).toFixed(1)}%`;
 const sharePct = (value) => `${value.toFixed(1)}%`;
 const outcomeForBin = (dayIndex, binIndex) => series[dayIndex].outcomes.findIndex((outcome) => binFor(outcome) === binIndex);
-const state = { view: "dumbbell", selected: Math.max(0, series.findIndex(item => item.date === new URLSearchParams(location.search).get('day'))), angle: 38, draggingX: null, showActual: false };
+const requestedView=new URLSearchParams(location.search).get('view');
+const state = { view: ["dumbbell","lines","three-d","heatmap","area"].includes(requestedView)?requestedView:"dumbbell", selected: Math.max(0, series.findIndex(item => item.date === new URLSearchParams(location.search).get('day'))), angle: 38, draggingX: null, showActual: false };
 let sourceDayIndex = state.selected;
 const svg = document.querySelector("#main-chart");
 const wrap = document.querySelector("#chart-wrap");
@@ -646,9 +648,6 @@ function select(index) {
   const marketLink = document.querySelector("#market-link");
   marketLink.href = item.marketUrl;
   marketLink.textContent = language === "en" ? `Polymarket ${isMexico ? "Mexico City" : "NYC"} ${monthShort} ${item.day} market ↗` : `Polymarket ${isMexico ? "墨西哥城" : "纽约"} ${monthNumber}/${item.day} 市场 ↗`;
-  const evidenceLink = document.querySelector('#noaa-link');
-  evidenceLink.href = `../sources/?location=${isMexico?'mexico':'laguardia'}&day=${item.date}&unit=${temperatureUnit}&lang=${language}`;
-  evidenceLink.textContent = language === 'en' ? 'This day’s observation evidence ↗' : '这一天的观测来源 ↗';
   const guidedLink=document.querySelector('.back-guided');
   if(guidedLink)guidedLink.href = `../guide/?location=${isMexico?'mexico':'laguardia'}&day=${item.date}&unit=${temperatureUnit}&lang=${language}`;
   const address=new URL(location.href);

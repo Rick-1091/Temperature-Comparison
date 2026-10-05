@@ -33,11 +33,30 @@ $('business-context').textContent=place.area+' · '+(weather==='all'?day.date+' 
 const v=means[activity]?.mean;
 $('business-reading').textContent=v==null?t('该样本缺少活动数值，不能据此判断。','Activity data is missing in this sample; no inference is shown.'):t('模拟活动指数：','Simulated activity index: ')+v.toFixed(2)+' / 1';
 $('business-advice').textContent=v==null?t('换一个日期或天气类型继续比较。','Try another date or weather type.'):categoryById[place.cat].indoor?t('模型提示：关注室内需求变化，再调整人手与备货。','Model implication: consider changes in indoor demand when planning staffing and stock.'):v<.4?t('模型提示：户外活动较弱，可考虑缩减露天安排，保留室内或遮雨方案。','Model implication: weaker outdoor activity suggests considering fewer outdoor arrangements and keeping indoor or sheltered options.'):t('模型提示：户外活动较活跃，可考虑座位、人手与备货需求；不要只凭这一指标扩大投入。','Model implication: stronger outdoor activity suggests checking seating, staffing and stock needs—not expanding spending based on this index alone.');
-$('business-legend').textContent=t('圆越大，模拟活动指数越高。棕：户外小店 · 蓝：室内办公 · 绿：公园 · 紫：室内休闲。','Larger circles mean a higher simulated activity index. Brown: outdoor business · blue: indoor work · green: park · purple: indoor leisure.');
-const plot=d3.select('#business-timeline');plot.selectAll('*').remove();const p=plot.append('svg').attr('viewBox','0 0 880 190').attr('role','img').attr('aria-label',t('模拟活动指数时间曲线','Simulated activity index over time'));
-const x=d3.scaleLinear([0,54],[48,856]),y=d3.scaleLinear([0,1],[148,15]);
-p.append('g').attr('transform','translate(48,0)').call(d3.axisLeft(y).tickValues([0,.5,1]).tickSize(-808)).call(g=>g.select('.domain').remove());
-p.append('g').attr('transform','translate(0,148)').call(d3.axisBottom(x).tickValues([0,14,28,42,54]).tickFormat(i=>HISTORICAL[i].date.slice(5))).call(g=>g.select('.domain').remove());
+const legend=$('business-legend'),row=document.createElement('span');
+row.className='business-legend-row';row.setAttribute('role','list');row.setAttribute('aria-label',t('地图颜色图例','Map color legend'));
+// Swatches and map points share one category color source, including after language changes.
+for(const id of ['cafe','cowork','park','cultural']){
+ const item=document.createElement('span'),swatch=document.createElement('span'),label=document.createElement('span');
+ item.className='business-legend-item';item.dataset.category=id;item.setAttribute('role','listitem');
+ swatch.className='business-legend-swatch';swatch.style.backgroundColor=categoryById[id].color;swatch.setAttribute('aria-hidden','true');
+ label.textContent=t(...labels[id]);item.append(swatch,label);row.append(item);
+}
+const note=document.createElement('span');note.className='business-legend-note';note.textContent=t('圆越大，模拟活动指数越高。','Larger circles mean a higher simulated activity index.');
+legend.replaceChildren(row,note);
+const chart={width:880,height:260,left:48,right:856,top:40,bottom:185};
+const plot=d3.select('#business-timeline');plot.selectAll('*').remove();const p=plot.append('svg').attr('viewBox',`0 0 ${chart.width} ${chart.height}`).attr('role','img').attr('aria-label',t(...labels[place.cat])+t('：横轴为2026年日期，纵轴为模拟活动指数，越高越活跃。青线为模拟指数，橙点为所选日期，断线表示数据缺失。',': dates in 2026 on the horizontal axis; simulated activity index on the vertical axis, higher means more active. Teal shows the index, orange the selected date, and gaps indicate missing data.'));
+const x=d3.scaleLinear([0,54],[chart.left,chart.right]),y=d3.scaleLinear([0,1],[chart.bottom,chart.top]);
+p.append('g').attr('transform',`translate(${chart.left},0)`).call(d3.axisLeft(y).tickValues([0,.5,1]).tickSize(-(chart.right-chart.left))).call(g=>g.select('.domain').remove());
+p.append('g').attr('transform',`translate(0,${chart.bottom})`).call(d3.axisBottom(x).tickValues([0,14,28,42,54]).tickFormat(i=>HISTORICAL[i].date.slice(5))).call(g=>g.select('.domain').remove());
+p.append('text').attr('class','business-axis-label').attr('data-axis','y').attr('x',chart.left).attr('y',18).text(t('模拟活动指数（0–1，越高越活跃）','Simulated activity index (0–1; higher = more active)'));
+p.append('text').attr('class','business-axis-label').attr('data-axis','x').attr('x',chart.left).attr('y',chart.height-30).text(t('日期（月-日）· 2026年','Date (month-day) · 2026'));
+const key=p.append('g').attr('class','business-timeline-key').attr('transform','translate(520,14)');
+key.append('line').attr('x2',20).attr('stroke','#167970').attr('stroke-width',2.5);
+key.append('text').attr('x',28).attr('y',4).text(t('模拟活动','Simulated activity'));
+key.append('circle').attr('cx',210).attr('r',4).attr('fill','#b34c32');
+key.append('text').attr('x',222).attr('y',4).text(t('所选日期','Selected date'));
+p.append('text').attr('class','business-chart-note').attr('x',chart.left).attr('y',chart.height-10).text(t('断线 = 数据缺失；不是客流或营业额。','Gaps = missing data; not visitor counts or revenue.'));
 p.append('path').datum(HISTORICAL).attr('class','activity-line').attr('fill','none').attr('stroke','#167970').attr('stroke-width',2.5).attr('d',d3.line().defined(d=>d.activity?.[activity]!=null).x((d,i)=>x(i)).y(d=>y(d.activity[activity])));
 if(day.activity?.[activity]!=null)p.append('circle').attr('cx',x(dateIndex)).attr('cy',y(day.activity[activity])).attr('r',5).attr('fill','#b34c32');
 }

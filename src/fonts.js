@@ -1,3 +1,4 @@
+import '@fontsource-variable/inter-tight/index.css';
 import '@fontsource-variable/newsreader/opsz.css';
 import '@fontsource-variable/newsreader/opsz-italic.css';
 import '@fontsource/ibm-plex-sans/400.css';

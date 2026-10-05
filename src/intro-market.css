@@ -1,0 +1,17 @@
+.intro-market{--quote-highlight:#c8dfaa;--quote-fill:#7daca2;--quote-grid:#537168;margin-top:42px;border-top:1px solid var(--quote-grid);padding-top:24px}
+.chapter .intro-market-date{max-width:none;font-size:22px;font-weight:600;margin:0 0 12px}
+.intro-chart-scroll{max-width:100%;overflow-x:auto}
+.intro-chart-scroll:focus-visible{outline:2px solid var(--quote-highlight);outline-offset:4px}
+.intro-market-chart{display:block;width:100%;min-width:700px;height:auto;margin:24px 0 4px;overflow:visible}
+.intro-market-chart text{fill:currentColor;font:14px "IBM Plex Sans",sans-serif}
+.intro-grid{stroke:var(--quote-grid);stroke-width:1;opacity:.5}
+.intro-bar rect{fill:var(--quote-fill)}
+.intro-bar[data-top=true] rect{fill:var(--quote-highlight)}
+.intro-bar[data-top=true] text{fill:var(--quote-highlight);font-weight:600}
+.chapter .intro-market-reading{max-width:none;font-weight:600;margin:12px 0}
+.intro-market-sources{display:flex;flex-wrap:wrap;gap:14px 26px;font-size:14px;margin-top:16px}
+.intro-market-sources a{padding-block:10px}
+.intro-market-table{border-collapse:collapse;width:100%;font-size:14px;min-width:430px}
+.intro-market-table th,.intro-market-table td{text-align:left;padding:12px 14px 12px 0;border-bottom:1px solid var(--quote-grid)}
+.intro-market-table th{font-weight:600}
+@media(max-width:850px){.intro-market{margin-top:32px}.chapter .intro-market-date{font-size:19px}.intro-market-chart{margin-top:18px}}

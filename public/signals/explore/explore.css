@@ -1,5 +1,14 @@
 /* Advanced charts share the current site palette and type; renderer colours keep their meaning. */
+/* The same charts can sit inside Evidence without mounting a second story navigation. */
+.evidence-embedded wb-header,.evidence-embedded .back-guided,.evidence-embedded .intro,.evidence-embedded .data-note>.wb-primary{display:none}
 body{font-family:Plex,'Microsoft YaHei',sans-serif;background:var(--wb-paper);color:var(--wb-ink)}
+/* The clickable market cell shares the other cells' top alignment; its label
+   and action must not compete for the same narrow line. */
+.reading>.market-reading{display:flex;flex-direction:column;align-items:flex-start;justify-content:flex-start;min-width:0;font-family:inherit}
+.reading>.market-reading>span{display:block;width:100%;margin-bottom:12px;line-height:1.5}
+.reading>.market-reading small{display:block;margin-top:2px}
+.reading>.market-reading b{display:block;margin:8px 0 0;white-space:normal;line-height:1.5}
+.reading>.market-reading strong{max-width:100%;font-size:clamp(18px,2vw,26px);line-height:1.25;overflow-wrap:anywhere}
 .professional-page{--paper:var(--wb-paper);--ink:var(--wb-ink);--muted:var(--wb-muted);--line:var(--wb-line);--actual:#167c77;--market:#a94b2e}
 .shell{max-width:1240px;padding:28px var(--wb-inset) 64px}
 .topbar{position:static;gap:20px}.back-guided{font-size:14px;text-decoration:none}
@@ -8,4 +17,16 @@ body{font-family:Plex,'Microsoft YaHei',sans-serif;background:var(--wb-paper);co
 .data-note .wb-primary{background:var(--wb-ink);color:white}
 html,body{height:auto;overflow:auto}
 .professional-page{height:auto;min-height:0;overflow:visible;scroll-snap-align:none}
+.evidence-embedded,.evidence-embedded body{min-height:0;height:auto}
+.evidence-embedded .shell{width:100%;max-width:none;padding:0 0 24px}
 @media(max-width:650px){.topbar{display:flex;flex-wrap:wrap}.data-controls{width:100%;gap:12px}.location-picker{max-width:100%}.location-picker select{max-width:100%}.workspace-head .legend{flex-wrap:wrap}.shell{padding-top:24px}.intro{padding:20px 0}.data-note{flex-wrap:wrap}.data-note-copy{min-width:0}}
+@media(max-width:650px){
+  .evidence-embedded .shell{width:100%;padding-inline:0}
+  .evidence-embedded .workspace-head{padding-inline:16px}
+  .evidence-embedded .workspace-head>div{min-width:0;max-width:100%}
+  .evidence-embedded .legend{white-space:normal}
+  .evidence-embedded .data-controls{flex-wrap:wrap}
+  .evidence-embedded .data-controls .location-picker{flex:0 0 100%;min-width:0;width:100%}
+  .evidence-embedded .location-picker select{min-width:0;max-width:calc(100% - 64px)}
+  .evidence-embedded .chart-wrap{padding-inline:8px}
+}

@@ -1,0 +1,19 @@
+.meaning-reading{overflow:hidden}
+.meaning-open{align-self:center;min-height:48px;padding:14px 24px;font-family:inherit;font-size:17px;font-weight:600;line-height:1.4;cursor:pointer}
+.journey .meaning-dialog{--meaning-inset:clamp(20px,4vw,48px);width:min(880px,calc(100% - 32px));max-height:calc(100dvh - 40px);padding:0;border:var(--poster-border);border-radius:var(--poster-radius);background:var(--wb-paper);color:var(--wb-ink);overscroll-behavior:contain}
+.meaning-dialog::backdrop{background:rgb(0 0 0 / .55)}
+.meaning-dialog-head{position:sticky;top:0;z-index:1;display:flex;align-items:start;gap:20px;justify-content:space-between;padding:24px var(--meaning-inset);border-bottom:1px solid var(--wb-line);background:var(--wb-paper)}
+.journey .meaning-dialog h2{font-size:clamp(24px,3vw,36px);line-height:1.15;margin:0;max-width:25ch}
+.meaning-dialog-body{padding:24px var(--meaning-inset)}
+.journey .meaning-dialog h3{font-size:clamp(21px,2.4vw,28px);line-height:1.3;margin:0 0 16px}
+.journey .meaning-dialog p{font-size:17px;line-height:1.75;margin:0 0 20px;max-width:70ch}
+.meaning-dialog .sdg-section-title,.meaning-dialog article{padding-top:32px}
+.meaning-dialog .story-grid{display:block}
+.meaning-dialog details{margin:16px 0 24px;padding:16px 0;border-top:1px solid var(--wb-line)}
+.meaning-dialog summary{cursor:pointer;font-size:16px;font-weight:600;min-height:28px}
+.meaning-dialog .story-details-body{padding-top:20px}
+.meaning-dialog a{color:var(--wb-accent);text-underline-offset:4px}
+.meaning-close{flex-shrink:0;min-height:44px;padding:10px 16px;border:2px solid var(--wb-ink);border-radius:8px;background:var(--poster-paper);color:var(--wb-ink);font:inherit;cursor:pointer}
+.meaning-dialog-actions{padding:0 var(--meaning-inset) 32px}
+.meaning-dialog :is(button,a,summary):focus-visible,.meaning-open:focus-visible{outline:3px solid var(--wb-accent);outline-offset:4px}
+@media(max-width:650px){.meaning-dialog-head{gap:12px}.meaning-open{max-width:100%;font-size:16px}.journey .meaning-dialog{max-height:calc(100dvh - 24px)}}
