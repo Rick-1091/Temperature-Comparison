@@ -34,11 +34,10 @@ const stages=[
 [['明天的营业安排','Tomorrow’s opening'],['座位 / 人员 / 备货','Seating / staffing / supplies'],['市场价格分布：示意','Market price distribution: illustrative'],['历史报价 ↔ 机场观测','Historical quotes ↔ airport observations'],['信号 → 经营准备 → 匹配的合约','Signal → preparation → matching contract']]
 ];
 function visual(index){
- const wrap=$('#visual-event');wrap.replaceChildren();$('.story-visual').dataset.stage=index;
+ const wrap=$('#visual-event');wrap.replaceChildren();
+ // Keep photographs unobstructed; supporting data belongs below the image.
+ $('#visual-caption').after(wrap);
  const caption=stages[['jinxi','malawi','mexico-city'].indexOf(slug)][index];bind($('#visual-caption'),caption);
- if(index===1){const cloud=document.createElement('div');cloud.className='weather-cloud';cloud.setAttribute('aria-hidden','true');wrap.append(cloud);}
- if(index===2){const panel=document.createElement('div');panel.className='visual-signal';panel.innerHTML=slug==='mexico-city'?'<div class="sample-prices"><span>≤23°C <b>8¢</b></span><span>24°C <b>18¢</b></span><span class="price-leader">25°C <b>42¢</b></span><span>26°C <b>22¢</b></span><span>≥27°C <b>10¢</b></span></div>':'<div class="variable-path"><span>☂</span><span>≋</span><span>◷</span></div>';wrap.append(panel);}
- if(index===3){const list=document.createElement('div');list.className='visual-options';const labels=slug==='mexico-city'?[['座位','Seating'],['人员','Staff'],['备货','Supplies']]:[['分批','Split'],['遮盖','Cover'],['收储','Store']];labels.forEach(pair=>{const span=document.createElement('span');bind(span,pair);list.append(span);});wrap.append(list);}
  if(index===3&&slug==='mexico-city'){
   wrap.replaceChildren();const panel=document.createElement('div');panel.className='visual-summary';
   if(historicalDay){
@@ -50,7 +49,6 @@ function visual(index){
   }else bind(panel,['历史报价 ↔ 机场观测：在下一页核对原始记录','Historical quotes ↔ airport reports: review the records on the next page']);
   wrap.append(panel);
  }
- if(index===4){const flow=document.createElement('div');flow.className='visual-summary';bind(flow,caption);wrap.append(flow);}
  photo.src='../../'+(slug==='jinxi' ? ['jinxi-river-wide.png','jinxi/assets/tour-boats.jpg','jinxi/assets/smoked-beans.jpg','jinxi/assets/brick-process.jpg','jinxi/assets/canal-coffee.jpg'][index] : story.image);
 }
 function render(index,focus=false){
