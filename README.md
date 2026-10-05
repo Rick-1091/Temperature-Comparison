@@ -1,48 +1,45 @@
 # Weatherbridge
-A bilingual course prototype: Story → Evidence → Action.
 
-## Current journey
-Cover → SEE / Jinxi → NEED / Malawi → USE / Mexico City → What is Polymarket? → Guided historical comparison → 3D food-drying courtyard → Debrief.
+A bilingual, continuous weather-information journey.
 
-| Route | Purpose |
-|---|---|
-| / | Three connected story entrances; no competing chapter menu |
-| /cases/jinxi/ | Field observations, expandable photographs and weather questions |
-| /cases/malawi/ | Fictional Thoko household: information needs and preparation |
-| /cases/mexico-city/ | Fictional business decisions; preparation before possible hedging |
-| /signals/introduction/ | Authored price example; prices are not voter shares |
-| /signals/guide/ | One historical day first, distribution next, nine days on request |
-| /signals/explore/ | Five optional advanced SVG chart views |
-| /signals/methods/ | Quote timing, units, interval membership and limitations |
-| /signals/sources/ | Date-specific market, quote and archived observation evidence |
-| /experience/food-drying/ | Three.js fixed-camera courtyard with four preparations |
-| /experience/food-drying/debrief/ | Same-weather comparison, without a right/wrong score |
-| /about/ | Project question, users and information equity |
+## Current architecture
+
+`/`: Hero → Jinxi → Malawi → Mexico City → Polymarket → historical evidence → inline Three.js courtyard → inline reflection → final takeaway.
+
+The header contains the brand and language switch, not a story directory. The hero has one primary action. Sources, methods, raw APIs and advanced charts are secondary depth under `/research/`. About remains in the footer.
+
+Former case, introduction, guided-evidence, exercise and debrief routes redirect to corresponding main-page anchors while preserving query parameters. Valid historical debrief choice/weather parameters restore the inline four-way comparison. Original story/controller modules remain unbuilt migration sources.
 
 ## Run and deploy
+
 ```sh
 npm ci
 npm run dev
 npm run build
 npm run preview -- --host 127.0.0.1 --port 8017
 ```
-Render: build `npm ci && npm run build`, publish `dist`.
-Always test the production build: legacy Jinxi and NomadCast URLs are redirected in build output rather than exposed as chapters. Their original source is retained as migration material. Native signals pages under `public/` are copied without bundling.
 
-## Evidence and boundaries
-Both current airports use September 19–27, 2026 archived snapshots. NOAA Aviation Weather Center METAR observations are grouped by airport-local date; the maximum reported temperature is retained when at least 20 reports span at least 20 distinct hours. METAR maxima can miss peaks between reports and are not necessarily market settlement temperatures.
+Render: build `npm ci && npm run build`, publish `dist`. Production builds copy public research/legacy chart assets and emit legacy Jinxi photo assets. Verify the production preview, not only development routing.
 
-For each Polymarket interval, use the last available Yes quote within 24 hours before local midnight, sampled at five-minute intervals. Quote timestamps can differ. Celsius/Fahrenheit changes display only: rounded market-native units determine interval membership. Different native bin widths prevent simple city rankings; nine days do not establish forecasting skill. Historical prices are not voter shares or calibrated weather probabilities.
+## Data and boundaries
 
-Current snapshots: `public/signals/data/mexico-unified.json`, `laguardia-unified.json`, `unified-market.js`. Earlier August data and original extraction scripts remain archival material, not the current default. Daily Sources links distinguish derived project archives from original APIs and settlement sources.
+Immutable archived snapshots cover September 19–27, 2026 for MMMX and KLGA. NOAA/AviationWeather METAR/SPECI reports are grouped by airport-local date, requiring at least 20 reports spanning 20 distinct local hours. The highest reported temperature is not an authoritative official daily TMAX or necessarily the market's settlement temperature.
 
-The drying game uses an independent teaching model for rainfall. Its information panel describes uncertainty in words and suggests preparations; it displays no market quotes or historical rainfall records. The scenario does not use the temperature snapshots or a live Malawi forecast. It models exposure and drying opportunity qualitatively—not food safety, yield, economic loss or financial advice. Official warnings take priority. Hedging requires matched place/date/variable/settlement, liquidity, costs and basis risk.
+For each Polymarket Yes outcome, the saved quote is the latest available in the 24 hours strictly before local midnight; CLOB query fidelity is five minutes. Actual quote timestamps can differ. Evaluate interval membership using rounded market-native temperatures, independent of the user's Celsius/Fahrenheit display preference.
+
+The main page uses actual historical values, not authored decimals. Price bars compare raw Yes quotes and are not normalized to 100%. The five-bin introductory example is explicitly illustrative. Nine days describe a short history, not proven forecasting skill.
+
+Jinxi photographs come from field observations. Thoko and Diego are fictional. The courtyard uses independent synthetic rain/sun outcomes; it does not consume the airport temperatures, live Malawi forecasts or market quotes. It qualitatively compares exposure, protection and drying opportunity, not food safety, yields or economic losses. Official local forecasts and warnings take priority. Hedging requires matching location/date/variable/settlement as well as eligibility, liquidity, cost and basis risk.
 
 ## Verification
+
 ```sh
 node scripts/verify-guided-data.mjs
-node scripts/verify-refactor.cjs
+node scripts/verify-journey.cjs
 ```
-Browser regression requires Playwright and Chrome; set `WEATHERBRIDGE_PLAYWRIGHT` and `WEATHERBRIDGE_BROWSER` when they are not on standard paths. Screenshots and Chrome profiles are ignored under `.cache/` on the project drive. Includes 12 routes, bilingual widths 320/390/768/1440, 15 story states, five advanced charts, seven redirects, eight game outcome states, reduced motion and text fallback. Automated correctness is not evidence of novice comprehension; user testing remains necessary.
 
-Legacy `src/main.js`, `src/views/`, `jinxi/index.html`, `nomadcast/` are intentionally unbuilt migration sources. Build inputs in `vite.config.js` own the final public routes. See `docs/restructure-audit.md`.
+Browser checks require Playwright and Chrome; set `WEATHERBRIDGE_PLAYWRIGHT` and `WEATHERBRIDGE_BROWSER` to their installed locations when necessary. Artifacts and browser profiles stay in ignored `.cache/` on the project drive.
+
+The journey suite covers 1522/1440/768/390/320px, both languages and display units, city/date comparisons, eight exercise outcomes, reduced motion, text fallback, restart, research and seven deep-link migrations. The older `verify-refactor.cjs` describes the retired multi-page UX and is not the current acceptance suite.
+
+Automated checks and developer walkthroughs do not replace testing with novice users. Three.js remains a separately lazy-loaded chunk; Vite's large-chunk warning refers to that engine, not the initial journey controller. See DESIGN.md and docs/journey-refactor.md for the current design and migration record.

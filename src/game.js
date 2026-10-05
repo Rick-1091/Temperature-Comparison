@@ -3,6 +3,7 @@ import './game.css';
 import {drawWeather,resolveChoice} from './game-model.js';
 import {setupLanguage} from './page-language.js';
 import {exerciseUrl} from './game-context.js';
+const inline=document.body.classList.contains('journey');
 const params=new URLSearchParams(location.search);
 let replay=['rain','sun'].includes(params.get('replay'))?params.get('replay'):null;
 const $=id=>document.getElementById(id);
@@ -19,10 +20,11 @@ const messages={
 const choiceNames={all:['全部晾晒','dry all'],batch:['分批晾晒','split the batch'],cover:['准备遮盖','prepare a cover'],store:['提前收储','store early']};
 function sync(){
  const lang=language.current;
+ if(inline&&!['rain','sun'].includes(stage))$('inline-review').textContent=lang==='en'?'Complete the exercise above to compare your choice with three alternatives.':'完成上面的练习，这里会对照你的选择与另外三种准备。';
  const en=lang==='en',result=['rain','sun'].includes(stage);
  $('scene').setAttribute('aria-busy',String(stage==='loading'));
  $('game-handoff').hidden=!params.has('location');
- document.querySelector('.wb-breadcrumb a').href=exerciseUrl('../../signals/guide/',lang);
+ if(!inline)document.querySelector('.wb-breadcrumb a').href=exerciseUrl('../../signals/guide/',lang);
  document.querySelector('.game-progress').setAttribute('aria-label',en?'Exercise progress':'练习进度');
  const active=result?'review':stage==='prepared'?'weather':'prepare';
  document.querySelectorAll('[data-stage]').forEach(el=>{if(el.dataset.stage===active)el.setAttribute('aria-current','step');else el.removeAttribute('aria-current');});
@@ -39,7 +41,7 @@ function sync(){
  $('pause-motion').hidden=textOnly;
  $('pause-motion').textContent=lang==='en'?(paused?'Resume animation':'Pause animation'):(paused?'继续动画':'暂停动画');
  $('fallback-note').hidden=!textOnly;
- if(choice&&['rain','sun'].includes(stage))$('debrief-link').href=exerciseUrl('debrief/',lang,{choice,weather,seen});
+ if(choice&&result){if(inline){$('debrief-link').href='#reflection';renderReview();}else $('debrief-link').href=exerciseUrl('debrief/',lang,{choice,weather,seen});}
 }
 const language=setupLanguage();
 window.addEventListener('wb-language',sync);
@@ -54,7 +56,7 @@ async function start(){
 }
 function showPoster(){
  scene?.dispose();scene=null;
- $('scene').innerHTML='<img class="game-poster" src="../../thoko-family.png" data-alt-zh="Thoko 一家在庭院晾晒玉米的情景插画" data-alt-en="Illustration of Thoko’s household drying maize in the courtyard" alt="'+(language.current==='en'?'Illustrated fictional household':'虚构家庭插画')+'">';
+ $('scene').innerHTML='<img class="game-poster" src="/thoko-family.png" data-alt-zh="Thoko 一家在庭院晾晒玉米的情景插画" data-alt-en="Illustration of Thoko’s household drying maize in the courtyard" alt="'+(language.current==='en'?'Illustrated fictional household':'虚构家庭插画')+'">';
 }
 function prepare(next){choice=next;resolveChoice(next,weather);scene?.update(next);stage='prepared';sync();focusStatus();}
 $('start-game').addEventListener('click',start);
@@ -76,9 +78,19 @@ function focusStatus(){
  const rect=status.getBoundingClientRect();
  if(rect.top<0||rect.bottom>innerHeight)status.scrollIntoView({block:'nearest',behavior:paused?'auto':'smooth'});
 }
+function renderReview(){
+ const en=language.current==='en',names={all:['全部晾晒','Dry all'],batch:['分批晾晒','Split the batch'],cover:['准备遮盖','Prepare a cover'],store:['提前收储','Store early']};
+ const ordered=[choice,...Object.keys(names).filter(c=>c!==choice)];
+ $('inline-review').innerHTML='<p class="review-weather">'+(weather==='rain'?(en?'Showers arrived.':'阵雨来了。'):(en?'It stayed dry.':'没有下雨。'))+'</p>'+ordered.map(c=>'<div class="review-row '+(c===choice?'selected':'')+'"><strong>'+names[c][en?1:0]+(c===choice?(en?' · Your choice':' · 你的选择'):'')+'</strong><p>'+consequence(c,weather,en)+'</p></div>').join('');
+}
 function consequence(c,w,en){
  const rain={all:['外面的玉米暴露在雨中。','The maize outside is exposed to rain.'],batch:['外面的一半淋雨，收起的一半受到保护。','The outside half is exposed; the stored half is protected.'],cover:['遮盖减少直接淋雨，也改变了干燥条件。','The cover reduces direct rain exposure and changes drying conditions.'],store:['玉米避免直接淋雨，户外晾晒也暂停了。','Storage avoids direct rain exposure while pausing outdoor drying.']};
  const dry={all:['全部玉米可以继续在外面晾晒。','The whole batch can keep drying outside.'],batch:['一半继续晾晒，一半留在储物处。','Half keeps drying; half remains stored.'],cover:['玉米留在遮盖下，遮阴和通风改变了干燥条件。','The maize stays under cover; shade and ventilation change drying conditions.'],store:['玉米留在储物处，没有利用这段户外晾晒时间。','The maize stays stored, so this outdoor drying window is not used.']};
  return (w==='rain'?rain:dry)[c][en?1:0];
 }
+if(inline&&['all','batch','cover','store'].includes(params.get('choice'))&&['rain','sun'].includes(params.get('weather'))){choice=params.get('choice');weather=params.get('weather');seen=params.get('seen')==='true';stage=weather;}
 sync();
+if(inline){
+ const startObserver=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){startObserver.disconnect();if(stage==='start')start();}},{threshold:0});startObserver.observe($('action'));
+ const visibility=new IntersectionObserver(entries=>{scene?.setPaused(paused||!entries[0].isIntersecting);});visibility.observe($('action'));
+}
