@@ -26,6 +26,7 @@ function sync(){
  $('game-handoff').hidden=!params.has('location');
  if(!inline)document.querySelector('.wb-breadcrumb a').href=exerciseUrl('../../signals/guide/',lang);
  document.querySelector('.game-progress').setAttribute('aria-label',en?'Exercise progress':'练习进度');
+ $('weather-panel').setAttribute('aria-label',en?'Weatherbridge teaching information':'Weatherbridge 教学信息');
  const active=result?'review':stage==='prepared'?'weather':'prepare';
  document.querySelectorAll('[data-stage]').forEach(el=>{if(el.dataset.stage===active)el.setAttribute('aria-current','step');else el.removeAttribute('aria-current');});
  $('choice-consequence').textContent=result?consequence(choice,weather,en):'';

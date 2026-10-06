@@ -50,8 +50,6 @@ body.journey{
 .journey #evidence .big-values>div:last-child{background:var(--poster-teal)}
 .journey #evidence .big-values strong{color:var(--poster-ink)}
 .journey #price-distribution,.journey #evidence .evidence-plots{padding:24px;background:var(--poster-white);border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
-.journey #evidence .nine-days button{background:var(--poster-white)}
-.journey #evidence .nine-days button[aria-pressed=true]{background:var(--poster-lime);outline:2px solid var(--poster-ink)}
 .journey #evidence details,.journey #action details{padding:20px 24px;background:var(--poster-white);color:var(--poster-ink);border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:4px 4px 0 var(--poster-ink)}
 .journey #evidence details p,.journey #action details p{color:var(--poster-ink)}
 .journey #evidence details summary,.journey #action details summary{font-weight:600}

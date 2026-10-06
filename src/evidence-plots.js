@@ -1,6 +1,6 @@
 import * as d3 from 'd3';
 import {convert,leading,range,number,cumulative,matches} from './evidence-model.js';
-export function renderEvidencePlots(data,state,language){
+export function renderEvidencePlots(data,state,language,onSelect){
 const t=(zh,en)=>language.current==='en'?en:zh,W=880,H=300,left=60,right=850,bottom=250,top=28;
 const days=data.days,native=data.metadata.marketUnit,x=d3.scalePoint(days.map(d=>d.date),[left+20,right-20]);
 function plot(id,label){const root=d3.select('#'+id);root.selectAll('*').remove();return root.append('svg').attr('viewBox','0 0 '+W+' '+H).attr('role','img').attr('aria-label',label);}
@@ -19,6 +19,8 @@ function showDay(d){
   detail.append('span').attr('class','market-reading').text(t('市场最高价区间：','Highest-priced range: ')+range(o,native,state.unit));
   detail.append('span').attr('class','actual-reading').text(t('观测最高温：','Observed high: ')+number(convert(d.actualC,'C',state.unit))+'°'+state.unit);
 }
+function select(d,keyboard){if(d.date===state.date)return;state.refocus=keyboard;onSelect?.(d.date);}
+temp.on('pointerleave',()=>showDay(days.find(d=>d.date===state.date)||days[0]));
 days.forEach(d=>{const o=leading(d),cx=x(d.date),[floor,ceiling]=y.domain();
 // Bins are settled on rounded native values, so a "26°C" bin covers 25.5–26.5.
 const a=o.low==null?floor:convert(o.low-.5,native,state.unit),b=o.high==null?ceiling:convert(o.high+.5,native,state.unit);
@@ -26,8 +28,9 @@ const actual=convert(d.actualC,'C',state.unit),hit=matches(d,native),v=Math.roun
 const off=o.low!=null&&v<o.low?v-o.low:o.high!=null&&v>o.high?v-o.high:0;
 const label=d.date+' · '+t('市场区间 ','Market range ')+range(o,native,state.unit)+' · '+t('观测 ','Observed ')+number(actual)+'°'+state.unit+' · '+(hit?t('落在区间内','inside the range'):t('不在区间内','outside the range'));
 const g=temp.append('g').datum(d).attr('class','temperature-day '+(hit?'is-hit':'is-miss')).attr('tabindex',0).attr('role','button').attr('aria-label',label)
-  .on('pointerenter',()=>showDay(d)).on('focus',()=>showDay(d)).on('click',()=>showDay(d))
-  .on('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();showDay(d);}});
+  .attr('aria-pressed',d.date===state.date)
+  .on('pointerenter',()=>showDay(d)).on('focus',()=>showDay(d)).on('click',()=>select(d))
+  .on('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();select(d,true);}});
 g.append('title').text(label);
 g.append('rect').attr('class','temperature-selection').attr('x',cx-30).attr('y',top-12).attr('width',60).attr('height',bottom-top+24).attr('rx',10);
 g.append('rect').attr('class','temperature-range').attr('x',cx-20).attr('y',y(b)).attr('width',40).attr('height',y(a)-y(b)).attr('rx',o.low!=null&&o.high!=null?6:0)
@@ -39,6 +42,7 @@ g.append('circle').attr('class','temperature-observed-point').attr('cx',cx).attr
 g.append('text').attr('class','temperature-verdict').attr('x',cx).attr('y',top+2).attr('text-anchor','middle').text(hit?'✓':'✕');
 });
 showDay(days.find(d=>d.date===state.date)||days[0]);
+if(state.refocus){state.refocus=false;temp.selectAll('.temperature-day').filter(d=>d.date===state.date).node()?.focus();}
 const series=cumulative(days,native),rate=d3.scaleLinear([0,1],[bottom,top]),curve=plot('accuracy-history',t('累计比例：观测落在最高价区间内，或距区间不超过允许偏差','Cumulative share of days inside the highest-priced range, or within the allowed margin'));
 axes(curve,rate,v=>Math.round(v*100)+'%',[0,.25,.5,.75,1]);
 for(const [key,color,dash] of [['strictRate','var(--evidence-market)',null],['tolerantRate','var(--evidence-observed)','7 5']]){curve.append('path').datum(series).attr('class',key).attr('fill','none').attr('stroke',color).attr('stroke-width',2.5).attr('stroke-dasharray',dash).attr('d',d3.line().x(d=>x(d.day.date)).y(d=>rate(d[key])));curve.selectAll('.'+key+'-point').data(series).join('circle').attr('class',key+'-point').attr('cx',d=>x(d.day.date)).attr('cy',d=>rate(d[key])).attr('r',3.5).attr('fill',color).append('title').text(d=>d.day.date+' · '+Math.round(d[key]*100)+'%');}

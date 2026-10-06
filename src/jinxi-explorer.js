@@ -17,6 +17,7 @@ function stopCapture(){
 }
 function copy(){
   const s=scenes[displayed],i=language.current==='en'?1:0;img.alt=s.note[i];
+  document.getElementById('jinxi-water').setAttribute('aria-label',['游船在水面划行的示意动画','Schematic animation of a boat on the water'][i]);
   document.getElementById('field-title').textContent=s.title[i];document.getElementById('field-explanation').textContent=s.explain[i];document.getElementById('field-note').textContent=s.note[i];
 }
 function animate(target,frames,options){
