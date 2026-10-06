@@ -1,13 +1,15 @@
 import * as d3 from 'd3';
-import {convert,leading,range,number,cumulative} from './evidence-model.js';
+import {convert,leading,range,number,cumulative,matches} from './evidence-model.js';
 export function renderEvidencePlots(data,state,language){
 const t=(zh,en)=>language.current==='en'?en:zh,W=880,H=300,left=60,right=850,bottom=250,top=28;
 const days=data.days,native=data.metadata.marketUnit,x=d3.scalePoint(days.map(d=>d.date),[left+20,right-20]);
 function plot(id,label){const root=d3.select('#'+id);root.selectAll('*').remove();return root.append('svg').attr('viewBox','0 0 '+W+' '+H).attr('role','img').attr('aria-label',label);}
 function axes(svg,y,formatter,ticks){svg.append('g').attr('transform','translate('+left+',0)').call(d3.axisLeft(y).tickValues(ticks).tickFormat(formatter).tickSize(-(right-left))).call(g=>g.select('.domain').remove());svg.append('g').attr('transform','translate(0,'+bottom+')').call(d3.axisBottom(x).tickFormat(d=>d.slice(5))).call(g=>g.select('.domain').remove());}
 const vals=days.flatMap(d=>{const o=leading(d);return[d.actualC,convert(o.low,native,'C'),convert(o.high,native,'C')].filter(v=>v!=null).map(v=>convert(v,'C',state.unit));});
-const margin=state.unit==='C'?2:4,extent=d3.extent(vals),y=d3.scaleLinear([extent[0]-margin,extent[1]+margin],[bottom,top]).nice();
+const margin=state.unit==='C'?1.5:3,extent=d3.extent(vals),y=d3.scaleLinear([extent[0]-margin,extent[1]+margin],[bottom,top+24]).nice();
 const temp=plot('temperature-history',t('九天最高价温度区间与机场观测对照','Nine-day comparison of highest-priced temperature ranges and airport observations')).attr('role','group');axes(temp,y,v=>number(v)+'°'+state.unit,y.ticks(5));
+const scale=native===state.unit?1:state.unit==='F'?9/5:5/9,fade=temp.append('defs');
+for(const [id,y1,y2] of [['range-fade-up','100%','0%'],['range-fade-down','0%','100%']]){const g=fade.append('linearGradient').attr('id',id).attr('x1',0).attr('x2',0).attr('y1',y1).attr('y2',y2);g.append('stop').attr('offset','0%').attr('stop-color','var(--evidence-market)').attr('stop-opacity',.28);g.append('stop').attr('offset','100%').attr('stop-color','var(--evidence-market)').attr('stop-opacity',0);}
 const detail=d3.select('#temperature-history').append('div').attr('class','temperature-detail').attr('aria-live','polite');
 function showDay(d){
   temp.selectAll('.temperature-day').classed('is-selected',item=>item.date===d.date);
@@ -17,24 +19,24 @@ function showDay(d){
   detail.append('span').attr('class','market-reading').text(t('市场最高价区间：','Highest-priced range: ')+range(o,native,state.unit));
   detail.append('span').attr('class','actual-reading').text(t('观测最高温：','Observed high: ')+number(convert(d.actualC,'C',state.unit))+'°'+state.unit);
 }
-days.forEach(d=>{const o=leading(d),a=o.low==null?y.domain()[0]:convert(o.low,native,state.unit),b=o.high==null?y.domain()[1]:convert(o.high,native,state.unit),cx=x(d.date);
-const actual=convert(d.actualC,'C',state.unit),closed=o.low!=null&&o.high!=null;
-// Closed ranges use a midpoint as a visual anchor, never as a new forecast value.
-const anchor=closed?(a+b)/2:o.low==null?b:a;
-const label=d.date+' · '+t('市场区间 ','Market range ')+range(o,native,state.unit)+' · '+t('观测 ','Observed ')+number(actual)+'°'+state.unit;
-const g=temp.append('g').datum(d).attr('class','temperature-day').attr('tabindex',0).attr('role','button').attr('aria-label',label)
+days.forEach(d=>{const o=leading(d),cx=x(d.date),[floor,ceiling]=y.domain();
+// Bins are settled on rounded native values, so a "26°C" bin covers 25.5–26.5.
+const a=o.low==null?floor:convert(o.low-.5,native,state.unit),b=o.high==null?ceiling:convert(o.high+.5,native,state.unit);
+const actual=convert(d.actualC,'C',state.unit),hit=matches(d,native),v=Math.round(convert(d.actualC,'C',native));
+const off=o.low!=null&&v<o.low?v-o.low:o.high!=null&&v>o.high?v-o.high:0;
+const label=d.date+' · '+t('市场区间 ','Market range ')+range(o,native,state.unit)+' · '+t('观测 ','Observed ')+number(actual)+'°'+state.unit+' · '+(hit?t('落在区间内','inside the range'):t('不在区间内','outside the range'));
+const g=temp.append('g').datum(d).attr('class','temperature-day '+(hit?'is-hit':'is-miss')).attr('tabindex',0).attr('role','button').attr('aria-label',label)
   .on('pointerenter',()=>showDay(d)).on('focus',()=>showDay(d)).on('click',()=>showDay(d))
   .on('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();showDay(d);}});
 g.append('title').text(label);
-g.append('rect').attr('class','temperature-selection').attr('x',cx-26).attr('y',top-10).attr('width',52).attr('height',bottom-top+20).attr('rx',12);
-g.append('rect').attr('class','temperature-range').attr('x',cx-16).attr('y',y(b)-3).attr('width',18).attr('height',Math.max(6,y(a)-y(b)+6)).attr('rx',9);
-g.append('line').attr('class','temperature-connector').attr('x1',cx-7).attr('x2',cx+7).attr('y1',y(anchor)).attr('y2',y(actual));
-if(closed)g.append('circle').attr('class','temperature-market-point').attr('cx',cx-7).attr('cy',y(anchor)).attr('r',6);
-else{
-  const edgeY=o.high==null?y(b):y(a),direction=o.high==null?1:-1;
-  g.append('path').attr('class','temperature-open-arrow').attr('d',`M${cx-12},${edgeY+direction*6} L${cx-7},${edgeY} L${cx-2},${edgeY+direction*6}`);
-}
-g.append('circle').attr('class','temperature-observed-point').attr('cx',cx+7).attr('cy',y(actual)).attr('r',6);
+g.append('rect').attr('class','temperature-selection').attr('x',cx-30).attr('y',top-12).attr('width',60).attr('height',bottom-top+24).attr('rx',10);
+g.append('rect').attr('class','temperature-range').attr('x',cx-20).attr('y',y(b)).attr('width',40).attr('height',y(a)-y(b)).attr('rx',o.low!=null&&o.high!=null?6:0)
+  .attr('style',o.high==null?'fill:url(#range-fade-up);fill-opacity:1':o.low==null?'fill:url(#range-fade-down);fill-opacity:1':null);
+if(o.high==null||o.low==null)g.append('text').attr('class','temperature-open-label').attr('x',cx).attr('y',o.high==null?y(a)-10:y(b)+20).attr('text-anchor','middle').text(range(o,native,state.unit).replace('°'+state.unit,''));
+if(!hit){const edge=off<0?a:b;g.append('line').attr('class','temperature-connector').attr('x1',cx).attr('x2',cx).attr('y1',y(edge)).attr('y2',y(actual));
+  g.append('text').attr('class','temperature-miss-label').attr('x',cx+12).attr('y',y(actual)+5).text((off>0?'+':'−')+number(Math.abs(off)*scale)+'°');}
+g.append('circle').attr('class','temperature-observed-point').attr('cx',cx).attr('cy',y(actual)).attr('r',7);
+g.append('text').attr('class','temperature-verdict').attr('x',cx).attr('y',top+2).attr('text-anchor','middle').text(hit?'✓':'✕');
 });
 showDay(days.find(d=>d.date===state.date)||days[0]);
 const series=cumulative(days,native),rate=d3.scaleLinear([0,1],[bottom,top]),curve=plot('accuracy-history',t('累计比例：观测落在最高价区间内，或距区间不超过允许偏差','Cumulative share of days inside the highest-priced range, or within the allowed margin'));

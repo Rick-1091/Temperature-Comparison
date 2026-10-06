@@ -4,24 +4,26 @@
 .temperature-selection{fill:var(--evidence-market);fill-opacity:0}
 .temperature-day.is-selected .temperature-selection{fill-opacity:.06}
 .temperature-day:focus-visible .temperature-selection{stroke:var(--evidence-market);stroke-width:1.5}
-.temperature-range{fill:var(--evidence-market);fill-opacity:.14}
-.temperature-connector{stroke:#a8b7b1;stroke-width:2;stroke-linecap:round}
-.temperature-day.is-selected .temperature-connector{stroke:#627b72}
-.temperature-market-point{fill:var(--evidence-market);stroke:var(--wb-paper);stroke-width:2}
-.temperature-observed-point{fill:var(--evidence-observed);stroke:var(--wb-paper);stroke-width:2}
-.temperature-open-arrow{fill:none;stroke:var(--evidence-market);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.temperature-range{fill:var(--evidence-market);fill-opacity:.28}
+.temperature-open-label{fill:#0f4f49;font-weight:700;font-size:14px}
+.temperature-connector{stroke:var(--evidence-observed);stroke-width:2;stroke-dasharray:3 3}
+.temperature-observed-point{fill:#1d2a26;stroke:var(--wb-paper);stroke-width:2}
+.is-miss .temperature-observed-point{fill:var(--evidence-observed)}
+.temperature-miss-label{fill:var(--evidence-observed);font-weight:700;font-size:14px}
+.temperature-verdict{font-size:20px;font-weight:700;fill:var(--evidence-market)}
+.is-miss .temperature-verdict{fill:var(--evidence-observed)}
 .temperature-detail{display:flex;flex-wrap:wrap;gap:8px 24px;padding:16px 0;border-top:1px solid var(--wb-line);font-size:15px;line-height:1.5}
 .temperature-detail .market-reading{color:var(--evidence-market)}
 .temperature-detail .actual-reading{color:var(--evidence-observed)}
 .evidence-legend{display:flex;flex-wrap:wrap;gap:12px 28px;align-items:center;margin:12px 0 32px}
 .evidence-legend>span{display:inline-flex;align-items:center;gap:8px;max-width:100%;min-width:0}
 .evidence-key{display:inline-block;flex:0 0 16px;width:16px;height:16px;border-radius:2px}
-.evidence-key.market-key{background:var(--evidence-market)}
-.evidence-key.observation-key{background:var(--evidence-observed)}
+.evidence-key.market-key{background:rgba(22,121,112,.28)}
+.evidence-key.observation-key{background:#1d2a26;border-radius:50%}
+.evidence-key.miss-key{background:var(--evidence-observed);border-radius:50%}
 .evidence-line-key{display:inline-block;flex:0 0 36px;width:36px;border-top:3px solid var(--evidence-market)}
 .evidence-line-key.tolerant-key{border-top:3px dashed var(--evidence-observed)}
 .accuracy-summary-note{display:block;margin-top:10px;font-size:15px;line-height:1.65}
-.journey .evidence-legend .evidence-arrow-key{width:20px;min-width:0;max-width:20px;height:20px;flex:0 0 20px;color:var(--evidence-market)}
 .journey .evidence-controls{align-items:flex-end;flex-wrap:wrap}
 .journey .evidence-controls .filters{padding-top:0;align-items:flex-end}
 /* Display roles only: body copy and controls retain their existing Plex typography. */
