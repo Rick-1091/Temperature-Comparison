@@ -1,4 +1,4 @@
-const {chromium}=require(process.env.WEATHERBRIDGE_PLAYWRIGHT_MODULE||'playwright');
+const {chromium}=require(process.env.WEATHERBRIDGE_PLAYWRIGHT_MODULE||process.env.WEATHERBRIDGE_PLAYWRIGHT||'playwright');
 const assert=require('node:assert/strict'),fs=require('node:fs');
 const out='.cache/decision-qa',base=process.env.WEATHERBRIDGE_PREVIEW_URL||'http://127.0.0.1:8017/';
 const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleString('en');
@@ -17,7 +17,7 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
   assert.ok(Math.abs(yes.net-(yes.drying-yes.physicalLoss-yes.preparationCost-yes.premium+yes.payout))<.001);
   if(prep!=='all'&&weather!=='dry')assert.ok(yes.physicalLoss<resolveDecision('all',weather,false).physicalLoss);
  }
- const browser=await chromium.launch({headless:true,executablePath:process.env.WEATHERBRIDGE_BROWSER_EXECUTABLE||undefined,args:['--enable-unsafe-swiftshader']});
+ const browser=await chromium.launch({headless:true,executablePath:process.env.WEATHERBRIDGE_BROWSER_EXECUTABLE||process.env.WEATHERBRIDGE_BROWSER||undefined,args:['--enable-unsafe-swiftshader']});
  const errors=[];
  async function open(p,selector){if(!await p.locator(selector).evaluate(e=>e.open))await p.locator(selector+' > summary').click();}
  async function page(width=1440,lang='zh',weather='heavy',reduce=true){

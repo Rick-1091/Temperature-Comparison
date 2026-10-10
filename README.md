@@ -33,17 +33,18 @@ For each Polymarket Yes outcome, the saved quote is the latest available in the 
 
 The main page uses actual historical values, not authored decimals. Price bars compare raw Yes quotes and are not normalized to 100%. The five-bin introductory example is explicitly illustrative. Nine days describe a short history, not proven forecasting skill.
 
-Jinxi photographs come from field observations. Thoko and Diego are fictional. The courtyard uses independent synthetic rain/sun outcomes; it does not consume the airport temperatures, live Malawi forecasts or market quotes. It qualitatively compares exposure, protection and drying opportunity, not food safety, yields or economic losses. Official local forecasts and warnings take priority. Hedging requires matching location/date/variable/settlement as well as eligibility, liquidity, cost and basis risk.
+Jinxi photographs come from field observations. Thoko and Diego are fictional. The 3D courtyard follows optional supplementary information → preparation → optional weather contract → outcome, with independent simulated dry, late-light-rain and early-heavy-rain outcomes. It does not consume airport temperatures, live Malawi forecasts or real market quotes. Carrying maize to storage or the left shelter, unfolding a tarp, rain exposure, contract cost and payout are animated. Drying benefit, physical loss and net cash flow use teaching units, not predictions of real yields, food safety or financial returns. Official local forecasts and warnings take priority. A weather-trigger contract is not crop-loss insurance; real hedging requires matching location/date/variable/settlement as well as eligibility, liquidity, cost and basis risk. See [DECISION_DIORAMA.md](DECISION_DIORAMA.md) for the model and animation details.
 
 ## Verification
 
 ```sh
 node scripts/verify-guided-data.mjs
-node scripts/verify-journey.cjs
+node scripts/verify-decision-diorama.cjs
+node scripts/verify-team-integration.cjs
 ```
 
 Browser checks require Playwright and Chrome; set `WEATHERBRIDGE_PLAYWRIGHT` and `WEATHERBRIDGE_BROWSER` to their installed locations when necessary. Artifacts and browser profiles stay in ignored `.cache/` on the project drive.
 
-The journey suite covers 1522/1440/768/390/320px, both languages and display units, city/date comparisons, eight exercise outcomes, reduced motion, text fallback, restart, research and seven deep-link migrations. The older `verify-refactor.cjs` describes the retired multi-page UX and is not the current acceptance suite.
+The decision suite covers five preparations, three weather outcomes, optional signals and contracts, 1440/768/390/320px, both languages, reduced motion, text fallback, restart, payment/payout animations and WebGL restoration. The integration suite verifies that the teammates' interactive evidence timeline and seven-element weather network coexist with the courtyard, including keyboard selection, city/unit changes and desktop/mobile layouts. The older `verify-journey.cjs` and `verify-refactor.cjs` describe earlier exercise flows and are not the rebuilt courtyard's acceptance suites.
 
 Automated checks and developer walkthroughs do not replace testing with novice users. Three.js remains a separately lazy-loaded chunk; Vite's large-chunk warning refers to that engine, not the initial journey controller. See DESIGN.md and docs/journey-refactor.md for the current design and migration record.

@@ -1,3 +1,4 @@
+.journey #weather-network{min-width:0;max-width:100%;overflow-x:auto;padding-bottom:12px}
 .wn-link{cursor:pointer;outline:none}
 .wn-hit{stroke:transparent;stroke-width:22}
 .wn-line{stroke-linecap:round;stroke-opacity:.75;transition:stroke-opacity .2s}

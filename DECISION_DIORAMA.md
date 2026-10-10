@@ -179,3 +179,16 @@ flat colors and black-outline visual language rather than adding nested cards.
 No weather weights, preparation effects, contract prices or payout rules changed.
 QA additionally checks hidden raw quotes, progressive storage choices, neutral
 contract decisions, no duplicate cash-flow chart, and all disclosure entry points.
+
+## Teammate integration — 2026-10-10
+
+Merged latest main `497a350` (timeline range blocks, duplicate-view cleanup,
+seven-element weather correlation network and README demo link). The old
+`game.js` aria-label edit conflicted with the new lazy entry; the new controller
+retains bilingual scene and market labels. No retired evidence views are restored.
+
+The network retains its original data, SVG, computation and keyboard selection.
+Its container now owns horizontal scrolling, like the neighbouring timeline,
+so inherited narrow-screen SVG minimum widths cannot widen the entire page.
+`scripts/verify-team-integration.cjs` checks both features together in Chinese
+and English at desktop/mobile widths, with city, unit and keyboard interactions.
