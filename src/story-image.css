@@ -1,2 +1,0 @@
-/* Keep the shopkeeper's face visible when a portrait asset fills a wide frame. */
-body[data-case="mexico-city"] #story-image { object-position: center 18%; }

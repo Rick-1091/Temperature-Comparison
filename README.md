@@ -2,6 +2,10 @@
 
 A bilingual, continuous weather-information journey.
 
+## Demo video
+
+[![Weatherbridge demo video](https://img.youtube.com/vi/J4l93IC2vnM/hqdefault.jpg)](https://youtu.be/J4l93IC2vnM)
+
 ## Current architecture
 
 `/`: Hero → Jinxi → Malawi → Mexico City → Polymarket → historical evidence → inline Three.js courtyard → inline reflection → final takeaway.

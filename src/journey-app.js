@@ -8,6 +8,7 @@ import {initTypographyReveals} from './typography-reveals.js';
 import {initJinxi} from './jinxi-explorer.js';
 import {initBusinessMap} from './business-map.js';
 import {renderEvidencePlots} from './evidence-plots.js';
+import {renderWeatherNetwork} from './weather-network.js';
 import {setupLanguage} from './page-language.js';
 import {initMeaningDialog} from './meaning-dialog.js';
 import {convert,number,range,leading,matches} from './evidence-model.js';
@@ -46,14 +47,11 @@ frame.title=text('对比市场判断与实际气温','Compare market expectation
 $('evidence-values').innerHTML=pair(day,meta);
 $('evidence-verdict').textContent=matches(day,meta.marketUnit)?text('这一天，观测落在最高价区间内。','On this day, the observation fell inside the highest-priced range.'):text('这一天，观测没有落进最高价区间。','On this day, the observation fell outside the highest-priced range.');
 const top=leading(day);$('price-distribution').innerHTML=day.outcomes.map(o=>'<div class="price-row" data-top="'+(o===top)+'"><span>'+range(o,meta.marketUnit,state.unit)+'</span><div class="price-track"><div class="price-fill" style="width:'+o.price/top.price*100+'%"></div></div><strong>'+Number((o.price*100).toFixed(2))+'¢</strong></div>').join('');
-$('nine-days').innerHTML=data.days.map(d=>'<button data-date="'+d.date+'" aria-pressed="'+(d.date===state.date)+'" aria-label="'+d.date+' '+text('查看对照','View comparison')+'"><span>'+d.date.slice(5)+'</span><small>'+range(leading(d),meta.marketUnit,state.unit)+'</small><b class="'+(matches(d,meta.marketUnit)?'':'miss')+'">'+(matches(d,meta.marketUnit)?'✓':'×')+'</b></button>').join('');
-const matchingDays=data.days.filter(d=>matches(d,meta.marketUnit)).length;
-$('sample-summary').textContent=text(`这 ${data.days.length} 天里，有 ${matchingDays} 天记录到的最高气温在市场最看好的温度区间内。✓ 表示在区间内，× 表示在区间外。`,`On ${matchingDays} of these ${data.days.length} days, the recorded high fell within the temperature range favoured by the market. ✓ means inside the range; × means outside.`);
-renderEvidencePlots(data,state,language);
+renderEvidencePlots(data,state,language,date=>{state.date=date;update();});
+renderWeatherNetwork(data,state,language);
 }catch(e){if(token!==request)return;$('evidence-date').textContent=text('历史数据暂时无法读取。请刷新页面，或进入研究与数据查看原始来源。','Historical data could not be loaded. Reload or check the original sources in Research & Data.');}}
 function update(){const url=new URL(location.href);url.searchParams.set('location',state.place);url.searchParams.set('date',state.date);url.searchParams.set('unit',state.unit);history.replaceState(null,'',url);renderIntroMarket();render();}
 ['place','date','unit'].forEach(id=>$(id).addEventListener('change',()=>{state[id]=$(id).value;update();}));
-$('nine-days').addEventListener('click',e=>{const b=e.target.closest('[data-date]');if(!b)return;state.date=b.dataset.date;update();$('evidence-date').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});});
 window.addEventListener('wb-language',render);
 render();
 initTypographyReveals();
