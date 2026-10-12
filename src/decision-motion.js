@@ -2,7 +2,6 @@
 export const smooth=x=>{const t=Math.max(0,Math.min(1,x));return t*t*(3-2*t);};
 export const TRANSPORT_ROUTES={
  shelter:[[1.1,0,2.6],[-1.3,0,2.6],[-1.3,0,1.6],[-3.5,0,1.6]],
- batch:[[1.1,0,2.6],[-1.2,0,3.8],[-2.5,0,3.8]],
  store:[[1.1,0,2.6],[-1.2,0,3.8],[-2.5,0,3.8]]
 };
 export function transportBeat(progress){
