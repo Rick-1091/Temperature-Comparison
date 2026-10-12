@@ -1,5 +1,36 @@
 # Weatherbridge decision diorama
 
+## Current three-plan model — 2026-10-12
+
+This revision supersedes the older five-plan preparation descriptions and
+case tables below. The active model, hotspots, fallback and comparison have
+only three mutually exclusive preparations:
+
+| Plan | Light-rain crop loss | Heavy-rain crop loss | Sunny drying | Preparation delay | Moving cost | Dry / light / heavy net without contract |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Keep drying | 25 | 90 | 24 | 0 | 0 | +24 / −7 / −82.8 |
+| Move all under the open roof | 0 | 90 | 18 | 6 | 2 | +16 / +11.5 / −86.6 |
+| Store everything | 0 | 0 | 0 | 24 | 5 | −5 / −5 / −5 |
+
+Delay is forgone drying value, not a second charge. Rain reduces ongoing
+drying to 75% (light) or 30% (heavy), after preparation has reduced the sunny
+window. Costs, physical damage and contract cash flow remain separate.
+All values are synthetic teaching units, not empirical agricultural estimates.
+Dry, light and heavy weather each has a distinct best unhedged plan.
+
+The roof is open-sided: light rain stops at the roof; wind-driven heavy
+rain enters from the front and visibly wets all 48 ears under the shelter.
+Storage keeps all 48 ears dry but stops drying. The removed tarp station
+and half-storage submenu do not remain as hidden choices. Both moving plans
+use the existing three-trip carrying choreography; choosing a plan is reversible
+until continuing. Object labels show rain coverage and delay before selection.
+
+Small-rain and heavy-rain contracts remain separate, with unchanged costs and
+triggers. Independent fixtures cover 3 plans × 3 weather outcomes × 3 contract
+choices = 27 cases. Browser checks verify all physical states, numerical
+ledgers, 8 width/language combinations, animation, keyboard, interruption,
+weather replay, text fallback and WebGL restoration.
+
 ## Scope and visual contract
 
 Rebuild only the courtyard experience and its inline comparison. Preserve the
@@ -9,8 +40,8 @@ code-led: an editorial architectural miniature, not a free-roaming game or a
 static yard with buttons. No new external services, assets or purchases.
 
 The miniature contains a house, elevated drying rack, individual maize ears,
-working left-hand shelter with a drying bench, hinged storage box, unfolding
-tarp and roll, articulated household member with carrying basket, planted
+working left-hand shelter with a drying bench, hinged storage box,
+articulated household member with carrying basket, planted
 boundary, paving, sky/clouds/sun, rain streaks/puddles, information terminal,
 contract desk and animated value tokens. DOM hotspots follow camera-projected
 object anchors and are keyboard-operable; meshes also support raycast picking.
@@ -21,16 +52,16 @@ object anchors and are keyboard-operable; meshes also support raycast picking.
    supplementary market panel or explicitly skip it.
 2. Market (optional): multiple judgments feed a visible, illustrative price
    signal. The price panel is not a calibrated probability or an official forecast.
-3. Preparation: choose one plan via the objects; storage offers half or all.
-   Corn is transported, character arms/legs and basket move, storage lid opens,
-   or the tarp progressively unfolds. Repeat a plan before locking it in.
+3. Preparation: choose exposed drying, the light-rain shelter or full storage.
+   Corn is transported, character arms/legs and basket move, storage lid opens.
+   Repeat a plan before locking it in.
    Transport now uses three explicit pick/carry/place trips around the rack:
    actual maize ears follow the carrying basket, not independent flying paths.
    Short scene captions track each beat. Cloth geometry unrolls with a raised
    leading fold and revealed stitched seams, rather than scaling a flat box.
-4. Hedge: buy the example heavy-rain contract or decline it. Amber cost tokens move
-   toward the contract desk; green payout tokens return to the household after
-   heavy rain. A receipt beneath the scene retains cost, payout and contract net,
+4. Hedge: decline, buy the light-rain contract, or buy the heavy-rain contract.
+   Amber cost tokens move toward the desk; green payout tokens return only after
+   the purchased contract's matching weather. The receipt retains cost, payout and contract net,
    with signed amounts as well as color. Changing preparation before
    revealing reverses this provisional choice, without charging twice.
 5. Weather: resolve the previously drawn outcome. Cloud color, light, rain,
@@ -133,7 +164,7 @@ before reveal in this simulation; this is explicitly not a real trading workflow
 
 ## Verification coverage
 
-`scripts/verify-decision-diorama.cjs`: 30 accounting combinations, all five
+`scripts/verify-decision-diorama.cjs`: 45 accounting combinations, all five
 preparations, three outcomes, optional information, contract cost/payout,
 protected corn counts, known-weather replays, bilingual layouts at
 1440/768/390/320px, reduced motion, animated transport/tarp/cost/rain/payout
@@ -147,6 +178,8 @@ checked in the browser.
 Compact 390×780 viewport tests assert visible carrying, a single continuation,
 keyboard object focus and the rain-to-dry outcome legend after replay.
 Reports and screenshots are local-only in `.cache/decision-qa/`.
+`node scripts/verify-decision-accounting.mjs` separately checks 30 independent,
+hand-calculated accounting fixtures without requiring a browser or dependencies.
 Run against the Vite preview with `node scripts/verify-decision-diorama.cjs` and
 Playwright available. Optional environment overrides are
 `WEATHERBRIDGE_PLAYWRIGHT_MODULE`, `WEATHERBRIDGE_BROWSER_EXECUTABLE` and
@@ -192,3 +225,126 @@ Its container now owns horizontal scrolling, like the neighbouring timeline,
 so inherited narrow-screen SVG minimum widths cannot widen the entire page.
 `scripts/verify-team-integration.cjs` checks both features together in Chinese
 and English at desktop/mobile widths, with city, unit and keyboard interactions.
+
+## Comprehension and interaction fixes — 2026-10-10
+
+The default result now includes a compact, labelled equation with preparation
+cost, and its heading responds to the chosen preparation and weather. Covered
+maize is explicitly distinguished from damage-free maize; model amounts are
+unchanged. Scene labels describe actions. On compact screens the existing task
+instruction moves above the courtyard instead of being duplicated. Completed
+preparations focus the next-step button. Pause/resume updates only motion
+controls, preserving open terms, calculations and the reading position.
+
+## Illustrative market image — 2026-10-10
+
+The signal step now includes a responsive SVG market graphic: three authored
+quote traces, weather icons and the model's current 32/28/40-cent example prices.
+It is labelled simulated and non-live; the reading guide explains cents and
+distinguishes prices from rain probabilities. The graphic replaces the standalone
+rain icon and the duplicate quote bars. Its invented history does not feed the
+weather draw, preparation model or contract settlement.
+
+## Numeric drying trade-offs — 2026-10-11
+
+Each preparation now shows a dry-weather example with drying earned, forgone
+drying value, preparation cost and net without a contract. Results expand the
+equation into available drying value minus forgone value, crop damage and
+preparation cost, plus contract net. The five-plan comparison includes forgone
+value and preparation cost. Forgone value is derived from the same-weather
+full-drying baseline; it is already reflected in drying earned and is never
+deducted twice. Existing outcome totals and weather sampling remain unchanged.
+
+## First-time walkthrough — 2026-10-11
+
+Manual browser walkthroughs covered the signal/preparation/contract/result flow
+on desktop and mobile. On compact screens, the preparation continuation now
+stays after its numerical readout, so the user encounters the trade-off before
+advancing. Contract headings and selected buttons explicitly acknowledge a
+purchase or a decision to decline. Preparation focus still advances to the
+continuation after the animation, and the weather and result controls remain
+available from the scene.
+
+## Common-baseline accounting audit — 2026-10-12
+
+Every weather now starts from the same full-rack sunny value of 24. The old
+same-weather drying opportunity baseline (24 / 18 / 7.2) hid the weather's
+interruption and made preparation delay change retrospectively with weather.
+The model now separates two causal losses, without double counting them:
+
+- `sunnyDrying`: this preparation's drying in dry weather, rounded to 0.1.
+- `dryingOpportunityLoss = 24 − sunnyDrying`: drying forgone by preparing.
+- `weatherDryingLoss = sunnyDrying − drying`: rain interruption on corn that
+  was still drying. Stored corn cannot lose drying time to rain again.
+- `drying = 24 − dryingOpportunityLoss − weatherDryingLoss`.
+- `net = drying − physicalLoss − preparationCost − premium + payout`.
+- `gapFromFullDrying = 24 − net`: a benchmark comparison, not a second charge.
+
+Losses are derived from displayed rounded balances so every visible equation
+reconciles exactly to 0.1. The synthetic damage/drying coefficients, weather
+sampling, fixed preparation costs and heavy-rain contract trigger are unchanged;
+the audited net totals were already arithmetically correct, and are not forced
+to differ where the assumptions legitimately produce equal totals.
+
+| Preparation | Dry (no / with contract) | Light rain (no / with) | Heavy rain (no / with) |
+| --- | ---: | ---: | ---: |
+| Keep all outside | +24 / +12 | −7 / −19 | −82.8 / −64.8 |
+| Store half | +10 / −2 | −5.5 / −17.5 | −43.4 / −25.4 |
+| Tarp | +4.4 / −7.6 | −0.2 / −12.2 | −10.5 / +7.5 |
+| Left shelter | +14.5 / +2.5 | −0.5 / −12.5 | −35.9 / −17.9 |
+| Store all | −5 / −17 | −5 / −17 | −5 / +13 |
+
+For all-stored maize, every weather has zero drying, zero crop damage and
+preparation cost 5. Dry/light totals are genuinely equal, and this limitation
+is explicitly explained. Both fail the heavy-rain trigger, so purchased
+contract net is −12 in each; this equality must not be mistaken for equal
+whole-courtyard outcomes under the other four preparations.
+
+The default result explains the dry-versus-light difference numerically.
+“Compare cash flow / replay weather” contains a side-by-side three-weather
+ledger with preparation delay, rain interruption, crop damage, costs, payouts
+and both net totals. The existing same-weather five-plan table uses the same
+common baseline and includes the separate rain interruption column.
+
+Regression fixtures hard-code all 15 plan/weather rows with and without a
+contract (30 cases), rather than checking the function against itself.
+
+### Accounting reading-path confirmation
+
+The result header explicitly names the weather and arrival timing, including
+compact layouts where the scene-side result heading is hidden. Open calculation
+and three-weather comparison disclosures stay open across weather replay,
+language changes and responsive re-rendering; restart clears the old result DOM.
+The compact table uses short labels with one shared no-double-charge note.
+Regression checks capture the actual expanded ledger at all eight width/locale
+combinations, assert numeric cells are not clipped, replay light rain and confirm
+the comparison remains open and its net updates to the expected amount.
+
+## Clear quote inspection and two contract choices — 2026-10-12
+
+Current illustrative prices stay visible together (dry 32¢, light 28¢, heavy
+40¢), but the user selects one weather to inspect its six-quote trace. The
+selected weather, units and quote order are explicit, and dollars are shown
+to two decimal places (28¢ = $0.28, never $0.3). Quote inspection does not buy,
+set the preparation, preselect a contract, or change the independent weather.
+
+| Contract choice | 30-unit cost | Dry contract net | Light contract net | Heavy contract net |
+| --- | ---: | ---: | ---: | ---: |
+| None | 0 | 0 | 0 | 0 |
+| Light rain (28¢ per unit) | 8.4 | −8.4 | +21.6 | −8.4 |
+| Heavy rain (40¢ per unit) | 12 | −12 | −12 | +18 |
+
+These are mutually exclusive weather outcomes, not nested rain thresholds:
+the light contract does not pay for heavy rain. The exercise permits one
+contract at a time, not a portfolio. Costs, payout conditions, receipts,
+cost/payout motion, waterfall, current result, three-weather ledger and
+five-preparation comparison all use the selected contract from CONTRACTS.
+For full exposure in light rain: 18 drying − 25 crop loss = −7 without a
+contract; a light contract gives −7 − 8.4 + 30 = +14.6; a heavy contract gives
+−7 − 12 + 0 = −19. Crop loss is unchanged in every case.
+
+All 45 no/light/heavy outcomes have independent expected fixtures. Both
+contract types are exercised across five preparations and three weather
+replays. Mobile light-rain cost/payout motion, choosing another contract,
+receipts, language changes and text/WebGL restoration are regression targets.
+The legacy boolean true still means heavy rain solely for prior callers.
