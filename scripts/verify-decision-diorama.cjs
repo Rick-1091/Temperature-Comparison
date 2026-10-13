@@ -9,11 +9,11 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
  const {transportBeat,routePoint,TRANSPORT_ROUTES}=await import('../src/decision-motion.js');
  assert.equal(transportBeat(.02).step,'pick');assert.equal(transportBeat(.1).step,'carry');assert.equal(transportBeat(.2).step,'place');assert.equal(transportBeat(.3).step,'return');assert.equal(transportBeat(1).step,'done');
  for(const route of Object.values(TRANSPORT_ROUTES)){assert.deepEqual(routePoint(route,0).point,route[0]);assert.deepEqual(routePoint(route,1).point,route.at(-1));}
- assert.equal(drawOutcome(()=>.1),'dry');assert.equal(drawOutcome(()=>.5),'light');assert.equal(drawOutcome(()=>.9),'heavy');
+ assert.equal(drawOutcome(()=>.1),'dry');assert.equal(drawOutcome(()=>.2),'light');assert.equal(drawOutcome(()=>.9),'heavy');
  for(const weather of ['dry','light','heavy'])for(const prep of Object.keys(PREPARATIONS)){
   const no=resolveDecision(prep,weather,false),yes=resolveDecision(prep,weather,true);
   assert.equal(no.physicalLoss,yes.physicalLoss);assert.equal(no.drying,yes.drying);
-  assert.ok(Math.abs(yes.net-no.net-(weather==='heavy'?18:-12))<.001);
+  assert.ok(Math.abs(yes.net-no.net-(weather==='heavy'?9:-21))<.001);
   assert.equal(yes.payout,weather==='heavy'?30:0);
   assert.ok(Math.abs(yes.net-(yes.drying-yes.physicalLoss-yes.preparationCost-yes.premium+yes.payout))<.001);
   if(prep==='store'||prep==='shelter'&&weather==='light')assert.equal(yes.physicalLoss,0);
@@ -32,15 +32,15 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
    await p.waitForFunction(()=>document.querySelector('#action').dataset.busy==='false');assert.equal(await p.locator('#scene').getAttribute('data-protected-ears'),String(count));
    await p.locator('[data-decision=prepared]').click();await p.locator('[data-scene-object=hedge]').click();assert.equal(await p.locator('#scene').getAttribute('data-finance'),'none','Viewing terms must not buy');
    assert.equal(await p.evaluate(()=>document.activeElement.id),'contract-heading');assert.equal(await p.locator('#decision-receipt').isVisible(),false);
-   assert.deepEqual(await p.locator('.contract-preview tbody td:last-child').allTextContents(),['−12','−12','+18']);
+   assert.deepEqual(await p.locator('.contract-preview tbody td:last-child').allTextContents(),['−21','−21','+9']);
    await p.locator('[data-decision=buy]').click();assert.equal(await p.locator('#scene').getAttribute('data-finance'),'cost');
    await p.locator('[data-decision=reveal]').click();await p.waitForFunction(()=>document.querySelector('#action').dataset.decisionStage==='result');
-   assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),['−12','+30','+18']);
+   assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),['−21','+30','+9']);
    for(const w of ['heavy','light','dry']){
     if(w!=='heavy'){await open(p,'.weather-detail');await p.locator('[data-weather-replay='+w+']').click();await p.waitForFunction(()=>document.querySelector('#action').dataset.decisionStage==='result');assert.equal(await p.locator('.weather-detail').evaluate(e=>e.open),true,'Keep the comparison open after a weather replay');}
     assert.equal(await p.locator('#scene').getAttribute('data-weather'),w);
     assert.equal(await p.locator('#scene').getAttribute('data-finance'),w==='heavy'?'payout':'no-payout');
-    assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),w==='heavy'?['−12','+30','+18']:['−12','0','−12']);
+    assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),w==='heavy'?['−21','+30','+9']:['−21','0','−21']);
     assert.equal(await p.locator('.net-selected strong').innerText(),format(resolveDecision(prep,w,true).net));
     assert.equal(await p.locator('.result-equation strong').innerText(),'= '+format(resolveDecision(prep,w,true).net));
     assert.ok((await p.locator('.result-equation').innerText()).includes('准备成本'),'Preparation cost remains visible without opening the ledger');
@@ -55,13 +55,13 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
     assert.equal(await p.locator('#scene').getAttribute('data-shelter-ingress'),String(prep==='shelter'&&w==='heavy'));
     assert.equal(await p.locator('#scene').getAttribute('data-protected-ears'),String(Math.round(resolveDecision(prep,w).protected*48)));
     await p.locator('#scene').screenshot({path:`${out}/rain-${prep}-${w}.png`});
-    assert.deepEqual(await p.locator('.settlement-steps strong').allTextContents(),[format(resolveDecision(prep,w,true).unhedged),'−12',w==='heavy'?'+30':'0',format(resolveDecision(prep,w,true).net)]);
+    assert.deepEqual(await p.locator('.settlement-steps strong').allTextContents(),[format(resolveDecision(prep,w,true).unhedged),'−21',w==='heavy'?'+30':'0',format(resolveDecision(prep,w,true).net)]);
     assert.equal(await p.locator('.decision-table tbody tr').count(),3);
    }await p.close();
   }
   for(const width of [1440,768,390,320])for(const lang of ['zh','en']){
    const p=await page(width,lang);await p.locator('[data-scene-object=signal]').click();
-   assert.deepEqual(await p.locator('.signal-quote strong').allTextContents(),[32,28,40].map(price=>price+' '+(lang==='zh'?'美分':'cents')));
+   assert.deepEqual(await p.locator('.signal-quote strong').allTextContents(),[15,15,70].map(price=>price+' '+(lang==='zh'?'美分':'cents')));
    assert.equal(await p.locator('.signal-market').innerText().then(text=>text.includes('¢')),false,'Use readable unit labels instead of the rejected cent glyph');
    assert.equal(await p.locator('.signal-chart polyline').count(),1,'Inspect one trace, not three crossing curves');
    for(const signalWeather of ['light','dry','heavy']){
@@ -69,13 +69,13 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
     assert.equal(await p.locator('.signal-quote[aria-pressed=true]').getAttribute('data-signal-weather'),signalWeather);
     assert.ok((await p.locator('.signal-chart-title').innerText()).includes(lang==='zh'?{light:'小雨',dry:'无雨',heavy:'暴雨'}[signalWeather]:{light:'Light',dry:'Dry',heavy:'Heavy'}[signalWeather]));
     assert.equal(await p.locator('.signal-chart polyline').count(),1);
-    assert.ok((await p.locator('.signal-price-help').innerText()).includes({light:'0.28',dry:'0.32',heavy:'0.40'}[signalWeather]),'Keep the cents-to-dollars explanation exact');
+    assert.ok((await p.locator('.signal-price-help').innerText()).includes({light:'0.15',dry:'0.15',heavy:'0.70'}[signalWeather]),'Keep the cents-to-dollars explanation exact');
     assert.equal(await p.locator('#scene').getAttribute('data-finance'),'none','Viewing a quote does not buy');
    }
    assert.ok((await p.locator('.signal-market figcaption').innerText()).includes(lang==='zh'?'非实时':'not live'),'The market image must be labelled as simulated');
    assert.equal(await p.locator('.judgment-stream,.signal-column').count(),0,'No decorative stream or duplicate bar chart');
    await p.locator('.decision-diorama').screenshot({path:`${out}/market-${width}-${lang}.png`});
-   await open(p,'.signal-detail');const signalCopy=await p.locator('.signal-detail').innerText();assert.ok(signalCopy.includes(lang==='zh'?'对应结果发生时支付':'matching outcome pays'));assert.ok(!/演示编排|authored examples/.test(signalCopy),'Do not repeat the simulation badge as a long disclaimer');await p.locator('.signal-detail summary').click();
+   await open(p,'.signal-detail');const signalCopy=await p.locator('.signal-detail').innerText();assert.ok(signalCopy.includes(lang==='zh'?'这是平均结果':'These are averages'));assert.ok(!/演示编排|authored examples/.test(signalCopy),'Do not repeat the simulation badge as a long disclaimer');await p.locator('.signal-detail summary').click();
    await p.locator('[data-decision=continue]').click();await p.locator('.decision-diorama').screenshot({path:`${out}/prepare-${width}-${lang}.png`});
    assert.equal(await p.locator('.preparation-intro').count(),1,'One task instruction, moved rather than duplicated');
    if(width<=1050)assert.ok(await p.evaluate(()=>document.querySelector('#decision-task').getBoundingClientRect().bottom<=document.querySelector('#scene').getBoundingClientRect().top),'Read the task before encountering scene controls');
@@ -100,6 +100,8 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
    assert.equal(await p.locator('a[href="#decision-results"]').count(),1,'One results continuation');
    assert.equal(await p.locator('#decision-condition').isVisible(),true);
    assert.equal(await p.locator('.settlement-track').count(),0,'No empty contract chart when declined');
+   assert.deepEqual(await p.locator('.impact-values dd').allTextContents(),['−82.8','−86.6'],'Same-weather baseline and actual plan result');
+   await p.locator('.decision-impact').screenshot({path:`${out}/impact-${width}-${lang}.png`});
    assert.equal(await p.locator('.net-comparison > div').count(),3,'No contract, light and heavy comparisons');
    await p.locator('.decision-diorama').screenshot({path:`${out}/result-${width}-${lang}.png`});
    await open(p,'.weather-detail');
@@ -120,14 +122,14 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
    await p.waitForFunction(()=>document.querySelector('#action').dataset.busy==='false');await p.locator('[data-decision=prepared]').click();
    if(prep==='all')await p.locator('[data-decision=buy]').click();
    await p.locator('[data-decision=buy-light]').click();assert.equal(await p.locator('#scene').getAttribute('data-contract-type'),'light');
-   assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),['−8.4','待揭晓','—'],'Changing contract replaces the simulated cost, not a second charge');
+   assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),['−4.5','待揭晓','—'],'Changing contract replaces the simulated cost, not a second charge');
    assert.ok((await p.locator('#contract-heading').innerText()).includes('小雨合约'));
    await p.locator('[data-decision=reveal]').click();await p.waitForFunction(()=>document.querySelector('#action').dataset.decisionStage==='result');
    for(const w of ['light','heavy','dry']){
     if(w!=='light'){await open(p,'.weather-detail');await p.locator('[data-weather-replay='+w+']').click();await p.waitForFunction(()=>document.querySelector('#action').dataset.decisionStage==='result');}
     const result=resolveDecision(prep,w,'light');
     assert.equal(await p.locator('.net-selected strong').innerText(),format(result.net));
-    assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),['−8.4',w==='light'?'+30':'0',w==='light'?'+21.6':'−8.4']);
+    assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),['−4.5',w==='light'?'+30':'0',w==='light'?'+25.5':'−4.5']);
     assert.equal(await p.locator('#scene').getAttribute('data-finance'),w==='light'?'payout':'no-payout');
     assert.ok((await p.locator('.hedge-explanation').innerText()).includes(w==='light'?'小雨符合支付条件':'不符合支付条件'));
    }await p.close();
@@ -152,7 +154,7 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
   await open(p,'.motion-options');await p.locator('#decision-text').click();await p.locator('#decision-text').click();await p.locator('#scene canvas').waitFor();
   await p.waitForFunction(()=>document.querySelector('#scene').getAttribute('aria-busy')==='false');
   assert.equal(await p.locator('#scene').getAttribute('data-protected-ears'),'0');assert.equal(await p.locator('#scene').getAttribute('data-wet-ears'),'48');assert.equal(await p.locator('#scene').getAttribute('data-shelter-ingress'),'true');assert.equal(await p.locator('#scene').getAttribute('data-weather'),'heavy');assert.equal(await p.locator('#scene').getAttribute('data-finance'),'payout');
-  assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),['−12','+30','+18']);
+  assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),['−21','+30','+9']);
   // Context loss must not strand the state machine.
   await p.locator('#scene canvas').evaluate(c=>c.dispatchEvent(new Event('webglcontextlost',{cancelable:true})));await p.locator('.decision-fallback').waitFor();
   await p.locator('#decision-restart').click();await p.locator('[data-decision=skip]').click();await p.locator('[data-fallback-object=store]').click();await p.locator('[data-decision=prepared]').click();await p.locator('[data-decision=no-hedge]').click();await p.locator('[data-decision=reveal]').click();await p.waitForFunction(()=>document.querySelector('#action').dataset.decisionStage==='result');await p.close();
@@ -167,8 +169,8 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
   const readingPosition=await k.evaluate(()=>scrollY);await k.locator('#decision-pause').click();
   assert.equal(await k.locator('.contract-detail').evaluate(e=>e.open),true,'Pausing preserves contract terms');
   assert.ok(Math.abs(await k.evaluate(()=>scrollY)-readingPosition)<=1,'Pause keeps the reading position');
-  await k.locator('[data-decision=buy]').focus();await k.keyboard.press('Enter');assert.deepEqual(await k.locator('#decision-receipt dd').allTextContents(),['−12','Pending','—']);
-  await k.locator('[data-decision=reveal]').click();await k.waitForFunction(()=>document.querySelector('#action').dataset.decisionStage==='result');assert.deepEqual(await k.locator('#decision-receipt dd').allTextContents(),['−12','0','−12']);
+  await k.locator('[data-decision=buy]').focus();await k.keyboard.press('Enter');assert.deepEqual(await k.locator('#decision-receipt dd').allTextContents(),['−21','Pending','—']);
+  await k.locator('[data-decision=reveal]').click();await k.waitForFunction(()=>document.querySelector('#action').dataset.decisionStage==='result');assert.deepEqual(await k.locator('#decision-receipt dd').allTextContents(),['−21','0','−21']);
   await k.evaluate(()=>{document.documentElement.lang='zh-CN';window.dispatchEvent(new CustomEvent('wb-language'));});assert.ok((await k.locator('#decision-receipt').innerText()).includes('合约净收支'));
   await k.emulateMedia({reducedMotion:'reduce'});await k.waitForFunction(()=>document.querySelector('#decision-pause').hidden);
   await k.locator('#decision-restart').click();assert.equal(await k.locator('#scene').getAttribute('data-signal-viewed'),'false');assert.equal(await k.locator('#decision-receipt').isVisible(),false);assert.equal(await k.locator('#scene').getAttribute('data-finance'),'none');await k.close();
@@ -177,10 +179,13 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
   await m.locator('[data-scene-object=shelter]').focus();assert.equal(await m.locator('#scene').getAttribute('data-preview-object'),'shelter');
   const mobileCarry=m.waitForFunction(()=>{const s=document.querySelector('#scene'),r=s.getBoundingClientRect();return s.dataset.actionBeat==='carry'&&r.top>=-1&&r.bottom<=innerHeight+1;});
   await m.locator('[data-scene-object=store]').click();await mobileCarry;await m.locator('.decision-world').screenshot({path:out+'/mobile-visible-carry.png'});
-  await m.waitForFunction(()=>document.querySelector('#action').dataset.busy==='false');assert.equal(await m.locator('#scene').getAttribute('data-preview-object'),'');
+  await m.waitForFunction(()=>document.querySelector('#action').dataset.busy==='false');
+  // Restored hotspots may legitimately hover under the stationary mouse after
+  // transport. Leave the scene before checking that its highlight clears.
+  await m.mouse.move(0,0);assert.equal(await m.locator('#scene').getAttribute('data-preview-object'),'');
   await m.locator('[data-decision=prepared]').click();await m.locator('[data-decision=buy-light]').click();await m.waitForFunction(()=>document.querySelector('#action').dataset.busy==='false');
   await m.locator('#decision-world-actions [data-decision=reveal]').click();await m.waitForFunction(()=>document.querySelector('#action').dataset.decisionStage==='result');
-  assert.deepEqual(await m.locator('.settlement-steps strong').allTextContents(),['−5','−8.4','+30','+16.6'],'Settlement amounts stay exact during bar animation');
+  assert.deepEqual(await m.locator('.settlement-steps strong').allTextContents(),['−5','−4.5','+30','+20.5'],'Settlement amounts stay exact during bar animation');
   assert.ok((await m.locator('#decision-condition').innerText()).includes('已收储：48 穗'));assert.equal(await m.locator('#decision-world-actions a[href="#decision-results"]').count(),1);
   await m.locator('.decision-world').screenshot({path:out+'/mobile-visible-outcome.png'});
   await open(m,'.result-detail');await m.locator('.settlement-bridge').screenshot({path:out+'/contract-settled-mobile.png'});

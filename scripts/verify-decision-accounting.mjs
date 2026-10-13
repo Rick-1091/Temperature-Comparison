@@ -1,13 +1,13 @@
 import assert from 'node:assert/strict';
-import {resolveDecision,PREPARATIONS,WEATHER,CONTRACTS,getContract} from '../src/decision-model.js';
+import {resolveDecision,PREPARATIONS,WEATHER,CONTRACTS,getContract,SIGNAL,drawOutcome,expectedNet} from '../src/decision-model.js';
 
 // Independent, hand-calculated fixtures, not expectations derived by calling
 // resolveDecision again. Columns: earned, preparation delay, rain interruption,
 // crop damage, preparation cost, net without / with light / with heavy contract.
 const expected={
- all:{dry:[24,0,0,0,0,24,15.6,12],light:[18,0,6,25,0,-7,14.6,-19],heavy:[7.2,0,16.8,90,0,-82.8,-91.2,-64.8]},
- shelter:{dry:[18,6,0,0,2,16,7.6,4],light:[13.5,6,4.5,0,2,11.5,33.1,-.5],heavy:[5.4,6,12.6,90,2,-86.6,-95,-68.6]},
- store:{dry:[0,24,0,0,5,-5,-13.4,-17],light:[0,24,0,0,5,-5,16.6,-17],heavy:[0,24,0,0,5,-5,-13.4,13]}
+ all:{dry:[24,0,0,0,0,24,19.5,3],light:[18,0,6,25,0,-7,18.5,-28],heavy:[7.2,0,16.8,90,0,-82.8,-87.3,-73.8]},
+ shelter:{dry:[18,6,0,0,2,16,11.5,-5],light:[13.5,6,4.5,0,2,11.5,37,-9.5],heavy:[5.4,6,12.6,90,2,-86.6,-91.1,-77.6]},
+ store:{dry:[0,24,0,0,5,-5,-9.5,-26],light:[0,24,0,0,5,-5,20.5,-26],heavy:[0,24,0,0,5,-5,-9.5,4]}
 };
 const tenths=n=>Math.round(n*10);
 assert.deepEqual(Object.keys(PREPARATIONS),['all','shelter','store'],'Exactly three distinct preparations');
@@ -37,8 +37,8 @@ for(const [plan,weatherRows] of Object.entries(expected)){
    assert.equal(no.drying,held.drying,'A contract cannot change drying');
    assert.equal(tenths(held.net)-tenths(no.net),tenths(held.hedgeNet));
   }
-  assert.equal(tenths(lightContract.net)-tenths(no.net),weather==='light'?216:-84);
-  assert.equal(tenths(heavyContract.net)-tenths(no.net),weather==='heavy'?180:-120);
+  assert.equal(tenths(lightContract.net)-tenths(no.net),weather==='light'?255:-45);
+  assert.equal(tenths(heavyContract.net)-tenths(no.net),weather==='heavy'?90:-210);
  }
  const dry=resolveDecision(plan,'dry'),light=resolveDecision(plan,'light'),heavy=resolveDecision(plan,'heavy');
  assert.equal(dry.dryingOpportunityLoss,light.dryingOpportunityLoss,'Preparation delay does not change retrospectively with weather');
@@ -65,3 +65,15 @@ assert.throws(()=>getContract('dry'));
 assert.throws(()=>getContract('toString'));
 console.table(Object.keys(PREPARATIONS).map(plan=>({plan,...Object.fromEntries(Object.keys(WEATHER).map(weather=>[weather,expected[plan][weather].slice(5).join(' / ')]))})));
 console.log(`PASS: ${cases} independent accounting fixtures (none / light / heavy), common baseline, exact ledgers and matching weather triggers.`);
+assert.deepEqual(SIGNAL,{dry:15,light:15,heavy:70});
+assert.deepEqual([0,.149999,.15,.299999,.3,.999999].map(r=>drawOutcome(()=>r)),['dry','dry','light','light','heavy','heavy']);
+const counts={dry:0,light:0,heavy:0};
+for(let i=0;i<10000;i++)counts[drawOutcome(()=>(i+.5)/10000)]++;
+assert.deepEqual(counts,{dry:1500,light:1500,heavy:7000});
+assert.equal(expectedNet('all'),-55.4);
+assert.equal(expectedNet('shelter'),-56.5);
+assert.equal(expectedNet('store'),-5);
+for(const plan of Object.keys(PREPARATIONS)){
+ for(const hedge of ['light','heavy'])assert.equal(expectedNet(plan,hedge),expectedNet(plan),'Fairly priced contracts have no artificial expected-profit bonus');
+}
+console.log('PASS: aligned quotes/sampling, exact outcome frequencies, preparation advantage, no hedge bonus');

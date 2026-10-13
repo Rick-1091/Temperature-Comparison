@@ -1,5 +1,8 @@
 .journey #action{--decision-paper:var(--poster-paper,#faf7f2);--decision-ink:var(--poster-ink,#111);--decision-teal:#196c60;--decision-loss:#b24430;--decision-blue:#1965e9;--decision-line:#cec9bd;--contract-gap:12px;--settlement-chart-height:128px}
 .journey #action .decision-diorama{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(310px,1fr);align-items:start;overflow:hidden;color:var(--decision-ink)}
+.decision-impact{padding-bottom:32px;margin-bottom:32px;border-bottom:1px solid var(--decision-ink)}
+.impact-values{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--contract-gap);margin:24px 0;font-variant-numeric:tabular-nums}
+.impact-values dt{font-size:15px;line-height:1.5}.impact-values dd{margin:8px 0 0;font-family:var(--wb-font-display);font-weight:600;font-size:clamp(32px,4vw,56px);line-height:1.2}
 .decision-world{position:relative;min-width:0;background:#e9e4d7}
 .journey #action .scene-object small{display:block;margin-top:4px;font-size:12px;line-height:1.4;font-weight:400}
 .journey #action #decision-task{padding:20px 18px 12px;scroll-margin-top:24px}

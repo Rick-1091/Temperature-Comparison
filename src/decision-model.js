@@ -4,15 +4,17 @@ export const PREPARATIONS={
  shelter:{name:['移到雨棚','Use rain shelter'],protection:['只防小雨','Light rain only'],outside:0,shelter:1,storage:0,cost:2},
  store:{name:['全部收储','Store everything'],protection:['也防暴雨','Heavy rain too'],outside:0,shelter:0,storage:1,cost:5}
 };
+// One authored, high-rain-risk scenario drives quotes AND sampling.
+// This price/probability correspondence is a teaching assumption, not calibration of live markets.
+export const SIGNAL={dry:15,light:15,heavy:70};
 export const WEATHER={
- dry:{name:['无雨 · 完整晾晒窗口','Dry · full drying window'],weight:.35,drying:1,damage:0,shelterDamageFactor:0},
- light:{name:['小雨 · 午后较晚到来','Light rain · arrives late'],weight:.4,drying:.75,damage:25,shelterDamageFactor:0},
- heavy:{name:['暴雨 · 提前到来','Heavy rain · arrives early'],weight:.25,drying:.3,damage:90,shelterDamageFactor:1}
+ dry:{name:['无雨 · 完整晾晒窗口','Dry · full drying window'],weight:SIGNAL.dry/100,drying:1,damage:0,shelterDamageFactor:0},
+ light:{name:['小雨 · 午后较晚到来','Light rain · arrives late'],weight:SIGNAL.light/100,drying:.75,damage:25,shelterDamageFactor:0},
+ heavy:{name:['暴雨 · 提前到来','Heavy rain · arrives early'],weight:SIGNAL.heavy/100,drying:.3,damage:90,shelterDamageFactor:1}
 };
-export const SIGNAL={dry:32,light:28,heavy:40}; // Illustrative normalized prices, not calibrated probabilities.
 export const CONTRACTS={
- light:{name:['小雨合约','Light-rain contract'],quantity:30,price:SIGNAL.light/100,cost:8.4,payout:30,trigger:'light'},
- heavy:{name:['暴雨合约','Heavy-rain contract'],quantity:30,price:SIGNAL.heavy/100,cost:12,payout:30,trigger:'heavy'}
+ light:{name:['小雨合约','Light-rain contract'],quantity:30,price:SIGNAL.light/100,cost:30*SIGNAL.light/100,payout:30,trigger:'light'},
+ heavy:{name:['暴雨合约','Heavy-rain contract'],quantity:30,price:SIGNAL.heavy/100,cost:30*SIGNAL.heavy/100,payout:30,trigger:'heavy'}
 };
 export const CONTRACT=CONTRACTS.heavy; // Preserve true/heavy callers from the original exercise.
 export function getContract(choice){
@@ -22,7 +24,16 @@ export function getContract(choice){
  return CONTRACTS[key];
 }
 export const ECONOMICS={fullDryingValue:24,shelterDryingFactor:.75};
-export function drawOutcome(random=Math.random){const r=random();return r<.35?'dry':r<.75?'light':'heavy';}
+export function drawOutcome(random=Math.random){
+ const r=random();
+ if(!Number.isFinite(r)||r<0||r>=1)throw Error('Random draw must be in [0, 1)');
+ let cumulative=0;
+ for(const key of Object.keys(WEATHER)){cumulative+=SIGNAL[key]/100;if(r<cumulative)return key;}
+ return 'heavy';
+}
+export function expectedNet(preparation,hedge=false){
+ return Math.round(Object.keys(WEATHER).reduce((sum,w)=>sum+SIGNAL[w]/100*resolveDecision(preparation,w,hedge).net,0)*10)/10;
+}
 export function resolveDecision(preparation,weather,hedge=false){
  const p=PREPARATIONS[preparation],w=WEATHER[weather];if(!p||!w)throw Error('Invalid diorama state');
  const round=x=>Math.round(x*10)/10;
