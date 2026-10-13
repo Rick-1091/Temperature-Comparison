@@ -1,5 +1,32 @@
 # Weatherbridge decision diorama
 
+## Current signal-linked scenario — 2026-10-13
+
+This section supersedes all older quote, probability and contract-cost examples below.
+One synthetic high-risk scenario now supplies both the displayed quotes and the
+weather draw: dry 15%, light rain 15%, heavy rain 70%. Each round draws once before
+the view/skip decision; viewing, preparing and buying cannot change the outcome.
+This correspondence is an explicit teaching assumption, not calibration of a live
+Polymarket market. Known-weather replays remain labelled separately.
+
+30 light units cost 4.5; 30 heavy units cost 21. Matching payouts remain 30;
+light-contract net is +25.5 or -4.5, heavy-contract net is +9 or -21.
+Fair pricing gives zero expected contract profit in this simplified model.
+The benefit of acting on information is physical preparation, not free trading profit.
+
+Unhedged weighted average results: keep drying -55.4, shelter -56.5, storage -5
+(displayed to one decimal). The market panel explains the storage tradeoff before
+the decision. Results prominently compare the user's actual result with keep
+drying/no contract under the SAME weather, splitting preparation and contract effects.
+For heavy rain: baseline -82.8, storage -5, storage plus heavy contract +4.
+For dry weather: baseline +24, storage -5, storage plus heavy contract -26.
+Viewing alone never changes payouts or earns a bonus; the comparison is not a
+claim that all uninformed users leave maize out or informed users always win.
+
+Verification adds exact sampling boundaries and 10,000 evenly spaced draws
+(1,500 dry / 1,500 light / 7,000 heavy), all 27 accounting cases, quote/cost
+consistency, expected contract profit neutrality, and bilingual responsive result comparisons.
+
 ## Current three-plan model — 2026-10-12
 
 This revision supersedes the older five-plan preparation descriptions and
