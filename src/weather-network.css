@@ -1,4 +1,8 @@
 .journey #weather-network{min-width:0;max-width:100%;overflow-x:auto;padding-bottom:12px}
+.weather-context{margin-top:48px;padding-top:40px;border-top:1px solid var(--wb-line)}
+.weather-network-controls{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin:24px 0;font-size:15px}
+.weather-network-controls select{min-height:44px;max-width:100%;padding:8px 14px;border:1px solid var(--wb-line);background:transparent;color:inherit;font:inherit}
+#weather-network svg{display:block;width:100%;min-width:640px;height:auto}
 .wn-link{cursor:pointer;outline:none}
 .wn-hit{stroke:transparent;stroke-width:22}
 .wn-line{stroke-linecap:round;stroke-opacity:.75;transition:stroke-opacity .2s}
