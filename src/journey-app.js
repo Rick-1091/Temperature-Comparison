@@ -48,12 +48,32 @@ $('evidence-values').innerHTML=pair(day,meta);
 $('evidence-verdict').textContent=matches(day,meta.marketUnit)?text('这一天，观测落在最高价区间内。','On this day, the observation fell inside the highest-priced range.'):text('这一天，观测没有落进最高价区间。','On this day, the observation fell outside the highest-priced range.');
 const top=leading(day);$('price-distribution').innerHTML=day.outcomes.map(o=>'<div class="price-row" data-top="'+(o===top)+'"><span>'+range(o,meta.marketUnit,state.unit)+'</span><div class="price-track"><div class="price-fill" style="width:'+o.price/top.price*100+'%"></div></div><strong>'+Number((o.price*100).toFixed(2))+'¢</strong></div>').join('');
 renderEvidencePlots(data,state,language,date=>{state.date=date;update();});
-renderWeatherNetwork(data,state,language);
 }catch(e){if(token!==request)return;$('evidence-date').textContent=text('历史数据暂时无法读取。请刷新页面，或进入研究与数据查看原始来源。','Historical data could not be loaded. Reload or check the original sources in Research & Data.');}}
 function update(){const url=new URL(location.href);url.searchParams.set('location',state.place);url.searchParams.set('date',state.date);url.searchParams.set('unit',state.unit);history.replaceState(null,'',url);renderIntroMarket();render();}
 ['place','date','unit'].forEach(id=>$(id).addEventListener('change',()=>{state[id]=$(id).value;update();}));
 window.addEventListener('wb-language',render);
 render();
+// The network belongs to the business chapter and owns its location filter.
+// Changing the historical comparison must not silently change this chart.
+let networkRequest=0;
+async function renderNetwork(){
+  const token=++networkRequest,place=$('weather-network-place').value;
+  $('weather-network').setAttribute('aria-busy','true');
+  try{
+    const data=await snapshot(place);
+    if(token!==networkRequest)return;
+    renderWeatherNetwork(data,{place},language);
+  }catch{
+    if(token!==networkRequest)return;
+    $('weather-network').replaceChildren();
+    $('weather-network-summary').textContent=text('观测数据暂时无法加载，请刷新重试。','Observations could not load. Please refresh to retry.');
+  }finally{
+    if(token===networkRequest)$('weather-network').setAttribute('aria-busy','false');
+  }
+}
+$('weather-network-place').addEventListener('change',renderNetwork);
+window.addEventListener('wb-language',renderNetwork);
+renderNetwork();
 initTypographyReveals();
 // Three.js is loaded only when the reader reaches the exercise, not on the cover.
 const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();import('./game.js').catch(()=>{$('game-status').textContent=text('练习暂时无法加载，请刷新重试。','The exercise could not load. Please refresh.');});}},{rootMargin:'200px'});
