@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {resolveDecision,PREPARATIONS,WEATHER,CONTRACTS,getContract,SIGNAL,drawOutcome,expectedNet} from '../src/decision-model.js';
+import {resolveDecision,PREPARATIONS,WEATHER,CONTRACTS,getContract,SIGNAL,drawOutcome,expectedNet,SCENARIOS,contractsFor,getScenario} from '../src/decision-model.js';
 
 // Independent, hand-calculated fixtures, not expectations derived by calling
 // resolveDecision again. Columns: earned, preparation delay, rain interruption,
@@ -77,3 +77,26 @@ for(const plan of Object.keys(PREPARATIONS)){
  for(const hedge of ['light','heavy'])assert.equal(expectedNet(plan,hedge),expectedNet(plan),'Fairly priced contracts have no artificial expected-profit bonus');
 }
 console.log('PASS: aligned quotes/sampling, exact outcome frequencies, preparation advantage, no hedge bonus');
+const averageFixtures={heavy:[-55.4,-56.5,-5],dry:[14,10.2,-5],light:[-4.6,7.5,-5]};
+for(const [key,scenario] of Object.entries(SCENARIOS)){
+ assert.equal(Object.values(scenario.signal).reduce((a,b)=>a+b),100);
+ const frequencies={dry:0,light:0,heavy:0};
+ for(let i=0;i<10000;i++)frequencies[drawOutcome(()=>(i+.5)/10000,key)]++;
+ assert.deepEqual(frequencies,Object.fromEntries(Object.entries(scenario.signal).map(([w,p])=>[w,p*100])));
+ assert.deepEqual(Object.keys(PREPARATIONS).map(p=>expectedNet(p,false,key)),averageFixtures[key]);
+ for(const plan of Object.keys(PREPARATIONS)){
+  if(plan!==scenario.best)assert.ok(expectedNet(scenario.best,false,key)>expectedNet(plan,false,key));
+  for(const hedge of ['light','heavy'])assert.equal(expectedNet(plan,hedge,key),expectedNet(plan,false,key));
+  for(const w of Object.keys(WEATHER))for(const hedge of [false,'light','heavy']){
+   const r=resolveDecision(plan,w,hedge,key),reference=resolveDecision(plan,w,false);
+   assert.equal(r.unhedged,reference.net);
+   assert.equal(r.physicalLoss,reference.physicalLoss);
+   assert.equal(r.premium,hedge?30*scenario.signal[hedge]/100:0);
+   assert.equal(r.payout,hedge===w?30:0);
+   assert.equal(tenths(r.net),tenths(reference.net)-tenths(r.premium)+tenths(r.payout));
+  }
+ }
+ for(const c of Object.values(contractsFor(key)))assert.equal(c.cost,c.quantity*c.price);
+}
+assert.throws(()=>getScenario('toString'));
+console.log('PASS: three scenarios, 81 outcome/contract combinations, three distinct best preparations, exact quote/cost/draw linkage');
