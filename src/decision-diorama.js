@@ -1,5 +1,5 @@
 import './decision-diorama.css';
-import {PREPARATIONS,WEATHER,SIGNAL,CONTRACTS,getContract,drawOutcome,resolveDecision,expectedNet} from './decision-model.js';
+import {PREPARATIONS,WEATHER,SCENARIOS,getScenario,contractsFor,getContract as modelContract,drawOutcome as modelDraw,resolveDecision as modelResolve,expectedNet as modelAverage} from './decision-model.js';
 
 const root=document.querySelector('#action');
 const $=id=>document.getElementById(id);
@@ -11,29 +11,40 @@ const signed=n=>(n>0?'+':n<0?'−':'')+number(Math.abs(n));
 const weatherName=key=>WEATHER[key].name[t('zh','en')==='en'?1:0].split(' · ')[0];
 const quoteMoney=key=>(SIGNAL[key]/100).toFixed(2);
 const params=new URLSearchParams(location.search);
+let scenario=Object.hasOwn(SCENARIOS,params.get('scenario'))?params.get('scenario'):'heavy';
+let SIGNAL=getScenario(scenario).signal,CONTRACTS=contractsFor(scenario);
+const getContract=choice=>modelContract(choice,scenario);
+const drawOutcome=()=>modelDraw(Math.random,scenario);
+const resolveDecision=(plan,w,choice=false)=>modelResolve(plan,w,choice,scenario);
+const expectedNet=(plan,choice=false)=>modelAverage(plan,choice,scenario);
 const initialReplay={rain:'heavy',sun:'dry',dry:'dry',light:'light',heavy:'heavy'}[params.get('replay')];
 let stage='signal',preparation=null,hedge=null,seen=false,weather=initialReplay||drawOutcome(),scene=null;
 let busy=false,loading=true,paused=false,fallback=false,epoch=0,replaying=!!initialReplay,amountFrame=0,resultKey='',receiptKey='';
-let signalWeather='heavy';
+let signalWeather=scenario;
 const buttons=[['signal',['市场信号','Market signal']],...Object.entries(PREPARATIONS).map(([id,p])=>[id,p.name]),['hedge',['查看合约','View contract']]];
 const progress=[['signal',['看信息','Signal']],['prepare',['做准备','Prepare']],['hedge',['选合约','Contract']],['result',['看结果','Outcome']]];
 const btn=(action,zh,en,primary=false)=>`<button type="button" data-decision="${action}" ${busy||loading?'disabled':''} class="${primary?'decision-primary':''}">${t(zh,en)}</button>`;
 function status(){
  if(loading)return t('决策庭院加载中…','Loading the decision courtyard…');
  if(busy)return stage==='weather'?t('看看云层和光线怎样变化，哪些玉米仍在外面。','Watch the clouds and light change, and the maize left outside.'):stage==='hedge'?t('正在支付模拟合约成本；这笔钱不能替玉米挡雨。','Paying the example contract cost. This payment cannot shelter the maize.'):t('Thoko 正在做准备，院子也在变化。','Thoko is preparing. Watch the courtyard change.');
- return {signal:t('玉米还没干透。广播只说区域内可能有雨，村里几点下雨并不清楚。决定不能一直等。','The maize is still damp. The radio mentions possible regional rain, but not when it will reach this village. The decision cannot wait.'),market:t('市场判断更偏向有雨，无雨仍有可能。看见信号，不等于知道结果。','Market judgment leans toward rain. Dry weather is still possible. A signal is not certainty.'),prepare:t('点击院子里的物件，安排玉米。准备减少暴露，也会改变晾晒机会。','Choose an object in the courtyard. Preparation reduces exposure but changes drying opportunity.'),hedge:t('玉米已经安排好。接下来，你可以选择是否对冲一部分财务风险。','The maize is arranged. Now decide whether to hedge part of the financial risk.'),result:t('天气没有因为选择而改变。下面拆开看：晾晒、作物损失、合约收支。','Your choices did not change the weather. Separate the drying benefit, crop loss and contract cash flows.')}[stage]||'';
+ return {signal:t('玉米还没干透。广播只说区域内可能有雨，村里几点下雨并不清楚。决定不能一直等。','The maize is still damp. The radio mentions possible regional rain, but not when it will reach this village. The decision cannot wait.'),market:t(...{heavy:['本局市场判断更偏向暴雨。其他天气仍有可能。','Market judgment favors heavy rain this round. Other weather remains possible.'],dry:['本局市场判断更偏向无雨。仍有小雨或暴雨的可能。','Market judgment favors dry weather this round. Light or heavy rain remains possible.'],light:['本局市场判断更偏向小雨。仍可能放晴或变成暴雨。','Market judgment favors light rain this round. Dry or heavy rain remains possible.']}[scenario]),prepare:t('点击院子里的物件，安排玉米。准备减少暴露，也会改变晾晒机会。','Choose an object in the courtyard. Preparation reduces exposure but changes drying opportunity.'),hedge:t('玉米已经安排好。接下来，你可以选择是否对冲一部分财务风险。','The maize is arranged. Now decide whether to hedge part of the financial risk.'),result:t('天气没有因为选择而改变。下面拆开看：晾晒、作物损失、合约收支。','Your choices did not change the weather. Separate the drying benefit, crop loss and contract cash flows.')}[stage]||'';
 }
 function marketGraphic(){
  // Authored quote history ends at the shared teaching-scenario weights.
  const traces=[
-  {key:'dry',name:t('无雨','Dry'),past:[48,40,30,24,18],icon:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>'},
-  {key:'light',name:t('小雨','Light rain'),past:[24,23,22,20,18],icon:'<path d="M6 15a4 4 0 0 1-1-8 6 6 0 0 1 11-1 4.5 4.5 0 1 1 1 9H6Zm2 3-1 3m7-3-1 3"/>'},
-  {key:'heavy',name:t('暴雨','Heavy rain'),past:[28,37,48,56,64],icon:'<path d="M6 14a4 4 0 0 1-1-8 6 6 0 0 1 11-1 4.5 4.5 0 0 1 3 8M12 12l-3 5h5l-3 6M4 17l-1 3m17-3-1 3"/>'}
+  {key:'dry',name:t('无雨','Dry'),icon:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5"/>'},
+  {key:'light',name:t('小雨','Light rain'),icon:'<path d="M6 15a4 4 0 0 1-1-8 6 6 0 0 1 11-1 4.5 4.5 0 1 1 1 9H6Zm2 3-1 3m7-3-1 3"/>'},
+  {key:'heavy',name:t('暴雨','Heavy rain'),icon:'<path d="M6 14a4 4 0 0 1-1-8 6 6 0 0 1 11-1 4.5 4.5 0 0 1 3 8M12 12l-3 5h5l-3 6M4 17l-1 3m17-3-1 3"/>'}
  ];
- const active=traces.find(trace=>trace.key===signalWeather),prices=[...active.past,SIGNAL[active.key]],y=price=>160-price*1.5;
+ const active=traces.find(trace=>trace.key===signalWeather),prices=[...({heavy:{dry:[48,40,30,24,18],light:[24,23,22,20,18],heavy:[28,37,48,56,64]},dry:{dry:[48,56,63,70,75],light:[24,22,20,18,16],heavy:[28,22,17,12,9]},light:{dry:[48,40,32,26,23],light:[24,35,47,59,68],heavy:[28,25,21,15,9]}}[scenario][active.key]),SIGNAL[active.key]],y=price=>160-price*1.5;
  return `<figure class="signal-market" aria-label="${t('Polymarket 模拟报价，每次只查看一种天气','Simulated Polymarket quotes, one weather outcome at a time')}"><figcaption><strong>Polymarket</strong><span>${t('模拟行情 · 非实时','Simulated · not live')}</span></figcaption><p class="signal-choice-hint">${t('先比较当前价格，再点一种天气看走势。','Compare current prices; select a weather to see its trend.')}</p><div class="signal-options" aria-label="${t('查看哪种天气的报价','Choose a quote to inspect')}">${traces.map(({key,name,icon})=>`<button type="button" class="signal-quote signal-${key}" data-signal-weather="${key}" aria-pressed="${key===signalWeather}"><span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${icon}</svg>${name}</span><strong>${SIGNAL[key]} <span class="signal-price-unit">${t('美分','cents')}</span></strong></button>`).join('')}</div><p class="signal-chart-title">${t(`正在查看：${active.name}合约`,`Viewing: ${active.name} contract`)}</p><p class="signal-axis-title">${t('纵轴：每份价格（美分）','Vertical: price per unit (cents)')}</p><svg class="signal-chart" viewBox="0 0 330 192" fill="none" aria-hidden="true">${[80,60,40,20,0].map(price=>`<path class="signal-grid" d="M38 ${y(price)}H298"/><text x="3" y="${y(price)+5}">${price}</text>`).join('')}<path class="signal-axis" d="M38 30V160H298"/><polyline class="signal-trace signal-${active.key}" points="${prices.map((price,i)=>`${38+i*52},${y(price)}`).join(' ')}"/>${prices.map((price,i)=>`<circle class="signal-end signal-${active.key}" cx="${38+i*52}" cy="${y(price)}" r="${i===5?5:2.5}"/>`).join('')}<text class="signal-label signal-${active.key}" x="298" y="${y(prices[5])-13}" text-anchor="middle">${prices[5]}</text>${prices.map((_,i)=>`<path class="signal-axis" d="M${38+i*52} 160v5"/><text class="signal-tick" x="${38+i*52}" y="186" text-anchor="middle">${i+1}</text>`).join('')}</svg><p class="signal-axis-title">${t('横轴：第 1 → 6 次模拟报价','Horizontal: simulated quotes 1 → 6')}</p><p class="signal-price-help">${t(`${SIGNAL[active.key]} 美分 = 每份 ${quoteMoney(active.key)} 美元。线越高，市场越看好这个结果。`,`${SIGNAL[active.key]} cents = $${quoteMoney(active.key)} per unit. A higher price means stronger market support for this outcome.`)}</p></figure>`;
 }
-function signalPanel(){return `<section class="market-signal" aria-label="${t('模拟市场信号','Simulated market signal')}"><h3>${t('暴雨风险高，先保住玉米。','Heavy rain risk is high. Protect the maize.')}</h3><p>${t('本局设定：暴雨 70%，小雨 15%，无雨 15%。报价与抽样概率对应；这是模拟规则。','This scenario: 70% heavy rain, 15% light rain, 15% dry. Quotes match the draw probabilities in this simulation.')}</p>${marketGraphic()}<p class="decision-small">${t('雨棚只挡小雨。按本局风险计算，全部收储的平均损失最小；但如果放晴，会少赚晾晒的钱。','The shelter only blocks light rain. Storage has the smallest average loss in this scenario, but gives up drying income if it stays dry.')}</p><details class="decision-detail signal-detail"><summary>${t('三种安排，哪种更划算？','Which preparation has the better average result?')}</summary><dl class="result-ledger">${Object.entries(PREPARATIONS).map(([key,p])=>`<div><dt>${t(...p.name)}</dt><dd>${signed(expectedNet(key))}</dd></div>`).join('')}</dl><p class="decision-small">${t('按 15% 无雨、15% 小雨、70% 暴雨加权，均不买合约，单位为模拟金额。这是平均结果，不是这一局的保证收益。真实市场报价不能直接当作准确的天气概率，市场信息只作补充。','Weighted by 15% dry, 15% light and 70% heavy rain; no contracts, simulated units. These are averages, not guaranteed round results. Real market quotes are not calibrated weather probabilities; the signal is supplementary.')}</p></details></section>`;}
+function signalPanel(){
+ const heading={heavy:['暴雨风险高，先保住玉米。','Heavy rain risk is high. Protect the maize.'],dry:['更可能无雨，晾晒机会要不要留住？','Dry weather leads. Keep the drying window?'],light:['更可能是小雨，雨棚够用吗？','Light rain leads. Is the shelter enough?']};
+ const advice={heavy:['按本局风险计算，全部收储的平均损失最小；但如果放晴，会少赚晾晒的钱。','Storage has the smallest average loss here, but gives up drying income if it stays dry.'],dry:['按本局风险计算，继续晾晒的平均收益最高；不过，小概率的暴雨仍可能带来损失。','Keeping maize out has the highest average return here, but unlikely heavy rain can still cause losses.'],light:['按本局风险计算，雨棚能挡小雨、又保留一些晾晒，平均结果最好；如果变成暴雨，它就挡不住了。','The shelter blocks light rain and keeps some drying opportunity, giving the best average result here. It cannot protect against heavy rain.']};
+ const probabilities=t(`无雨 ${SIGNAL.dry}%、小雨 ${SIGNAL.light}%、暴雨 ${SIGNAL.heavy}%`,`${SIGNAL.dry}% dry, ${SIGNAL.light}% light rain, ${SIGNAL.heavy}% heavy rain`);
+ return `<section class="market-signal" aria-label="${t('模拟市场信号','Simulated market signal')}"><h3>${t(...heading[scenario])}</h3><p>${t('本局设定：','This scenario: ')}${probabilities}${t('。报价与抽样概率对应；这是模拟规则。','. Quotes match the draw probabilities in this simulation.')}</p>${marketGraphic()}<p class="decision-small">${t(...advice[scenario])}</p><details class="decision-detail signal-detail"><summary>${t('三种安排，哪种更划算？','Which preparation has the better average result?')}</summary><dl class="result-ledger">${Object.entries(PREPARATIONS).map(([key,p])=>`<div><dt>${t(...p.name)}</dt><dd>${signed(expectedNet(key))}</dd></div>`).join('')}</dl><p class="decision-small">${t('按本局概率加权，均不买合约，单位为模拟金额。这是平均结果，不是这一局的保证收益。真实市场报价不能直接当作准确的天气概率，市场信息只作补充。','Weighted by this scenario’s probabilities; no contracts, simulated units. These are averages, not guaranteed round results. Real market quotes are not calibrated weather probabilities; the signal is supplementary.')}</p></details></section>`;
+}
 function contractPanel(){
  const held=getContract(hedge);
  const heading=held?t(`已买入${held.name[0]}。`,`${held.name[1]} purchased.`):hedge===false?t('这次不买合约。','No contract this round.'):t('要对冲哪一种降雨？','Which rain outcome would you hedge?');
@@ -91,7 +102,7 @@ function panel(){
  return `<p id="game-status" class="decision-status ${busy||loading?'status-active':''}" tabindex="-1" role="status" aria-live="polite">${status()}</p><div class="decision-panel-content">${html}</div>${replaying?`<p class="replay-note">${t('已知天气复盘 · 不是预报','Known-weather replay · not a forecast')}</p>`:''}`;
 }
 function sync(){
- root.dataset.decisionStage=stage;root.dataset.busy=String(busy);
+ root.dataset.scenario=scenario;root.dataset.decisionStage=stage;root.dataset.busy=String(busy);
  const active=stage==='market'?'signal':stage==='weather'?'result':stage;
  root.querySelector('.game-progress').setAttribute('aria-label',t('决策进度','Decision progress'));
  root.querySelector('.game-progress').innerHTML=progress.map(([id,n])=>`<li data-stage="${id}" ${active===id?'aria-current="step"':''}>${n[t('zh','en')==='en'?1:0]}</li>`).join('');
@@ -107,7 +118,7 @@ function sync(){
  scene?.previewObject(document.activeElement?.dataset.sceneObject||null);
  syncMotionControls();
  $('decision-text').textContent=fallback?t('重试 3D','Retry 3D'):t('使用文字模式','Use text mode');
- $('decision-restart').textContent=t('重新开始','Restart');
+ $('decision-restart').textContent=t('换个情景，再试一次','Try the next scenario');$('decision-scenario').value=scenario;$('decision-scenario-label').textContent=t('切换模拟情景','Simulation scenario');for(const option of $('decision-scenario').options)option.textContent=t(...SCENARIOS[option.value].name);
  root.querySelector('.motion-options summary').textContent=t('动画选项','Animation options');
  $('decision-clock').textContent=stage==='result'?t({dry:'傍晚 · 无雨',light:'午后较晚 · 小雨到了',heavy:'午后刚开始 · 暴雨到了'}[weather],{dry:'Evening · stayed dry',light:'Late afternoon · light rain',heavy:'Early afternoon · heavy rain'}[weather]):stage==='weather'?t('时间推移 · 天气揭晓','Time passes · weather unfolds'):t('上午 · 玉米仍在晾晒','Morning · maize is drying');
  $('decision-scene-hint').hidden=!fallback&&(!!preparation||!['signal','prepare'].includes(stage));
@@ -236,10 +247,10 @@ function motionCaption({step,trip,preparation:plan}){
  $('decision-exposure').hidden=false;$('decision-exposure').textContent=copy[step]||'';
 }
 function showFallback(){loading=false;$('scene').setAttribute('aria-busy','false');scene?.dispose();scene=null;$('scene').querySelectorAll('canvas,.decision-fallback').forEach(el=>el.remove());const el=document.createElement('div');el.className='decision-fallback';el.innerHTML=`<img src="/thoko-family.png" alt="${t('情景模拟：Thoko 一家晒玉米','Simulation: Thoko’s family drying maize')}"><div>${buttons.map(([id,n])=>`<button data-fallback-object="${id}" type="button">${n[t('zh','en')==='en'?1:0]}</button>`).join('')}</div>`;$('scene').prepend(el);}
-function restart(){++epoch;cancelAnimationFrame(amountFrame);resultKey='';receiptKey='';signalWeather='heavy';$('decision-results').replaceChildren();scene?.reset();stage='signal';preparation=null;hedge=null;seen=false;busy=false;replaying=false;weather=drawOutcome();if(loading&&!scene&&!fallback)loadScene();sync();focusStatus();}
+function restart(next){const keys=Object.keys(SCENARIOS);scenario=next||keys[(keys.indexOf(scenario)+1)%keys.length];SIGNAL=getScenario(scenario).signal;CONTRACTS=contractsFor(scenario);++epoch;cancelAnimationFrame(amountFrame);resultKey='';receiptKey='';signalWeather=scenario;$('decision-results').replaceChildren();scene?.reset();stage='signal';preparation=null;hedge=null;seen=false;busy=false;replaying=false;weather=drawOutcome();if(loading&&!scene&&!fallback)loadScene();sync();focusStatus();}
 root.querySelector('.diorama').classList.add('decision-diorama');
 root.querySelector('.diorama').innerHTML=`<div class="decision-world"><div id="decision-task" hidden></div><div id="scene" role="group" aria-label="${t('交互式决策庭院','Interactive decision courtyard')}"><p id="decision-clock"></p>${buttons.map(([id])=>`<button type="button" class="scene-object" data-scene-object="${id}" hidden></button>`).join('')}</div><p id="decision-scene-hint"></p><p id="decision-exposure" hidden></p><div id="decision-condition" hidden></div><section id="decision-receipt" aria-live="polite" aria-atomic="true" hidden></section><div id="decision-world-actions" hidden></div></div><aside id="decision-panel" class="game-overlay"></aside><section id="decision-results" hidden></section>`;
-root.querySelector('.exercise-options').outerHTML=`<div class="decision-tools"><button id="decision-restart" type="button"></button><details class="decision-detail motion-options"><summary></summary><button id="decision-pause" type="button"></button><button id="decision-text" type="button"></button></details></div>`;
+root.querySelector('.exercise-options').outerHTML=`<div class="decision-tools"><label class="decision-scenario-label"><span id="decision-scenario-label"></span><select id="decision-scenario">${Object.entries(SCENARIOS).map(([key,p])=>`<option value="${key}">${t(...p.name)}</option>`).join('')}</select></label><button id="decision-restart" type="button"></button><details class="decision-detail motion-options"><summary></summary><button id="decision-pause" type="button"></button><button id="decision-text" type="button"></button></details></div>`;
 root.querySelector('#fallback-note')?.remove();
 root.addEventListener('pointerover',event=>{const button=event.target.closest('[data-scene-object]');if(button)scene?.previewObject(button.dataset.sceneObject);});
 root.addEventListener('focusin',event=>{const button=event.target.closest('[data-scene-object]');scene?.previewObject(button?.dataset.sceneObject||null);});
@@ -258,6 +269,7 @@ root.addEventListener('click',async event=>{
   const token=epoch;weather=target.dataset.weatherReplay;replaying=true;busy=true;stage='weather';sync();watchScene();await scene?.reveal(weather);if(token!==epoch)return;busy=false;stage='result';scene?.settle(resolveDecision(preparation,weather,hedge).payout);sync();focusStatus();
  }
 });
+root.addEventListener('change',event=>{if(event.target.id==='decision-scenario'&&Object.hasOwn(SCENARIOS,event.target.value))restart(event.target.value);});
 root.addEventListener('toggle',event=>{if(event.target.matches('.result-detail')&&event.target.open)animateAmounts();},true);
 window.addEventListener('wb-language',()=>{if(fallback)showFallback();sync();});
 reduced.addEventListener('change',()=>{cancelAnimationFrame(amountFrame);sync();});

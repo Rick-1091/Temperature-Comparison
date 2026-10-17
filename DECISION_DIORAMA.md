@@ -1,5 +1,30 @@
 # Weatherbridge decision diorama
 
+## Three selectable market scenarios — 2026-10-13
+
+This section supersedes the single-scenario restriction below. The courtyard
+keeps heavy-rain-leading as the initial scenario and adds dry-leading and
+light-rain-leading scenarios. The scenario selector starts a clean round;
+the restart button cycles heavy → dry → light → heavy. Outcome replays stay
+inside their existing scenario and do not change its quotes or costs.
+
+| Scenario | Dry / light / heavy probability and cent quote | Best unhedged plan | Average result |
+|---|---|---|---|
+| Dry leads | 80 / 15 / 5 | Keep drying | +14.0 |
+| Light leads | 20 / 75 / 5 | Shelter | +7.5 |
+| Heavy leads | 15 / 15 / 70 | Storage | -5 |
+
+All quote histories, explanations, weather draws, expected results, contract
+costs, receipts and counterfactuals use the selected scenario. Rain contracts
+still buy 30 units and pay 30 only in their matching outcome. Their costs are
+4.5 / 1.5 in dry-leading, 22.5 / 1.5 in light-leading and 4.5 / 21 in
+heavy-leading (light contract / heavy contract). No bonus is granted for viewing.
+There is no guaranteed ending; each non-leading weather retains nonzero probability.
+
+Verification covers 81 plan/weather/contract combinations across all scenarios,
+three independently calculated expected-result tables, each scenario's exact
+sampling frequencies, bilingual market/receipt/result flows, and cycling/reset.
+
 ## Current signal-linked scenario — 2026-10-13
 
 This section supersedes all older quote, probability and contract-cost examples below.

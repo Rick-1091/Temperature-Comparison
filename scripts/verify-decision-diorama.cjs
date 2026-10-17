@@ -4,7 +4,7 @@ const out='.cache/decision-qa',base=process.env.WEATHERBRIDGE_PREVIEW_URL||'http
 const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleString('en');
 (async()=>{
  fs.mkdirSync(out,{recursive:true});const temp=require('node:path').resolve(out);process.env.TEMP=temp;process.env.TMP=temp;process.env.TMPDIR=temp;
- const {resolveDecision,drawOutcome,PREPARATIONS}=await import('../src/decision-model.js');
+ const {resolveDecision,drawOutcome,PREPARATIONS,SCENARIOS,contractsFor}=await import('../src/decision-model.js');
  await import('./verify-decision-accounting.mjs');
  const {transportBeat,routePoint,TRANSPORT_ROUTES}=await import('../src/decision-motion.js');
  assert.equal(transportBeat(.02).step,'pick');assert.equal(transportBeat(.1).step,'carry');assert.equal(transportBeat(.2).step,'place');assert.equal(transportBeat(.3).step,'return');assert.equal(transportBeat(1).step,'done');
@@ -26,6 +26,33 @@ const format=n=>(n>0?'+':n<0?'−':'')+Number(Math.abs(n).toFixed(1)).toLocaleSt
   await p.goto(base+'?lang='+lang+'&replay='+weather+'#action');await p.locator('#scene canvas').waitFor();await p.locator('[data-decision=view]').waitFor({state:'visible'});await p.waitForFunction(()=>!document.querySelector('[data-decision=view]').disabled);return p;
  }
  try{
+  for(const scenario of Object.keys(SCENARIOS))for(const lang of ['zh','en'])for(const width of [1440,320]){
+   const p=await page(width,lang);
+   await p.locator('#decision-scenario').selectOption(scenario);
+   assert.equal(await p.locator('#action').getAttribute('data-scenario'),scenario);
+   await p.locator('[data-decision=view]').click();
+   assert.deepEqual(await p.locator('.signal-quote strong').allTextContents(),Object.values(SCENARIOS[scenario].signal).map(n=>n+' '+(lang==='zh'?'美分':'cents')));
+   assert.equal(await p.locator('.signal-quote[aria-pressed=true]').getAttribute('data-signal-weather'),scenario);
+   await p.locator('.decision-diorama').screenshot({path:`${out}/scenario-${scenario}-${width}-${lang}.png`});
+   await p.locator('[data-decision=continue]').click();
+   await p.locator('[data-scene-object='+SCENARIOS[scenario].best+']').click();
+   await p.waitForFunction(()=>document.querySelector('#action').dataset.busy==='false');
+   await p.locator('[data-decision=prepared]').click();await p.locator('[data-decision=buy]').click();
+   assert.deepEqual(await p.locator('#decision-receipt dd').allTextContents(),[format(-contractsFor(scenario).heavy.cost),lang==='zh'?'待揭晓':'Pending','—']);
+   await p.locator('[data-decision=reveal]').click();await p.waitForFunction(()=>document.querySelector('#action').dataset.decisionStage==='result');
+   await open(p,'.weather-detail');
+   for(const w of ['dry','light','heavy']){
+    await p.locator('[data-weather-replay='+w+']').click();await p.waitForFunction(()=>document.querySelector('#action').dataset.decisionStage==='result');
+    assert.deepEqual(await p.locator('.impact-values dd').allTextContents(),[format(resolveDecision('all',w,false,scenario).net),format(resolveDecision(SCENARIOS[scenario].best,w,'heavy',scenario).net)]);
+    assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'Scenario viewport overflow');
+   }
+   await p.locator('#decision-restart').click();
+   assert.equal(await p.locator('#action').getAttribute('data-scenario'),{heavy:'dry',dry:'light',light:'heavy'}[scenario]);
+   assert.equal(await p.locator('#action').getAttribute('data-decision-stage'),'signal');
+   assert.equal(await p.locator('#decision-receipt').isVisible(),false);
+   assert.equal(await p.locator('#decision-results details').count(),0);
+   await p.close();
+  }
   for(const [prep,count] of [['all',0],['shelter',48],['store',48]]){
    const p=await page();await p.locator('[data-decision=skip]').click();
    await p.locator('[data-scene-object='+prep+']').click();
