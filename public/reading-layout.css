@@ -1,0 +1,44 @@
+/* Reading support: related facts stay together; comparable numbers share columns. */
+.reading-sections{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 48px;margin:28px 0}
+.reading-sections>section,.reading-block{min-width:0}
+.reading-block{margin:32px 0}
+.reading-sections h3,.reading-block h3{margin:0 0 16px;font-size:22px;line-height:1.4}
+.reading-sections p,.reading-block p{max-width:70ch;margin:12px 0;line-height:1.7}
+.reading-note{max-width:75ch;line-height:1.7}
+.reading-table-wrap{max-width:100%;overflow-x:auto;margin:16px 0 24px;overscroll-behavior-x:contain}
+.reading-table{width:100%;border-collapse:collapse;font-size:15px;line-height:1.6;font-variant-numeric:tabular-nums;text-align:left;color:inherit}
+.reading-table caption{text-align:left;font-size:14px;font-weight:500;padding:0 0 12px}
+.reading-table th,.reading-table td{padding:12px 14px;border-bottom:1px solid var(--wb-line,#c9cec2);vertical-align:top}
+.reading-table th:first-child,.reading-table td:first-child{padding-left:0}
+.reading-table thead th{font-weight:600;border-bottom:2px solid currentColor}
+.reading-table tbody th{font-weight:500}
+.reading-table :is(td,th){overflow-wrap:break-word}
+.reading-table td.number{text-align:right;white-space:nowrap}
+.reading-table th.number{text-align:right}
+.source-content{max-width:none}
+.reading-facts{margin:20px 0;max-width:none;font-size:16px;line-height:1.65}
+.reading-facts>div{display:grid;grid-template-columns:minmax(140px,.7fr) minmax(0,1.3fr);gap:12px 24px;padding:12px 0;border-bottom:1px solid var(--wb-line,#c9cec2)}
+.reading-facts dt{font-weight:500}.reading-facts dd{margin:0;min-width:0;overflow-wrap:anywhere}
+.reading-list{margin:16px 0;padding-left:24px;max-width:75ch;line-height:1.75}.reading-list li+li{margin-top:12px}
+.data-details-body .reading-sections{font-size:15px}.data-details-body .reading-sections h3{font-size:19px}
+.journey .bridge-separated p+p{white-space:normal;overflow:visible}
+.reading-table-wrap:focus-visible{outline:3px solid currentColor;outline-offset:4px}
+.journey #action #simulation-reference p{max-width:70ch;font-size:16px;line-height:1.7}
+.journey #action #simulation-reference h3{font-size:22px;line-height:1.4;margin:0 0 16px}
+.journey #action #simulation-reference{margin-top:24px}
+.journey #action .preparation-intro p{max-width:65ch}
+.journey #action .contract-facts{margin:12px 0;font-size:15px}
+.contract-facts>div{grid-template-columns:minmax(0,1fr) auto;gap:16px}
+.contract-facts dd{font-weight:600;font-variant-numeric:tabular-nums;text-align:right}
+.journey .evidence-guide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin:16px 0 40px;padding:0;list-style:none;font-size:15px;line-height:1.65}
+.evidence-guide strong{display:block;margin-bottom:8px}
+.journey .result-equation{display:grid!important;grid-template-columns:minmax(0,1fr) auto;gap:0!important;max-width:760px}
+.result-equation span{display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:baseline;gap:24px;grid-column:1/-1;padding:10px 0;border-bottom:1px solid var(--decision-line,#c9cec2);white-space:normal!important}
+.result-equation small{flex:1;font-size:15px!important}.result-equation>strong{grid-column:1/-1;text-align:right;padding:16px 0}
+.result-equation .result-equation-total{font-weight:600;border-bottom:0;padding-block:16px}
+.reading-scroll-hint{display:none}
+.journey .result-equation span{font-variant-numeric:tabular-nums}
+.journey #action .drying-delay-note,.journey #action .baseline-gap{max-width:75ch}
+@media(max-width:850px){.reading-sections{grid-template-columns:1fr;gap:32px}.journey .evidence-guide{grid-template-columns:1fr;gap:16px}}
+@media(max-width:600px){#simulation-reference .reading-table.is-wide{min-width:480px}.reading-scroll-hint{display:block;font-size:13px!important;margin-bottom:8px!important}}
+@media(max-width:600px){.reading-table{font-size:14px}.reading-table th,.reading-table td{padding:12px 8px}.reading-facts>div{grid-template-columns:1fr;gap:4px}.contract-facts>div{grid-template-columns:minmax(0,1fr) auto;gap:12px}.reading-sections h3,.reading-block h3{font-size:20px}.reading-table.quotes-table{min-width:540px}.reading-table.quotes-table td{white-space:nowrap}}

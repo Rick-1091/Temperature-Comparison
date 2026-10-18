@@ -99,6 +99,18 @@ Focus uses a visible rust outline (3px with 5px offset). Evidence comparisons pr
 - Do retain real assets and clearly distinguish field photographs, fictional illustrations, historical observations and synthetic teaching information.
 - Do keep language switches, selected evidence context and old deep links functional.
 - Do keep official-warning priority and scientific boundaries accessible without making them the dominant visual.
-- Don't add story selectors, competing chapter navigation or a dashboard tab bar to the main road.
+- Don't add story selectors or competing chapter navigation to the main road. Research-view tabs are local to the explicitly requested dual-market comparison.
 - Don't infer real economic losses or Malawi rainfall from airport temperature snapshots.
 - Don't promote local advanced chart palettes into the main journey's shared design system.
+
+## Dual-market research surface · 2026-10-18
+
+This section records the implemented extension requested for CME / Polymarket, and takes precedence over older component descriptions for `#polymarket` and `#evidence` only. The surrounding Depo-themed stories and courtyard keep their existing presentation.
+
+The comparison uses warm paper, existing Plex / Inter typography, thin rules, open columns and no shadowed disclosure cards. CME is blue (`#285b96`), Polymarket is teal (`#167970`), with provider names in text. Desktop columns have equal width; below 850px CME appears before Polymarket. Four local mechanism tabs change both descriptions; the study area has Overview / CME / Polymarket views and one shared July date slider.
+
+The cumulative CDD plot is labeled as NWS observation, not futures prices. Price bars use US cents per share, temperature bins use °F, and the daily NWS maximum and resolved market range are separately labeled. Dark teal identifies the highest pre-event quote; a thin outline identifies the chosen range. Sources, precise records and formulas use flat native disclosures. The old historical charts remain inside the Polymarket archive with an explicit separate-date label.
+
+Keyboard tab navigation, chart day selection, live language change, partial-load retry, 1440 / 768 / 390 / 320px layouts in both languages and a full diorama light-rain payout were checked on the production build. Desktop and phone screenshots are local QA evidence under `.cache/decision-qa/dual-market/`; numerical provenance and the future licensed-data boundary are described in `docs/dual-market.md`.
+
+Follow-up verification preserves expanded records across language changes and keeps the language on reload. The two sources load independently with bounded waits and retry, without adding a new navigation layer. The archive's selected graph and unit agree after reload; the advanced renderer synchronizes its initial selected tab with the requested graph. The browser suite now covers all five legacy views and 27 diorama UI outcomes; details are in the same implementation record.

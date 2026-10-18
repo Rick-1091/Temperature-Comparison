@@ -11,9 +11,14 @@ import {renderEvidencePlots} from './evidence-plots.js';
 import {renderWeatherNetwork} from './weather-network.js';
 import {setupLanguage} from './page-language.js';
 import {initMeaningDialog} from './meaning-dialog.js';
+import {renderSimulationReference} from './simulation-reference.js';
+import {initMarketComparison} from './market-comparison.js';
 import {convert,number,range,leading,matches} from './evidence-model.js';
 const language=setupLanguage(),params=new URLSearchParams(location.search);
+initMarketComparison(language);
 initMeaningDialog();
+renderSimulationReference(params.get('scenario'));
+window.addEventListener('wb-language',()=>renderSimulationReference());
 const state={place:params.get('location')==='laguardia'?'laguardia':'mexico',date:params.get('date')||'2026-09-23',unit:params.get('unit')==='F'?'F':'C'};
 const cache=new Map(),$=id=>document.getElementById(id),text=(zh,en)=>language.current==='en'?en:zh;
 // Fit the explorer to its content: the page, not a nested scroll area, owns scrolling.
@@ -28,6 +33,9 @@ function fitExplorer(){
   fit();doc.fonts?.ready.then(fit);
 }
 evidenceFrame.addEventListener('load',fitExplorer);
+document.getElementById('polymarket-archive').addEventListener('toggle',event=>{
+  if(event.currentTarget.open){evidenceFrame.loading='eager';fitExplorer();}
+});
 initJinxi(language);initBusinessMap(language);
 const renderIntroMarket=initIntroMarket(language,()=>state.unit);
 let request=0;
@@ -40,7 +48,8 @@ $('evidence-date').textContent=(state.place==='mexico'?text('墨西哥城','Mexi
 // Reuse the original chart renderer and dataset instead of recreating its five views.
 const explorer=new URL('/signals/explore/',location.href);
 for(const [key,value] of Object.entries({location:state.place,day:state.date,unit:state.unit,lang:language.current}))explorer.searchParams.set(key,value);
-explorer.searchParams.set('embed','true');explorer.searchParams.set('view','heatmap');
+const activeExplorerView=evidenceFrame.contentDocument?.querySelector('.view-tab[aria-pressed=true]')?.dataset.view;
+explorer.searchParams.set('embed','true');explorer.searchParams.set('view',activeExplorerView||'heatmap');
 const frame=$('legacy-evidence-frame');
 if(frame.src!==explorer.href)frame.src=explorer.href;
 frame.title=text('对比市场判断与实际气温','Compare market expectations with observed temperatures');
