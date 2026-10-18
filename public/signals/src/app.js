@@ -613,6 +613,11 @@ function goToPage(name) {
   requestAnimationFrame(() => { pageDeck.style.scrollBehavior = ""; });
 }
 function render() {
+  tabs.forEach((button) => {
+    const active = button.dataset.view === state.view;
+    button.classList.toggle("active", active);
+    button.setAttribute("aria-pressed", String(active));
+  });
   const width = Math.max(svg.clientWidth, 310), height = Math.max(svg.clientHeight, 430);
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
   svg.innerHTML = "";
@@ -732,7 +737,6 @@ buckets.forEach((bucket, index) => {
 });
 tabs.forEach((tab) => tab.addEventListener("click", () => {
   state.view = tab.dataset.view;
-  tabs.forEach((button) => { const active = button === tab; button.classList.toggle("active", active); button.setAttribute("aria-pressed", String(active)); });
   updateViewCopy();
   tooltip.hidden = true;
   render();

@@ -1,3 +1,4 @@
+@import url('./reading-layout.css');
 @font-face{font-family:Plex;src:url('signals/fonts/ibm-plex-sans-latin-400-normal.woff2');font-weight:400;font-display:swap}@font-face{font-family:Plex;src:url('signals/fonts/ibm-plex-sans-latin-600-normal.woff2');font-weight:600;font-display:swap}
 :root{--wb-paper:#f5f2e9;--wb-ink:#183e3a;--wb-muted:#52685e;--wb-line:#d5d7c9;--wb-accent:#a94b2e;--wb-radius:4px;--wb-inset:clamp(20px,6vw,86px);font-family:Plex,'Microsoft YaHei',sans-serif;background:var(--wb-paper);color:var(--wb-ink)}
 *{box-sizing:border-box}body{margin:0}a{color:inherit;text-underline-offset:4px}button,select,summary{font:inherit}button,summary{cursor:pointer}button{min-height:44px}a:focus-visible,button:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid var(--wb-accent);outline-offset:4px}[hidden]{display:none!important}::selection{background:#e6b878;color:#183e3a}

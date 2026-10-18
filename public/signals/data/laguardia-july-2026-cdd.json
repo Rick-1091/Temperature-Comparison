@@ -1,0 +1,237 @@
+{
+  "metadata": {
+    "kind": "official-weather-observation",
+    "provider": "NWS",
+    "station": "KLGA",
+    "name": "LaGuardia NY",
+    "wban": "14732",
+    "ghcnd": "USW00014732",
+    "month": "2026-07",
+    "baseF": 65,
+    "unit": "°F·day",
+    "reportedTotal": 435,
+    "reportId": "CF6LGA #FINAL-07-26#",
+    "verifiedAt": "2026-10-18",
+    "sourceUrl": "https://forecast.weather.gov/product.php?format=txt&glossary=0&issuedby=LGA&product=CF6&site=MSO&version=4",
+    "sourceNote": "Transcribed daily MAX, MIN, AVG and CDD columns from the July 2026 CF6 report, retrieved and verified 2026-10-18. The version URL rotates. This snapshot preserves the cited report's daily numeric observations; it is not a CME/Speedwell settlement record."
+  },
+  "days": [
+    {
+      "date": "2026-07-01",
+      "maxF": 93,
+      "minF": 77,
+      "meanF": 85,
+      "cdd": 20
+    },
+    {
+      "date": "2026-07-02",
+      "maxF": 104,
+      "minF": 84,
+      "meanF": 94,
+      "cdd": 29
+    },
+    {
+      "date": "2026-07-03",
+      "maxF": 101,
+      "minF": 79,
+      "meanF": 90,
+      "cdd": 25
+    },
+    {
+      "date": "2026-07-04",
+      "maxF": 97,
+      "minF": 74,
+      "meanF": 86,
+      "cdd": 21
+    },
+    {
+      "date": "2026-07-05",
+      "maxF": 78,
+      "minF": 69,
+      "meanF": 74,
+      "cdd": 9
+    },
+    {
+      "date": "2026-07-06",
+      "maxF": 70,
+      "minF": 65,
+      "meanF": 68,
+      "cdd": 3
+    },
+    {
+      "date": "2026-07-07",
+      "maxF": 72,
+      "minF": 63,
+      "meanF": 68,
+      "cdd": 3
+    },
+    {
+      "date": "2026-07-08",
+      "maxF": 87,
+      "minF": 66,
+      "meanF": 77,
+      "cdd": 12
+    },
+    {
+      "date": "2026-07-09",
+      "maxF": 89,
+      "minF": 73,
+      "meanF": 81,
+      "cdd": 16
+    },
+    {
+      "date": "2026-07-10",
+      "maxF": 89,
+      "minF": 75,
+      "meanF": 82,
+      "cdd": 17
+    },
+    {
+      "date": "2026-07-11",
+      "maxF": 83,
+      "minF": 72,
+      "meanF": 78,
+      "cdd": 13
+    },
+    {
+      "date": "2026-07-12",
+      "maxF": 85,
+      "minF": 70,
+      "meanF": 78,
+      "cdd": 13
+    },
+    {
+      "date": "2026-07-13",
+      "maxF": 85,
+      "minF": 72,
+      "meanF": 79,
+      "cdd": 14
+    },
+    {
+      "date": "2026-07-14",
+      "maxF": 93,
+      "minF": 74,
+      "meanF": 84,
+      "cdd": 19
+    },
+    {
+      "date": "2026-07-15",
+      "maxF": 98,
+      "minF": 79,
+      "meanF": 89,
+      "cdd": 24
+    },
+    {
+      "date": "2026-07-16",
+      "maxF": 88,
+      "minF": 78,
+      "meanF": 83,
+      "cdd": 18
+    },
+    {
+      "date": "2026-07-17",
+      "maxF": 88,
+      "minF": 74,
+      "meanF": 81,
+      "cdd": 16
+    },
+    {
+      "date": "2026-07-18",
+      "maxF": 80,
+      "minF": 69,
+      "meanF": 75,
+      "cdd": 10
+    },
+    {
+      "date": "2026-07-19",
+      "maxF": 83,
+      "minF": 72,
+      "meanF": 78,
+      "cdd": 13
+    },
+    {
+      "date": "2026-07-20",
+      "maxF": 83,
+      "minF": 67,
+      "meanF": 75,
+      "cdd": 10
+    },
+    {
+      "date": "2026-07-21",
+      "maxF": 83,
+      "minF": 73,
+      "meanF": 78,
+      "cdd": 13
+    },
+    {
+      "date": "2026-07-22",
+      "maxF": 89,
+      "minF": 73,
+      "meanF": 81,
+      "cdd": 16
+    },
+    {
+      "date": "2026-07-23",
+      "maxF": 82,
+      "minF": 67,
+      "meanF": 75,
+      "cdd": 10
+    },
+    {
+      "date": "2026-07-24",
+      "maxF": 82,
+      "minF": 69,
+      "meanF": 76,
+      "cdd": 11
+    },
+    {
+      "date": "2026-07-25",
+      "maxF": 80,
+      "minF": 67,
+      "meanF": 74,
+      "cdd": 9
+    },
+    {
+      "date": "2026-07-26",
+      "maxF": 84,
+      "minF": 68,
+      "meanF": 76,
+      "cdd": 11
+    },
+    {
+      "date": "2026-07-27",
+      "maxF": 85,
+      "minF": 73,
+      "meanF": 79,
+      "cdd": 14
+    },
+    {
+      "date": "2026-07-28",
+      "maxF": 81,
+      "minF": 72,
+      "meanF": 77,
+      "cdd": 12
+    },
+    {
+      "date": "2026-07-29",
+      "maxF": 83,
+      "minF": 70,
+      "meanF": 77,
+      "cdd": 12
+    },
+    {
+      "date": "2026-07-30",
+      "maxF": 76,
+      "minF": 69,
+      "meanF": 73,
+      "cdd": 8
+    },
+    {
+      "date": "2026-07-31",
+      "maxF": 86,
+      "minF": 71,
+      "meanF": 79,
+      "cdd": 14
+    }
+  ]
+}
