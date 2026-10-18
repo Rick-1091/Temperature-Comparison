@@ -20,14 +20,14 @@ The relevant target is **SDG 13.3**: “Improve education, awareness-raising and
 
 All images listed below are original course field-visit photographs, taken in Jinxi on 18 September 2026 and stored in this project’s `assets/` folder. They are used in this course-project/submission context only. No public reuse licence is granted or needed for this classroom submission; public posting, reuse, or distribution would require the photographer’s permission and, where relevant, confirmation from the venue that display content may be republished.
 
-| File | Photographer | Host / setting | Licence and use status | Published on this page? |
-| --- | --- | --- | --- | --- |
-| `tour-boats.jpg` | Xinyuan Lan | Jinxi Ancient Town canal | Original student photograph; no public licence; course use only | Yes |
-| `canal-coffee.jpg` | Xinyuan Lan | Jinxi Ancient Town streetscape | Original student photograph; no public licence; course use only | No |
-| `smoked-beans.jpg` | Yizhou Zhang | Jinxi Ancient Town storefront display | Original student photograph; no public licence; course use only | Yes |
-| `dried-aquatic-products.jpg` | Yizhou Zhang | Jinxi Ancient Town storefront display | Original student photograph; no public licence; course use only | No — retained locally and excluded from the page because a person appears in the background |
-| `brick-process.jpg` | Shudan Guan | Chinese Ancient Brick and Tile Museum, Jinxi | Original student photograph of a museum display; no public licence; course use only | Yes |
-| `boat-building.jpg` | Shudan Guan | Jinxi Intangible Cultural Heritage Hall | Original student photograph of a museum display; no public licence; course use only | Yes |
+| File | Photographer | Host / setting | Licence and use status |
+| --- | --- | --- | --- |
+| `tour-boats.jpg` | Xinyuan Lan | Jinxi Ancient Town canal | Original student photograph; no public licence; course use only |
+| `canal-coffee.jpg` | Xinyuan Lan | Jinxi Ancient Town streetscape | Original student photograph; no public licence; course use only |
+| `smoked-beans.jpg` | Yizhou Zhang | Jinxi Ancient Town storefront display | Original student photograph; no public licence; course use only |
+| `dried-aquatic-products.jpg` | Yizhou Zhang | Jinxi Ancient Town storefront display | Original student photograph; no public licence; course use only |
+| `brick-process.jpg` | Shudan Guan | Chinese Ancient Brick and Tile Museum, Jinxi | Original student photograph of a museum display; no public licence; course use only |
+| `boat-building.jpg` | Shudan Guan | Jinxi Intangible Cultural Heritage Hall | Original student photograph of a museum display; no public licence; course use only |
 
 The images published on the page do not show identifiable residents or other identifiable private individuals. Therefore, no resident confirmation is required for this classroom use. This does not substitute for venue permission or community consultation if the work later becomes public or makes claims about current local life.
 
