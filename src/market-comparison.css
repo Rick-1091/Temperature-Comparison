@@ -1,6 +1,23 @@
 /* The comparison uses the existing paper/type system with two semantic accents. */
-.market-comparison,.market-research{--market-cme:#285b96;--market-poly:#167970;--market-rule:#cbc9c0;--market-muted:#515b58;--market-gap:clamp(24px,4vw,64px)}
-.journey #polymarket.market-comparison,.journey #evidence.market-research{background:var(--poster-paper,var(--wb-paper));color:var(--poster-ink,var(--wb-ink))}
+.market-comparison,.market-research{--market-cme:#285b96;--market-poly:#167970;--market-observed:#167c77;--market-quote:#b84b34;--market-rule:#cbc9c0;--market-muted:#515b58;--market-gap:clamp(24px,4vw,64px)}
+.journey :is(#polymarket,#market-comparison).market-comparison,.journey #polymarket-definition{background:var(--poster-purple);color:var(--poster-white)}
+.journey #evidence.market-research{background:var(--poster-paper,var(--wb-paper));color:var(--poster-ink,var(--wb-ink))}
+.journey #polymarket .market-overview,.journey #market-mechanisms{background:var(--poster-paper);color:var(--wb-ink);padding:clamp(20px,3vw,36px);border-radius:var(--poster-radius)}
+.journey :is(#polymarket,#market-comparison).market-comparison a.market-next,.journey #polymarket-definition a{color:var(--poster-white)}
+.market-definition-path{display:flex;flex-wrap:wrap;gap:12px 40px;padding:24px max(5vw,calc((100vw - 1280px)/2));background:var(--poster-purple);border-top:1px solid rgba(255,255,255,.35)}
+.journey .market-definition-path a{display:inline-flex;align-items:center;min-height:44px;color:var(--poster-white)}
+.journey #polymarket-definition{scroll-margin-top:112px}
+.journey #polymarket-definition .intro-market{--quote-highlight:var(--poster-lime);--quote-fill:#cbb9f3;--quote-grid:#cbb9f3;border-top:2px solid var(--poster-white)}
+.journey #polymarket-definition .explanation{margin-top:48px;align-items:start;gap:32px}
+.journey #polymarket-definition .explanation>div{background:var(--poster-paper);color:var(--poster-ink);border:var(--poster-border);border-radius:var(--poster-radius);padding:28px;box-shadow:var(--poster-shadow)}
+.journey #polymarket-definition .caption{color:inherit;opacity:.85}
+.journey #polymarket-definition :focus-visible,.journey .market-definition-path a:focus-visible,.journey #market-comparison>a:focus-visible{outline-color:var(--poster-white)}
+.market-opening{min-height:clamp(280px,48svh,480px);display:flex;flex-direction:column;justify-content:center;align-items:flex-start}
+.journey #polymarket .market-opening h2{margin:0 0 24px}
+.journey #polymarket .market-opening .lead{margin:0}
+.market-transition{scroll-margin-top:112px;border-top:1px solid rgba(255,255,255,.35);padding-top:48px;margin-top:32px}
+.journey #polymarket .market-transition>h3{font-size:clamp(26px,3vw,40px);line-height:1.35;margin:0;max-width:30ch}
+.journey #polymarket .market-transition .market-pair{margin-block:32px 56px}
 .journey .market-comparison a,.journey .market-research a{color:var(--market-poly)}
 .journey #polymarket.market-comparison a{color:var(--market-poly)}
 .journey #evidence.market-research details{padding:18px 0;background:transparent;color:inherit;border:0;border-top:1px solid var(--market-rule);border-radius:0;box-shadow:none}
@@ -10,8 +27,8 @@
 .market-overview{display:flex;flex-direction:column;min-width:0;border-top:2px solid var(--market-color);padding-top:24px;--market-color:var(--market-poly)}
 .market-cme{--market-color:var(--market-cme)}
 .market-poly{--market-color:var(--market-poly)}
-.journey .market-overview h3{color:var(--market-color);font-size:clamp(28px,3vw,40px);line-height:1.2;margin:0}
-.market-overview h3 span{display:block;font-size:17px;line-height:1.5;font-weight:500;margin-top:8px}
+.journey #polymarket .market-overview h4{color:var(--market-color);font-size:clamp(28px,3vw,40px);line-height:1.2;margin:0}
+.market-overview h4 span{display:block;font-size:17px;line-height:1.5;font-weight:500;margin-top:8px}
 .journey .market-overview p{max-width:55ch;font-size:17px;margin:14px 0 22px}
 .journey .market-overview .market-category{font-size:14px;color:var(--market-muted);margin:12px 0 28px}
 .journey .market-overview .market-question{font-size:clamp(20px,2vw,26px);line-height:1.5;font-weight:600;margin:0 0 16px;max-width:27ch}
@@ -50,15 +67,19 @@
 .market-chart svg text{font-size:13px;fill:var(--market-muted)}
 .market-chart svg .domain{stroke:var(--market-rule)}
 .market-chart svg .tick line{stroke:var(--market-rule);stroke-dasharray:2 4}
-.market-chart svg .chart-line{stroke:var(--market-color);stroke-width:2.5;fill:none}
-.market-chart svg .chart-dot{fill:var(--market-color)}
-.market-chart svg .quote-bar[aria-pressed=true] rect:not(:first-child){stroke:var(--market-poly);stroke-width:1.5}
-.market-chart svg .selected-day-line{stroke:var(--market-color);stroke-dasharray:4 4;opacity:.6}
+.market-chart svg .chart-line{stroke:var(--market-quote);stroke-width:2.5;fill:none}
+.market-chart svg .chart-dot{fill:var(--market-quote)}
+#cdd-plot .chart-line{stroke:var(--market-observed)}
+#cdd-plot .chart-dot{fill:var(--market-observed)}
+.market-chart svg .quote-bar[aria-pressed=true] rect:not(:first-child){stroke:var(--market-quote);stroke-width:1.5}
+.market-chart svg .selected-day-line{stroke:var(--market-observed);stroke-dasharray:4 4;opacity:.6}
 .market-chart svg [role=button]{cursor:pointer}
 .market-chart svg [role=button]:focus-visible{outline:2px solid var(--market-color);outline-offset:2px}
 .market-chart .chart-unit{font-size:14px;margin:0 0 8px;color:var(--market-muted)}
 .market-chart .chart-reading{font-size:16px;line-height:1.7;min-height:54px;margin:16px 0 0;font-variant-numeric:tabular-nums}
 .market-chart .chart-reading strong{color:var(--market-color)}
+#cdd-reading strong{color:var(--market-observed)}
+#poly-reading strong{color:var(--market-quote)}
 .market-chart .chart-help{font-size:14px;line-height:1.7;margin:12px 0;color:var(--market-muted)}
 .market-status{border-block:1px solid var(--market-rule);padding:24px 0;margin-top:32px}
 .market-status p{font-size:16px;max-width:70ch;margin:8px 0}
@@ -89,7 +110,21 @@
 .journey .chapter :is(.market-cme,.market-poly,.market-tabs,.market-sources) :is(button,a,summary,select):focus-visible{outline-color:var(--market-color,var(--market-poly));outline-width:2px;outline-offset:4px}
 .market-charts.is-single{grid-template-columns:minmax(0,1fr)}
 .market-charts.is-single>.market-chart{max-width:900px;width:100%}
+.market-charts{align-items:start}
+.journey #evidence .market-availability{margin:12px 0 0;padding:0;border:0;font-size:14px;line-height:1.6;color:var(--market-muted)}
+.study-resources{margin-top:28px;border-bottom:1px solid var(--market-rule)}
+.journey #evidence.market-research .study-resources>details{margin:0;padding:0;border:0;border-top:1px solid var(--market-rule)}
+.journey #evidence .study-resources>details>summary{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:56px;padding:14px 0;font-size:16px;line-height:1.5;font-weight:500;list-style:none;cursor:pointer}
+.journey #evidence .study-resources>details>summary::-webkit-details-marker{display:none}
+.journey #evidence .study-resources>details>summary:after{content:'+';font-size:22px;font-weight:400;line-height:1;color:var(--market-muted)}
+.journey #evidence .study-resources>details[open]>summary:after{content:'−'}
+.journey #evidence .study-resources>details>summary:hover{color:var(--market-poly)}
+.journey #evidence .study-resources>details[open]{padding-bottom:20px}
+.study-resources .market-exact-table{margin:12px 0}
+.study-resources .chart-help{max-width:75ch}
 @media(max-width:850px){
+ .market-opening{min-height:280px}
+ .market-transition{padding-top:32px;scroll-margin-top:136px}
  .market-pair,.mechanism-pair,.market-charts{grid-template-columns:minmax(0,1fr);gap:32px}
  .market-pair{margin-block:32px 40px}.mechanism-pair{min-height:0}
  .market-risk-bridge dl{grid-template-columns:minmax(0,1fr);gap:24px}

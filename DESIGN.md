@@ -1,116 +1,69 @@
 ---
 name: Weatherbridge
-description: Typography-led, warm-paper single-page journey with dark-green story contrasts.
+description: A bilingual weather decision story with colorful chapters, historical interval exploration and an interactive courtyard.
 colors:
-  wb-paper: "#f4f1e8"
-  wb-ink: "#163e38"
-  wb-muted: "#53665f"
-  wb-line: "#c9cec2"
-  wb-accent: "#167970"
-  observation: "#b34c32"
-  action-text: "#ffffff"
-typography:
-  display:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "clamp(48px,5.6vw,88px)"
-    fontWeight: 600
-    lineHeight: 1.1
-    letterSpacing: "-.045em"
-  headline:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "clamp(38px,4.5vw,68px)"
-    fontWeight: 600
-    lineHeight: 1.14
-  body:
-    fontFamily: "IBM Plex Sans, sans-serif"
-    fontSize: "19px"
-    lineHeight: 1.65
-rounded:
-  wb-radius: "3px"
-components:
-  button-primary:
-    backgroundColor: "{colors.wb-accent}"
-    textColor: "{colors.action-text}"
-    rounded: "{rounded.wb-radius}"
-    padding: "17px 26px"
+  chapter-blue: "#1965e9"
+  chapter-yellow: "#f7ba3a"
+  chapter-teal: "#38bbb3"
+  chapter-purple: "#783de8"
+  paper: "#faf7f2"
+  ink: "#193d37"
+  observation: "#167c77"
+  market-quote: "#b84b34"
+  cme-identity: "#285b96"
+  polymarket-identity: "#167970"
 ---
-# Design System: Weatherbridge
 
-## Overview
+# Weatherbridge design — current authority, 2026-10-20
 
-**Creative North Star: "One continuous weather story"**
+## Definitions remain independent — 2026-10-21
 
-The current main experience is a typography-led reading path, not a directory of independent stories. Depo supplies the compositional reference: a large left headline, a single entry action, a meaningful right-hand product visual, large numeric moments and a continuous scrolling rhythm. Weatherbridge keeps its own logo, field photographs, fictional illustrations, scientific boundaries and courtyard model.
+Market definitions, mechanism comparison and historical research are separate reading tasks. The pre-CME `453010d` Polymarket definition chapter is restored as `#polymarket-definition`, including the original October 4 price example, $1/$0 settlement explanation, non-vote-count explanation and sources. Its renderer and original colored presentation are reused. `signals/introduction/` resolves to that definition again. The mechanism comparison follows in `#market-comparison`, before July research.
 
-This refresh reconciles the previous multi-page record with the implemented October 5 journey. Retained incumbent decisions: self-hosted IBM Plex fonts, bilingual content, unobstructed imagery, reduced-motion support, and an actual fixed-camera Three.js scene. Legacy advanced chart styles remain renderer-local rather than defining this main journey.
+A future CME/weather-futures definition belongs at the same chapter level, with matching explanatory depth; it must not replace this restored chapter. The user requested a research prompt before that further page is implemented; see `docs/gpt-weather-market-definition-prompt.md`. The existing concise CME overview and contract-rule disclosure remain available.
 
-**Key Characteristics:**
+## Advanced explorer appearance correction — latest user direction
 
-- Warm-paper reading surfaces alternate with dark-green story surfaces.
-- Large type and real numbers establish hierarchy before containers.
-- A continuous main road keeps technical depth in disclosures and the research hub.
+The user rejected the newly drawn explorer and requested the original appearance. The advanced explorer now directly reuses the `453010d` HTML, CSS, icon tabs, four-column readings, floating quote chooser, selection glass, drag handling and SVG renderer. This takes precedence over the newly drawn explorer descriptions below. Finite market points represent explicitly identified geometric interval midpoints; open intervals use arrows and break the connecting line. Heatmap uses valid whole-bin quote sums; area retains the original multicolor group palette with semantically correct daily steps. The homepage and courtyard are unchanged by this visual rollback.
 
-## Colors
+The user selected preservation of the pre-CME visual identity (453010d) while retaining the accurate dual-market research extension (1aee607) and subsequent semantic fixes. This document supersedes the warm-paper-only direction recorded in the October 18 remediation.
 
-Primary teal supplies actions, market support and emphasis. Dark green supplies main text and the contrasting story backgrounds. Warm paper supplies reading surfaces; muted green supports captions and thin rules. Rust identifies observed temperature values and visible focus outlines.
+## Identity and reading path
 
-**The Data Contrast Rule.** Market-leading values and observed values remain explicitly labeled; color alone never supplies their meaning.
+Keep the blue opening, yellow Malawi dilemma, teal Mexico business example, purple market introduction and purple decision courtyard. Existing illustrations, photographs, map, timeline and real Three.js scene carry the story. Paper plotting and reading surfaces sit inside the colored chapters. Generous spacing, self-hosted Plex typography and brief bilingual headings support the continuous reading path.
 
-## Typography
+The homepage presents an approachable New York historical study. A sticky shared header includes Advanced exploration and Research & Data. A visible study link carries historical location, date, unit and language to the standalone explorer. July New York records and September airport samples remain separate cases. The independent explorer owns its own filters, chart context and URL state; no embedded explorer duplicates homepage state.
 
-IBM Plex Sans is retained, with the browser's Chinese sans-serif fallback. Main headings are semibold (600), tightly tracked and brief. Main body uses a comfortable line height (1.65) with paragraphs capped at 55ch. Supporting captions are smaller (14px), not oversized disclaimer panels.
+## Five historical views
 
-The Chinese hero display uses the frontmatter clamp. English uses a smaller language-specific clamp to keep both complete phrases readable. At mobile widths, headings reduce while temperature values remain prominent; especially narrow Fahrenheit values use a responsive numeric size.
+- Daily comparison: teal observed dots and coral highest-priced native intervals, with arrows for open bounds.
+- Time trend: observed line and daily interval band. No synthetic open-bin midpoint.
+- SVG 3D dual track: front observed line/points, back native market intervals; labeled temperature, local dates and track identities. View angle control and reset are local to this SVG view. Projected distance has no error meaning.
+- Heatmap: shared groups made exclusively from complete original outcomes; color and printed values encode sums of Yes quotes in cents, not a single contract price.
+- Area: daily stepped relative quote weights, group sum divided by that day's total; no smoothing or temperature overlay on the percentage axis. Missing totals leave a gap.
 
-**The Complete Phrase Rule.** Translate full meaning and verify actual wrapping in both languages instead of copying desktop font sizes onto narrow screens.
+Original labels, native boundaries including nulls, quote timestamps, dates and raw prices remain inspectable. Unit conversion changes labels, not native membership. Incomplete partitions produce an unavailable grouped view instead of inferred data. Charts keep legible dimensions on narrow screens with contained horizontal scrolling and visible guidance.
 
-## Layout
+## Four distinct color roles
 
-Desktop spreads use two columns and generous intervening space (7vw). Reading content is inset by the larger of 5vw or the space outside a 1280px content span. Sections have large vertical padding (100px). Below 850px, spreads become one column, section padding reduces, and the reader encounters one idea followed by its visual.
+Chapter backgrounds carry the narrative. CME deep blue and Polymarket deep teal identify providers in headings and column accents. Teal observations and coral quotes carry consistent data meaning across the historical explorer and July plots. Selected states use outlines or pale fills; selection never changes a datum's identity. Grouped quote weights use a coral sequential ramp with explicit interval labels.
 
-The header is brand and language only on the main journey. The hero has one entry action. Former story tabs and competing chapter menus are absent. Context changes in evidence stay below the first concrete comparison.
+Main illustrations/panels may retain fine black borders and small offset shadows. Ordinary buttons, tables and secondary containers use quieter thin rules, modest corners and visible focus indicators. Avoid blanket theme overrides that erase chapters.
 
-**The Continuous Road Rule.** Main story transitions are sentences and scroll, not new destinations.
+## Scientific and financial meanings
 
-## Elevation & Depth
+NWS cumulative CDD is an observation used to explain a weather index; it is neither CME prices nor verified CME settlement. Preserve the original report's 435 monthly CDD. No unverified or unlicensed CME series is invented. Historical Polymarket quotes, resolved outcome ranges and weather observations are distinct records; July 2 retains both 104°F NWS high and the saved 102–103°F paying range, with a nearby explanation.
 
-Flat paper and tonal contrasts establish hierarchy. The hero's historical comparison has a slight desktop rotation; mobile removes it. There are no decorative image overlays or ambient card-shadow stacks.
+Rain parsing distinguishes TS from observed rain, RA/DZ from missing/unknown codes, and report counts from hours or precipitation amounts. Correlations use valid pairs and are descriptive.
 
-The courtyard retains genuine flat-shaded Three.js geometry and directional shadows. The orthographic camera is fixed; this is not an orbit viewer or a screenshot pretending to be interactive. Its renderer loads near the action section and pauses outside that section. Reduced motion starts paused. A household illustration and text controls preserve decisions and reflection without WebGL.
+## Courtyard and interaction
 
-## Shapes
+Retain fixed-camera geometry, shelter, storage, carrying, weather and financial animations. Fictional information is labeled Teaching rain market / View simulated market signal, with the price-to-weather-draw assumption identified as a teaching setting. Signal viewing changes no weather, reward or payout.
 
-Small rectangular corners (3px) characterize actions and fields. Thin rules organize comparisons and disclosures. Existing identity artwork is retained rather than reconstructed. Photographs and fictional illustrations remain visible as whole image regions without new cloud or card overlays.
+Purchase terms show cost, exclusive trigger, payment and zero payment/nonrefundable cost otherwise; light rain excludes heavy rain. Net result equals actual drying benefit minus crop loss, preparation cost and contract cost plus contract payment. Drying value forgone is already reflected in actual benefit. The default result compares buying versus not buying under identical weather and preparation, with detailed calculations secondary.
 
-## Components
+The compact text fallback completes the same decisions and results when WebGL is unavailable. Known-weather replay and a new random round remain distinct.
 
-- **Main header:** original logo and name; 中文 / EN state uses aria-pressed; footer holds About and Research & Data.
-- **Primary action:** teal fill, white semibold text, generous padding and a 48px minimum height.
-- **Historical comparison:** large labeled market range beside the observation; explicit inside/outside verdict; price bars carry their own labels and cents.
-- **Nine-day overview:** selectable days with interval and textual symbol legend; selecting a date updates the same comparison without leaving the page.
-- **Disclosures:** native details/summary keeps city/date, exercise utilities and research depth secondary.
-- **Courtyard choices:** same paper, teal and type system; qualitative consequences update the scene, then the four-way comparison below.
-- **Research hub:** large quote-window and observation-coverage figures; day-specific timestamps and raw links progressively disclosed.
+## Verification and scope
 
-Focus uses a visible rust outline (3px with 5px offset). Evidence comparisons preserve market-native membership when display units change. Current-price bars are relative to the largest price, not normalized probability shares. Neither nine historical days nor the separate rainfall exercise establishes forecast skill.
-
-## Do's and Don'ts
-
-- Do retain real assets and clearly distinguish field photographs, fictional illustrations, historical observations and synthetic teaching information.
-- Do keep language switches, selected evidence context and old deep links functional.
-- Do keep official-warning priority and scientific boundaries accessible without making them the dominant visual.
-- Don't add story selectors or competing chapter navigation to the main road. Research-view tabs are local to the explicitly requested dual-market comparison.
-- Don't infer real economic losses or Malawi rainfall from airport temperature snapshots.
-- Don't promote local advanced chart palettes into the main journey's shared design system.
-
-## Dual-market research surface · 2026-10-18
-
-This section records the implemented extension requested for CME / Polymarket, and takes precedence over older component descriptions for `#polymarket` and `#evidence` only. The surrounding Depo-themed stories and courtyard keep their existing presentation.
-
-The comparison uses warm paper, existing Plex / Inter typography, thin rules, open columns and no shadowed disclosure cards. CME is blue (`#285b96`), Polymarket is teal (`#167970`), with provider names in text. Desktop columns have equal width; below 850px CME appears before Polymarket. Four local mechanism tabs change both descriptions; the study area has Overview / CME / Polymarket views and one shared July date slider.
-
-The cumulative CDD plot is labeled as NWS observation, not futures prices. Price bars use US cents per share, temperature bins use °F, and the daily NWS maximum and resolved market range are separately labeled. Dark teal identifies the highest pre-event quote; a thin outline identifies the chosen range. Sources, precise records and formulas use flat native disclosures. The old historical charts remain inside the Polymarket archive with an explicit separate-date label.
-
-Keyboard tab navigation, chart day selection, live language change, partial-load retry, 1440 / 768 / 390 / 320px layouts in both languages and a full diorama light-rain payout were checked on the production build. Desktop and phone screenshots are local QA evidence under `.cache/decision-qa/dual-market/`; numerical provenance and the future licensed-data boundary are described in `docs/dual-market.md`.
-
-Follow-up verification preserves expanded records across language changes and keeps the language on reload. The two sources load independently with bounded waits and retry, without adding a new navigation layer. The archive's selected graph and unit agree after reload; the advanced renderer synchronizes its initial selected tab with the requested graph. The browser suite now covers all five legacy views and 27 diorama UI outcomes; details are in the same implementation record.
+Check Chinese and English, keyboard focus, desktop and 390px, both cities, both units, open September 23/25 intervals, reloadable state, missing data, retries, all 81 simulation combinations and WebGL fallback. Evidence and before/after screenshots are listed in docs/restoration-2026-10-20.md. No deployment or main merge is part of this round.

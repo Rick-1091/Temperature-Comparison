@@ -1,0 +1,102 @@
+/* Chapter identity is restored; plotting surfaces and the corrected simulation stay paper. */
+body.journey{
+  --wb-paper:#faf7f2;--wb-ink:#193d37;--wb-muted:#50635d;--wb-line:#cbd1c7;
+  --wb-observed:#167c77;--wb-quote:#b84b34;--wb-accent:var(--wb-observed);
+  --poster-paper:var(--wb-paper);--poster-ink:#111111;
+  --poster-border:2px solid var(--poster-ink);--poster-shadow:4px 4px 0 var(--poster-ink);
+  --poster-lime:#cbed2a;--poster-yellow:#f7ba3a;--poster-teal:#38bbb3;
+  --poster-white:#fff;--poster-radius:12px;
+}
+.journey main>.chapter{border-top:var(--poster-border)}
+.journey .wb-header nav{display:flex}
+.journey #action .decision-tools{color:var(--poster-white)}
+.journey #action .decision-tools :is(button,select){color:var(--wb-ink)}
+.journey #polymarket>a:focus-visible,.journey #action .decision-tools :focus-visible{outline-color:var(--poster-white)}
+.journey .chapter,.journey .cover{padding-block:clamp(56px,7vw,96px)}
+.journey .cover h1{max-width:14ch;font-size:clamp(40px,5.2vw,72px);line-height:1.15}
+.journey .cover .lead{max-width:32ch}
+.journey .cover{background-color:var(--poster-blue);color:var(--poster-white)}
+.journey .hero-illustration img{border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
+.journey .chapter :is(h2,h3){text-wrap:balance;letter-spacing:normal}
+.journey .chapter p{max-width:68ch}
+.journey #malawi{background:var(--poster-yellow);color:var(--poster-ink)}
+.journey #mexico{background:var(--poster-teal);color:var(--poster-ink)}
+.journey #action{background:var(--poster-purple);color:var(--poster-white)}
+.journey #reflection{background:var(--poster-coral);color:var(--poster-ink)}
+.journey .chapter.finale{background:var(--poster-blue);color:var(--poster-white)}
+.journey .chapter figure>img{border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
+.journey #mexico .spread figure img{object-fit:contain;background:var(--poster-paper)}
+.journey .chapter :is(button,select){border-width:1px;border-radius:4px;box-shadow:none}
+.journey .business-lab,.journey .weather-context{background:var(--wb-paper);color:var(--wb-ink);border:1px solid var(--poster-ink);border-radius:var(--poster-radius);padding:clamp(18px,3vw,40px);box-shadow:none}
+.journey .weather-context{margin-top:40px}
+.journey .business-grid aside{background:transparent;border:0;border-left:1px solid var(--wb-line);border-radius:0;padding:0 0 0 24px}
+.journey .business-lab #business-map{border:1px solid var(--wb-line);border-radius:4px}
+.journey .business-lab .caption,.journey .weather-context .caption{color:var(--wb-muted);opacity:1}
+.journey .chapter .bridge{font:inherit;font-size:20px!important;letter-spacing:normal;max-width:65ch!important}
+.journey :is(button,select){font-family:inherit}
+.journey :is(button,a,select,input,summary,[tabindex]):focus-visible{outline:3px solid #a3412d;outline-offset:4px}
+.journey .historical-entry{display:flex;align-items:center;gap:16px 28px;margin:24px 0 0}
+.journey .historical-entry>a{flex:none;display:inline-flex;align-items:center;min-height:44px;font-size:18px;font-weight:600}
+.journey .historical-entry .caption{font-size:14px;line-height:1.7;color:var(--wb-muted);opacity:1;max-width:58ch}
+.journey .finale{min-height:0;gap:20px}
+.journey .finale h2{font-size:clamp(28px,3.2vw,44px);margin:0}
+.journey .finale p{margin:0}
+.journey .finale button{align-self:center;font:inherit;min-height:44px;padding:10px 0;border:0;border-bottom:1px solid currentColor;border-radius:0;background:none;color:inherit;box-shadow:none}
+.journey .finale>a{align-self:center}
+.journey #reflection{padding-block:40px}
+.journey #reflection h2{font-size:28px;margin-bottom:20px}
+.record-mismatch{display:block;margin-top:12px;font-size:15px;line-height:1.65;color:var(--wb-ink)}
+.research .research-examples{margin-top:72px;border-top:1px solid var(--wb-line);padding-top:48px}
+.research .research-examples>.chapter{padding:64px 0;border-top:1px solid var(--wb-line)}
+.research .research-examples h2{font-size:clamp(30px,3.5vw,46px)}
+.research .example-links{display:flex;gap:18px 28px;flex-wrap:wrap;margin-bottom:36px}
+.research .research-examples .eyebrow{display:none}
+.research .research-examples .paper-support{border-left:0;padding-left:0}
+.journey #action .decision-diorama{background:var(--wb-paper)}
+.journey #action .decision-diorama .game-overlay{padding:28px}
+.journey #action .decision-diorama :is(button,.decision-primary){box-shadow:none;border-width:1px;border-radius:3px}
+.journey #action .decision-diorama .scene-object{white-space:normal;max-width:154px;background:var(--wb-paper)}
+.journey #action .decision-diorama .scene-object[aria-pressed=true]{background:var(--poster-lime)}
+.journey #action .decision-diorama #decision-results{border-top:1px solid var(--wb-line);padding:28px;scroll-margin-top:24px}
+.journey #action .net-comparison{grid-template-columns:repeat(2,minmax(0,1fr));border-block:1px solid var(--wb-line);gap:24px;padding:28px 0}
+.journey #action .net-comparison strong{font-size:clamp(32px,4vw,56px);line-height:1.2}
+.journey #action .decision-diorama .net-comparison>div{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;align-content:start;align-items:start;justify-content:start}
+.journey #action .decision-diorama .net-comparison>div>span{display:block;min-width:0;max-width:100%;min-height:3em}
+.journey #action .contract-choice-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:14px;line-height:1.5;font-variant-numeric:tabular-nums}
+.journey #action .contract-choice-table caption{text-align:left;color:var(--wb-muted);margin-bottom:12px}
+.journey #action .contract-choice-table :is(th,td){padding:12px 6px;border-bottom:1px solid var(--wb-line);vertical-align:top;text-align:right;overflow-wrap:normal}
+.journey #action .contract-choice-table th:first-child{text-align:left;width:43%;font-weight:400}
+.journey #action .contract-choice-table thead th{font-weight:600}
+.journey #action .net-comparison .net-selected{background:none}
+.journey #action .result-context{margin:0 0 20px}
+.journey #action #decision-results>header h3{font-size:clamp(24px,2.6vw,36px);line-height:1.4;margin:0 0 24px}
+.journey #action details{border:0;border-top:1px solid currentColor;border-radius:0;box-shadow:none;background:transparent;color:inherit;padding:16px 0}
+.journey #action details p{color:inherit}
+.journey #action #simulation-reference{background:var(--wb-paper);color:var(--wb-ink);padding:clamp(18px,3vw,32px);margin-top:20px;border-radius:4px}
+.journey #action .decision-diorama{color:var(--wb-ink)}
+.journey #action .contract-terms{margin:24px 0;padding:0;border:0}
+.journey #action .contract-offer{padding:20px 0;border-top:1px solid var(--wb-line)}
+.journey #action .contract-offer h4{font-size:18px;margin:0 0 16px}
+.journey #action .contract-facts dd{min-width:0;font-size:17px}
+.journey #action .contract-facts>div{align-items:start;gap:12px}
+.journey #action .is-text-mode{grid-template-columns:1fr}
+.journey #action .is-text-mode #scene{height:auto;min-height:0;padding:0}
+.journey #action .is-text-mode #decision-clock{position:static;padding:16px 20px}
+.journey #action .is-text-mode .decision-fallback{position:static;background:var(--wb-paper)}
+.journey #action .is-text-mode .decision-fallback>div{padding:0 20px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.journey #action .is-text-mode .decision-fallback:has(button:not([hidden])){padding-block:12px}
+.journey #action .is-text-mode .decision-world{background:var(--wb-paper)}
+.journey #action .is-text-mode #decision-scene-hint{border:0;padding-block:8px}
+.journey #action .decision-table{min-width:520px}
+.journey #action .decision-table :is(th,td){padding:12px}
+@media(max-width:600px){
+  .journey .historical-entry{align-items:flex-start;flex-direction:column;gap:4px}
+  .journey .cover h1{font-size:40px}
+  .journey #action .decision-diorama .game-overlay,.journey #action .decision-diorama #decision-results{padding:22px 18px}
+  .journey #action .net-comparison{gap:18px}
+  .journey #action .net-comparison span{font-size:14px}
+  .journey #action .decision-diorama .net-comparison>div>span{min-height:4.5em}
+  .journey #action .is-text-mode .decision-fallback>div{grid-template-columns:1fr}
+  .journey .business-grid aside{border-left:0;border-top:1px solid var(--wb-line);padding:20px 0 0}
+}
+@media(max-width:640px){.journey .wb-header{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:8px 6vw}.journey .wb-header nav{grid-row:2;grid-column:1/-1;margin:0;justify-content:space-between}.journey .wb-language{grid-column:2;grid-row:1}}

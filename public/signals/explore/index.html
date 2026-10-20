@@ -1,7 +1,7 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Weatherbridge · Advanced exploration</title><link rel="stylesheet" href="../src/styles.css"><link rel="stylesheet" href="../../site.css"><link rel="stylesheet" href="explore.css"><style>.professional-page{display:block;width:100%}.shell{max-width:1240px;padding-top:28px}.topbar{position:static}.intro h1{font-size:38px}.intro{padding:24px 0}.data-note .wb-primary{margin:20px 0}.data-controls{flex-wrap:wrap}.view-tabs{overflow-x:auto}.workspace-head{flex-wrap:wrap}</style><link rel="stylesheet" href="/depo-theme.css"></head><body><wb-header></wb-header><section class="professional-page" id="professional-page" data-page="professional" aria-label="专业版数据探索">
 <main class="shell">
   <header class="topbar">
-    <a href="../guide/" class="back-guided" data-zh="← 返回引导视图" data-en="← Back to Guided View">← 返回引导视图</a>
+    <a href="../guide/" class="back-guided" data-zh="← 返回逐日对照" data-en="← Back to daily comparison">← 返回逐日对照</a>
     <div class="data-controls"><label class="location-picker"><span>地点</span><select id="location-select" aria-label="选择地点"><option value="laguardia">纽约 · 拉瓜迪亚机场</option><option value="mexico">墨西哥城 · 国际机场</option></select></label><div class="unit-picker"><span data-unit-label>单位</span><div class="unit-switch" role="group" aria-label="温度单位"><button type="button" data-unit="C" aria-pressed="true">°C 摄氏度</button><button type="button" data-unit="F" aria-pressed="false">°F 华氏度</button></div></div><button class="sources-button" type="button" data-sources-open>数据来源 ↗</button></div>
   </header>
   <section class="intro" aria-labelledby="page-title">
@@ -41,7 +41,7 @@
         <div class="prediction-foot"><span>各区间报价取自当天开始前；来源页可核对具体时间</span><button id="reset-prediction" type="button">恢复最高报价</button></div>
       </section>
     </div>
-    <div class="chart-footer"><span id="angle-note">拖动亚克力板选择日期；点击橙色点查看预测分布。</span><div class="chart-actions"><button id="prev-point" type="button" aria-label="选择前一天">←</button><span id="point-counter">—</span><button id="next-point" type="button" aria-label="选择后一天">→</button></div></div>
+    <div class="chart-footer"><span id="angle-note">拖动亚克力板选择日期；点击橙色点查看预测分布。</span><div class="chart-actions"><button id="reset-view" type="button" hidden data-zh="恢复视角" data-en="Reset view">恢复视角</button><button id="prev-point" type="button" aria-label="选择前一天">←</button><span id="point-counter">—</span><button id="next-point" type="button" aria-label="选择后一天">→</button></div></div>
   </section>
   <section class="reading" aria-label="选中日期的详情">
     <div class="reading-date"><span>当前日期</span><strong id="selected-date">—</strong></div>
@@ -66,4 +66,4 @@
   </footer>
 </main>
 </section>
-<script src="../../site-header.js"></script><script src="../data/unified-market.js"></script><script src="../src/mexico-observations.js"></script><script src="../src/app.js"></script></body></html>
+<script src="../../site-header.js"></script><script type="module" src="../src/app.js"></script></body></html>

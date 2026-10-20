@@ -1,4 +1,6 @@
 /* Advanced charts share the current site palette and type; renderer colours keep their meaning. */
+/* Original 453010d presentation restored. Only the new keyboard reset needs a content width. */
+#reset-view{width:auto;padding-inline:10px}
 /* The same charts can sit inside Evidence without mounting a second story navigation. */
 .evidence-embedded wb-header,.evidence-embedded .back-guided,.evidence-embedded .intro,.evidence-embedded .data-note>.wb-primary{display:none}
 body{font-family:Plex,'Microsoft YaHei',sans-serif;background:var(--wb-paper);color:var(--wb-ink)}

@@ -1,9 +1,10 @@
 import * as d3 from 'd3';
 import './weather-network.css';
+import {parseWeatherReport as parse,pearson} from './weather-report-model.js';
 
 const vars=[
  {id:'temp',label:['气温','Temperature']},{id:'rh',label:['相对湿度','Humidity']},{id:'cloud',label:['云量','Cloud cover']},
- {id:'rain',label:['降水','Precipitation']},{id:'vis',label:['能见度','Visibility']},{id:'pressure',label:['气压','Pressure']},{id:'wind',label:['风速','Wind speed']}
+ {id:'rain',label:['报告含降雨','Rain in report']},{id:'vis',label:['能见度','Visibility']},{id:'pressure',label:['气压','Pressure']},{id:'wind',label:['风速','Wind speed']}
 ];
 const why={
  'temp|rh':['气温升高时，空气能容纳更多水汽，相对湿度随之下降：白天热而干，夜里凉而湿。','Warmer air holds more water vapour, so relative humidity falls as temperature rises: warm, dry days and cool, damp nights.'],
@@ -28,23 +29,6 @@ const why={
  'cloud|vis':['低云和伴随的降水会降低能见度。','Low cloud and the precipitation that comes with it reduce visibility.'],
  'rain|vis':['雨水和伴随的雾会遮挡视线。','Rain and accompanying mist obscure the view.']
 };
-const cover={FEW:.19,SCT:.44,BKN:.75,OVC:1,VV:1};
-const fraction=s=>s.split(' ').reduce((sum,p)=>{const [a,b]=p.split('/');return sum+(b?Number(a)/Number(b):Number(a));},0);
-// Routine METAR only (no SPECI); values come straight from the coded report.
-function parse(raw){
- if(!raw.startsWith('METAR'))return null;
- const body=raw.split(' RMK')[0],t=body.match(/ (M?\d{2})\/(M?\d{2}) /),w=body.match(/ (?:\d{3}|VRB)(\d{2,3})(?:G\d{2,3})?KT /),a=body.match(/ A(\d{4})/),q=body.match(/ Q(\d{4})/);
- if(!t||!w||!(a||q))return null;
- const num=s=>s.startsWith('M')?-Number(s.slice(1)):Number(s),T=num(t[1]),D=num(t[2]);
- const clouds=[...body.matchAll(/ (FEW|SCT|BKN|OVC|VV)\d{3}/g)].map(m=>cover[m[1]]),vis=body.match(/ (\d+ \d\/\d|\d\/\d|\d+)SM /);
- return{temp:T,rh:100*Math.exp(17.625*D/(243.04+D))/Math.exp(17.625*T/(243.04+T)),wind:Number(w[1]),pressure:a?Number(a[1])*0.3386389:Number(q[1]),
-  cloud:clouds.length?Math.max(...clouds):0,rain:/ [-+]?(?:VC)?(?:TS|SH)?(?:RA|DZ)\b| TS\b/.test(body)?1:0,vis:vis?fraction(vis[1]):null};
-}
-function pearson(rows,a,b){
- const p=rows.filter(r=>r[a]!=null&&r[b]!=null),n=p.length,ma=d3.mean(p,r=>r[a]),mb=d3.mean(p,r=>r[b]);
- let sab=0,sa=0,sb=0;for(const r of p){sab+=(r[a]-ma)*(r[b]-mb);sa+=(r[a]-ma)**2;sb+=(r[b]-mb)**2;}
- return{r:sa&&sb?sab/Math.sqrt(sa*sb):0,n};
-}
 const THRESHOLD=.3,W=880,H=440,cx=W/2,cy=H/2;
 export function renderWeatherNetwork(data,state,language){
  const root=d3.select('#weather-network');if(root.empty())return;
@@ -52,7 +36,7 @@ export function renderWeatherNetwork(data,state,language){
  const pos=Object.fromEntries(vars.map((v,i)=>{const angle=-Math.PI/2+i*2*Math.PI/vars.length;return[v.id,[cx+300*Math.cos(angle),cy+165*Math.sin(angle)]];}));
  const links=[];for(let i=0;i<vars.length;i++)for(let j=i+1;j<vars.length;j++){const a=vars[i].id,b=vars[j].id,res=pearson(rows,a,b);if(Math.abs(res.r)>=THRESHOLD)links.push({a,b,...res,key:why[a+'|'+b]?a+'|'+b:b+'|'+a});}
  links.sort((x,y)=>Math.abs(x.r)-Math.abs(y.r));
- const rainHours=rows.filter(r=>r.rain).length,name=id=>t(vars.find(v=>v.id===id).label);
+ const rainReports=rows.filter(r=>r.rain===1).length,unknownRain=rows.filter(r=>r.rain===null).length,name=id=>t(vars.find(v=>v.id===id).label);
  root.selectAll('*').remove();
  const svg=root.append('svg').attr('viewBox','0 0 '+W+' '+H).attr('role','group').attr('aria-label',t(['天气要素之间的相关关系','Correlations between weather elements']));
  const width=d3.scaleLinear([THRESHOLD,1],[2,14]);
@@ -80,7 +64,7 @@ export function renderWeatherNetwork(data,state,language){
    for(const l of mine){const other=l.a===item.id?l.b:l.a;list.append('li').html('<b>'+name(other)+'</b> '+(l.r>0?t(['同向','moves together']):t(['反向','moves opposite']))+' · r = '+l.r.toFixed(2));}
   }else{
    detail.append('h4').text(name(item.a)+(item.r>0?t([' ↑ 时，',' ↑ → ']):t([' ↑ 时，',' ↑ → ']))+name(item.b)+(item.r>0?' ↑':' ↓'));
-   detail.append('p').html(t(['相关系数','Correlation'])+' <b>r = '+item.r.toFixed(2)+'</b>（'+(item.r>0?t(['同向变化','same direction']):t(['反向变化','opposite directions']))+t(['，基于 ',', based on '])+item.n+t([' 份逐时报告）',' hourly reports)']));
+   detail.append('p').html(t(['相关系数','Correlation'])+' <b>r = '+item.r.toFixed(2)+'</b>（'+(item.r>0?t(['同向变化','same direction']):t(['反向变化','opposite directions']))+t(['，基于 ',', based on '])+item.n+t([' 份有效报告）',' valid reports)']));
    detail.append('p').text(t(why[item.key]||['','']));
   }
  }
@@ -89,5 +73,5 @@ export function renderWeatherNetwork(data,state,language){
   .on('click',(e,d)=>pick(d)).on('keydown',(e,d)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(d);}});
  focusOn(null);
  const first=new Date(d3.min(data.observations,o=>o.obsTime)*1000).toISOString().slice(0,10),last=new Date(d3.max(data.observations,o=>o.obsTime)*1000).toISOString().slice(0,10);
- document.getElementById('weather-network-summary').textContent=t([`${data.metadata.station} 机场 ${first} 至 ${last} 的 ${rows.length} 份逐时报告，其中 ${rainHours} 小时有降水。只画出相关系数绝对值不小于 0.3 的关系。`,`${rows.length} hourly reports from ${data.metadata.station}, ${first} to ${last}; ${rainHours} hours had precipitation. Only correlations with |r| ≥ 0.3 are drawn.`]);
+ document.getElementById('weather-network-summary').textContent=t([`${data.metadata.station} ${first} 至 ${last}：${rows.length} 份常规 METAR 报告，其中 ${rainReports} 份报告含雨／毛毛雨，${unknownRain} 份无法判定。按报告数计算，未去重为小时；“不含降雨”不等于无雨，未统计降水量。缺失值按变量成对排除，仅连接 |r| ≥ 0.3 的关系。`,`${data.metadata.station}, ${first}–${last}: ${rows.length} routine METAR reports; ${rainReports} contain rain / drizzle and ${unknownRain} are unknown. Counts are reports, not deduplicated hours or rainfall amounts. No rain code is not proof of dry weather. Missing values are excluded pairwise; links require |r| ≥ 0.3.`]);
 }

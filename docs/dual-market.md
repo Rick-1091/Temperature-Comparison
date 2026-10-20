@@ -1,5 +1,7 @@
 # Dual-market weather comparison
 
+> Historical implementation record. Current layout, five-view semantics and color roles are documented in [restoration-2026-10-20.md](./restoration-2026-10-20.md) and DESIGN.md. The standalone explorer replaces the embedded archive. July numeric data and economic parameters remain unchanged.
+
 The July 2026 LaGuardia case compares two market mechanisms while keeping their measurements separate. The existing story, historical samples and decision diorama remain in the same journey.
 
 ## Reading and interaction
