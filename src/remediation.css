@@ -25,7 +25,8 @@ body.journey{
 .journey #reflection{background:var(--poster-coral);color:var(--poster-ink)}
 .journey .chapter.finale{background:var(--poster-blue);color:var(--poster-white)}
 .journey .chapter figure>img{border:var(--poster-border);border-radius:var(--poster-radius);box-shadow:var(--poster-shadow)}
-.journey #mexico .spread figure img{object-fit:contain;background:var(--poster-paper)}
+.journey #mexico>.spread>figure{width:min(100%,520px);justify-self:center}
+.journey #mexico .spread figure img{width:100%;height:auto;max-height:none;box-sizing:border-box;object-fit:contain;background:transparent}
 .journey .chapter :is(button,select){border-width:1px;border-radius:4px;box-shadow:none}
 .journey .business-lab,.journey .weather-context{background:var(--wb-paper);color:var(--wb-ink);border:1px solid var(--poster-ink);border-radius:var(--poster-radius);padding:clamp(18px,3vw,40px);box-shadow:none}
 .journey .weather-context{margin-top:40px}

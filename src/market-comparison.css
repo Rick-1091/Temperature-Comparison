@@ -83,6 +83,12 @@
 .journey .market-definition .definition-heading{max-width:78ch;margin-bottom:var(--definition-gap)}
 .journey .market-definition .definition-heading h2{font-size:clamp(34px,4vw,58px);line-height:1.2;max-width:26ch;margin-bottom:24px}
 .journey .market-definition .definition-heading h2>span{display:inline}
+.journey #research-support-title>.research-title-line{display:block}
+@media(min-width:1051px){
+ .journey #weather-futures-definition>.definition-heading{max-width:none}
+ .journey #weather-futures-title{max-width:none;font-size:clamp(34px,3.6vw,58px)}
+ html[lang=zh-CN] .journey #weather-futures-title{white-space:nowrap}
+}
 .journey .market-definition .definition-heading .lead{margin:0}
 .journey .market-definition .definition-copy{font-size:19px;line-height:1.75;max-width:72ch}
 .journey .market-definition .definition-platform{margin:16px 0 0}
