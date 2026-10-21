@@ -1,3 +1,48 @@
+import {groupQuotes,convert,quoteCents,inInterval as nativeMembership} from './interval-model.js';
+async function startExplorer(){
+// Shared observation convention and location-specific provenance for both airports.
+function updateMexicoView() {
+  const english = language === 'en';
+  const meta = activeSnapshot.metadata;
+  const first = series[0].date, last = series.at(-1).date;
+  const city = isMexico ? (english ? 'Mexico City' : '墨西哥城') : (english ? 'New York' : '纽约');
+  const airport = isMexico ? (english ? 'International Airport' : '国际机场') : (english ? 'LaGuardia Airport' : '拉瓜迪亚机场');
+  const set = (selector, zh, en) => document.querySelectorAll(selector).forEach(node => { node.innerHTML = english ? en : zh; });
+  locationSelects.forEach(select => Array.from(select.options).forEach(option => {
+    option.textContent = option.value === 'mexico' ? (english ? 'Mexico City · International Airport' : '墨西哥城 · 国际机场') : (english ? 'New York · LaGuardia Airport' : '纽约 · 拉瓜迪亚机场');
+  }));
+  document.querySelectorAll('[data-unit-label]').forEach(node => {node.textContent=english?'Unit':'单位';});
+  document.querySelectorAll('[data-sources-open]').forEach(node => {node.textContent=english?'Data sources ↗':'数据来源 ↗';});
+  set('.guided-entry', `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=zh">← 先从一天下手：历史对照与逐日来源</a> · 这里是扩展视图，不是实时天气预报。`, `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=en">← Start with one day: comparison and sources</a> · This is an advanced view, not a live forecast.`);
+  document.querySelectorAll('.unit-switch').forEach(node => {
+    node.setAttribute('aria-label',english?'Temperature unit':'温度单位');
+    node.querySelectorAll('[data-unit]').forEach(button => {
+      button.textContent = button.dataset.unit === 'C' ? (english ? '°C Celsius' : '°C 摄氏度') : (english ? '°F Fahrenheit' : '°F 华氏度');
+    });
+  });
+  simpleSvg?.setAttribute('aria-label', `${city} ${first}–${last}: NOAA METAR × Polymarket`);
+  set('.simple-copy .eyebrow', `${city} · ${airport} · 2026 年 9 月`, `${city} · ${airport} · SEPTEMBER 2026`);
+  set('.simple-summary>small', `共 ${series.length} 天 · 同口径历史快照`, `${series.length} days · standardized historical snapshot`);
+  set('#location-title', `${city}${airport} · 观测最高温`, `${city} ${airport} · Reported high`);
+  set('.workspace-head>div:first-child>p', `${first} 至 ${last} <span>/</span> °${temperatureUnit} <span>/</span> 当地当日零点前报价`, `${first} to ${last} <span>/</span> °${temperatureUnit} <span>/</span> pre-midnight local quotes`);
+  set('.reading>.reading-metric:nth-child(2)>span', '观测最高温 <small>NOAA METAR</small>', 'Reported high <small>NOAA METAR</small>');
+  set('.reading-diff>span', '与 NOAA 观测最高温对照', 'Compared with NOAA reported high');
+  set('.legend', '<span><i class="legend-key actual-key"></i>观测最高温（NOAA METAR）</span><span><i class="legend-key market-key"></i>市场预测值（历史最高报价区间）</span>', '<span><i class="legend-key actual-key"></i>Reported high (NOAA METAR)</span><span><i class="legend-key market-key"></i>Market forecast (top-priced range)</span>');
+  set('.data-note-summary', '<strong>数据说明</strong> 用当天开始前的市场判断，对照当天的机场观测。', '<strong>About the data</strong> Pre-day market expectations compared with that day’s airport observations.');
+  set('.data-details-body', `<div class="reading-sections"><section><h3>机场观测</h3><dl class="reading-facts"><div><dt>观测站</dt><dd>${city}${airport} · ${meta.station}</dd></div><div><dt>每日最高温</dt><dd>当地当天最高的一次报告温度。</dd></div><div><dt>最低覆盖要求</dt><dd>至少 20 条记录，覆盖至少 20 个不同小时。</dd></div></dl><p>报告之间的温度峰值可能没有被记录。</p></section><section><h3>市场报价</h3><dl class="reading-facts"><div><dt>来源</dt><dd>Polymarket 官方接口的温度区间与历史 Yes 报价。</dd></div><div><dt>取价时段</dt><dd>当地零点前 24 小时内各档最后可得值，按 5 分钟间隔采样。</dd></div></dl><p>使用事前报价，不使用结果已知后的价格。</p></section><section><h3>怎样计算命中</h3><ol class="reading-list"><li>把观测换算成市场原生单位，再取整判断是否在区间内。</li><li>切换显示单位不改变结果。</li><li>不同城市的区间宽度不同，不能直接按命中率排名。</li></ol></section><section><h3>核对来源与结算</h3><p>机场观测与市场结算值可能不同。点击上方“数据来源”，核对所选日期的报价、记录和结算规则。</p></section></div>`,
+    `<div class="reading-sections"><section><h3>Airport observations</h3><dl class="reading-facts"><div><dt>Station</dt><dd>${city} ${airport} · ${meta.station}</dd></div><div><dt>Daily high</dt><dd>The highest reported temperature within the local day.</dd></div><div><dt>Minimum coverage</dt><dd>20 reports spanning at least 20 distinct local hours.</dd></div></dl><p>Temperature peaks between reports may be missed.</p></section><section><h3>Market quotes</h3><dl class="reading-facts"><div><dt>Source</dt><dd>Temperature bins and historical Yes prices from Polymarket’s official APIs.</dd></div><div><dt>Quote window</dt><dd>The latest available quote in the 24 hours before local midnight, sampled at five-minute intervals.</dd></div></dl><p>These are pre-day quotes, not prices after the outcome.</p></section><section><h3>How hits are calculated</h3><ol class="reading-list"><li>Convert the observation to the native market unit and round before checking the interval.</li><li>Display units do not change the result.</li><li>Different bin widths prevent a direct city ranking.</li></ol></section><section><h3>Check sources and settlement</h3><p>Airport observations may differ from settlement values. Open Data sources above to check the selected day’s quotes, records and settlement rules.</p></section></div>`);
+  set('.simple-footer>p', '两地统一使用 METAR 观测最高温；单位切换不改变命中率。观测不一定等于市场结算值。', 'Both cities use maximum reported METAR temperatures; switching units does not change hits. Observations may differ from settlement.');
+  document.querySelector('#observation-status').textContent = english ? 'NOAA METAR snapshot · historical quotes' : 'NOAA METAR 快照 · 历史报价';
+  ['simple-check', 'professional-check'].forEach(id => {
+    const target = document.getElementById(id);
+    const definitions = target?.querySelector('.formula-definitions');
+    if (definitions) definitions.innerHTML = definitions.innerHTML.replace('NOAA 观测最高温', 'METAR 最高温换算至市场原始单位后取整').replace('NOAA observed high', 'METAR maximum converted and rounded in the native market unit');
+    const caveat = target?.lastElementChild;
+    if (caveat) caveat.textContent = english
+      ? 'Shared local-day METAR convention; interval membership uses native whole-degree market precision, regardless of display units. Small historical sample, not settlement win rates or overall forecasting skill. Different native interval widths limit cross-city hit-rate comparisons.'
+      : '统一采用当地日 METAR 统计；命中判定按市场原始单位的整数度精度进行，与显示单位无关。短期样本覆盖率不是结算胜率或整体预测能力；两地原始区间宽度不同，不宜直接比较命中率高低。';
+  });
+}
 // Native market bounds remain immutable; display-unit changes never alter hit membership.
 if(new URLSearchParams(location.search).get('embed')==='true')document.documentElement.classList.add('evidence-embedded');
 const isMexico = new URLSearchParams(location.search).get('location') === 'mexico';
@@ -7,36 +52,37 @@ const temperatureUnit = (() => {
   if (requested === 'C' || requested === 'F') return requested;
   try { return localStorage.getItem('temperature-unit') === 'F' ? 'F' : 'C'; } catch { return 'C'; }
 })();
-const displayValue = value => nativeUnit === temperatureUnit ? value : nativeUnit === 'C' ? value * 9 / 5 + 32 : (value - 32) * 5 / 9;
-const formatNumber = value => Number(value.toFixed(1)).toString();
+const displayValue = value => convert(value,nativeUnit,temperatureUnit);
+const formatNumber = value => Number.isFinite(value)?Number(value.toFixed(1)).toString():'—';
 const temperature = value => `${formatNumber(displayValue(value))}°${temperatureUnit}`;
 const temperatureDelta = value => `${formatNumber(value * (nativeUnit === temperatureUnit ? 1 : nativeUnit === 'C' ? 9/5 : 5/9))}°${temperatureUnit}`;
 const intervalLabel = bucket => bucket.low === null ? `≤${temperature(bucket.high)}` : bucket.high === null ? `≥${temperature(bucket.low)}` : bucket.low === bucket.high ? temperature(bucket.low) : `${formatNumber(displayValue(bucket.low))}–${temperature(bucket.high)}`;
-const inInterval = (bucket, value) => (bucket.low === null || Math.round(value) >= bucket.low) && (bucket.high === null || Math.round(value) <= bucket.high);
+const inInterval = (bucket,value) => !bucket||(bucket.low===null&&bucket.high===null)?null:nativeMembership(bucket,value);
 const monthNumber = 9;
 const monthName = 'September';
 const monthShort = 'Sep';
 const bucketStep = isMexico ? 1 : 2;
 const tickStep = isMexico ? 2 : 4;
-const activeSnapshot = unifiedClimateSnapshot[isMexico ? "mexico" : "laguardia"];
+const response = await fetch('../data/'+(isMexico?'mexico':'laguardia')+'-unified.json');
+if(!response.ok)throw new Error('Historical records unavailable');
+const activeSnapshot = await response.json();
+if(!activeSnapshot.days?.length)throw new Error('Historical records missing');
 const series = activeSnapshot.days.map(item => ({
-  ...item, actual: nativeUnit === 'C' ? item.actualC : item.actualC * 9 / 5 + 32,
-  outcomes: item.outcomes.map(bucket => ({...bucket, label: intervalLabel(bucket)}))
+  ...item, actual: convert(item.actualC,'C',nativeUnit),
+  outcomes: item.outcomes.map(bucket => ({...bucket, originalLabel:bucket.label, label: intervalLabel(bucket)}))
 }));
-const bucketLows = [...new Set(series.flatMap((item) => item.outcomes.map((outcome) => Math.floor(outcome.midpoint / bucketStep) * bucketStep)))].sort((a, b) => a - b);
+const grouped = groupQuotes(activeSnapshot);
+const buckets = grouped.groups;
+const bucketLows = buckets.map(b=>b.low).filter(Number.isFinite);
 const bucketLabel = intervalLabel;
-const buckets = bucketLows.map((low) => ({ low, high: low + bucketStep - 1 }));
-const binFor = (outcome) => bucketLows.indexOf(Math.floor(outcome.midpoint / bucketStep) * bucketStep);
-// 归一化价格仅用于展示各区间的相对支持度，不代表已校准的天气概率。
-const marketShares = series.map((item) => {
-  const total = item.outcomes.reduce((sum, outcome) => sum + outcome.price, 0);
-  return buckets.map((_, index) => item.outcomes.filter((outcome) => binFor(outcome) === index).reduce((sum, outcome) => sum + outcome.price, 0) / total * 100);
-});
+const binFor = outcome => buckets.findIndex(g=>(g.low===null||(outcome.low!==null&&outcome.low>=g.low))&&(g.high===null||(outcome.high!==null&&outcome.high<=g.high)));
+const marketShares=grouped.rows.map(row=>row.cells.map(c=>c.weight===null?null:c.weight*100));
+const marketSums=grouped.rows.map(row=>row.cells.map(c=>c.sum));
 const choiceByDay = series.map((item) => item.outcomes.findIndex((outcome) => outcome.price === Math.max(...item.outcomes.map((entry) => entry.price))));
-const pct = (value) => `${(value * 100).toFixed(1)}%`;
-const sharePct = (value) => `${value.toFixed(1)}%`;
+const pct = value => `${quoteCents(value)} ${language==='en'?'cents':'美分'}`;
+const sharePct = value => Number.isFinite(value)?`${value.toFixed(1)}%`:'—';
 const outcomeForBin = (dayIndex, binIndex) => series[dayIndex].outcomes.findIndex((outcome) => binFor(outcome) === binIndex);
-const requestedView=new URLSearchParams(location.search).get('view');
+const requestedView=({daily:'dumbbell',trend:'lines',three:'three-d'}[new URLSearchParams(location.search).get('view')]||new URLSearchParams(location.search).get('view'));
 const state = { view: ["dumbbell","lines","three-d","heatmap","area"].includes(requestedView)?requestedView:"dumbbell", selected: Math.max(0, series.findIndex(item => item.date === new URLSearchParams(location.search).get('day'))), angle: 38, draggingX: null, showActual: false };
 let sourceDayIndex = state.selected;
 const svg = document.querySelector("#main-chart");
@@ -62,8 +108,9 @@ const simpleDetail = document.querySelector("#simple-detail");
 const simpleLeaders = series.map((item) => item.outcomes.reduce((leader, outcome) => outcome.price > leader.price ? outcome : leader));
 let areaColors = buckets.map((_, index) => `hsl(${210 - index * 148 / Math.max(1, buckets.length - 1)} 58% ${50 + (index % 3) * 4}%)`);
 const NS = "http://www.w3.org/2000/svg";
-const yMin = Math.floor(Math.min(...bucketLows, ...series.map((item) => item.actual)) / tickStep) * tickStep;
-const yMax = Math.ceil(Math.max(...buckets.map((bucket) => bucket.high), ...series.map((item) => item.actual)) / tickStep) * tickStep;
+const nativeValues=series.flatMap(d=>[d.actual,...d.outcomes.flatMap(o=>[o.low,o.high])]).filter(Number.isFinite);
+const yMin = Math.floor((Math.min(...nativeValues)-1)/tickStep)*tickStep;
+const yMax = Math.ceil((Math.max(...nativeValues)+1)/tickStep)*tickStep;
 const yTicks = Array.from({ length: Math.floor((yMax - yMin) / tickStep) + 1 }, (_, index) => yMin + index * tickStep);
 let dragStart = null;
 let flatMetrics = null;
@@ -189,8 +236,8 @@ const viewHints = {
 };
 
 const interactionHints = {
-  zh: { dumbbell: "拖动竖向选区切换日期；点击市场预测点查看全部历史报价。", lines: "拖动竖向选区切换日期；点击市场预测点查看全部历史报价。", "three-d": "拖动图表调整 3D 视角；点击市场预测点查看全部历史报价。", heatmap: "点击色块选择日期与预测区间；可显示 NOAA 最终气温。", area: "点击彩色带选择日期与温度区间；纵轴为归一化价格占比。" },
-  en: { dumbbell: "Drag the vertical selection area across dates; select a market forecast point for all historical prices.", lines: "Drag the vertical selection area across dates; select a market forecast point for all historical prices.", "three-d": "Drag to rotate the 3D view; select a market forecast point for all historical prices.", heatmap: "Select a cell to choose a date and forecast range; NOAA highs can be overlaid.", area: "Select a colored band to choose a date and temperature range; the y-axis is normalized price share." }
+  zh: { dumbbell: "拖动竖向选区切换日期；点击市场预测点查看全部历史报价。", lines: "拖动竖向选区切换日期；点击市场预测点查看全部历史报价。", "three-d": "拖动图表调整 3D 视角；点击市场预测点查看全部历史报价。", heatmap: "点击色块切换日期；下方保留该日所选报价区间。可开启观测温度叠加。", area: "点击彩色带选择日期与温度区间；纵轴为归一化价格占比。" },
+  en: { dumbbell: "Drag the vertical selection area across dates; select a market forecast point for all historical prices.", lines: "Drag the vertical selection area across dates; select a market forecast point for all historical prices.", "three-d": "Drag to rotate the 3D view; select a market forecast point for all historical prices.", heatmap: "Select a cell to change the date; the reading keeps that day’s selected quote range. Observed highs can be overlaid.", area: "Select a colored band to choose a date and temperature range; the y-axis is normalized price share." }
 };
 
 function formatDate(day) { return language === "en" ? `${monthShort} ${day}` : `${monthNumber} 月 ${day} 日`; }
@@ -201,7 +248,9 @@ function updateObservationStatus() {
 }
 function updateViewCopy() {
   document.querySelector("#view-hint").textContent = viewHints[language][state.view].replaceAll("NOAA 日最高气温", "NOAA 已报告最高温").replaceAll("NOAA 日最高", "NOAA 已报告最高温").replaceAll("NOAA daily high", "NOAA reported high");
-  document.querySelector("#angle-note").textContent = interactionHints[language][state.view];
+  if(state.view==="heatmap")document.querySelector("#view-hint").textContent=language==="en"?"Whole original bins · sum of Yes quotes":"完整原始档合并 · 组内 Yes 报价和";
+  if(state.view==="area")document.querySelector("#view-hint").textContent=language==="en"?"Daily steps · relative quote weights":"逐日阶梯 · 相对报价权重";
+  document.querySelector("#angle-note").textContent=state.view==="area"?(language==="en"?"Group quote sum / daily quote total; not weather probability.":"组内报价和 ÷ 当日全部报价和，不是天气概率。"):interactionHints[language][state.view];
 }
 function applyLanguage(nextLanguage) {
   language = nextLanguage === "en" ? "en" : "zh";
@@ -218,18 +267,29 @@ function applyLanguage(nextLanguage) {
   document.querySelector("#prev-point").setAttribute("aria-label", language === "en" ? "Previous day" : "选择前一天");
   document.querySelector("#next-point").setAttribute("aria-label", language === "en" ? "Next day" : "选择后一天");
   document.querySelector("#close-prediction").setAttribute("aria-label", language === "en" ? "Close forecast distribution" : "关闭预测分布面板");
+  for (const [selector, zh, en] of [
+    ['#professional-page', '高级数据探索', 'Advanced data exploration'],
+    ['.workspace', '气温时间序列可视化', 'Temperature time-series charts'],
+    ['.legend', '图例', 'Chart legend'],
+    ['.view-tabs', '选择图表视图', 'Choose chart view'],
+    ['#area-legend', '温度区间组图例', 'Temperature interval group legend'],
+    ['#prediction-panel', '当日所有市场报价区间', 'All market quote ranges for the selected day'],
+    ['.reading', '选中日期的详情', 'Selected day details'],
+    ['#open-prediction', '查看并选择当日市场报价区间', 'View and select a market quote range for this day']
+  ]) document.querySelector(selector).setAttribute('aria-label', language === 'en' ? en : zh);
   updateObservationStatus();
   updateViewCopy();
+  document.querySelector("#toggle-actual-area").hidden=true;
+  const scale=document.querySelector(".heatmap-scale>span");if(scale)scale.textContent=language==="en"?"Sum of Yes quotes (cents)":"组内 Yes 报价和（美分）";
   renderSimple();
   select(state.selected);
   updateMexicoView();
   document.querySelector('#page-title').textContent=language==='en'?'Advanced exploration':'高级探索';
-  document.querySelector('.back-guided').href=`../guide/?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=${language}`;
 
 }
 
-function chosenBucket(index) { return series[index].outcomes[choiceByDay[index]]; }
-function marketMid(index) { return chosenBucket(index).midpoint; }
+function chosenBucket(index) { return series[index].outcomes[choiceByDay[index]]||{low:null,high:null,label:"—",price:null}; }
+function marketMid(index) { const o=chosenBucket(index); return o.low===null||o.high===null?null:(o.low+o.high)/2; }
 function temperatureY(value, top, bottom) { return bottom - (value - yMin) / (yMax - yMin) * (bottom - top); }
 function el(name, attrs = {}, parent = svg) {
   const node = document.createElementNS(NS, name);
@@ -275,71 +335,61 @@ function renderAxes(left, right, top, bottom, xAt) {
   label(language === "en" ? `${monthName} date` : `${monthNumber} 月日期`, right, bottom + 52, "axis-caption", "end");
   label(language === "en" ? `Temperature °${temperatureUnit}` : `气温 °${temperatureUnit}`, left, top - 18, "axis-caption", "start");
 }
-function renderFlat(width, height) {
-  const mobile = width < 640;
-  const left = mobile ? 48 : 64;
-  const right = width - (mobile ? 20 : 34);
-  const top = 60;
-  const bottom = height - 78;
-  const xAt = (index) => left + index / (series.length - 1) * (right - left);
-  flatMetrics = { left, right, top, bottom, step: (right - left) / (series.length - 1), xAt };
-  placeGlass();
-  renderAxes(left, right, top, bottom, xAt);
-  if (state.view === "lines") {
-    path(series.map((item, i) => [xAt(i), temperatureY(item.actual, top, bottom)]), "series-line actual-line");
-    path(series.map((item, i) => [xAt(i), temperatureY(marketMid(i), top, bottom)]), "series-line market-line");
-  }
-  series.forEach((item, index) => {
-    const x = xAt(index);
-    const actualY = temperatureY(item.actual, top, bottom);
-    const marketY = temperatureY(marketMid(index), top, bottom);
-    if (state.view === "dumbbell") line(x, actualY, x, marketY, "difference-line");
-    point(x, actualY, index, "actual", mobile ? 4.5 : 6);
-    point(x, marketY, index, "market", mobile ? 4.5 : 6);
-  });
+function rangeMark(index,x,top,bottom,projectY){
+ const o=chosenBucket(index),a=o.low===null?yMin:o.low-.5,b=o.high===null?yMax:o.high+.5,ya=projectY(a),yb=projectY(b);
+ const g=el("g",{class:"data-point interval-mark",role:"button",tabindex:0,"data-index":index,"aria-label":series[index].date+" · "+o.label});
+ el("line",{x1:x,x2:x,y1:ya,y2:yb,class:"market-line",stroke:"var(--market)","stroke-width":3},g);
+ if(o.high===null||o.low===null){
+  const up=o.high===null,py=up?yb:ya,sign=up?-1:1;
+  el("path",{d:`M${x-6} ${py-sign*9}L${x} ${py}L${x+6} ${py-sign*9}`,fill:"none",stroke:"var(--market)","stroke-width":2},g);
+  const text=el("text",{x,y:py+(up?-10:19),class:"axis-label market-label","text-anchor":"middle"},g);text.textContent=o.label;
+ }
+ g.addEventListener("click",()=>{select(index);openPrediction();});
+ g.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();select(index);openPrediction();}});
+ g.addEventListener("pointerenter",e=>showTooltip(e,index));g.addEventListener("pointerleave",()=>tooltip.hidden=true);
 }
-function renderThreeD(width, height) {
-  flatMetrics = null;
-  glass.hidden = true;
-  focusMarkers.hidden = true;
-  const mobile = width < 640;
-  const angle = state.angle * Math.PI / 180;
-  const originX = mobile ? 47 : 82;
-  const bottom = height - (mobile ? 120 : 100);
-  const span = width - (mobile ? 132 : 222);
-  const depth = mobile ? 74 : 116;
-  const rise = height - (mobile ? 218 : 172);
-  // Project x=time, y=temperature, z=series lane into the SVG viewport.
-  const project = (index, value, lane) => {
-    const t = index / (series.length - 1);
-    return [originX + t * span + lane * depth * Math.sin(angle), bottom - (value - yMin) / (yMax - yMin) * rise - lane * depth * Math.cos(angle) * .46 - t * 24 * Math.sin(angle)];
-  };
-  yTicks.forEach((tick) => {
-    const a = project(0, tick, 0), b = project(series.length - 1, tick, 0), c = project(series.length - 1, tick, 1), d = project(0, tick, 1);
-    path([a, b, c, d], tick === yMin ? "plane-edge" : "plane-grid");
-    label(temperature(tick), a[0] - 13, a[1] + 4, "axis-label", "end");
-  });
-  const base = project(0, yMin, 0), top = project(0, yMax, 0);
-  line(base[0], base[1], top[0], top[1], "axis-strong");
-  series.forEach((item, i) => {
-    const a = project(i, item.actual, 0), b = project(i, marketMid(i), 1);
-    line(a[0], a[1], b[0], b[1], i === state.selected ? "depth-link active" : "depth-link");
-    const step = mobile ? 3 : 2;
-    if (i === state.selected || (i % step === 0 && Math.abs(i - state.selected) > 1)) { const date = project(i, yMin, 0); label(`${item.day}`, date[0], date[1] + 29, i === state.selected ? "axis-label selected" : "axis-label"); }
-  });
-  path(series.map((item, i) => project(i, item.actual, 0)), "series-line actual-line");
-  path(series.map((item, i) => project(i, marketMid(i), 1)), "series-line market-line");
-  series.forEach((item, i) => {
-    const a = project(i, item.actual, 0), b = project(i, marketMid(i), 1);
-    point(a[0], a[1], i, "actual", mobile ? 4.5 : 6);
-    point(b[0], b[1], i, "market", mobile ? 4.5 : 6);
-  });
-  const xLabel = project(series.length - 1, yMin, 0);
-  label(language === "en" ? "Time →" : "时间 →", xLabel[0], xLabel[1] + 55, "axis-caption", "end");
-  label(language === "en" ? `Temperature °${temperatureUnit}` : `气温 °${temperatureUnit}`, top[0], top[1] - 17, "axis-caption", "start");
-  const laneA = project(10, yMin + 4, 0), laneB = project(10, yMin + 4, 1);
-  label(language === "en" ? "Observed high" : "实际气温值", laneA[0], laneA[1] + 21, "lane-label actual-label");
-  label(language === "en" ? "Market forecast" : "市场预测值", laneB[0], laneB[1] - 14, "lane-label market-label");
+function segmentedLine(project,value,className){
+ let run=[];const flush=()=>{if(run.length>1)path(run,className);run=[];};
+ series.forEach((d,i)=>{const v=value(d,i);if(Number.isFinite(v))run.push(project(i,v));else flush();});flush();
+}
+function renderFlat(width,height){
+ const mobile=width<640,left=mobile?48:64,right=width-(mobile?20:34),top=60,bottom=height-78;
+ const xAt=i=>left+i/(series.length-1)*(right-left);
+ flatMetrics={left,right,top,bottom,step:(right-left)/(series.length-1),xAt};
+ placeGlass();renderAxes(left,right,top,bottom,xAt);
+ if(state.view==="lines"){
+  segmentedLine((i,v)=>[xAt(i),temperatureY(v,top,bottom)],d=>d.actual,"series-line actual-line");
+  segmentedLine((i,v)=>[xAt(i),temperatureY(v,top,bottom)],(_,i)=>marketMid(i),"series-line market-line");
+ }
+ series.forEach((item,i)=>{
+  const x=xAt(i),mid=marketMid(i);
+  if(Number.isFinite(item.actual))point(x,temperatureY(item.actual,top,bottom),i,"actual",mobile?4.5:6);
+  if(Number.isFinite(mid)){
+   if(state.view==="dumbbell"&&Number.isFinite(item.actual))line(x,temperatureY(item.actual,top,bottom),x,temperatureY(mid,top,bottom),"difference-line");
+   point(x,temperatureY(mid,top,bottom),i,"market",mobile?4.5:6);
+  }else if(chosenBucket(i).label!=="—")rangeMark(i,x,top,bottom,v=>temperatureY(v,top,bottom));
+ });
+}
+function renderThreeD(width,height){
+ flatMetrics=null;glass.hidden=true;focusMarkers.hidden=true;
+ const mobile=width<640,angle=state.angle*Math.PI/180,originX=mobile?47:82,bottom=height-(mobile?120:100),span=width-(mobile?132:222),depth=mobile?74:116,rise=height-(mobile?218:172);
+ const project=(i,v,lane)=>[originX+i/(series.length-1)*span+lane*depth*Math.sin(angle),bottom-(v-yMin)/(yMax-yMin)*rise-lane*depth*Math.cos(angle)*.46-i/(series.length-1)*24*Math.sin(angle)];
+ yTicks.forEach(tick=>{const a=project(0,tick,0),b=project(series.length-1,tick,0),c=project(series.length-1,tick,1),d=project(0,tick,1);path([a,b,c,d],tick===yMin?"plane-edge":"plane-grid");label(temperature(tick),a[0]-13,a[1]+4,"axis-label","end");});
+ segmentedLine((i,v)=>project(i,v,0),d=>d.actual,"series-line actual-line");
+ segmentedLine((i,v)=>project(i,v,1),(_,i)=>marketMid(i),"series-line market-line");
+ series.forEach((d,i)=>{
+  const mid=marketMid(i),a=project(i,d.actual,0);
+  if(Number.isFinite(d.actual))point(...a,i,"actual",mobile?4.5:6);
+  if(Number.isFinite(mid)){
+   const b=project(i,mid,1);if(Number.isFinite(d.actual))line(...a,...b,i===state.selected?"depth-link active":"depth-link");point(...b,i,"market",mobile?4.5:6);
+  }else if(chosenBucket(i).label!=="—"){const p=project(i,yMin,1);rangeMark(i,p[0],0,0,v=>project(i,v,1)[1]);}
+  const stride=mobile?3:2;if(i===state.selected||(i%stride===0&&Math.abs(i-state.selected)>1)){const date=project(i,yMin,0);label(String(d.day),date[0],date[1]+29,i===state.selected?"axis-label selected":"axis-label");}
+ });
+ const top=project(0,yMax,0),end=project(series.length-1,yMin,0);
+ label(language==="en"?"Time →":"时间 →",end[0],end[1]+55,"axis-caption","end");
+ label(language==="en"?"Temperature °"+temperatureUnit:"气温 °"+temperatureUnit,top[0],top[1]-17,"axis-caption","start");
+ label(language==="en"?"Front: observed":"前轨：观测",originX,bottom+68,"lane-label actual-label","start");
+ label(language==="en"?"Back: market range":"后轨：市场区间",width-16,bottom+68,"lane-label market-label","end");
 }
 function renderHeatmap(width, height) {
   flatMetrics = null;
@@ -352,32 +402,34 @@ function renderHeatmap(width, height) {
   const bottom = height - 70;
   const cellWidth = (right - left) / series.length;
   const cellHeight = (bottom - top) / buckets.length;
-  const maxShare = Math.max(...marketShares.flat());
-  label(language === "en" ? `Forecast temperature °${temperatureUnit}` : `预测温度 °${temperatureUnit}`, left, top - 18, "axis-caption", "start");
+  const maxShare = Math.max(...marketSums.flat().filter(Number.isFinite).map(v=>v*100),.01);
+  label(language === "en" ? `Temperature groups °${temperatureUnit}` : `温度区间组 °${temperatureUnit}`, left, top - 18, "axis-caption", "start");
   buckets.forEach((bucket, bucketIndex) => {
     const y = top + (buckets.length - 1 - bucketIndex) * cellHeight;
     label(bucketLabel(bucket), left - 10, y + cellHeight / 2 + 4, "axis-label", "end");
     series.forEach((item, dayIndex) => {
-      const share = marketShares[dayIndex][bucketIndex];
+      const sum=marketSums[dayIndex][bucketIndex];
+      const share=sum===null?null:sum*100;
       const x = left + dayIndex * cellWidth;
       const actualInBucket = inInterval(bucket, item.actual);
       const cellLabel = language === "en"
-        ? `${formatDate(item.day)}, ${bucketLabel(bucket)}, normalized price share ${sharePct(share)}${state.showActual && actualInBucket ? ", observed high is in this range" : ""}`
-        : `${formatDate(item.day)}，${bucketLabel(bucket)}，归一化价格占比${sharePct(share)}${state.showActual && actualInBucket ? "，实测气温落在此区间" : ""}`;
+        ? `${formatDate(item.day)}, ${bucketLabel(bucket)}, sum of Yes quotes ${quoteCents(sum)} cents${state.showActual && actualInBucket ? ", observed high is in this range" : ""}`
+        : `${formatDate(item.day)}，${bucketLabel(bucket)}，组内 Yes 报价和 ${quoteCents(sum)} 美分${state.showActual && actualInBucket ? "，实测气温落在此区间" : ""}`;
       const group = el("g", { class: "heat-cell-group", role: "button", tabindex: "0", "data-day": dayIndex, "data-bucket": bucketIndex, "aria-label": cellLabel });
-      el("rect", { x: x + 1.5, y: y + 1.5, width: cellWidth - 3, height: cellHeight - 3, rx: 4, class: "heat-cell", style: `--cell-alpha:${(.12 + .88 * share / maxShare).toFixed(3)}` }, group);
+      el("rect", { x: x + 1.5, y: y + 1.5, width: cellWidth - 3, height: cellHeight - 3, rx: 4, class: "heat-cell", style: `--cell-alpha:${(share===null?0:.12 + .88 * share / maxShare).toFixed(3)}` }, group);
       if (state.showActual && actualInBucket) {
         el("rect", { x: x + 2.5, y: y + 2.5, width: cellWidth - 5, height: cellHeight - 5, rx: 4, class: "heat-actual-frame" }, group);
-        const actualPosition = (item.actual - bucket.low + .5) / (bucket.high - bucket.low + 1);
+        const actualPosition = bucket.low===null||bucket.high===null?.5:(item.actual - bucket.low + .5) / (bucket.high - bucket.low + 1);
         el("circle", { cx: x + cellWidth / 2, cy: y + cellHeight * (1 - actualPosition), r: mobile ? 4 : 5, class: "heat-actual-dot" }, group);
       }
-      const activate = () => { const outcomeIndex = outcomeForBin(dayIndex, bucketIndex); if (outcomeIndex >= 0) choiceByDay[dayIndex] = outcomeIndex; select(dayIndex); };
+      const activate = () => select(dayIndex);
       group.addEventListener("click", activate);
       group.addEventListener("keydown", (event) => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activate(); } });
       group.addEventListener("pointerenter", (event) => {
         tooltip.innerHTML = language === "en"
-          ? `<strong>${formatDate(item.day)}</strong><span>${bucketLabel(bucket)} · normalized price share ${sharePct(share)}</span>${state.showActual && actualInBucket ? `<span>Observed high ${temperature(item.actual)}</span>` : ""}`
-          : `<strong>${formatDate(item.day)}</strong><span>${bucketLabel(bucket)} · 归一化价格占比 ${sharePct(share)}</span>${state.showActual && actualInBucket ? `<span>实际气温值 ${temperature(item.actual)}</span>` : ""}`;
+          ? `<strong>${formatDate(item.day)}</strong><span>${bucketLabel(bucket)} · sum of Yes quotes ${quoteCents(sum)} cents</span>${state.showActual && actualInBucket ? `<span>Observed high ${temperature(item.actual)}</span>` : ""}`
+          : `<strong>${formatDate(item.day)}</strong><span>${bucketLabel(bucket)} · 组内 Yes 报价和 ${quoteCents(sum)} 美分</span>${state.showActual && actualInBucket ? `<span>实际气温值 ${temperature(item.actual)}</span>` : ""}`;
+        tooltip.innerHTML += `<span>${grouped.rows[dayIndex].cells[bucketIndex].members.map(o=>o.label+" · "+quoteCents(o.price)+" "+(language==="en"?"cents":"美分")+" · "+o.quotedAt).join("<br>")}</span>`;
         tooltip.hidden = false;
         moveTooltip(event);
       });
@@ -405,26 +457,14 @@ function renderArea(width, height) {
   const yAt = (share) => bottom - share / 100 * (bottom - top);
   const cumulative = (dayIndex, bucketIndex) => bucketIndex < 0 ? 0 :
     marketShares[dayIndex].slice(0, bucketIndex + 1).reduce((sum, share) => sum + share, 0);
-  const boundary = (bucketIndex) => [
-    [left, yAt(cumulative(0, bucketIndex))],
-    ...series.map((_, dayIndex) => [xAt(dayIndex), yAt(cumulative(dayIndex, bucketIndex))]),
-    [right, yAt(cumulative(series.length - 1, bucketIndex))]
-  ];
-  const smoothSegment = (points, initialCommand) => {
-    let d = `${initialCommand} ${points[0][0]} ${points[0][1]}`;
-    for (let i = 1; i < points.length; i++) {
-      const [x1, y1] = points[i - 1], [x2, y2] = points[i];
-      const middle = (x1 + x2) / 2;
-      d += ` C ${middle} ${y1}, ${middle} ${y2}, ${x2} ${y2}`;
-    }
-    return d;
-  };
+  const boundary = bucketIndex => series.flatMap((_,i)=>[[left+i*step,yAt(cumulative(i,bucketIndex))],[left+(i+1)*step,yAt(cumulative(i,bucketIndex))]]);
+  const smoothSegment = (points,initialCommand) => points.map((p,i)=>(i?"L":initialCommand)+" "+p.join(" ")).join(" ");
   [0, 25, 50, 75, 100].forEach((tick) => {
     const y = yAt(tick);
     line(left, y, right, y, "grid-line");
     label(`${tick}%`, left - 12, y + 4, "axis-label", "end");
   });
-  label(language === "en" ? "Normalized price share" : "归一化价格占比", left, top - 41, "axis-caption", "start");
+  label(language === "en" ? "Relative quote weight" : "相对报价权重", left, top - 41, "axis-caption", "start");
   buckets.forEach((_, bucketIndex) => {
     const upper = boundary(bucketIndex);
     const lower = boundary(bucketIndex - 1).reverse();
@@ -432,7 +472,7 @@ function renderArea(width, height) {
     el("path", { d, fill: areaColors[bucketIndex], class: "area-band", "data-bucket": bucketIndex });
   });
   el("rect", { x: left + state.selected * step + 1, y: top + 1, width: step - 2, height: bottom - top - 2, rx: 4, class: "area-selected-column" });
-  if (state.showActual) {
+  if (false) {
     series.forEach((item, index) => {
       const x = xAt(index);
       const marker = el("circle", { cx: x, cy: top - 13, r: index === state.selected ? 5 : 4, class: `area-actual-dot${index === state.selected ? " selected" : ""}`,
@@ -460,14 +500,14 @@ function renderArea(width, height) {
       const bucketIndex = bandAt(event, dayIndex);
       if (bucketIndex < 0) return;
       const bucket = buckets[bucketIndex];
-      tooltip.innerHTML = `<strong>${formatDate(item.day)}</strong><span>${bucketLabel(bucket)} · ${language === "en" ? "normalized price share" : "归一化价格占比"} ${sharePct(marketShares[dayIndex][bucketIndex])}</span>`;
+      tooltip.innerHTML = `<strong>${formatDate(item.day)}</strong><span>${bucketLabel(bucket)} · ${language === "en" ? "normalized price share" : "相对报价权重"} ${sharePct(marketShares[dayIndex][bucketIndex])}</span><span>${quoteCents(marketSums[dayIndex][bucketIndex])} / ${quoteCents(grouped.rows[dayIndex].total)} ${language==="en"?"cents":"美分"}</span><span>${grouped.rows[dayIndex].cells[bucketIndex].members.map(o=>o.label+" · "+quoteCents(o.price)+" · "+o.quotedAt).join("<br>")}</span>`;
       tooltip.hidden = false;
       moveTooltip(event);
     });
     target.addEventListener("pointerleave", () => { tooltip.hidden = true; });
     target.addEventListener("click", (event) => {
       const bucketIndex = bandAt(event, dayIndex);
-      if (bucketIndex >= 0) { const outcomeIndex = outcomeForBin(dayIndex, bucketIndex); if (outcomeIndex >= 0) choiceByDay[dayIndex] = outcomeIndex; }
+      // Grouped support does not select an arbitrary original member contract.
       select(dayIndex);
     });
     target.addEventListener("keydown", (event) => {
@@ -496,7 +536,8 @@ function placeGlass() {
   actualMarker.style.left = markerX;
   marketMarker.style.left = markerX;
   actualMarker.style.top = `${svgTop + temperatureY(series[state.selected].actual, top, bottom)}px`;
-  marketMarker.style.top = `${svgTop + temperatureY(marketMid(state.selected), top, bottom)}px`;
+  marketMarker.hidden=!Number.isFinite(marketMid(state.selected));
+  marketMarker.style.top = `${svgTop + temperatureY(marketMid(state.selected)??yMin, top, bottom)}px`;
 }
 function renderSimpleDetail(index) {
   if (!simpleDetail) return;
@@ -612,12 +653,22 @@ function goToPage(name) {
   pageDeck.scrollLeft = target.offsetLeft;
   requestAnimationFrame(() => { pageDeck.style.scrollBehavior = ""; });
 }
-function render() {
-  tabs.forEach((button) => {
-    const active = button.dataset.view === state.view;
-    button.classList.toggle("active", active);
-    button.setAttribute("aria-pressed", String(active));
+function restoreRebuiltFocus(container, index, selector) {
+  if (index < 0) return;
+  const replacement = container.querySelectorAll(selector)[index];
+  replacement?.focus({preventScroll:true});
+  // Some browsers finish blurring a removed key-event target after dispatch.
+  // Recover on the next frame only if focus has not moved to another control.
+  requestAnimationFrame(() => {
+    if (replacement?.isConnected && document.activeElement === document.body) replacement.focus({preventScroll:true});
   });
+}
+function render() {
+  // Preserve the keyboard position when the SVG's interactive nodes are rebuilt.
+  const focusedIndex = [...svg.querySelectorAll('[tabindex="0"]')].indexOf(document.activeElement);
+  tabs.forEach(button=>{const active=button.dataset.view===state.view;button.classList.toggle("active",active);button.setAttribute("aria-pressed",String(active));});
+  const address=new URL(location.href);address.searchParams.set("view",state.view);address.searchParams.set("location",isMexico?"mexico":"laguardia");address.searchParams.set("unit",temperatureUnit);history.replaceState(null,"",address);
+  document.getElementById("reset-view").hidden=state.view!=="three-d";
   const width = Math.max(svg.clientWidth, 310), height = Math.max(svg.clientHeight, 430);
   svg.setAttribute("viewBox", `0 0 ${width} ${height}`);
   svg.innerHTML = "";
@@ -626,12 +677,14 @@ function render() {
   areaLegend.hidden = state.view !== "area";
   summaryLegend.hidden = state.view === "area";
   svg.setAttribute("aria-label", language === "en"
-    ? (state.view === "area" ? "Smooth stacked area chart of normalized historical prices by daily forecast range" : "Daily NOAA observed highs and Polymarket historical temperature forecasts for the selected airport")
-    : (state.view === "area" ? "每日预测温度区间历史价格归一化占比的平滑堆叠面积图" : "所选机场每日 NOAA 实测气温与 Polymarket 历史预测价格对比图"));
+    ? (state.view === "area" ? "Daily stepped area chart of relative quote weights" : "Daily NOAA observed highs and Polymarket historical temperature forecasts for the selected airport")
+    : (state.view === "area" ? "每日温度区间相对报价权重的阶梯面积图" : "所选机场每日 NOAA 实测气温与 Polymarket 历史预测价格对比图"));
+  if(["heatmap","area"].includes(state.view)&&(!grouped.available||grouped.rows.some(r=>r.total===null||r.total===0))){glass.hidden=true;focusMarkers.hidden=true;label(language==="en"?"Missing complete bins or quotes; use daily comparison.":"原始档或报价不完整，请切换逐日对照。",width/2,height/2,"axis-label");return;}
   if (state.view === "three-d") renderThreeD(width, height);
   else if (state.view === "heatmap") renderHeatmap(width, height);
   else if (state.view === "area") renderArea(width, height);
   else renderFlat(width, height);
+  restoreRebuiltFocus(svg, focusedIndex, '[tabindex="0"]');
 }
 function select(index) {
   // 所有图表、详情和来源链接共用选中日期，避免显示不同日期的数据。
@@ -645,8 +698,8 @@ function select(index) {
   document.querySelector("#actual-value").textContent = `${temperature(item.actual)}`;
   document.querySelector("#market-value").textContent = bucket.label;
   const hit = inInterval(bucket, item.actual);
-  const distance = hit ? 0 : bucket.low !== null && item.actual < bucket.low ? bucket.low - item.actual : item.actual - bucket.high;
-  document.querySelector("#difference-value").textContent = language === "en" ? (hit ? "Inside range" : `${temperatureDelta(distance)} apart`) : (hit ? "落在区间内" : `相差 ${temperatureDelta(distance)}`);
+  const distance = hit===null?null:hit ? 0 : bucket.low !== null && item.actual < bucket.low ? bucket.low - item.actual : item.actual - bucket.high;
+  document.querySelector("#difference-value").textContent = hit===null?"—":language === "en" ? (hit ? "Inside range" : `${temperatureDelta(distance)} apart`) : (hit ? "落在区间内" : `相差 ${temperatureDelta(distance)}`);
   document.querySelector("#difference-explain").textContent = language === "en"
     ? `NOAA maximum reported temperature ${temperature(item.actual)}; ${defaultChoice ? "top-priced" : "selected"} range ${bucket.label}, Yes price ${pct(share)}. Market resolution may use a different source.`
     : `NOAA 已报告观测最高温 ${temperature(item.actual)}；${defaultChoice ? "最高报价" : "所选区间"} ${bucket.label}，Yes 价格 ${pct(share)}。市场结算值可能采用不同来源。`;
@@ -654,8 +707,9 @@ function select(index) {
   marketLink.href = item.marketUrl;
   marketLink.textContent = language === "en" ? `Polymarket ${isMexico ? "Mexico City" : "NYC"} ${monthShort} ${item.day} market ↗` : `Polymarket ${isMexico ? "墨西哥城" : "纽约"} ${monthNumber}/${item.day} 市场 ↗`;
   const guidedLink=document.querySelector('.back-guided');
-  if(guidedLink)guidedLink.href = `../guide/?location=${isMexico?'mexico':'laguardia'}&day=${item.date}&unit=${temperatureUnit}&lang=${language}`;
+  if(guidedLink)guidedLink.href = `../guide/?location=${isMexico?'mexico':'laguardia'}&day=${item.date}&unit=${temperatureUnit}&lang=${language}&outcome=${encodeURIComponent(bucket.marketId||'')}`;
   const address=new URL(location.href);
+  address.searchParams.set('outcome',bucket.marketId||'');
   address.searchParams.set('day',item.date);
   address.searchParams.set('lang',language);
   history.replaceState(null,'',address);
@@ -667,8 +721,9 @@ function showTooltip(event, index) {
   const item = series[index];
   const bucket = chosenBucket(index);
   tooltip.innerHTML = language === "en"
-    ? `<strong>${formatDate(item.day)}</strong><span>NOAA observed ${temperature(item.actual)}</span><span>Market forecast ${bucket.label} · ${pct(bucket.price)}</span>`
-    : `<strong>${formatDate(item.day)}</strong><span>NOAA 实测 ${temperature(item.actual)}</span><span>市场预测 ${bucket.label} · ${pct(bucket.price)}</span>`;
+    ? `<strong>${formatDate(item.day)}</strong><span>NOAA observed ${temperature(item.actual)}</span><span>Market range ${bucket.label} · ${pct(bucket.price)}</span>`
+    : `<strong>${formatDate(item.day)}</strong><span>NOAA 实测 ${temperature(item.actual)}</span><span>市场区间 ${bucket.label} · ${pct(bucket.price)}</span>`;
+  tooltip.innerHTML += `<span>${bucket.originalLabel||bucket.label} · ${bucket.quotedAt||"—"}</span>${marketMid(index)!==null?`<span>${language==="en"?"Market points: geometric interval midpoints":"市场圆点：有限区间的几何中点"}</span>`:""}`;
   tooltip.hidden = false;
   moveTooltip(event);
 }
@@ -678,6 +733,7 @@ function moveTooltip(event) {
   tooltip.style.top = `${Math.max(event.clientY - bounds.top - 80, 4)}px`;
 }
 function renderPrediction() {
+  const focusedIndex = [...predictionBars.querySelectorAll('button')].indexOf(document.activeElement);
   const item = series[state.selected];
   const outcomes = item.outcomes;
   const max = Math.max(...outcomes.map((outcome) => outcome.price));
@@ -713,6 +769,7 @@ function renderPrediction() {
     button.addEventListener("click", () => { choiceByDay[state.selected] = index; select(state.selected); });
     predictionBars.append(button);
   });
+  restoreRebuiltFocus(predictionBars, focusedIndex, 'button');
 }
 function openPrediction() {
   predictionPanel.hidden = false;
@@ -737,6 +794,7 @@ buckets.forEach((bucket, index) => {
 });
 tabs.forEach((tab) => tab.addEventListener("click", () => {
   state.view = tab.dataset.view;
+  tabs.forEach((button) => { const active = button === tab; button.classList.toggle("active", active); button.setAttribute("aria-pressed", String(active)); });
   updateViewCopy();
   tooltip.hidden = true;
   render();
@@ -799,7 +857,7 @@ languageButtons.forEach((button) => button.addEventListener("click", () => apply
 locationSelects.forEach((select) => select.addEventListener("change", () => {
   const next = new URL(location.href);
   if (select.value === 'mexico') next.searchParams.set('location', 'mexico');
-  else next.searchParams.delete('location');
+  else next.searchParams.set('location','laguardia');
   next.hash = document.querySelector('.page-dot.active')?.dataset.pageTarget || 'professional';
   location.assign(next.href);
 }));
@@ -821,6 +879,11 @@ document.querySelectorAll('[data-unit]').forEach(control => {
 document.querySelectorAll('[data-sources-open]').forEach(button => button.addEventListener('click', () => {
   location.assign(`../sources/?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=${language}`);
 }));
+const restoredOutcome=new URLSearchParams(location.search).get("outcome");
+const restoredIndex=series[state.selected].outcomes.findIndex(o=>o.marketId===restoredOutcome);
+if(restoredIndex>=0)choiceByDay[state.selected]=restoredIndex;
+document.getElementById("reset-view").addEventListener("click",()=>{state.angle=38;render();});
+tabs.forEach((tab,i)=>tab.addEventListener("keydown",e=>{let next=e.key==="ArrowRight"?(i+1)%tabs.length:e.key==="ArrowLeft"?(i+tabs.length-1)%tabs.length:e.key==="Home"?0:e.key==="End"?tabs.length-1:null;if(next!==null){e.preventDefault();tabs[next].click();tabs[next].focus();}}));
 applyLanguage(language);
 // Case-study links open their matching view directly; ordinary visits stay simple.
 function openLinkedPage() {
@@ -841,3 +904,6 @@ window.addEventListener('chart-palette-change', ({detail}) => {
   render();renderSimple();
 });
 
+
+}
+startExplorer().catch(error=>{document.querySelector(".workspace").hidden=true;document.querySelector(".reading").hidden=true;const status=document.getElementById("observation-status");status.textContent=new URLSearchParams(location.search).get("lang")==="en"?"Records could not load.":"历史记录暂时无法读取。";const retry=document.createElement("button");retry.id="retry-load";retry.textContent=new URLSearchParams(location.search).get("lang")==="en"?"Retry":"重试";retry.onclick=()=>location.reload();status.parentElement.append(retry);});

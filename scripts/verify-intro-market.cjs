@@ -16,34 +16,42 @@ for(const o of data.outcomes){
 assert.equal(data.outcomes.find(o=>o.temperature===20).price,.385);
 assert.equal(data.outcomes.filter(o=>o.settlementPrice===1)[0].temperature,20);
 (async()=>{
- const out='.cache/intro-market-qa';fs.mkdirSync(out,{recursive:true});
- const browser=await chromium.launchPersistentContext(out+'/profile',{headless:true,executablePath:process.env.WEATHERBRIDGE_BROWSER,viewport:{width:1440,height:1000}});
- const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
+ const out=require('node:path').resolve('.cache/intro-market-qa');fs.mkdirSync(out,{recursive:true});process.env.TEMP=out;process.env.TMP=out;
+ const base=process.env.WEATHERBRIDGE_PREVIEW_URL||'http://127.0.0.1:8017/';
+ const browser=await chromium.launch({headless:true,executablePath:process.env.WEATHERBRIDGE_BROWSER_EXECUTABLE,args:['--no-proxy-server','--enable-unsafe-swiftshader']});
+ const page=await browser.newPage({viewport:{width:1440,height:1000},reducedMotion:'reduce'}),errors=[];page.on('pageerror',e=>errors.push(e.message));
  try{
-  await page.goto('http://127.0.0.1:8017/?lang=zh#polymarket',{waitUntil:'networkidle'});
+  await page.goto(base+'?lang=zh#polymarket-definition');
   for(const width of [1440,390,320]){
    await page.setViewportSize({width,height:1000});
    for(const lang of ['zh','en']){
     await page.locator('[data-language='+lang+']').click();
     await page.waitForSelector('.intro-bar');
     assert.equal(await page.locator('.intro-bar').count(),11);
-    assert.ok((await page.locator('.intro-bar[data-top=true]').textContent()).includes('38.5¢'));
+    assert.ok((await page.locator('.intro-bar[data-top=true]').textContent()).includes('38.5 '+(lang==='zh'?'美分':'cents')));
+    assert.match(await page.locator('#polymarket-definition h2').innerText(),lang==='zh'?/是一个预测市场/:/is a prediction market/);
+    assert.match(await page.locator('#polymarket-definition .explanation').innerText(),lang==='zh'?/价格不是投票人数/:/Price is not a vote count/);
     assert.ok((await page.locator('#intro-market').textContent()).includes(lang==='zh'?'未归一化':'not normalized'));
     assert.ok((await page.locator('#intro-market').textContent()).includes('23:55'));
     assert.equal(await page.locator('.illustration-quotes').count(),0);
     assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'No page-level overflow');
     if(width!==320)await page.locator('#intro-market').screenshot({path:out+'/'+lang+'-'+width+'.png'});
+    if(width!==320&&lang==='zh')await page.locator('#polymarket-definition').screenshot({path:out+'/definition-'+width+'-zh.png',style:'wb-header{visibility:hidden!important}'});
    }
   }
-  await page.locator('#unit').selectOption('F');
+  await page.goto(base+'?lang=en&unit=F#polymarket-definition');await page.locator('.intro-bar').first().waitFor();
   assert.ok((await page.locator('.intro-bar[data-top=true]').textContent()).includes('68°F'));
-  assert.ok((await page.locator('.intro-bar[data-top=true]').textContent()).includes('38.5¢'));
+  assert.ok((await page.locator('.intro-bar[data-top=true]').textContent()).includes('38.5 cents'));
   await page.locator('#intro-market summary').click();
   assert.equal(await page.locator('.intro-market-table tbody tr').count(),11);
   await page.route('**/signals/data/mexico-oct4-intro.json',r=>r.fulfill({status:503,body:'unavailable'}));
-  await page.goto('http://127.0.0.1:8017/?lang=en#polymarket',{waitUntil:'networkidle'});
+  await page.goto(base+'?lang=en#polymarket-definition');
+  await page.waitForFunction(()=>document.getElementById('intro-market').textContent.includes('could not be loaded'));
   assert.equal(await page.locator('.intro-bar').count(),0);
   assert.ok((await page.locator('#intro-market').textContent()).includes('could not be loaded'));
+  await page.unroute('**/signals/data/mexico-oct4-intro.json');await page.reload();await page.locator('.intro-bar').first().waitFor();
+  await page.goto(base+'signals/introduction/?lang=en&unit=F');await page.waitForURL(/#polymarket-definition/);await page.locator('.intro-bar').first().waitFor();
+  assert.equal(new URL(page.url()).searchParams.get('lang'),'en');assert.equal(new URL(page.url()).searchParams.get('unit'),'F');
   assert.deepEqual(errors,[]);
   console.log('PASS: 11 genuine pre-day quotes, provenance, C/F, bilingual responsive chart, table, missing-data fallback.');
  }finally{await browser.close();}

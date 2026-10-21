@@ -172,13 +172,13 @@ export function createCourtyard(host,{onObject=()=>{},onBeat=()=>{}}={}){
  function render(){renderer.render(scene,camera);host.dataset.protectedEars=String(ears.filter(e=>e.userData.arrived&&!weatherExposed(e)).length);host.dataset.wetEars=String(rain.visible?ears.filter(weatherExposed).length:0);host.dataset.shelterIngress=String(windRain.visible);placeHotspots();}
  function resize(){const w=host.clientWidth,h=host.clientHeight||560;worldWidth=w;worldHeight=h;renderer.setSize(w,h,false);const aspect=w/h,v=Math.max(5.6,7.7/aspect);camera.left=-v*aspect;camera.right=v*aspect;camera.top=v;camera.bottom=-v;camera.updateProjectionMatrix();render();}
  const ro=new ResizeObserver(resize);ro.observe(host);resize();
- function frame(now){if(closed)return;raf=requestAnimationFrame(frame);const dt=Math.min((now-then)/1000,.05);then=now;if(offscreen||document.hidden||paused||(reduced.matches&&!action))return;
+ function frame(now){if(closed)return;raf=requestAnimationFrame(frame);const dt=Math.min((now-then)/1000,.05);then=now;if(document.hidden||paused||(offscreen&&!action&&!finance)||(reduced.matches&&!action))return;
   if(!reduced.matches){phase+=dt;clouds.position.x=Math.sin(phase*.14)*.65;if(!action)arms.forEach((a,i)=>a.rotation.z=Math.sin(phase*1.5+i)*.06);
    if(rain.visible){const count=weather==='light'?140:380;for(let i=0;i<count*6;i+=6){const delta=dt*(weather==='heavy'?9:4);rainData[i+1]-=delta;rainData[i+4]-=delta;if(rainData[i+1]<rainFloor(rainData[i],rainData[i+2]))resetDrop(i,true);}rainGeo.attributes.position.needsUpdate=true;}
    if(windRain.visible){for(let i=0;i<windData.length;i+=6){windData[i+1]-=dt*.5;windData[i+4]-=dt*.5;windData[i+2]-=dt*3.5;windData[i+5]-=dt*3.5;if(windData[i+2]<-.65||windData[i+1]<.72)resetWindDrop(i);}windGeo.attributes.position.needsUpdate=true;}
    if(splashes.visible)splashes.children.forEach((p,i)=>{const clock=phase*(weather==='heavy'?1.5:.7)+i*.13,cycle=Math.floor(clock),f=clock-cycle;if(cycle!==p.userData.cycle){p.userData.cycle=cycle;let x,z;do{x=(Math.random()-.5)*10;z=(Math.random()-.5)*7;}while(rainFloor(x,z)>.1);p.position.set(x,.046,z);}p.scale.setScalar(.3+f*2);p.material.opacity=(1-f)*.55;});
    if(finance){finance.time+=dt;const t=Math.min(1,finance.time/1.1);tokens.children.forEach((coin,i)=>{const f=Math.max(0,Math.min(1,t*1.5-i*.07)),payout=finance.kind==='payout';coin.position.set(payout?4.3-f*2.4:2+f*2.3,1+Math.sin(f*Math.PI)*1.2,2.8);coin.rotation.y+=dt*3;});if(t===1)finishTransfer();}
-  }update(dt);render();
+  }update(dt);if(!offscreen)render();
  }raf=requestAnimationFrame(frame);
  const lost=e=>{e.preventDefault();host.dispatchEvent(new CustomEvent('scene-lost',{bubbles:true}));};renderer.domElement.addEventListener('webglcontextlost',lost);
  const reduce=()=>{if(reduced.matches){if(action?.kind==='prepare')finalPreparation();if(action?.kind==='weather'){weatherMix=1;appearance();}finish();finishTransfer();splashes.visible=false;render();}};reduced.addEventListener('change',reduce);

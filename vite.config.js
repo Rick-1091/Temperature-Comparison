@@ -1,11 +1,11 @@
 import { defineConfig } from 'vite';
 import { fileURLToPath } from 'node:url';
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, existsSync } from 'node:fs';
 
 const page = (p) => fileURLToPath(new URL(p, import.meta.url));
 const legacyRedirects = {'nomadcast/index.html':'../experience/food-drying/','nomadcast/decide.html':'../experience/food-drying/','nomadcast/weather-guide.html':'../signals/introduction/','jinxi/index.html':'../cases/jinxi/'};
 
-// public/signals/ is the Temperature Comparison app, served as-is (classic scripts, no bundling).
+// public/signals/ is the standalone SVG explorer, served as static ES modules.
 export default defineConfig({
   base: './',
   plugins: [{
@@ -19,6 +19,12 @@ export default defineConfig({
         const url=new URL(req.url,'http://localhost');
         let key=url.pathname.slice(1);
         if(key.endsWith('/'))key+='index.html';
+        // Vite's development SPA fallback otherwise serves the homepage for
+        // directory URLs in public/, while production correctly serves index.
+        if(url.pathname.startsWith('/signals/')&&url.pathname.endsWith('/')&&existsSync(page('./public/'+key))){
+          req.url='/'+key+url.search;
+          return next();
+        }
         if(!legacyRedirects[key])return next();
         res.writeHead(302,{Location:new URL(legacyRedirects[key],url).pathname+url.search});
         res.end();

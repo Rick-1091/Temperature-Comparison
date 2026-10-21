@@ -53,3 +53,14 @@ export function admittedFuturesHistory(data=CME_HISTORY) {
 export const quotedOutcomes=day=>(day?.outcomes||[]).filter(o=>Number.isFinite(o.price));
 export const topQuote=day=>quotedOutcomes(day).reduce((best,o)=>!best||o.price>best.price?o:best,null);
 export const cents=price=>Number((price*100).toFixed(2)).toString();
+
+// Compare a saved paying range with an NWS observation, without changing either.
+export function settlementDisagrees(observation,day){
+  const winners=day?.outcomes?.filter(o=>o.settlementPrice===1)||[];
+  if(!Number.isFinite(observation?.maxF)||winners.length!==1)return false;
+  const label=winners[0].label,closed=label.match(/^(-?\d+)\s*[–-]\s*(-?\d+)°F$/),open=label.match(/^(-?\d+)°F or (below|higher)$/),single=label.match(/^(-?\d+)°F$/);
+  const v=observation.maxF;
+  if(closed)return v<Number(closed[1])||v>Number(closed[2]);
+  if(open)return open[2]==='below'?v>Number(open[1]):v<Number(open[1]);
+  return single?v!==Number(single[1]):false;
+}
