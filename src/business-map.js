@@ -56,7 +56,7 @@ key.append('line').attr('x2',20).attr('stroke','#167970').attr('stroke-width',2.
 key.append('text').attr('x',28).attr('y',4).text(t('模拟活动','Simulated activity'));
 key.append('circle').attr('cx',210).attr('r',4).attr('fill','#b34c32');
 key.append('text').attr('x',222).attr('y',4).text(t('所选日期','Selected date'));
-p.append('text').attr('class','business-chart-note').attr('x',chart.left).attr('y',chart.height-10).text(t('断线 = 数据缺失；不是客流或营业额。','Gaps = missing data; not visitor counts or revenue.'));
+p.append('text').attr('class','business-chart-note').attr('x',chart.left).attr('y',chart.height-10).text(t('曲线断开处缺少数据。纵轴为 0—1 的模拟活动指数。','Gaps mark missing data. The vertical axis shows a simulated activity index from 0 to 1.'));
 p.append('path').datum(HISTORICAL).attr('class','activity-line').attr('fill','none').attr('stroke','#167970').attr('stroke-width',2.5).attr('d',d3.line().defined(d=>d.activity?.[activity]!=null).x((d,i)=>x(i)).y(d=>y(d.activity[activity])));
 if(day.activity?.[activity]!=null)p.append('circle').attr('cx',x(dateIndex)).attr('cy',y(day.activity[activity])).attr('r',5).attr('fill','#b34c32');
 }

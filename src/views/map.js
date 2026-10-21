@@ -237,7 +237,7 @@ function renderPatternZh(ctx, m, s) {
     text = `${scope}，室内地点在实测活动中的占比${more}：<span class="num">${P(si)}</span>，全部日期为 ${P(bi)}。`;
   }
   document.getElementById('map-pattern').innerHTML = text +
-    '<span class="caveat">这只是对（模拟）活动记录的描述，不代表哪个地点更好，也不解释原因。</span>';
+    '<span class="caveat">这里按模拟活动记录比较地点；评价经营条件还需结合成本、客流与实际调研。</span>';
 }
 
 function buildFilters() {

@@ -32,7 +32,7 @@ function updateSourceDialog(force = false) {
     ? `Airport observations are provided through NOAA’s Aviation Weather Center. We take the highest reported temperature within each local day. On this date, it was ${temperature(item.actual)}.`
     : `气温来自 NOAA 航空气象中心提供的机场观测记录。我们从当地当天的记录中，取最高的一次报告温度。这一天是 ${temperature(item.actual)}。`);
   paragraph(english
-    ? 'The rolling NOAA link changes with time and is not a permanent record of this day. The project archive contains derived daily values and quote metadata, not complete raw METAR reports.'
+    ? 'The rolling NOAA link changes over time. Our archive saves derived daily values and quote metadata; complete raw METAR reports require the original weather archive.'
     : 'NOAA 的滚动链接会随时间变化，不能永久指向这一天。下方项目归档保存的是逐日派生值与报价元数据，不包含完整原始 METAR 报文。');
   heading(english?'02 · Market expectations':'二、市场判断');
   paragraph(english
@@ -43,7 +43,7 @@ function updateSourceDialog(force = false) {
   heading(english?'03 · How we compare them':'三、如何对照');
   paragraph(english
     ? 'A strict hit means the observed temperature falls within the top-priced range. A broad-range hit also includes its neighboring ranges. We calculate these rates; neither NOAA nor Polymarket publishes them.'
-    : '严格命中：观测温度落在市场最看好的区间内。宽松命中：再计入相邻的上下各一档。两种命中率均由本项目计算，并非 NOAA 或 Polymarket 发布的指标。');
+    : '严格命中：观测温度落在市场最看好的区间内。宽松命中：再计入相邻的上下各一档。两种命中率均由本项目按上述规则计算。');
   paragraph(english
     ? 'Both cities use the same local-day observation rule. Switching °C/°F changes the labels, not the results. Their market ranges have different widths, so hit rates are not a direct ranking of forecasting quality. The highest reported temperature may miss peaks between reports and may differ from the market’s settlement value.'
     : '两地采用相同的当地日统计方法；切换摄氏度或华氏度，只改变显示。市场区间宽度不同，不能仅凭命中率比较两地预测能力。观测记录可能遗漏两次报告之间的峰值，也不一定等于市场最终结算温度。');
@@ -55,8 +55,8 @@ function updateSourceDialog(force = false) {
     ? `Station ${meta.station} · Time zone ${meta.timezone}. ${item.observationCount} reports across ${item.hourCoverage} hours; raw maximum ${item.actualC}°C. Collected ${meta.collectedAt}.`
     : `观测站 ${meta.station} · 时区 ${meta.timezone}。当天 ${item.observationCount} 条记录，覆盖 ${item.hourCoverage} 个小时；原始最高温 ${item.actualC}°C。采集于 ${meta.collectedAt}。`);
   paragraph(english
-    ? 'We retain days with at least 20 reports covering 20 distinct hours. The archive stores the resulting daily summary, not the underlying complete reports.'
-    : '仅保留至少 20 条记录、覆盖 20 个不同小时的日期。归档保存每日汇总结果，并非完整原始报文。');
+    ? 'We retain days with at least 20 reports covering 20 distinct hours. Our archive stores daily summaries; complete reports require the original weather archive.'
+    : '仅保留至少 20 条记录、覆盖 20 个不同小时的日期。归档保存每日汇总结果；完整原始报文需查阅原始气象档案。');
   paragraph(english
     ? `Gamma provides market definitions; CLOB provides historical Yes prices. For each range we take its latest available quote within the 24 hours before local midnight (${item.snapshotAt}), with five-minute sampling. For hit calculations, observations are converted and rounded in the market’s original unit; original boundaries are preserved.`
     : `市场信息通过 Gamma 接口获取，Yes 历史价格通过 CLOB 接口获取。取当地零点（${item.snapshotAt}）前 24 小时内各档最近可得报价，按 5 分钟间隔采样。命中判定将观测值换算至市场原始单位后取整，保留市场原有区间。`);

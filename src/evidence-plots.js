@@ -50,5 +50,5 @@ const marginLabel=native==='F'?'2°F':'1°C';
 document.getElementById('accuracy-legend-tolerant').textContent=t('允许偏离区间 '+marginLabel+' 以内','Within '+marginLabel+' of the range');
 const last=series.at(-1),summary=document.getElementById('accuracy-summary');
 summary.textContent=t(`这 ${last.n} 天里，有 ${last.strict} 天的观测最高温落在市场最高价区间内（${Math.round(last.strictRate*100)}%）。允许偏离区间 ${marginLabel} 以内后，有 ${last.tolerant} 天符合（${Math.round(last.tolerantRate*100)}%）。`,`On ${last.strict} of these ${last.n} days, the observed high fell inside the highest-priced market range (${Math.round(last.strictRate*100)}%). Allowing up to ${marginLabel} outside that range includes ${last.tolerant} days (${Math.round(last.tolerantRate*100)}%).`);
-const note=document.createElement('span');note.className='accuracy-summary-note';note.textContent=t('这只是这九天的对照结果，不能代表长期表现。','These results describe only these nine days, not long-term performance.');summary.append(note);
+const note=document.createElement('span');note.className='accuracy-summary-note';note.textContent=t('本图覆盖九天历史样本；长期表现需要更多日期检验。','This comparison covers nine historical days. Long-term performance needs a larger sample.');summary.append(note);
 }

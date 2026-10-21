@@ -10,11 +10,16 @@ import {renderSimulationReference} from './simulation-reference.js';
 import {initMarketComparison} from './market-comparison.js';
 import {initResearchExamples} from './research-examples.js';
 import {initIntroMarket} from './intro-market.js';
+import {initMarketStoryboards} from './market-storyboards.js';
+import {initMarketIntroSwitch} from './market-intro-switch.js';
 
 const language=setupLanguage(),params=new URLSearchParams(location.search);
+initMarketStoryboards(language);
 initMarketComparison(language);
 initResearchExamples(language);
 initIntroMarket(language,()=>params.get('unit')==='F'?'F':'C');
+initMarketIntroSwitch(language);
+initMarketIntroSwitch(language,{rootId:'market-stories',panelIds:['futures-storyboard','prediction-storyboard'],rangeId:'market-story-switch',eventName:'wb-market-story'});
 initMeaningDialog();
 renderSimulationReference(params.get('scenario'));
 window.addEventListener('wb-language',()=>renderSimulationReference());
@@ -25,7 +30,6 @@ function historyLink(){
  $('historical-explore-link').href=url.href;
 }
 historyLink();window.addEventListener('wb-language',historyLink);
-if(['#jinxi','#why-polymarket'].includes(location.hash))location.replace('/research/'+location.search+location.hash);
 const loadGame=()=>import('./game.js').catch(()=>{$('game-status').textContent=t('练习暂时无法加载，请刷新重试。','The exercise could not load. Please refresh.');});
 const observer=new IntersectionObserver(entries=>{if(entries.some(e=>e.isIntersecting)){observer.disconnect();loadGame();}},{rootMargin:'200px'});
 observer.observe($('action'));

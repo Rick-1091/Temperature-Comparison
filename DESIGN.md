@@ -14,13 +14,19 @@ colors:
   polymarket-identity: "#167970"
 ---
 
-# Weatherbridge design — current authority, 2026-10-20
+# Weatherbridge design — current authority, 2026-10-21
+
+## Dual-market reading hierarchy
+
+The homepage reads: transition → weather-futures definition → Polymarket definition → four-dimension mechanism comparison → historical records. Both definitions use the shared `.market-definition` heading, spacing, prose and rule-entry styles inside the existing purple chapters. Default Chinese explanatory prose is 154 characters for weather futures and 133 for Polymarket, excluding headings and necessary data labels. Each has one example and one closed Rules and sources entry; essential price and settlement meaning remains visible.
+
+The futures definition has three plain text rows and a cold-storage example, with no invented price chart. The original eleven-bin Polymarket plot, fixed snapshot, quotes, timestamps and original source records remain. Its example distinguishes $1 redemption from net profit after purchase costs and fees. On narrow screens, prose stays at 18px; the original plot scrolls at a legible size and initially centers the top-priced range. Language changes retain the reader's horizontal position. Blue/yellow/teal chapters, advanced exploration and the courtyard are outside this layout change.
 
 ## Definitions remain independent — 2026-10-21
 
 Market definitions, mechanism comparison and historical research are separate reading tasks. The pre-CME `453010d` Polymarket definition chapter is restored as `#polymarket-definition`, including the original October 4 price example, $1/$0 settlement explanation, non-vote-count explanation and sources. Its renderer and original colored presentation are reused. `signals/introduction/` resolves to that definition again. The mechanism comparison follows in `#market-comparison`, before July research.
 
-A future CME/weather-futures definition belongs at the same chapter level, with matching explanatory depth; it must not replace this restored chapter. The user requested a research prompt before that further page is implemented; see `docs/gpt-weather-market-definition-prompt.md`. The existing concise CME overview and contract-rule disclosure remain available.
+The weather-futures definition now lives at `#weather-futures-definition`, at the same level as the preserved Polymarket definition. CME is identified as an exchange and Polymarket as a platform; index-point quotes, event prices and settlement remain distinct. The earlier research handoff remains in `docs/gpt-weather-market-definition-prompt.md` as background, superseded by the current reading layout above.
 
 ## Advanced explorer appearance correction — latest user direction
 

@@ -11,7 +11,7 @@ function updateMexicoView() {
   }));
   document.querySelectorAll('[data-unit-label]').forEach(node => {node.textContent=english?'Unit':'单位';});
   document.querySelectorAll('[data-sources-open]').forEach(node => {node.textContent=english?'Data sources ↗':'数据来源 ↗';});
-  set('.guided-entry', `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=zh">← 先从一天下手：历史对照与逐日来源</a> · 这里是扩展视图，不是实时天气预报。`, `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=en">← Start with one day: comparison and sources</a> · This is an advanced view, not a live forecast.`);
+  set('.guided-entry', `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=zh">← 先从一天下手：历史对照与逐日来源</a> · 这里展示历史扩展视图。当前预报请查看当地气象部门。`, `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=en">← Start with one day: comparison and sources</a> · This is an advanced view, not a live forecast.`);
   document.querySelectorAll('.unit-switch').forEach(node => {
     node.setAttribute('aria-label',english?'Temperature unit':'温度单位');
     node.querySelectorAll('[data-unit]').forEach(button => {
@@ -38,6 +38,6 @@ function updateMexicoView() {
     const caveat = target?.lastElementChild;
     if (caveat) caveat.textContent = english
       ? 'Shared local-day METAR convention; interval membership uses native whole-degree market precision, regardless of display units. Small historical sample, not settlement win rates or overall forecasting skill. Different native interval widths limit cross-city hit-rate comparisons.'
-      : '统一采用当地日 METAR 统计；命中判定按市场原始单位的整数度精度进行，与显示单位无关。短期样本覆盖率不是结算胜率或整体预测能力；两地原始区间宽度不同，不宜直接比较命中率高低。';
+      : '统一采用当地日 METAR 统计；命中判定按市场原始单位的整数度精度进行，与显示单位无关。短期覆盖率只按这段样本的观测与区间计算；结算表现和长期能力需分别验证。两地原始区间宽度不同，不宜直接比较命中率高低。';
   });
 }

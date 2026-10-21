@@ -73,5 +73,16 @@ export function renderWeatherNetwork(data,state,language){
   .on('click',(e,d)=>pick(d)).on('keydown',(e,d)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(d);}});
  focusOn(null);
  const first=new Date(d3.min(data.observations,o=>o.obsTime)*1000).toISOString().slice(0,10),last=new Date(d3.max(data.observations,o=>o.obsTime)*1000).toISOString().slice(0,10);
- document.getElementById('weather-network-summary').textContent=t([`${data.metadata.station} ${first} 至 ${last}：${rows.length} 份常规 METAR 报告，其中 ${rainReports} 份报告含雨／毛毛雨，${unknownRain} 份无法判定。按报告数计算，未去重为小时；“不含降雨”不等于无雨，未统计降水量。缺失值按变量成对排除，仅连接 |r| ≥ 0.3 的关系。`,`${data.metadata.station}, ${first}–${last}: ${rows.length} routine METAR reports; ${rainReports} contain rain / drizzle and ${unknownRain} are unknown. Counts are reports, not deduplicated hours or rainfall amounts. No rain code is not proof of dry weather. Missing values are excluded pairwise; links require |r| ≥ 0.3.`]);
+ const summary=document.getElementById('weather-network-summary');
+ summary.replaceChildren();
+ const facts=document.createElement('dl');facts.className='wn-sample-facts';
+ for(const [label,value] of [
+  [t(['观测样本','Observation sample']),`${data.metadata.station} · ${first} — ${last}`],
+  [t(['报告统计','Report counts']),t([`${rows.length} 份常规 METAR 报告；${rainReports} 份含雨／毛毛雨，${unknownRain} 份无法判定。`,`${rows.length} routine METAR reports; ${rainReports} contain rain / drizzle, ${unknownRain} are unknown.`])]
+ ]){const row=document.createElement('div'),dt=document.createElement('dt'),dd=document.createElement('dd');dt.textContent=label;dd.textContent=value;row.append(dt,dd);facts.append(row);}
+ const note=document.createElement('p');note.textContent=t(['每份 METAR 报告计为一个样本。“含雨”表示报文出现雨或毛毛雨编码；未出现这类编码时，只记录为“未报告降雨”。','Each METAR report counts as one sample. Rain or drizzle codes mark a report as containing rain; their absence is recorded as rain not reported.']);
+ const method=document.createElement('details'),heading=document.createElement('summary'),body=document.createElement('p');
+ heading.textContent=t(['统计方法','Statistical method']);
+ body.textContent=t(['每份报告作为一个样本，不按小时去重。计算每一对要素的相关系数时，只使用两项都有数值的报告；仅显示 |r| ≥ 0.3 的连线。这些相关性描述短期样本中的共同变化；解释原因还需要检验昼夜变化等共同因素。','Each report is one sample; reports are not deduplicated by hour. Each correlation uses only reports with values for both elements. Links are shown only when |r| ≥ 0.3. These correlations describe co-variation in a short sample. Explaining causes requires testing shared influences such as the day–night cycle.']);
+ method.append(heading,body);summary.append(facts,note,method);
 }

@@ -1,4 +1,14 @@
 /* Scoped chapter components keep the restored tools out of the game’s layout. */
+.weather-context .wn-sample-facts{margin:0;display:grid;gap:10px}
+.wn-sample-facts>div{display:grid;grid-template-columns:7em minmax(0,1fr);gap:16px}
+.wn-sample-facts dt{font-weight:600;color:var(--wb-ink)}
+.wn-sample-facts dd{margin:0;overflow-wrap:anywhere}
+.weather-context #weather-network-summary>p{margin:14px 0;font-size:inherit}
+#weather-network-summary details{border-top:1px solid var(--wb-line);margin-top:18px;padding-top:8px}
+#weather-network-summary summary{cursor:pointer;min-height:44px;display:list-item;align-content:center;color:var(--wb-ink)}
+#weather-network-summary summary:focus-visible{outline:2px solid currentColor;outline-offset:4px}
+#weather-network-summary details p{font-size:inherit;margin:8px 0 16px}
+@media(max-width:450px){.wn-sample-facts>div{grid-template-columns:1fr;gap:4px}}
 .cover{background:#1a65dc;color:#fff;border-block:2px solid #163e38;background-image:linear-gradient(#ffffff0b 1px,transparent 1px),linear-gradient(90deg,#ffffff0b 1px,transparent 1px);background-size:100px 100px}
 .cover h1{font-weight:700;max-width:7ch;font-size:clamp(58px,6.7vw,100px)}html[lang=en] .journey .cover h1{font-size:clamp(55px,6.7vw,100px);max-width:11ch}
 .cover .eyebrow{display:inline-block;background:#f4f1e8;color:#163e38;padding:9px 14px;border:2px solid #163e38}

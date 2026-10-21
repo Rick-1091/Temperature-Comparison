@@ -1,4 +1,5 @@
-import './fonts.js';import './journey.css';import './chapter-explorers.css';import './remediation.css';import {initResearchExamples} from './research-examples.js';import {setupLanguage} from './page-language.js';
+import './fonts.js';import './journey.css';import './remediation.css';import {setupLanguage} from './page-language.js';
+import {cumulativeCDD} from './market-comparison-model.js';
 const language=setupLanguage(),$=id=>document.getElementById(id),t=(zh,en)=>language.current==='en'?en:zh,params=new URLSearchParams(location.search);let place=params.get('location')==='laguardia'?'laguardia':'mexico',date=params.get('date')||'2026-09-23',generation=0;
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const link=(url,label)=>'<a target="_blank" rel="noopener noreferrer" href="'+esc(url)+'">'+label+' ↗</a>';
@@ -15,5 +16,31 @@ fact(t('观测时段（UTC）','Observation span (UTC)'),esc(d.firstObservation)
 }catch(e){$('source-record').textContent=t('数据暂时无法读取，请刷新重试。','Data could not load. Please refresh.');}}
 $('source-place').addEventListener('change',()=>{place=$('source-place').value;render();});$('source-date').addEventListener('change',()=>{date=$('source-date').value;render();});window.addEventListener('wb-language',render);render();
 
+// The futures example cites observations separately from trading records.
+let cddGeneration=0;
+async function renderFuturesSource(){
+ const token=++cddGeneration,host=$('futures-observation-source');
+ host.textContent=t('正在读取已保存的 NWS 来源记录…','Loading the saved NWS source record…');
+ try{
+  const url='/signals/data/laguardia-july-2026-cdd.json',response=await fetch(url);
+  if(!response.ok)throw Error('CDD source unavailable');
+  const data=await response.json(),rows=cumulativeCDD(data);
+  if(token!==cddGeneration)return;
+  const m=data.metadata;
+  host.innerHTML='<p>'+esc(m.provider+' · '+m.reportId)+'<br>'+esc(m.station+' · '+m.month+' · '+rows.length)+t(' 天',' days')+'<br>'+
+   t('7 月累计 CDD：','July cumulative CDD: ')+esc(rows.at(-1).cumulative)+' °F·'+t('天','day')+'</p>'+
+   '<p>'+t('沿用 NWS 报告公布的逐日 CDD 与取整口径。此快照记录天气观测；期货最终结算需另查合约指定记录。报告版本链接会滚动，复现请使用本站快照。','Daily CDD and rounding follow the NWS report. This snapshot records weather observations; futures settlement requires the contract-designated record. Report-version links rotate; use the saved snapshot to reproduce the chart.')+'</p>'+
+   '<p>'+t('快照记录的核对日期：','Verification date recorded in the snapshot: ')+esc(m.verifiedAt)+'</p>'+
+   '<p>'+link(m.sourceUrl,t('NWS CF6 报告','NWS CF6 report'))+' · '+link(url,t('逐日 CDD 快照 JSON','Daily CDD snapshot JSON'))+'</p>';
+ }catch{
+  if(token!==cddGeneration)return;
+  host.innerHTML='<p>'+t('NWS 来源记录暂时无法读取。','The NWS source record could not load.')+'</p><button type="button" data-cdd-retry>'+t('重新读取','Retry')+'</button>';
+ }
+}
+$('futures-observation-source').addEventListener('click',event=>{if(event.target.closest('[data-cdd-retry]'))renderFuturesSource();});
+window.addEventListener('wb-language',renderFuturesSource);renderFuturesSource();
 
-initResearchExamples(language);
+
+// Keep old links useful while this page remains dedicated to data provenance.
+if(location.hash==='#jinxi')location.replace('/'+location.search+'#jinxi');
+else if(['#why-polymarket','#mexico','#examples'].includes(location.hash))location.replace('/'+location.search+(location.hash==='#examples'?'#why-polymarket':location.hash));

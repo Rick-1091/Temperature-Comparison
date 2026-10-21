@@ -1,0 +1,21 @@
+const {chromium}=require(process.env.WEATHERBRIDGE_PLAYWRIGHT||'playwright');
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
+const out=path.resolve('.cache/decision-qa/research-placement');fs.mkdirSync(out,{recursive:true});process.env.TEMP=out;process.env.TMP=out;
+const base=process.env.WEATHERBRIDGE_PREVIEW_URL||'http://127.0.0.1:8017/';
+(async()=>{const browser=await chromium.launch({headless:true,executablePath:process.env.WEATHERBRIDGE_BROWSER_EXECUTABLE,args:['--enable-unsafe-swiftshader']});const errors=[];
+try{for(const width of [1440,390])for(const lang of ['zh','en']){
+ const p=await browser.newPage({viewport:{width,height:1000},reducedMotion:'reduce'});p.on('pageerror',e=>errors.push(e.message));
+ await p.goto(base+'research/?lang='+lang);await p.locator('#source-record h3').waitFor();
+ assert.equal(await p.locator('#examples,#mexico,#jinxi,#why-polymarket,#business-map').count(),0);
+ assert.equal(await p.locator('wb-header nav a').last().innerText(),lang==='zh'?'数据来源':'Data sources');
+ await p.locator('#source-place').selectOption('laguardia');await p.waitForFunction(()=>document.querySelector('#source-record h3').textContent.includes('KLGA'));
+ await p.screenshot({path:path.join(out,`sources-${width}-${lang}.png`)});
+ await p.goto(base+'?lang='+lang+'#why-polymarket');await p.locator('#why-polymarket').waitFor();assert.match(await p.locator('#why-polymarket').innerText(),/Beating the Earnings Game.*469/s);
+ assert.equal(await p.locator('#why-polymarket').count(),1);assert.ok(await p.locator('#why-polymarket a[href*="researchgate"]').count());
+ await p.locator('#why-polymarket').screenshot({path:path.join(out,`paper-${width}-${lang}.png`)});
+ await p.goto(base+'cases/jinxi/?lang='+lang);await p.locator('#field-title').waitFor();await p.locator('[data-scene=cafe]').click();await p.waitForFunction(()=>document.querySelector('#field-photo').src.includes('canal-coffee'));
+ assert.ok(await p.locator('#jinxi-water').count());assert.ok(await p.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ await p.screenshot({path:path.join(out,`jinxi-${width}-${lang}.png`)});
+ await p.goto(base+'research/?lang='+lang+'#why-polymarket');await p.waitForURL(url=>url.pathname==='/'&&url.hash==='#why-polymarket');
+ console.log(`PASS sources-only, restored paper, preserved Jinxi, old links: ${width} ${lang}`);await p.close();
+}assert.deepEqual(errors,[]);}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});
