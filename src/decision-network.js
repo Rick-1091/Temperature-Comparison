@@ -4,7 +4,7 @@ const text = (zh, en) => ({ zh, en });
 // A qualitative scenario comparison, not a model of measured forecast performance.
 const nodes = [
   { id: 'available', level: 0, row: 0, label: text('有可靠天气预报', 'Reliable forecast available'), brief: text('正式信息能及时获得', 'Timely conventional information'),
-    detail: text('能够获得当地的官方或常规预报时，先查看这些正式信息。市场判断可以补充阅读，但不是必需步骤。', 'When reliable local official or conventional forecasts are accessible, start with them. Market expectations may be supplementary, but are not a required step.'),
+    detail: text('能够获得当地的官方或常规预报时，先查看这些正式信息。也可以把市场判断作为补充参考。', 'When reliable local official or conventional forecasts are accessible, start with them. Market expectations are an optional additional reference.'),
     example: text('迭戈查看当地预报，再安排帕蒂奥咖啡馆的室内外座位。', 'Diego reads the local forecast before arranging indoor and outdoor seating at Café Patio.') },
   { id: 'limited', level: 0, row: 1, label: text('天气消息不足', 'Forecast unavailable or limited'), brief: text('缺少、过时或差异很大', 'Missing, stale, or conflicting'),
     detail: text('偏远地区、更新中断、局部微气候或预报差异，都可能让已有消息难以用于眼前的决定。网络完全中断时，线上市场也无法访问。', 'Remote locations, interrupted updates, local microclimates, or conflicting forecasts can make information difficult to use. A complete internet outage also prevents access to online markets.'),
@@ -16,15 +16,15 @@ const nodes = [
     detail: text('没有可用的新消息时，人们仍要作决定：按经验继续、暂缓安排，或为多种天气准备。经验有价值，但无法消除不确定性。', 'Without usable new information, people still need to decide: continue based on experience, delay plans, or prepare for several conditions. Experience is useful but cannot remove uncertainty.'),
     example: text('托科看着天色考虑是否收粮；迭戈先少备一批冷饮，等早上的消息再补货。', 'Thoko watches the sky while deciding whether to bring grain inside; Diego stocks fewer cold drinks and waits for morning information before replenishing supplies.') },
   { id: 'market', level: 1, row: 2, label: text('Polymarket 集体判断', 'Polymarket collective expectation'), brief: text('多一个公开参考信号', 'An additional public signal'),
-    detail: text('仍能联网、且有对应地点与日期的市场时，可以看哪个温度区间价格最高、价格分布有多集中，以及历史判断与实测差多少。这是参与者基于不同信息形成的集体判断，不是保证准确的预报。', 'With internet access and a market for the relevant location and date, read the highest-priced temperature range, the spread of prices, and past comparisons with observations. These are collective expectations informed by different participants, not a guaranteed forecast.'),
-    example: text('迭戈可查看覆盖墨西哥城和目标日期的温度市场，辅助冷热饮备货。本站真实数据案例来自纽约，不是帕蒂奥咖啡馆的预报。', 'Diego could consult a temperature market covering Mexico City and her target date to inform drink supplies. This site’s actual-data example is from New York, not a forecast for Café Patio.') },
+    detail: text('仍能联网、且有对应地点与日期的市场时，可以看哪个温度区间价格最高、价格分布有多集中，以及历史判断与实测差多少。价格汇集参与者的判断，准确性需要与后续观测核对。', 'With internet access and a market for the relevant location and date, read the highest-priced temperature range, the spread of prices, and past comparisons with observations. Prices bring together participants’ judgments. Check their accuracy against later observations.'),
+    example: text('迭戈可查看覆盖墨西哥城和目标日期的温度市场，辅助冷热饮备货。本站纽约历史案例用于说明读法；咖啡馆决策还需当地目标日期的信息。', 'Diego could consult a temperature market for Mexico City and his target date when planning drinks. The New York historical example illustrates how to read the data; the café needs information for its own place and date.') },
   { id: 'plan', level: 2, row: 0, label: text('提前安排生活与生产', 'Plan activities ahead'), brief: text('出行、晾晒、储存与备货', 'Travel, drying, storage, supplies'),
     detail: text('正式信息帮助人们提前安排生产、调整游览、准备储存空间，减少不必要的天气暴露。预报本身仍可能有误差。', 'Conventional information can support production schedules, tourism adjustments, storage preparation, and less unnecessary weather exposure. Forecast errors remain possible.'),
     example: text('迭戈提前留出室内座位；锦溪商户调整户外准备，给出行与晾晒留出余地。', 'Diego reserves indoor seats in advance; a Jinxi business adjusts outdoor preparation and keeps travel and drying plans flexible.') },
   { id: 'disruption', level: 2, row: 1, label: text('安排可能被打乱', 'Possible disruption'), brief: text('天气暴露与潜在损失', 'Weather exposure and potential loss'),
-    detail: text('缺少信息可能增加安排失误的风险：粮食晾晒遇雨、游客减少却未调整备货，或生产时间与天气不合。这些是可能情景，不是已测得的经营损失。', 'Limited information may increase the risk of poorly timed decisions: rain during drying, supplies prepared for visitors who do not arrive, or production scheduled for unsuitable weather. These are possible scenarios, not measured business losses.'),
+    detail: text('缺少信息可能增加安排失误的风险：粮食晾晒遇雨、游客减少却未调整备货，或生产时间与天气不合。这些情景用于讨论安排失误的可能后果，实际损失需经营记录核算。', 'Limited information may increase the risk of poorly timed decisions: rain during drying, supplies prepared for visitors who do not arrive, or production scheduled for unsuitable weather. These scenarios explore possible consequences of planning mistakes. Actual losses require business records.'),
     example: text('托科若来不及收粮，可能要重新晾晒；帕蒂奥若备货过多，可能留下用不完的原料。这里不估算损失金额。', 'If Thoko cannot bring grain in on time, she may need to dry it again; Café Patio could be left with unused supplies. No loss amount is estimated here.') },
-  { id: 'adjust', level: 2, row: 2, label: text('带着不确定性调整安排', 'Adjust plans with uncertainty'), brief: text('大致判断，不是确定答案', 'Approximate judgment, not certainty'),
+  { id: 'adjust', level: 2, row: 2, label: text('带着不确定性调整安排', 'Adjust plans with uncertainty'), brief: text('根据现有信息，保留调整余地', 'Use available information and leave room to adjust'),
     detail: text('价格分布能显示参与者更倾向哪种温度结果、判断有多分散。它可能增加一个可观察参考，但不会自动填补信息缺口，也不能替代预警。判断分散时，分批准备、保留调整空间。', 'Price distributions show which temperature outcomes participants favor and how spread out expectations are. They may add an observable reference, but do not automatically close information gaps or replace warnings. When expectations are divided, prepare in stages and keep plans flexible.'),
     example: text('锦溪小商户可在有适用信息时重新安排户外准备、食品晾晒或旅游活动；迭戈可以分批补货。降雨安排仍需要当地降雨信息。', 'Where relevant information exists, a Jinxi business could reconsider outdoor preparation, food drying, or tourism plans; Diego could replenish supplies in stages. Rain-sensitive decisions still require local rainfall information.') },
 ];
@@ -44,7 +44,7 @@ const places = {
     market:text('本项目没有伦菲当地的降雨市场数据。若未来有适用市场，且家里能联网，可把集体判断作为补充；纽约温度不能回答托科的收粮问题。','This project has no local Rumphi rainfall market data. If a relevant market and internet access become available, collective expectations could supplement information. New York temperatures cannot answer Thoko’s drying decision.'),
     adjust:text('结合当地降雨信息分批晾晒，提前备好搬运和遮盖；温度判断本身不足以决定是否收粮。','Use local rain information to dry in batches and prepare transport and covers; temperature expectations alone cannot decide when to bring grain inside.'),
     impacts:[text('保护存粮与销售收入','Protect stored food and sale income'),text('受潮、返工或售价降低','Wet grain, rework or lower prices'),text('下季种子与投入可能不足','Possible shortage of next-season seed and inputs'),text('分批晾晒，保留应变时间','Dry in batches and leave time to respond')],
-    costs:text('若粮食受损、出售收入减少，家庭可能动用原本留给下季种子、肥料或运输的钱；投入不足又可能影响下一季生产。这是一条条件性的风险链，并非托科家的实际记录。','If damaged grain reduces sale income, the family might use money reserved for seeds, fertilizer or transport. Reduced inputs could affect the next growing season. This is a conditional risk chain, not an observed record of Thoko’s household.')},
+    costs:text('若粮食受损、出售收入减少，家庭可能动用原本留给下季种子、肥料或运输的钱；投入不足又可能影响下一季生产。这条风险链用于教学推演，具体家庭的情况需实际调查。','If damaged grain reduces sale income, the family might use money reserved for seeds, fertilizer or transport. Reduced inputs could affect the next growing season. This teaching scenario traces a conditional risk chain. Individual households require field investigation.')},
   mexico: {name:text('墨西哥 · 墨西哥城','Mexico · Mexico City'), person:text('迭戈 · 帕蒂奥咖啡馆','Diego · Café Patio'),
     actions:text('室内外座位、排班与冷热饮备货','Indoor/outdoor seating, shifts and drink supplies'),
     official:text('迭戈查看本地温度与降雨预报，提前安排室内座位、遮阳和员工班次。','Diego reads local temperature and rainfall forecasts to plan indoor seats, shade and shifts.'),
@@ -156,7 +156,7 @@ function initDecisionNetwork(root, allowedPlaces, initialPlace) {
       });
     });
     const panel=document.createElement('aside');panel.className='decision-detail';panel.setAttribute('aria-live','polite');panel.setAttribute('aria-atomic','true');layout.append(panel);
-    const foot=document.createElement('p');foot.className='decision-footnote';foot.textContent=t(text('情景路径展示可能影响，不是实测损失或确定因果。','Scenario paths illustrate possible consequences, not measured losses or established causality.'));root.append(foot);
+    const foot=document.createElement('p');foot.className='decision-footnote';foot.textContent=t(text('沿情景路径查看可能影响；实际损失与原因需结合经营记录调查。','Explore possible consequences along these scenario paths. Business records are needed to assess actual losses and causes.'));root.append(foot);
     update();if(focused)root.querySelector(`[data-node="${focused}"]`)?.focus();
   }
   render();

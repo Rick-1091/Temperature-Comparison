@@ -46,7 +46,7 @@ export function initMarketComparison(language,{futuresHistory}={}){
   const tabs=(id,items,selected,label)=>`<div class="market-tabs" role="tablist" aria-label="${label}">${items.map(([key,name])=>`<button type="button" id="${id}-${key}" role="tab" data-value="${key}" aria-controls="${id}-panel" aria-selected="${selected===key}" tabindex="${selected===key?0:-1}">${name}</button>`).join('')}</div>`;
 
   function renderMechanisms(){
-    mechanisms.innerHTML=`<h3 class="mechanism-title">${t('它们有什么不同？','How do they see weather differently?')}</h3>${tabs('mechanism',[
+    mechanisms.innerHTML=`${tabs('mechanism',[
       ['target',t('交易对象','Trading target')],['horizon',t('时间范围','Time horizon')],['signal',t('价格含义','Price meaning')],['settlement',t('结算方式','Settlement')]
     ],state.dimension,t('比较市场机制','Compare market mechanisms'))}<div id="mechanism-panel" class="mechanism-pair" role="tabpanel" aria-labelledby="mechanism-${state.dimension}"></div>`;
     bindTabs(mechanisms,key=>{state.dimension=key;renderDimension();});
@@ -55,25 +55,25 @@ export function initMarketComparison(language,{futuresHistory}={}){
   function renderDimension(){
     const copy={
       target:[
-        [t('整月累计的冷热程度','Accumulated temperature over a month'),t('这里看 <abbr tabindex="0" title="把每天平均温度超过 65°F 的部分累计起来">CDD</abbr>：把每天平均温度超过 65°F 的部分相加。','Here we use <abbr tabindex="0" title="Cooling degree days: accumulated daily mean temperature above 65°F">CDD</abbr>: add the amount by which each day’s mean temperature exceeds 65°F.')],
-        [t('某一天最高温落在哪个区间','A range for one day’s highest temperature'),t('这里看纽约的每日最高温事件，区间以 °F 表示。','Here we use daily New York high-temperature events, with ranges in °F.')]
+        t('约定城市整月累计的 CDD 指数。','A specified city’s accumulated monthly CDD index.'),
+        t('约定城市某天最高温所属的区间。','The range containing a specified city’s high on one day.')
       ],
       horizon:[
-        [t('指定月份，从第一天到最后一天','A defined calendar month, from first day to last'),t('本案例为 2026 年 7 月；月度 CDD 包括全部 31 天。','This case covers all 31 days of July 2026.')],
-        [t('每个事件约定的一天','One day defined by each event'),t('切换研究日期，查看那一天开始前的历史报价。','Select a study day to read quotes recorded before that day began.')]
+        t('一个指定月份，累计每日热量。','One specified month, accumulating daily heat.'),
+        t('事件规则约定的一个当地日。','One local day defined by the event’s rules.')
       ],
       signal:[
-        [t('月度天气指数的期货定价','A futures price for a monthly weather index'),t('单位为指数点，不是发生概率。本项目尚未接入这段历史行情。','Quoted in index points, not event probabilities. That historical price series is not connected here.')],
-        [t('结果合约每份的市场价格','A market price per outcome share'),t('报价用美分表示；流动性与交易行为也会影响价格。','Prices are shown in US cents; liquidity and trading conditions also matter.')]
+        t('以指数点报价，反映对最终指数的市场判断。','A quote in index points expressing market expectations of the final index.'),
+        t('每份 Yes 结果合约的报价，用美分表示。','A Yes outcome share’s quote, expressed in cents.')
       ],
       settlement:[
-        [t('按规定的月度指数现金结算','Cash settlement against the specified monthly index'),t('CME 指数由 Speedwell 处理 NWS 记录得出；下方 NWS 观测不是已核验的 CME 结算值。','Speedwell processes NWS records for the CME index. The NWS observations below are not a verified CME settlement record.')],
-        [t('按事件规则确定兑付区间','The event rules determine the paying range'),t('本月纽约事件指定 Weather Underground 的 KLGA 记录；正确区间 Yes 每份支付 1 美元。','These New York events specify Weather Underground’s KLGA records. A winning Yes share pays $1.')]
+        t('按指定最终指数计算现金盈亏。','Cash gains or losses follow the specified final index.'),
+        t('按规则确认结果：正确区间每份兑付 $1，其他为 $0。','Resolution follows the rules: winning shares pay $1; others pay $0.')
       ]
     }[state.dimension];
     const panel=document.getElementById('mechanism-panel');
     panel.setAttribute('aria-labelledby','mechanism-'+state.dimension);
-    panel.innerHTML=copy.map(([main,detail],i)=>`<div class="${i?'market-poly':'market-cme'}"><strong>${i?'Polymarket':'CME'}</strong><p>${main}</p><small>${detail}</small></div>`).join('');
+    panel.innerHTML=copy.map((sentence,i)=>`<div class="${i?'market-poly':'market-cme'}"><strong>${i?'Polymarket':t('CME 天气期货','CME weather futures')}</strong><p>${sentence}</p></div>`).join('');
   }
 
   function renderShell(){
@@ -93,7 +93,7 @@ export function initMarketComparison(language,{futuresHistory}={}){
       <div class="market-day-control"><label for="study-day">${t('选择一天','Study day')}</label><input id="study-day" type="range" min="1" max="31" step="1" value="${state.day}" aria-describedby="study-day-help"><output id="study-day-label" for="study-day">7/${state.day}</output></div>
       <p id="study-day-help" class="market-link-hint">${t('拖动日期，或点累计曲线上的一天，同时查看当日记录。','Move the date or select a day on the cumulative curve to update both records.')}</p>
       <div class="market-charts">
-      <section class="market-chart market-cme" id="cme-study" aria-labelledby="cdd-heading"><h3 id="cdd-heading">${t('NWS 观测 · 7月累计 CDD','NWS observations · July cumulative CDD')}</h3><p class="chart-status">${t('用于解释天气指数；不是 CME 行情或最终结算值。','Explains the weather index; not CME prices or a final settlement value.')}</p>
+      <section class="market-chart market-cme" id="cme-study" aria-labelledby="cdd-heading"><h3 id="cdd-heading">${t('NWS 观测 · 7月累计 CDD','NWS observations · July cumulative CDD')}</h3><p class="chart-status">${t('NWS 天气观测，用于解释累计 CDD；CME 行情与结算记录尚待接入核验。','NWS weather observations illustrate accumulated CDD. CME prices and settlement records await verified integration.')}</p>
       <p class="chart-unit">${t('纵轴：累计 CDD（°F·天）','Y: cumulative CDD (°F·day)')}</p><figure><div id="cdd-plot"></div><figcaption id="cdd-reading" class="chart-reading" aria-live="polite"></figcaption></figure>
       <p class="chart-help">${t('横轴：7 月日期。CDD 越高，表示超过 65°F 基准的热量累计越多。','X: July date. Higher CDD means more accumulated heat above a 65°F base.')}</p>
 
@@ -228,7 +228,7 @@ export function initMarketComparison(language,{futuresHistory}={}){
   function renderSources(){
     dashboard.querySelector('#market-sources-content').innerHTML=`<p>${t('本页展示天气观测和 Polymarket 历史报价。CME 期货价格曲线需有可核验的数据与公开展示许可，目前尚未接入。','This page shows weather observations and historical Polymarket quotes. CME futures prices require verified data and permission for public display, and are not connected.')}</p><p>${t('气象站：KLGA · WBAN 14732 · GHCND USW00014732。NWS 的每日 CDD 按原报告累加；7 月合计 435 °F·天。报告版本链接会滚动，本地快照保留已核对的逐日数值。','Station: KLGA · WBAN 14732 · GHCND USW00014732. NWS daily CDD values sum to 435 °F·day for July. The report version URL rolls over; the local snapshot preserves the verified daily values.')}</p>
       <p>${t('Polymarket 取各事件当地零点前 24 小时内最后一条五分钟报价，未归一化。走势保留最多 8 个原始时刻的采样。结算区间来自已结束市场的 Gamma 记录，与 NWS 观测分列。','Polymarket uses the last five-minute quote in the 24 hours strictly before each event’s local midnight, without normalization. Histories retain up to 8 samples at their original times. Resolved ranges come from closed Gamma markets, separately from NWS observations.')}</p>
-      <p>${t('同一机场不代表同一结算数据。CME 使用 Speedwell 处理的指数；本月 Polymarket 事件指定 Weather Underground。累计 CDD、日最高温和市场价格分别保留各自单位，不合算预测准确率。','The same airport does not mean identical settlement data. CME uses a Speedwell-processed index; these Polymarket events specify Weather Underground. Cumulative CDD, daily highs and market prices retain their own units; no joint accuracy score is calculated.')}</p>
+      <p>${t('不同合约各自指定结算来源。CME 使用 Speedwell 处理的指数；本月 Polymarket 事件指定 Weather Underground。累计 CDD、日最高温和市场价格分别保留各自单位，不合算预测准确率。','Each contract specifies its own settlement source. CME uses a Speedwell-processed index; these Polymarket events specify Weather Underground. Cumulative CDD, daily highs and market prices retain their own units; no joint accuracy score is calculated.')}</p>
       <p>${t('NWS 按 CF6 逐日发布口径记录，CDD 保留报告整数；本地档案不随链接滚动改写。市场报价截止按纽约当地零点（7 月为 EDT，04:00 UTC），结算遵循事件指定的 Weather Underground 来源、日期、温度精度及数据最终确认／修订规则。两者日界线、发布精度和修订时间需分别核对；未逐日查明的差异不归因于取整。','NWS values retain the CF6 daily reporting convention and integer CDD; the saved archive is not overwritten when the report link rotates. Quote cutoffs use New York local midnight (04:00 UTC in July, EDT). Settlement follows each event’s Weather Underground source, date, temperature precision and finalization / revision rules. Day boundaries, precision and revision times must be checked separately; unexplained differences are not attributed to rounding.')}</p>
       <p>${t('历史 price 字段按原样展示；未核实为可执行买入价或具体成交价，不归一化为真实概率。','Historical price fields are shown as recorded, not verified executable buy prices or individual trades, and are not normalized into true probabilities.')}</p>
       <div class="market-source-links">${sourceLink(nws?.metadata.sourceUrl||'https://www.weather.gov/','NWS CF6')}${sourceLink('/signals/data/laguardia-july-2026-cdd.json',t('逐日气象数据','Daily weather data'))}${sourceLink('/signals/data/laguardia-july-2026-markets.json',t('报价与历史采样','Quotes and samples'))}${sourceLink('https://www.cmegroup.com/rulebook/CME/IV/400/403/403.pdf',t('CME 规则','CME rules'))}${sourceLink('https://www.cmegroup.com/datamine.html','CME DataMine')}</div>`;

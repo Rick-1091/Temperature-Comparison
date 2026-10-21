@@ -13,7 +13,7 @@ function updateMexicoView() {
   }));
   document.querySelectorAll('[data-unit-label]').forEach(node => {node.textContent=english?'Unit':'单位';});
   document.querySelectorAll('[data-sources-open]').forEach(node => {node.textContent=english?'Data sources ↗':'数据来源 ↗';});
-  set('.guided-entry', `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=zh">← 先从一天下手：历史对照与逐日来源</a> · 这里是扩展视图，不是实时天气预报。`, `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=en">← Start with one day: comparison and sources</a> · This is an advanced view, not a live forecast.`);
+  set('.guided-entry', `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=zh">← 先从一天下手：历史对照与逐日来源</a> · 这里展示历史扩展视图。当前预报请查看当地气象部门。`, `<a href="guide.html?location=${isMexico?'mexico':'laguardia'}&day=${series[state.selected].date}&unit=${temperatureUnit}&lang=en">← Start with one day: comparison and sources</a> · This is an advanced view, not a live forecast.`);
   document.querySelectorAll('.unit-switch').forEach(node => {
     node.setAttribute('aria-label',english?'Temperature unit':'温度单位');
     node.querySelectorAll('[data-unit]').forEach(button => {
@@ -40,7 +40,7 @@ function updateMexicoView() {
     const caveat = target?.lastElementChild;
     if (caveat) caveat.textContent = english
       ? 'Shared local-day METAR convention; interval membership uses native whole-degree market precision, regardless of display units. Small historical sample, not settlement win rates or overall forecasting skill. Different native interval widths limit cross-city hit-rate comparisons.'
-      : '统一采用当地日 METAR 统计；命中判定按市场原始单位的整数度精度进行，与显示单位无关。短期样本覆盖率不是结算胜率或整体预测能力；两地原始区间宽度不同，不宜直接比较命中率高低。';
+      : '统一采用当地日 METAR 统计；命中判定按市场原始单位的整数度精度进行，与显示单位无关。短期覆盖率只按这段样本的观测与区间计算；结算表现和长期能力需分别验证。两地原始区间宽度不同，不宜直接比较命中率高低。';
   });
 }
 // Native market bounds remain immutable; display-unit changes never alter hit membership.
@@ -123,20 +123,20 @@ const localizedCopy = {
     documentTitle: "Weatherbridge · 02 预测与实测",
     chapterOrigin: "<span>01</span>天气与日常生活", chapterSignals: "<span>02</span>预测与实测", chapterNomadcast: "<span>03</span>从信息到行动", chapterNext: "下一章 · 03 从信息到行动 <span aria-hidden=\"true\">→</span>",
     basicsTitle: "先了解：Polymarket 是什么？",
-    basicsCopy: "Polymarket 是一个预测市场：它把未来的问题列成可交易的结果选项，例如“某城市某天的最高温会落在哪个区间？”参与者根据预报、新闻和自己的判断买卖合约，价格随供需变化，形成一个可观察的集体预期。它不是气象机构。",
+    basicsCopy: "Polymarket 是事件预测市场平台：它把未来的问题列成可交易的结果选项，例如“某城市某天的最高温会落在哪个区间？”参与者根据预报、新闻和自己的判断买卖合约，价格随供需变化，形成一个可观察的集体预期。天气观测与预报需查阅气象部门。",
     interfaceCaption: "Polymarket 天气市场 · 香港最低温",
-    priceTitle: "一、价格为什么能表达判断？", priceCopy: "一个结果的 Yes（会发生）份额价格在 0 到 1 美元之间；按规则结算后，正确结果的份额兑付 1 美元，错误结果为 0。因此，0.60 美元通常读作约 60% 的市场隐含概率。这是价格信号，不是六成人投票赞成；它也会受流动性和交易行为影响。",
-    chartTitle: "二、截图里的曲线怎么看？", chartCopy: "每条曲线对应一个温度结果，展示其价格判断随时间怎样变化。截图中的 28°C · 75% 表示该结果当时更受市场看好，不代表最后一定出现。右侧选中的是“22°C 或以下”，2¢ 属于这个选项。各选项报价可能不同时更新、合计也未必恰好为 100%，不能直接当作人数比例。",
-    useTitle: "三、Weatherbridge 帮你读什么？", useCopy: "我们不要求你交易，而是把价格整理为温度范围、判断分散程度和历史实测对照。先看市场倾向什么，再看分歧有多大，最后看过去接近实际吗。每个市场须核对地点、日期、最高温或最低温、观测站与结算规则；价格集中也不等于一定准确。",
+    priceTitle: "一、价格为什么能表达判断？", priceCopy: "一个结果的 Yes（会发生）份额价格在 0 到 1 美元之间；按规则结算后，正确结果的份额兑付 1 美元，错误结果为 0。因此，0.60 美元通常读作约 60% 的市场隐含概率。这一数值来自合约价格；它也会受流动性和交易行为影响。",
+    chartTitle: "二、截图里的曲线怎么看？", chartCopy: "每条曲线对应一个温度结果，展示其价格判断随时间怎样变化。截图中的 28°C · 75% 表示该结果当时更受市场看好，最终结果还需按市场规则确认。右侧选中的是“22°C 或以下”，2¢ 属于这个选项。各选项报价可能不同时更新、合计也未必恰好为 100%，不能直接当作人数比例。",
+    useTitle: "三、Weatherbridge 帮你读什么？", useCopy: "这里将价格整理为温度范围、报价分散程度和历史观测对照，查看信息无需交易。先看市场倾向什么，再看分歧有多大，最后核对过去的判断与观测。每个市场须核对地点、日期、最高温或最低温、观测站与结算规则；价格集中程度与判断准确性需要分别检验。",
     docsLink: "Polymarket 官方说明：价格如何计算 →",
-    basicsReading: "读图顺序：看预测的温度范围 → 看判断是否分散 → 看过去接近实际吗。百分比来自价格，不是人数占比。",
-    basicsCase: "当前展示纽约 2026 年 8 月的历史案例，不是锦溪或非洲地区明天的天气预报。查看信息无需交易。",
+    basicsReading: "读图顺序：看预测的温度范围 → 看判断是否分散 → 核对过去的判断与观测。百分比由合约价格换算。",
+    basicsCase: "当前展示纽约 2026 年 8 月的历史案例。锦溪及非洲地区的当前预报请查当地气象部门。查看信息无需交易。",
     navResearch: "<span>01</span> 研究原理", navSimple: "<span>02</span> 简明版", navProfessional: "<span>03</span> 专业版",
     brand: "<span class=\"brand-mark\" aria-hidden=\"true\"></span>温度对照",
     researchNote: "研究笔记 · 企业收益市场", reliabilityTitle: "为什么预测市场价格可能有信息价值？",
     reliabilityLead: "预测市场价格汇总了许多有金钱激励的参与者判断，并随着新信息持续更新。",
     flowInfo: "分散信息", flowTraders: "交易者", flowTrades: "交易", flowPrice: "市场价格", flowProbability: "集体概率",
-    flowNote: "<strong>价格不是简单投票。</strong> 不同交易者带来不同的信息、信心和资金。",
+    flowNote: "<strong>价格由合约交易形成。</strong> 不同交易者带来不同的信息、信心和资金。",
     evidenceTitle: "论文中的收益预测证据", evidenceClaim: "在所研究的收益市场中，Polymarket 概率比分析师基准校准得更好，也包含额外预测信息。",
     observations: "公司—季度观测", marketAccuracy: "Polymarket 预测准确率", analystAccuracy: "分析师基准准确率", brier: "Brier 分数 · 越低越好",
     calibration: "论文指出，Polymarket 相对分析师的测量优势，很大一部分来自分析师概率相对于基准率的校准偏差。",
@@ -145,14 +145,14 @@ const localizedCopy = {
     crowdTitle: "群体智慧", crowdText: "彼此独立的判断有机会抵消个人误差。",
     distributedTitle: "分散信息", distributedText: "不同交易者带来拼图中的不同部分。",
     specialist: "少量专业参与者与广泛、多样的参与者共同存在，可以把不同信息汇入一个价格。",
-    bridgeTitle: "从企业收益到天气", bridgeOne: "论文研究的是企业收益，而不是天气；它并不能证明 Polymarket 的天气预测准确。",
-    bridgeTwo: "这个项目把同一种信息聚合机制放到天气领域，用市场温度概率与最终观测结果进行对照。",
+    bridgeTitle: "从企业收益到天气", bridgeOne: "论文研究企业收益；Polymarket 天气判断的准确性需要专门的天气样本检验。",
+    bridgeTwo: "这个项目把同一种信息聚合机制放到天气领域，用温度区间报价与最终观测结果对照。",
     explore: "查看天气预测 <span aria-hidden=\"true\">→</span>", source: "来源",
     location: "地点", locationOption: "纽约 · 拉瓜迪亚机场", simpleEyebrow: "纽约 · 拉瓜迪亚机场 · 2026 年 8 月",
     simpleTitle: "市场最看好的温度，<br><span>后来猜对了吗？</span>", simpleLead: "每天挑出市场最看好的温度，再和当天实际最高气温放在一起看。",
     simpleLegend: "<span><i class=\"actual-key\"></i>实际气温</span><span><i class=\"market-key\"></i>市场预测值</span>",
     hitLabel: "天落在最高报价区间", historyCount: "共 12 天 · 历史快照", dailyComparison: "每日对照", forecastResult: "预测与结果", shorter: "线段越短，两者越接近",
-    simpleFooter: "Yes 价格代表市场价格，不代表人数。NOAA 日最高与市场结算来源可能存在口径差异。", professionalCta: "向右查看专业版 <span aria-hidden=\"true\">→</span>",
+    simpleFooter: "Yes 报价来自合约交易，受供需与流动性影响。NOAA 日最高与市场结算来源可能存在口径差异。", professionalCta: "向右查看专业版 <span aria-hidden=\"true\">→</span>",
     proTitle: "市场猜的温度 <em>v.s.</em><br><span>天气最后给的答案</span>", proLead: "按日期比较市场报价最高的温度区间与机场报告的最高温，也可查看各区间的报价分布。",
     locationTitle: "纽约拉瓜迪亚机场 · 最高气温", period: "历史记录 <span>/</span> 华氏度 °F <span>/</span> 市场价取当地当日 00:00 前最近报价",
     legend: "<span><i class=\"legend-key actual-key\"></i> 实际气温值（NOAA）</span><span><i class=\"legend-key market-key\"></i> 市场预测值（历史价最高区间）</span>",
@@ -250,7 +250,7 @@ function updateViewCopy() {
   document.querySelector("#view-hint").textContent = viewHints[language][state.view].replaceAll("NOAA 日最高气温", "NOAA 已报告最高温").replaceAll("NOAA 日最高", "NOAA 已报告最高温").replaceAll("NOAA daily high", "NOAA reported high");
   if(state.view==="heatmap")document.querySelector("#view-hint").textContent=language==="en"?"Whole original bins · sum of Yes quotes":"完整原始档合并 · 组内 Yes 报价和";
   if(state.view==="area")document.querySelector("#view-hint").textContent=language==="en"?"Daily steps · relative quote weights":"逐日阶梯 · 相对报价权重";
-  document.querySelector("#angle-note").textContent=state.view==="area"?(language==="en"?"Group quote sum / daily quote total; not weather probability.":"组内报价和 ÷ 当日全部报价和，不是天气概率。"):interactionHints[language][state.view];
+  document.querySelector("#angle-note").textContent=state.view==="area"?(language==="en"?"Group quote sum / daily quote total; not weather probability.":"相对报价权重＝组内报价和 ÷ 当日全部报价和。该比例用于比较报价结构，天气概率另需校准。"):interactionHints[language][state.view];
 }
 function applyLanguage(nextLanguage) {
   language = nextLanguage === "en" ? "en" : "zh";
