@@ -9,6 +9,11 @@
 .journey .meaning-dialog p{font-size:17px;line-height:1.75;margin:0 0 20px;max-width:70ch}
 .meaning-dialog .sdg-section-title,.meaning-dialog article{padding-top:32px}
 .meaning-dialog .story-grid{display:block}
+.meaning-sdg-heading{display:grid;grid-template-columns:minmax(0,1fr) 200px;align-items:center;gap:24px;margin-top:32px}
+.journey .meaning-sdg-heading .sdg-section-title{padding:0;margin:0}
+.meaning-dialog .meaning-sdg-image{margin:0;min-width:0}
+.meaning-sdg-image img{display:block;width:100%;height:auto;object-fit:contain;border:0;box-shadow:none;border-radius:0}
+@media(max-width:650px){.meaning-sdg-heading{grid-template-columns:minmax(0,1fr);gap:20px}.meaning-dialog .meaning-sdg-image{width:160px;max-width:100%}}
 .meaning-dialog details{margin:16px 0 24px;padding:16px 0;border-top:1px solid var(--wb-line)}
 .meaning-dialog summary{cursor:pointer;font-size:16px;font-weight:600;min-height:28px}
 .meaning-dialog .story-details-body{padding-top:20px}
